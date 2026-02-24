@@ -16,11 +16,17 @@ import (
 	"fmt"
 )
 
-// checks if the SenderPostBodySlack type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &SenderPostBodySlack{}
+// checks if the GetTemplatesListResponseInnerAnyOf5 type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GetTemplatesListResponseInnerAnyOf5{}
 
-// SenderPostBodySlack struct for SenderPostBodySlack
-type SenderPostBodySlack struct {
+// GetTemplatesListResponseInnerAnyOf5 struct for GetTemplatesListResponseInnerAnyOf5
+type GetTemplatesListResponseInnerAnyOf5 struct {
+	EnvId          string                                       `json:"envId"`
+	NotificationId string                                       `json:"notificationId"`
+	TemplateId     string                                       `json:"templateId"`
+	Channel        ChannelsEnum                                 `json:"channel"`
+	Default        bool                                         `json:"default"`
+	IsDefaultFor   *map[string]bool                             `json:"isDefaultFor,omitempty"`
 	Text           string                                       `json:"text"`
 	Blocks         []map[string]interface{}                     `json:"blocks,omitempty"`
 	Username       *string                                      `json:"username,omitempty"`
@@ -35,28 +41,185 @@ type SenderPostBodySlack struct {
 	Metadata       *GetTemplatesListResponseInnerAnyOf5Metadata `json:"metadata,omitempty"`
 }
 
-type _SenderPostBodySlack SenderPostBodySlack
+type _GetTemplatesListResponseInnerAnyOf5 GetTemplatesListResponseInnerAnyOf5
 
-// NewSenderPostBodySlack instantiates a new SenderPostBodySlack object
+// NewGetTemplatesListResponseInnerAnyOf5 instantiates a new GetTemplatesListResponseInnerAnyOf5 object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSenderPostBodySlack(text string) *SenderPostBodySlack {
-	this := SenderPostBodySlack{}
+func NewGetTemplatesListResponseInnerAnyOf5(envId string, notificationId string, templateId string, channel ChannelsEnum, default_ bool, text string) *GetTemplatesListResponseInnerAnyOf5 {
+	this := GetTemplatesListResponseInnerAnyOf5{}
+	this.EnvId = envId
+	this.NotificationId = notificationId
+	this.TemplateId = templateId
+	this.Channel = channel
+	this.Default = default_
 	this.Text = text
 	return &this
 }
 
-// NewSenderPostBodySlackWithDefaults instantiates a new SenderPostBodySlack object
+// NewGetTemplatesListResponseInnerAnyOf5WithDefaults instantiates a new GetTemplatesListResponseInnerAnyOf5 object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewSenderPostBodySlackWithDefaults() *SenderPostBodySlack {
-	this := SenderPostBodySlack{}
+func NewGetTemplatesListResponseInnerAnyOf5WithDefaults() *GetTemplatesListResponseInnerAnyOf5 {
+	this := GetTemplatesListResponseInnerAnyOf5{}
 	return &this
 }
 
+// GetEnvId returns the EnvId field value
+func (o *GetTemplatesListResponseInnerAnyOf5) GetEnvId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.EnvId
+}
+
+// GetEnvIdOk returns a tuple with the EnvId field value
+// and a boolean to check if the value has been set.
+func (o *GetTemplatesListResponseInnerAnyOf5) GetEnvIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.EnvId, true
+}
+
+// SetEnvId sets field value
+func (o *GetTemplatesListResponseInnerAnyOf5) SetEnvId(v string) {
+	o.EnvId = v
+}
+
+// GetNotificationId returns the NotificationId field value
+func (o *GetTemplatesListResponseInnerAnyOf5) GetNotificationId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.NotificationId
+}
+
+// GetNotificationIdOk returns a tuple with the NotificationId field value
+// and a boolean to check if the value has been set.
+func (o *GetTemplatesListResponseInnerAnyOf5) GetNotificationIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.NotificationId, true
+}
+
+// SetNotificationId sets field value
+func (o *GetTemplatesListResponseInnerAnyOf5) SetNotificationId(v string) {
+	o.NotificationId = v
+}
+
+// GetTemplateId returns the TemplateId field value
+func (o *GetTemplatesListResponseInnerAnyOf5) GetTemplateId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.TemplateId
+}
+
+// GetTemplateIdOk returns a tuple with the TemplateId field value
+// and a boolean to check if the value has been set.
+func (o *GetTemplatesListResponseInnerAnyOf5) GetTemplateIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TemplateId, true
+}
+
+// SetTemplateId sets field value
+func (o *GetTemplatesListResponseInnerAnyOf5) SetTemplateId(v string) {
+	o.TemplateId = v
+}
+
+// GetChannel returns the Channel field value
+func (o *GetTemplatesListResponseInnerAnyOf5) GetChannel() ChannelsEnum {
+	if o == nil {
+		var ret ChannelsEnum
+		return ret
+	}
+
+	return o.Channel
+}
+
+// GetChannelOk returns a tuple with the Channel field value
+// and a boolean to check if the value has been set.
+func (o *GetTemplatesListResponseInnerAnyOf5) GetChannelOk() (*ChannelsEnum, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Channel, true
+}
+
+// SetChannel sets field value
+func (o *GetTemplatesListResponseInnerAnyOf5) SetChannel(v ChannelsEnum) {
+	o.Channel = v
+}
+
+// GetDefault returns the Default field value
+func (o *GetTemplatesListResponseInnerAnyOf5) GetDefault() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Default
+}
+
+// GetDefaultOk returns a tuple with the Default field value
+// and a boolean to check if the value has been set.
+func (o *GetTemplatesListResponseInnerAnyOf5) GetDefaultOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Default, true
+}
+
+// SetDefault sets field value
+func (o *GetTemplatesListResponseInnerAnyOf5) SetDefault(v bool) {
+	o.Default = v
+}
+
+// GetIsDefaultFor returns the IsDefaultFor field value if set, zero value otherwise.
+func (o *GetTemplatesListResponseInnerAnyOf5) GetIsDefaultFor() map[string]bool {
+	if o == nil || IsNil(o.IsDefaultFor) {
+		var ret map[string]bool
+		return ret
+	}
+	return *o.IsDefaultFor
+}
+
+// GetIsDefaultForOk returns a tuple with the IsDefaultFor field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetTemplatesListResponseInnerAnyOf5) GetIsDefaultForOk() (*map[string]bool, bool) {
+	if o == nil || IsNil(o.IsDefaultFor) {
+		return nil, false
+	}
+	return o.IsDefaultFor, true
+}
+
+// HasIsDefaultFor returns a boolean if a field has been set.
+func (o *GetTemplatesListResponseInnerAnyOf5) HasIsDefaultFor() bool {
+	if o != nil && !IsNil(o.IsDefaultFor) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsDefaultFor gets a reference to the given map[string]bool and assigns it to the IsDefaultFor field.
+func (o *GetTemplatesListResponseInnerAnyOf5) SetIsDefaultFor(v map[string]bool) {
+	o.IsDefaultFor = &v
+}
+
 // GetText returns the Text field value
-func (o *SenderPostBodySlack) GetText() string {
+func (o *GetTemplatesListResponseInnerAnyOf5) GetText() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -67,7 +230,7 @@ func (o *SenderPostBodySlack) GetText() string {
 
 // GetTextOk returns a tuple with the Text field value
 // and a boolean to check if the value has been set.
-func (o *SenderPostBodySlack) GetTextOk() (*string, bool) {
+func (o *GetTemplatesListResponseInnerAnyOf5) GetTextOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -75,12 +238,12 @@ func (o *SenderPostBodySlack) GetTextOk() (*string, bool) {
 }
 
 // SetText sets field value
-func (o *SenderPostBodySlack) SetText(v string) {
+func (o *GetTemplatesListResponseInnerAnyOf5) SetText(v string) {
 	o.Text = v
 }
 
 // GetBlocks returns the Blocks field value if set, zero value otherwise.
-func (o *SenderPostBodySlack) GetBlocks() []map[string]interface{} {
+func (o *GetTemplatesListResponseInnerAnyOf5) GetBlocks() []map[string]interface{} {
 	if o == nil || IsNil(o.Blocks) {
 		var ret []map[string]interface{}
 		return ret
@@ -90,7 +253,7 @@ func (o *SenderPostBodySlack) GetBlocks() []map[string]interface{} {
 
 // GetBlocksOk returns a tuple with the Blocks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SenderPostBodySlack) GetBlocksOk() ([]map[string]interface{}, bool) {
+func (o *GetTemplatesListResponseInnerAnyOf5) GetBlocksOk() ([]map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Blocks) {
 		return nil, false
 	}
@@ -98,7 +261,7 @@ func (o *SenderPostBodySlack) GetBlocksOk() ([]map[string]interface{}, bool) {
 }
 
 // HasBlocks returns a boolean if a field has been set.
-func (o *SenderPostBodySlack) HasBlocks() bool {
+func (o *GetTemplatesListResponseInnerAnyOf5) HasBlocks() bool {
 	if o != nil && !IsNil(o.Blocks) {
 		return true
 	}
@@ -107,12 +270,12 @@ func (o *SenderPostBodySlack) HasBlocks() bool {
 }
 
 // SetBlocks gets a reference to the given []map[string]interface{} and assigns it to the Blocks field.
-func (o *SenderPostBodySlack) SetBlocks(v []map[string]interface{}) {
+func (o *GetTemplatesListResponseInnerAnyOf5) SetBlocks(v []map[string]interface{}) {
 	o.Blocks = v
 }
 
 // GetUsername returns the Username field value if set, zero value otherwise.
-func (o *SenderPostBodySlack) GetUsername() string {
+func (o *GetTemplatesListResponseInnerAnyOf5) GetUsername() string {
 	if o == nil || IsNil(o.Username) {
 		var ret string
 		return ret
@@ -122,7 +285,7 @@ func (o *SenderPostBodySlack) GetUsername() string {
 
 // GetUsernameOk returns a tuple with the Username field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SenderPostBodySlack) GetUsernameOk() (*string, bool) {
+func (o *GetTemplatesListResponseInnerAnyOf5) GetUsernameOk() (*string, bool) {
 	if o == nil || IsNil(o.Username) {
 		return nil, false
 	}
@@ -130,7 +293,7 @@ func (o *SenderPostBodySlack) GetUsernameOk() (*string, bool) {
 }
 
 // HasUsername returns a boolean if a field has been set.
-func (o *SenderPostBodySlack) HasUsername() bool {
+func (o *GetTemplatesListResponseInnerAnyOf5) HasUsername() bool {
 	if o != nil && !IsNil(o.Username) {
 		return true
 	}
@@ -139,12 +302,12 @@ func (o *SenderPostBodySlack) HasUsername() bool {
 }
 
 // SetUsername gets a reference to the given string and assigns it to the Username field.
-func (o *SenderPostBodySlack) SetUsername(v string) {
+func (o *GetTemplatesListResponseInnerAnyOf5) SetUsername(v string) {
 	o.Username = &v
 }
 
 // GetIcon returns the Icon field value if set, zero value otherwise.
-func (o *SenderPostBodySlack) GetIcon() string {
+func (o *GetTemplatesListResponseInnerAnyOf5) GetIcon() string {
 	if o == nil || IsNil(o.Icon) {
 		var ret string
 		return ret
@@ -154,7 +317,7 @@ func (o *SenderPostBodySlack) GetIcon() string {
 
 // GetIconOk returns a tuple with the Icon field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SenderPostBodySlack) GetIconOk() (*string, bool) {
+func (o *GetTemplatesListResponseInnerAnyOf5) GetIconOk() (*string, bool) {
 	if o == nil || IsNil(o.Icon) {
 		return nil, false
 	}
@@ -162,7 +325,7 @@ func (o *SenderPostBodySlack) GetIconOk() (*string, bool) {
 }
 
 // HasIcon returns a boolean if a field has been set.
-func (o *SenderPostBodySlack) HasIcon() bool {
+func (o *GetTemplatesListResponseInnerAnyOf5) HasIcon() bool {
 	if o != nil && !IsNil(o.Icon) {
 		return true
 	}
@@ -171,12 +334,12 @@ func (o *SenderPostBodySlack) HasIcon() bool {
 }
 
 // SetIcon gets a reference to the given string and assigns it to the Icon field.
-func (o *SenderPostBodySlack) SetIcon(v string) {
+func (o *GetTemplatesListResponseInnerAnyOf5) SetIcon(v string) {
 	o.Icon = &v
 }
 
 // GetThreadTs returns the ThreadTs field value if set, zero value otherwise.
-func (o *SenderPostBodySlack) GetThreadTs() string {
+func (o *GetTemplatesListResponseInnerAnyOf5) GetThreadTs() string {
 	if o == nil || IsNil(o.ThreadTs) {
 		var ret string
 		return ret
@@ -186,7 +349,7 @@ func (o *SenderPostBodySlack) GetThreadTs() string {
 
 // GetThreadTsOk returns a tuple with the ThreadTs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SenderPostBodySlack) GetThreadTsOk() (*string, bool) {
+func (o *GetTemplatesListResponseInnerAnyOf5) GetThreadTsOk() (*string, bool) {
 	if o == nil || IsNil(o.ThreadTs) {
 		return nil, false
 	}
@@ -194,7 +357,7 @@ func (o *SenderPostBodySlack) GetThreadTsOk() (*string, bool) {
 }
 
 // HasThreadTs returns a boolean if a field has been set.
-func (o *SenderPostBodySlack) HasThreadTs() bool {
+func (o *GetTemplatesListResponseInnerAnyOf5) HasThreadTs() bool {
 	if o != nil && !IsNil(o.ThreadTs) {
 		return true
 	}
@@ -203,12 +366,12 @@ func (o *SenderPostBodySlack) HasThreadTs() bool {
 }
 
 // SetThreadTs gets a reference to the given string and assigns it to the ThreadTs field.
-func (o *SenderPostBodySlack) SetThreadTs(v string) {
+func (o *GetTemplatesListResponseInnerAnyOf5) SetThreadTs(v string) {
 	o.ThreadTs = &v
 }
 
 // GetReplyBroadcast returns the ReplyBroadcast field value if set, zero value otherwise.
-func (o *SenderPostBodySlack) GetReplyBroadcast() bool {
+func (o *GetTemplatesListResponseInnerAnyOf5) GetReplyBroadcast() bool {
 	if o == nil || IsNil(o.ReplyBroadcast) {
 		var ret bool
 		return ret
@@ -218,7 +381,7 @@ func (o *SenderPostBodySlack) GetReplyBroadcast() bool {
 
 // GetReplyBroadcastOk returns a tuple with the ReplyBroadcast field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SenderPostBodySlack) GetReplyBroadcastOk() (*bool, bool) {
+func (o *GetTemplatesListResponseInnerAnyOf5) GetReplyBroadcastOk() (*bool, bool) {
 	if o == nil || IsNil(o.ReplyBroadcast) {
 		return nil, false
 	}
@@ -226,7 +389,7 @@ func (o *SenderPostBodySlack) GetReplyBroadcastOk() (*bool, bool) {
 }
 
 // HasReplyBroadcast returns a boolean if a field has been set.
-func (o *SenderPostBodySlack) HasReplyBroadcast() bool {
+func (o *GetTemplatesListResponseInnerAnyOf5) HasReplyBroadcast() bool {
 	if o != nil && !IsNil(o.ReplyBroadcast) {
 		return true
 	}
@@ -235,12 +398,12 @@ func (o *SenderPostBodySlack) HasReplyBroadcast() bool {
 }
 
 // SetReplyBroadcast gets a reference to the given bool and assigns it to the ReplyBroadcast field.
-func (o *SenderPostBodySlack) SetReplyBroadcast(v bool) {
+func (o *GetTemplatesListResponseInnerAnyOf5) SetReplyBroadcast(v bool) {
 	o.ReplyBroadcast = &v
 }
 
 // GetParse returns the Parse field value if set, zero value otherwise.
-func (o *SenderPostBodySlack) GetParse() string {
+func (o *GetTemplatesListResponseInnerAnyOf5) GetParse() string {
 	if o == nil || IsNil(o.Parse) {
 		var ret string
 		return ret
@@ -250,7 +413,7 @@ func (o *SenderPostBodySlack) GetParse() string {
 
 // GetParseOk returns a tuple with the Parse field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SenderPostBodySlack) GetParseOk() (*string, bool) {
+func (o *GetTemplatesListResponseInnerAnyOf5) GetParseOk() (*string, bool) {
 	if o == nil || IsNil(o.Parse) {
 		return nil, false
 	}
@@ -258,7 +421,7 @@ func (o *SenderPostBodySlack) GetParseOk() (*string, bool) {
 }
 
 // HasParse returns a boolean if a field has been set.
-func (o *SenderPostBodySlack) HasParse() bool {
+func (o *GetTemplatesListResponseInnerAnyOf5) HasParse() bool {
 	if o != nil && !IsNil(o.Parse) {
 		return true
 	}
@@ -267,12 +430,12 @@ func (o *SenderPostBodySlack) HasParse() bool {
 }
 
 // SetParse gets a reference to the given string and assigns it to the Parse field.
-func (o *SenderPostBodySlack) SetParse(v string) {
+func (o *GetTemplatesListResponseInnerAnyOf5) SetParse(v string) {
 	o.Parse = &v
 }
 
 // GetLinkNames returns the LinkNames field value if set, zero value otherwise.
-func (o *SenderPostBodySlack) GetLinkNames() bool {
+func (o *GetTemplatesListResponseInnerAnyOf5) GetLinkNames() bool {
 	if o == nil || IsNil(o.LinkNames) {
 		var ret bool
 		return ret
@@ -282,7 +445,7 @@ func (o *SenderPostBodySlack) GetLinkNames() bool {
 
 // GetLinkNamesOk returns a tuple with the LinkNames field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SenderPostBodySlack) GetLinkNamesOk() (*bool, bool) {
+func (o *GetTemplatesListResponseInnerAnyOf5) GetLinkNamesOk() (*bool, bool) {
 	if o == nil || IsNil(o.LinkNames) {
 		return nil, false
 	}
@@ -290,7 +453,7 @@ func (o *SenderPostBodySlack) GetLinkNamesOk() (*bool, bool) {
 }
 
 // HasLinkNames returns a boolean if a field has been set.
-func (o *SenderPostBodySlack) HasLinkNames() bool {
+func (o *GetTemplatesListResponseInnerAnyOf5) HasLinkNames() bool {
 	if o != nil && !IsNil(o.LinkNames) {
 		return true
 	}
@@ -299,12 +462,12 @@ func (o *SenderPostBodySlack) HasLinkNames() bool {
 }
 
 // SetLinkNames gets a reference to the given bool and assigns it to the LinkNames field.
-func (o *SenderPostBodySlack) SetLinkNames(v bool) {
+func (o *GetTemplatesListResponseInnerAnyOf5) SetLinkNames(v bool) {
 	o.LinkNames = &v
 }
 
 // GetMrkdwn returns the Mrkdwn field value if set, zero value otherwise.
-func (o *SenderPostBodySlack) GetMrkdwn() bool {
+func (o *GetTemplatesListResponseInnerAnyOf5) GetMrkdwn() bool {
 	if o == nil || IsNil(o.Mrkdwn) {
 		var ret bool
 		return ret
@@ -314,7 +477,7 @@ func (o *SenderPostBodySlack) GetMrkdwn() bool {
 
 // GetMrkdwnOk returns a tuple with the Mrkdwn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SenderPostBodySlack) GetMrkdwnOk() (*bool, bool) {
+func (o *GetTemplatesListResponseInnerAnyOf5) GetMrkdwnOk() (*bool, bool) {
 	if o == nil || IsNil(o.Mrkdwn) {
 		return nil, false
 	}
@@ -322,7 +485,7 @@ func (o *SenderPostBodySlack) GetMrkdwnOk() (*bool, bool) {
 }
 
 // HasMrkdwn returns a boolean if a field has been set.
-func (o *SenderPostBodySlack) HasMrkdwn() bool {
+func (o *GetTemplatesListResponseInnerAnyOf5) HasMrkdwn() bool {
 	if o != nil && !IsNil(o.Mrkdwn) {
 		return true
 	}
@@ -331,12 +494,12 @@ func (o *SenderPostBodySlack) HasMrkdwn() bool {
 }
 
 // SetMrkdwn gets a reference to the given bool and assigns it to the Mrkdwn field.
-func (o *SenderPostBodySlack) SetMrkdwn(v bool) {
+func (o *GetTemplatesListResponseInnerAnyOf5) SetMrkdwn(v bool) {
 	o.Mrkdwn = &v
 }
 
 // GetUnfurlLinks returns the UnfurlLinks field value if set, zero value otherwise.
-func (o *SenderPostBodySlack) GetUnfurlLinks() bool {
+func (o *GetTemplatesListResponseInnerAnyOf5) GetUnfurlLinks() bool {
 	if o == nil || IsNil(o.UnfurlLinks) {
 		var ret bool
 		return ret
@@ -346,7 +509,7 @@ func (o *SenderPostBodySlack) GetUnfurlLinks() bool {
 
 // GetUnfurlLinksOk returns a tuple with the UnfurlLinks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SenderPostBodySlack) GetUnfurlLinksOk() (*bool, bool) {
+func (o *GetTemplatesListResponseInnerAnyOf5) GetUnfurlLinksOk() (*bool, bool) {
 	if o == nil || IsNil(o.UnfurlLinks) {
 		return nil, false
 	}
@@ -354,7 +517,7 @@ func (o *SenderPostBodySlack) GetUnfurlLinksOk() (*bool, bool) {
 }
 
 // HasUnfurlLinks returns a boolean if a field has been set.
-func (o *SenderPostBodySlack) HasUnfurlLinks() bool {
+func (o *GetTemplatesListResponseInnerAnyOf5) HasUnfurlLinks() bool {
 	if o != nil && !IsNil(o.UnfurlLinks) {
 		return true
 	}
@@ -363,12 +526,12 @@ func (o *SenderPostBodySlack) HasUnfurlLinks() bool {
 }
 
 // SetUnfurlLinks gets a reference to the given bool and assigns it to the UnfurlLinks field.
-func (o *SenderPostBodySlack) SetUnfurlLinks(v bool) {
+func (o *GetTemplatesListResponseInnerAnyOf5) SetUnfurlLinks(v bool) {
 	o.UnfurlLinks = &v
 }
 
 // GetUnfurlMedia returns the UnfurlMedia field value if set, zero value otherwise.
-func (o *SenderPostBodySlack) GetUnfurlMedia() bool {
+func (o *GetTemplatesListResponseInnerAnyOf5) GetUnfurlMedia() bool {
 	if o == nil || IsNil(o.UnfurlMedia) {
 		var ret bool
 		return ret
@@ -378,7 +541,7 @@ func (o *SenderPostBodySlack) GetUnfurlMedia() bool {
 
 // GetUnfurlMediaOk returns a tuple with the UnfurlMedia field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SenderPostBodySlack) GetUnfurlMediaOk() (*bool, bool) {
+func (o *GetTemplatesListResponseInnerAnyOf5) GetUnfurlMediaOk() (*bool, bool) {
 	if o == nil || IsNil(o.UnfurlMedia) {
 		return nil, false
 	}
@@ -386,7 +549,7 @@ func (o *SenderPostBodySlack) GetUnfurlMediaOk() (*bool, bool) {
 }
 
 // HasUnfurlMedia returns a boolean if a field has been set.
-func (o *SenderPostBodySlack) HasUnfurlMedia() bool {
+func (o *GetTemplatesListResponseInnerAnyOf5) HasUnfurlMedia() bool {
 	if o != nil && !IsNil(o.UnfurlMedia) {
 		return true
 	}
@@ -395,12 +558,12 @@ func (o *SenderPostBodySlack) HasUnfurlMedia() bool {
 }
 
 // SetUnfurlMedia gets a reference to the given bool and assigns it to the UnfurlMedia field.
-func (o *SenderPostBodySlack) SetUnfurlMedia(v bool) {
+func (o *GetTemplatesListResponseInnerAnyOf5) SetUnfurlMedia(v bool) {
 	o.UnfurlMedia = &v
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *SenderPostBodySlack) GetMetadata() GetTemplatesListResponseInnerAnyOf5Metadata {
+func (o *GetTemplatesListResponseInnerAnyOf5) GetMetadata() GetTemplatesListResponseInnerAnyOf5Metadata {
 	if o == nil || IsNil(o.Metadata) {
 		var ret GetTemplatesListResponseInnerAnyOf5Metadata
 		return ret
@@ -410,7 +573,7 @@ func (o *SenderPostBodySlack) GetMetadata() GetTemplatesListResponseInnerAnyOf5M
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SenderPostBodySlack) GetMetadataOk() (*GetTemplatesListResponseInnerAnyOf5Metadata, bool) {
+func (o *GetTemplatesListResponseInnerAnyOf5) GetMetadataOk() (*GetTemplatesListResponseInnerAnyOf5Metadata, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
@@ -418,7 +581,7 @@ func (o *SenderPostBodySlack) GetMetadataOk() (*GetTemplatesListResponseInnerAny
 }
 
 // HasMetadata returns a boolean if a field has been set.
-func (o *SenderPostBodySlack) HasMetadata() bool {
+func (o *GetTemplatesListResponseInnerAnyOf5) HasMetadata() bool {
 	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
@@ -427,11 +590,11 @@ func (o *SenderPostBodySlack) HasMetadata() bool {
 }
 
 // SetMetadata gets a reference to the given GetTemplatesListResponseInnerAnyOf5Metadata and assigns it to the Metadata field.
-func (o *SenderPostBodySlack) SetMetadata(v GetTemplatesListResponseInnerAnyOf5Metadata) {
+func (o *GetTemplatesListResponseInnerAnyOf5) SetMetadata(v GetTemplatesListResponseInnerAnyOf5Metadata) {
 	o.Metadata = &v
 }
 
-func (o SenderPostBodySlack) MarshalJSON() ([]byte, error) {
+func (o GetTemplatesListResponseInnerAnyOf5) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -439,8 +602,16 @@ func (o SenderPostBodySlack) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o SenderPostBodySlack) ToMap() (map[string]interface{}, error) {
+func (o GetTemplatesListResponseInnerAnyOf5) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["envId"] = o.EnvId
+	toSerialize["notificationId"] = o.NotificationId
+	toSerialize["templateId"] = o.TemplateId
+	toSerialize["channel"] = o.Channel
+	toSerialize["default"] = o.Default
+	if !IsNil(o.IsDefaultFor) {
+		toSerialize["isDefaultFor"] = o.IsDefaultFor
+	}
 	toSerialize["text"] = o.Text
 	if !IsNil(o.Blocks) {
 		toSerialize["blocks"] = o.Blocks
@@ -478,11 +649,16 @@ func (o SenderPostBodySlack) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *SenderPostBodySlack) UnmarshalJSON(data []byte) (err error) {
+func (o *GetTemplatesListResponseInnerAnyOf5) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"envId",
+		"notificationId",
+		"templateId",
+		"channel",
+		"default",
 		"text",
 	}
 
@@ -500,53 +676,53 @@ func (o *SenderPostBodySlack) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varSenderPostBodySlack := _SenderPostBodySlack{}
+	varGetTemplatesListResponseInnerAnyOf5 := _GetTemplatesListResponseInnerAnyOf5{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varSenderPostBodySlack)
+	err = decoder.Decode(&varGetTemplatesListResponseInnerAnyOf5)
 
 	if err != nil {
 		return err
 	}
 
-	*o = SenderPostBodySlack(varSenderPostBodySlack)
+	*o = GetTemplatesListResponseInnerAnyOf5(varGetTemplatesListResponseInnerAnyOf5)
 
 	return err
 }
 
-type NullableSenderPostBodySlack struct {
-	value *SenderPostBodySlack
+type NullableGetTemplatesListResponseInnerAnyOf5 struct {
+	value *GetTemplatesListResponseInnerAnyOf5
 	isSet bool
 }
 
-func (v NullableSenderPostBodySlack) Get() *SenderPostBodySlack {
+func (v NullableGetTemplatesListResponseInnerAnyOf5) Get() *GetTemplatesListResponseInnerAnyOf5 {
 	return v.value
 }
 
-func (v *NullableSenderPostBodySlack) Set(val *SenderPostBodySlack) {
+func (v *NullableGetTemplatesListResponseInnerAnyOf5) Set(val *GetTemplatesListResponseInnerAnyOf5) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableSenderPostBodySlack) IsSet() bool {
+func (v NullableGetTemplatesListResponseInnerAnyOf5) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableSenderPostBodySlack) Unset() {
+func (v *NullableGetTemplatesListResponseInnerAnyOf5) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableSenderPostBodySlack(val *SenderPostBodySlack) *NullableSenderPostBodySlack {
-	return &NullableSenderPostBodySlack{value: val, isSet: true}
+func NewNullableGetTemplatesListResponseInnerAnyOf5(val *GetTemplatesListResponseInnerAnyOf5) *NullableGetTemplatesListResponseInnerAnyOf5 {
+	return &NullableGetTemplatesListResponseInnerAnyOf5{value: val, isSet: true}
 }
 
-func (v NullableSenderPostBodySlack) MarshalJSON() ([]byte, error) {
+func (v NullableGetTemplatesListResponseInnerAnyOf5) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableSenderPostBodySlack) UnmarshalJSON(src []byte) error {
+func (v *NullableGetTemplatesListResponseInnerAnyOf5) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

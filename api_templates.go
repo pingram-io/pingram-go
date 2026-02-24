@@ -237,6 +237,116 @@ func (a *TemplatesAPIService) TemplatesDeleteTemplateExecute(r ApiTemplatesDelet
 	return localVarHTTPResponse, nil
 }
 
+type ApiTemplatesGetTemplateRequest struct {
+	ctx            context.Context
+	ApiService     *TemplatesAPIService
+	notificationId string
+	channel        string
+	templateId     string
+}
+
+func (r ApiTemplatesGetTemplateRequest) Execute() (*GetTemplatesResponse, *http.Response, error) {
+	return r.ApiService.TemplatesGetTemplateExecute(r)
+}
+
+/*
+TemplatesGetTemplate Get a single template by ID
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param notificationId Notification ID
+	@param channel Channel type
+	@param templateId Template ID
+	@return ApiTemplatesGetTemplateRequest
+*/
+func (a *TemplatesAPIService) TemplatesGetTemplate(ctx context.Context, notificationId string, channel string, templateId string) ApiTemplatesGetTemplateRequest {
+	return ApiTemplatesGetTemplateRequest{
+		ApiService:     a,
+		ctx:            ctx,
+		notificationId: notificationId,
+		channel:        channel,
+		templateId:     templateId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GetTemplatesResponse
+func (a *TemplatesAPIService) TemplatesGetTemplateExecute(r ApiTemplatesGetTemplateRequest) (*GetTemplatesResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetTemplatesResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplatesAPIService.TemplatesGetTemplate")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/notifications/{notificationId}/{channel}/templates/{templateId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"notificationId"+"}", url.PathEscape(parameterValueToString(r.notificationId, "notificationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"channel"+"}", url.PathEscape(parameterValueToString(r.channel, "channel")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"templateId"+"}", url.PathEscape(parameterValueToString(r.templateId, "templateId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiTemplatesInitiateMigrationRequest struct {
 	ctx            context.Context
 	ApiService     *TemplatesAPIService
@@ -352,41 +462,38 @@ type ApiTemplatesListTemplatesRequest struct {
 	ApiService     *TemplatesAPIService
 	notificationId string
 	channel        string
-	templateId     string
 }
 
-func (r ApiTemplatesListTemplatesRequest) Execute() (*GetTemplatesResponse, *http.Response, error) {
+func (r ApiTemplatesListTemplatesRequest) Execute() ([]GetTemplatesListResponseInner, *http.Response, error) {
 	return r.ApiService.TemplatesListTemplatesExecute(r)
 }
 
 /*
-TemplatesListTemplates Get template(s) for a notification
+TemplatesListTemplates List all templates for a notification and channel
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param notificationId Notification ID
 	@param channel Channel type
-	@param templateId Template ID (optional for listing all)
 	@return ApiTemplatesListTemplatesRequest
 */
-func (a *TemplatesAPIService) TemplatesListTemplates(ctx context.Context, notificationId string, channel string, templateId string) ApiTemplatesListTemplatesRequest {
+func (a *TemplatesAPIService) TemplatesListTemplates(ctx context.Context, notificationId string, channel string) ApiTemplatesListTemplatesRequest {
 	return ApiTemplatesListTemplatesRequest{
 		ApiService:     a,
 		ctx:            ctx,
 		notificationId: notificationId,
 		channel:        channel,
-		templateId:     templateId,
 	}
 }
 
 // Execute executes the request
 //
-//	@return GetTemplatesResponse
-func (a *TemplatesAPIService) TemplatesListTemplatesExecute(r ApiTemplatesListTemplatesRequest) (*GetTemplatesResponse, *http.Response, error) {
+//	@return []GetTemplatesListResponseInner
+func (a *TemplatesAPIService) TemplatesListTemplatesExecute(r ApiTemplatesListTemplatesRequest) ([]GetTemplatesListResponseInner, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *GetTemplatesResponse
+		localVarReturnValue []GetTemplatesListResponseInner
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplatesAPIService.TemplatesListTemplates")
@@ -394,10 +501,9 @@ func (a *TemplatesAPIService) TemplatesListTemplatesExecute(r ApiTemplatesListTe
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/notifications/{notificationId}/{channel}/templates/{templateId}"
+	localVarPath := localBasePath + "/notifications/{notificationId}/{channel}/templates"
 	localVarPath = strings.Replace(localVarPath, "{"+"notificationId"+"}", url.PathEscape(parameterValueToString(r.notificationId, "notificationId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"channel"+"}", url.PathEscape(parameterValueToString(r.channel, "channel")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"templateId"+"}", url.PathEscape(parameterValueToString(r.templateId, "templateId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

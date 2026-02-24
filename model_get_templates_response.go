@@ -15,39 +15,39 @@ import (
 	"fmt"
 )
 
-// GetTemplatesResponse struct for GetTemplatesResponse
+// GetTemplatesResponse Single template or list of templates (get handler: one when templateId provided, list when not).
 type GetTemplatesResponse struct {
-	GetInappNotificationsResponseNotificationsInnerTemplateAnyOf        *GetInappNotificationsResponseNotificationsInnerTemplateAnyOf
-	ArrayOfGetInappNotificationsResponseNotificationsInnerTemplateAnyOf *[]GetInappNotificationsResponseNotificationsInnerTemplateAnyOf
+	GetTemplatesListResponseInner        *GetTemplatesListResponseInner
+	ArrayOfGetTemplatesListResponseInner *[]GetTemplatesListResponseInner
 }
 
 // Unmarshal JSON data into any of the pointers in the struct
 func (dst *GetTemplatesResponse) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal JSON data into GetInappNotificationsResponseNotificationsInnerTemplateAnyOf
-	err = json.Unmarshal(data, &dst.GetInappNotificationsResponseNotificationsInnerTemplateAnyOf)
+	// try to unmarshal JSON data into GetTemplatesListResponseInner
+	err = json.Unmarshal(data, &dst.GetTemplatesListResponseInner)
 	if err == nil {
-		jsonGetInappNotificationsResponseNotificationsInnerTemplateAnyOf, _ := json.Marshal(dst.GetInappNotificationsResponseNotificationsInnerTemplateAnyOf)
-		if string(jsonGetInappNotificationsResponseNotificationsInnerTemplateAnyOf) == "{}" { // empty struct
-			dst.GetInappNotificationsResponseNotificationsInnerTemplateAnyOf = nil
+		jsonGetTemplatesListResponseInner, _ := json.Marshal(dst.GetTemplatesListResponseInner)
+		if string(jsonGetTemplatesListResponseInner) == "{}" { // empty struct
+			dst.GetTemplatesListResponseInner = nil
 		} else {
-			return nil // data stored in dst.GetInappNotificationsResponseNotificationsInnerTemplateAnyOf, return on the first match
+			return nil // data stored in dst.GetTemplatesListResponseInner, return on the first match
 		}
 	} else {
-		dst.GetInappNotificationsResponseNotificationsInnerTemplateAnyOf = nil
+		dst.GetTemplatesListResponseInner = nil
 	}
 
-	// try to unmarshal JSON data into ArrayOfGetInappNotificationsResponseNotificationsInnerTemplateAnyOf
-	err = json.Unmarshal(data, &dst.ArrayOfGetInappNotificationsResponseNotificationsInnerTemplateAnyOf)
+	// try to unmarshal JSON data into ArrayOfGetTemplatesListResponseInner
+	err = json.Unmarshal(data, &dst.ArrayOfGetTemplatesListResponseInner)
 	if err == nil {
-		jsonArrayOfGetInappNotificationsResponseNotificationsInnerTemplateAnyOf, _ := json.Marshal(dst.ArrayOfGetInappNotificationsResponseNotificationsInnerTemplateAnyOf)
-		if string(jsonArrayOfGetInappNotificationsResponseNotificationsInnerTemplateAnyOf) == "{}" { // empty struct
-			dst.ArrayOfGetInappNotificationsResponseNotificationsInnerTemplateAnyOf = nil
+		jsonArrayOfGetTemplatesListResponseInner, _ := json.Marshal(dst.ArrayOfGetTemplatesListResponseInner)
+		if string(jsonArrayOfGetTemplatesListResponseInner) == "{}" { // empty struct
+			dst.ArrayOfGetTemplatesListResponseInner = nil
 		} else {
-			return nil // data stored in dst.ArrayOfGetInappNotificationsResponseNotificationsInnerTemplateAnyOf, return on the first match
+			return nil // data stored in dst.ArrayOfGetTemplatesListResponseInner, return on the first match
 		}
 	} else {
-		dst.ArrayOfGetInappNotificationsResponseNotificationsInnerTemplateAnyOf = nil
+		dst.ArrayOfGetTemplatesListResponseInner = nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in anyOf(GetTemplatesResponse)")
@@ -55,12 +55,12 @@ func (dst *GetTemplatesResponse) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src GetTemplatesResponse) MarshalJSON() ([]byte, error) {
-	if src.GetInappNotificationsResponseNotificationsInnerTemplateAnyOf != nil {
-		return json.Marshal(&src.GetInappNotificationsResponseNotificationsInnerTemplateAnyOf)
+	if src.GetTemplatesListResponseInner != nil {
+		return json.Marshal(&src.GetTemplatesListResponseInner)
 	}
 
-	if src.ArrayOfGetInappNotificationsResponseNotificationsInnerTemplateAnyOf != nil {
-		return json.Marshal(&src.ArrayOfGetInappNotificationsResponseNotificationsInnerTemplateAnyOf)
+	if src.ArrayOfGetTemplatesListResponseInner != nil {
+		return json.Marshal(&src.ArrayOfGetTemplatesListResponseInner)
 	}
 
 	return nil, nil // no data in anyOf schemas
