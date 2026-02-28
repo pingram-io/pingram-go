@@ -123,6 +123,20 @@ func (a *LogsAPIService) LogsGetLogRetentionExecute(r ApiLogsGetLogRetentionRequ
 type ApiLogsGetLogsRequest struct {
 	ctx        context.Context
 	ApiService *LogsAPIService
+	limit      *float32
+	cursor     *string
+}
+
+// Maximum number of logs to return (default
+func (r ApiLogsGetLogsRequest) Limit(limit float32) ApiLogsGetLogsRequest {
+	r.limit = &limit
+	return r
+}
+
+// Pagination cursor for next page
+func (r ApiLogsGetLogsRequest) Cursor(cursor string) ApiLogsGetLogsRequest {
+	r.cursor = &cursor
+	return r
 }
 
 func (r ApiLogsGetLogsRequest) Execute() (*GetLogsResponse, *http.Response, error) {
@@ -164,6 +178,12 @@ func (a *LogsAPIService) LogsGetLogsExecute(r ApiLogsGetLogsRequest) (*GetLogsRe
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
