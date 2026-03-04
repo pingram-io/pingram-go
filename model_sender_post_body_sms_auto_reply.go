@@ -1,5 +1,5 @@
 /*
-NotificationAPI
+Pingram
 
 Internal API for notification delivery and management
 
@@ -21,6 +21,7 @@ var _ MappedNullable = &SenderPostBodySmsAutoReply{}
 
 // SenderPostBodySmsAutoReply struct for SenderPostBodySmsAutoReply
 type SenderPostBodySmsAutoReply struct {
+	// Auto-reply message to send when user texts in.
 	Message string `json:"message"`
 }
 

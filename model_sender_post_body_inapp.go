@@ -1,5 +1,5 @@
 /*
-NotificationAPI
+Pingram
 
 Internal API for notification delivery and management
 
@@ -19,10 +19,13 @@ import (
 // checks if the SenderPostBodyInapp type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SenderPostBodyInapp{}
 
-// SenderPostBodyInapp struct for SenderPostBodyInapp
+// SenderPostBodyInapp Inline in-app content (title, url, image).
 type SenderPostBodyInapp struct {
-	Title string  `json:"title"`
-	Url   *string `json:"url,omitempty"`
+	// Notification title.
+	Title string `json:"title"`
+	// URL to open when clicked.
+	Url *string `json:"url,omitempty"`
+	// Image URL.
 	Image *string `json:"image,omitempty"`
 }
 

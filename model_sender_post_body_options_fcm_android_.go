@@ -1,5 +1,5 @@
 /*
-NotificationAPI
+Pingram
 
 Internal API for notification delivery and management
 
@@ -17,12 +17,16 @@ import (
 // checks if the SenderPostBodyOptionsFcmAndroid type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SenderPostBodyOptionsFcmAndroid{}
 
-// SenderPostBodyOptionsFcmAndroid struct for SenderPostBodyOptionsFcmAndroid
+// SenderPostBodyOptionsFcmAndroid Android-specific FCM options.
 type SenderPostBodyOptionsFcmAndroid struct {
-	CollapseKey           *string  `json:"collapseKey,omitempty"`
-	Priority              *string  `json:"priority,omitempty"`
-	Ttl                   *float32 `json:"ttl,omitempty"`
-	RestrictedPackageName *string  `json:"restrictedPackageName,omitempty"`
+	// Collapse key for grouping messages.
+	CollapseKey *string `json:"collapseKey,omitempty"`
+	// Delivery priority.
+	Priority *string `json:"priority,omitempty"`
+	// Time to live in seconds.
+	Ttl *float32 `json:"ttl,omitempty"`
+	// Restrict delivery to a specific package.
+	RestrictedPackageName *string `json:"restrictedPackageName,omitempty"`
 }
 
 // NewSenderPostBodyOptionsFcmAndroid instantiates a new SenderPostBodyOptionsFcmAndroid object

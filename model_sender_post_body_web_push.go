@@ -1,5 +1,5 @@
 /*
-NotificationAPI
+Pingram
 
 Internal API for notification delivery and management
 
@@ -19,12 +19,16 @@ import (
 // checks if the SenderPostBodyWebPush type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SenderPostBodyWebPush{}
 
-// SenderPostBodyWebPush struct for SenderPostBodyWebPush
+// SenderPostBodyWebPush Inline web push content (title, message, icon, url).
 type SenderPostBodyWebPush struct {
-	Title   string  `json:"title"`
-	Message string  `json:"message"`
-	Icon    *string `json:"icon,omitempty"`
-	Url     *string `json:"url,omitempty"`
+	// Notification title.
+	Title string `json:"title"`
+	// Body text.
+	Message string `json:"message"`
+	// Icon URL.
+	Icon *string `json:"icon,omitempty"`
+	// URL to open when clicked.
+	Url *string `json:"url,omitempty"`
 }
 
 type _SenderPostBodyWebPush SenderPostBodyWebPush

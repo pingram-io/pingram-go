@@ -1,5 +1,5 @@
 /*
-NotificationAPI
+Pingram
 
 Internal API for notification delivery and management
 
@@ -26,7 +26,7 @@ type IntercomWebhookDataItemAnyOf struct {
 	CreatedAt       float32                              `json:"created_at"`
 	UpdatedAt       float32                              `json:"updated_at"`
 	Title           *string                              `json:"title,omitempty"`
-	AdminAssigneeId *float32                             `json:"admin_assignee_id,omitempty"`
+	AdminAssigneeId NullableFloat32                      `json:"admin_assignee_id,omitempty"`
 	TeamAssigneeId  *string                              `json:"team_assignee_id,omitempty"`
 	Source          IntercomWebhookDataItemAnyOfSource   `json:"source"`
 	Contacts        IntercomWebhookDataItemAnyOfContacts `json:"contacts"`
@@ -193,36 +193,47 @@ func (o *IntercomWebhookDataItemAnyOf) SetTitle(v string) {
 	o.Title = &v
 }
 
-// GetAdminAssigneeId returns the AdminAssigneeId field value if set, zero value otherwise.
+// GetAdminAssigneeId returns the AdminAssigneeId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *IntercomWebhookDataItemAnyOf) GetAdminAssigneeId() float32 {
-	if o == nil || IsNil(o.AdminAssigneeId) {
+	if o == nil || IsNil(o.AdminAssigneeId.Get()) {
 		var ret float32
 		return ret
 	}
-	return *o.AdminAssigneeId
+	return *o.AdminAssigneeId.Get()
 }
 
 // GetAdminAssigneeIdOk returns a tuple with the AdminAssigneeId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *IntercomWebhookDataItemAnyOf) GetAdminAssigneeIdOk() (*float32, bool) {
-	if o == nil || IsNil(o.AdminAssigneeId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AdminAssigneeId, true
+	return o.AdminAssigneeId.Get(), o.AdminAssigneeId.IsSet()
 }
 
 // HasAdminAssigneeId returns a boolean if a field has been set.
 func (o *IntercomWebhookDataItemAnyOf) HasAdminAssigneeId() bool {
-	if o != nil && !IsNil(o.AdminAssigneeId) {
+	if o != nil && o.AdminAssigneeId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetAdminAssigneeId gets a reference to the given float32 and assigns it to the AdminAssigneeId field.
+// SetAdminAssigneeId gets a reference to the given NullableFloat32 and assigns it to the AdminAssigneeId field.
 func (o *IntercomWebhookDataItemAnyOf) SetAdminAssigneeId(v float32) {
-	o.AdminAssigneeId = &v
+	o.AdminAssigneeId.Set(&v)
+}
+
+// SetAdminAssigneeIdNil sets the value for AdminAssigneeId to be an explicit nil
+func (o *IntercomWebhookDataItemAnyOf) SetAdminAssigneeIdNil() {
+	o.AdminAssigneeId.Set(nil)
+}
+
+// UnsetAdminAssigneeId ensures that no value is present for AdminAssigneeId, not even an explicit nil
+func (o *IntercomWebhookDataItemAnyOf) UnsetAdminAssigneeId() {
+	o.AdminAssigneeId.Unset()
 }
 
 // GetTeamAssigneeId returns the TeamAssigneeId field value if set, zero value otherwise.
@@ -418,8 +429,8 @@ func (o IntercomWebhookDataItemAnyOf) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
-	if !IsNil(o.AdminAssigneeId) {
-		toSerialize["admin_assignee_id"] = o.AdminAssigneeId
+	if o.AdminAssigneeId.IsSet() {
+		toSerialize["admin_assignee_id"] = o.AdminAssigneeId.Get()
 	}
 	if !IsNil(o.TeamAssigneeId) {
 		toSerialize["team_assignee_id"] = o.TeamAssigneeId

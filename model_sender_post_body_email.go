@@ -1,5 +1,5 @@
 /*
-NotificationAPI
+Pingram
 
 Internal API for notification delivery and management
 
@@ -19,12 +19,17 @@ import (
 // checks if the SenderPostBodyEmail type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SenderPostBodyEmail{}
 
-// SenderPostBodyEmail struct for SenderPostBodyEmail
+// SenderPostBodyEmail Inline email content (subject, html). Use when not using templates.
 type SenderPostBodyEmail struct {
-	Subject     string  `json:"subject"`
-	Html        string  `json:"html"`
+	// Email subject line.
+	Subject string `json:"subject"`
+	// HTML body content.
+	Html string `json:"html"`
+	// Preview/snippet text shown in inbox.
 	PreviewText *string `json:"previewText,omitempty"`
-	SenderName  *string `json:"senderName,omitempty"`
+	// Display name of sender.
+	SenderName *string `json:"senderName,omitempty"`
+	// Sender email address.
 	SenderEmail *string `json:"senderEmail,omitempty"`
 }
 

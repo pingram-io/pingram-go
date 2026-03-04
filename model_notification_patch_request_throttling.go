@@ -16,11 +16,11 @@ import (
 	"fmt"
 )
 
-// checks if the GetNotificationsResponseInnerThrottling type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &GetNotificationsResponseInnerThrottling{}
+// checks if the NotificationPatchRequestThrottling type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NotificationPatchRequestThrottling{}
 
-// GetNotificationsResponseInnerThrottling struct for GetNotificationsResponseInnerThrottling
-type GetNotificationsResponseInnerThrottling struct {
+// NotificationPatchRequestThrottling struct for NotificationPatchRequestThrottling
+type NotificationPatchRequestThrottling struct {
 	Max     float32  `json:"max"`
 	Period  float32  `json:"period"`
 	Unit    string   `json:"unit"`
@@ -28,14 +28,14 @@ type GetNotificationsResponseInnerThrottling struct {
 	Scope   []string `json:"scope"`
 }
 
-type _GetNotificationsResponseInnerThrottling GetNotificationsResponseInnerThrottling
+type _NotificationPatchRequestThrottling NotificationPatchRequestThrottling
 
-// NewGetNotificationsResponseInnerThrottling instantiates a new GetNotificationsResponseInnerThrottling object
+// NewNotificationPatchRequestThrottling instantiates a new NotificationPatchRequestThrottling object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetNotificationsResponseInnerThrottling(max float32, period float32, unit string, forever bool, scope []string) *GetNotificationsResponseInnerThrottling {
-	this := GetNotificationsResponseInnerThrottling{}
+func NewNotificationPatchRequestThrottling(max float32, period float32, unit string, forever bool, scope []string) *NotificationPatchRequestThrottling {
+	this := NotificationPatchRequestThrottling{}
 	this.Max = max
 	this.Period = period
 	this.Unit = unit
@@ -44,16 +44,16 @@ func NewGetNotificationsResponseInnerThrottling(max float32, period float32, uni
 	return &this
 }
 
-// NewGetNotificationsResponseInnerThrottlingWithDefaults instantiates a new GetNotificationsResponseInnerThrottling object
+// NewNotificationPatchRequestThrottlingWithDefaults instantiates a new NotificationPatchRequestThrottling object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewGetNotificationsResponseInnerThrottlingWithDefaults() *GetNotificationsResponseInnerThrottling {
-	this := GetNotificationsResponseInnerThrottling{}
+func NewNotificationPatchRequestThrottlingWithDefaults() *NotificationPatchRequestThrottling {
+	this := NotificationPatchRequestThrottling{}
 	return &this
 }
 
 // GetMax returns the Max field value
-func (o *GetNotificationsResponseInnerThrottling) GetMax() float32 {
+func (o *NotificationPatchRequestThrottling) GetMax() float32 {
 	if o == nil {
 		var ret float32
 		return ret
@@ -64,7 +64,7 @@ func (o *GetNotificationsResponseInnerThrottling) GetMax() float32 {
 
 // GetMaxOk returns a tuple with the Max field value
 // and a boolean to check if the value has been set.
-func (o *GetNotificationsResponseInnerThrottling) GetMaxOk() (*float32, bool) {
+func (o *NotificationPatchRequestThrottling) GetMaxOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -72,12 +72,12 @@ func (o *GetNotificationsResponseInnerThrottling) GetMaxOk() (*float32, bool) {
 }
 
 // SetMax sets field value
-func (o *GetNotificationsResponseInnerThrottling) SetMax(v float32) {
+func (o *NotificationPatchRequestThrottling) SetMax(v float32) {
 	o.Max = v
 }
 
 // GetPeriod returns the Period field value
-func (o *GetNotificationsResponseInnerThrottling) GetPeriod() float32 {
+func (o *NotificationPatchRequestThrottling) GetPeriod() float32 {
 	if o == nil {
 		var ret float32
 		return ret
@@ -88,7 +88,7 @@ func (o *GetNotificationsResponseInnerThrottling) GetPeriod() float32 {
 
 // GetPeriodOk returns a tuple with the Period field value
 // and a boolean to check if the value has been set.
-func (o *GetNotificationsResponseInnerThrottling) GetPeriodOk() (*float32, bool) {
+func (o *NotificationPatchRequestThrottling) GetPeriodOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -96,12 +96,12 @@ func (o *GetNotificationsResponseInnerThrottling) GetPeriodOk() (*float32, bool)
 }
 
 // SetPeriod sets field value
-func (o *GetNotificationsResponseInnerThrottling) SetPeriod(v float32) {
+func (o *NotificationPatchRequestThrottling) SetPeriod(v float32) {
 	o.Period = v
 }
 
 // GetUnit returns the Unit field value
-func (o *GetNotificationsResponseInnerThrottling) GetUnit() string {
+func (o *NotificationPatchRequestThrottling) GetUnit() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -112,7 +112,7 @@ func (o *GetNotificationsResponseInnerThrottling) GetUnit() string {
 
 // GetUnitOk returns a tuple with the Unit field value
 // and a boolean to check if the value has been set.
-func (o *GetNotificationsResponseInnerThrottling) GetUnitOk() (*string, bool) {
+func (o *NotificationPatchRequestThrottling) GetUnitOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -120,12 +120,12 @@ func (o *GetNotificationsResponseInnerThrottling) GetUnitOk() (*string, bool) {
 }
 
 // SetUnit sets field value
-func (o *GetNotificationsResponseInnerThrottling) SetUnit(v string) {
+func (o *NotificationPatchRequestThrottling) SetUnit(v string) {
 	o.Unit = v
 }
 
 // GetForever returns the Forever field value
-func (o *GetNotificationsResponseInnerThrottling) GetForever() bool {
+func (o *NotificationPatchRequestThrottling) GetForever() bool {
 	if o == nil {
 		var ret bool
 		return ret
@@ -136,7 +136,7 @@ func (o *GetNotificationsResponseInnerThrottling) GetForever() bool {
 
 // GetForeverOk returns a tuple with the Forever field value
 // and a boolean to check if the value has been set.
-func (o *GetNotificationsResponseInnerThrottling) GetForeverOk() (*bool, bool) {
+func (o *NotificationPatchRequestThrottling) GetForeverOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -144,12 +144,12 @@ func (o *GetNotificationsResponseInnerThrottling) GetForeverOk() (*bool, bool) {
 }
 
 // SetForever sets field value
-func (o *GetNotificationsResponseInnerThrottling) SetForever(v bool) {
+func (o *NotificationPatchRequestThrottling) SetForever(v bool) {
 	o.Forever = v
 }
 
 // GetScope returns the Scope field value
-func (o *GetNotificationsResponseInnerThrottling) GetScope() []string {
+func (o *NotificationPatchRequestThrottling) GetScope() []string {
 	if o == nil {
 		var ret []string
 		return ret
@@ -160,7 +160,7 @@ func (o *GetNotificationsResponseInnerThrottling) GetScope() []string {
 
 // GetScopeOk returns a tuple with the Scope field value
 // and a boolean to check if the value has been set.
-func (o *GetNotificationsResponseInnerThrottling) GetScopeOk() ([]string, bool) {
+func (o *NotificationPatchRequestThrottling) GetScopeOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -168,11 +168,11 @@ func (o *GetNotificationsResponseInnerThrottling) GetScopeOk() ([]string, bool) 
 }
 
 // SetScope sets field value
-func (o *GetNotificationsResponseInnerThrottling) SetScope(v []string) {
+func (o *NotificationPatchRequestThrottling) SetScope(v []string) {
 	o.Scope = v
 }
 
-func (o GetNotificationsResponseInnerThrottling) MarshalJSON() ([]byte, error) {
+func (o NotificationPatchRequestThrottling) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -180,7 +180,7 @@ func (o GetNotificationsResponseInnerThrottling) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o GetNotificationsResponseInnerThrottling) ToMap() (map[string]interface{}, error) {
+func (o NotificationPatchRequestThrottling) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["max"] = o.Max
 	toSerialize["period"] = o.Period
@@ -190,7 +190,7 @@ func (o GetNotificationsResponseInnerThrottling) ToMap() (map[string]interface{}
 	return toSerialize, nil
 }
 
-func (o *GetNotificationsResponseInnerThrottling) UnmarshalJSON(data []byte) (err error) {
+func (o *NotificationPatchRequestThrottling) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -216,53 +216,53 @@ func (o *GetNotificationsResponseInnerThrottling) UnmarshalJSON(data []byte) (er
 		}
 	}
 
-	varGetNotificationsResponseInnerThrottling := _GetNotificationsResponseInnerThrottling{}
+	varNotificationPatchRequestThrottling := _NotificationPatchRequestThrottling{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGetNotificationsResponseInnerThrottling)
+	err = decoder.Decode(&varNotificationPatchRequestThrottling)
 
 	if err != nil {
 		return err
 	}
 
-	*o = GetNotificationsResponseInnerThrottling(varGetNotificationsResponseInnerThrottling)
+	*o = NotificationPatchRequestThrottling(varNotificationPatchRequestThrottling)
 
 	return err
 }
 
-type NullableGetNotificationsResponseInnerThrottling struct {
-	value *GetNotificationsResponseInnerThrottling
+type NullableNotificationPatchRequestThrottling struct {
+	value *NotificationPatchRequestThrottling
 	isSet bool
 }
 
-func (v NullableGetNotificationsResponseInnerThrottling) Get() *GetNotificationsResponseInnerThrottling {
+func (v NullableNotificationPatchRequestThrottling) Get() *NotificationPatchRequestThrottling {
 	return v.value
 }
 
-func (v *NullableGetNotificationsResponseInnerThrottling) Set(val *GetNotificationsResponseInnerThrottling) {
+func (v *NullableNotificationPatchRequestThrottling) Set(val *NotificationPatchRequestThrottling) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableGetNotificationsResponseInnerThrottling) IsSet() bool {
+func (v NullableNotificationPatchRequestThrottling) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableGetNotificationsResponseInnerThrottling) Unset() {
+func (v *NullableNotificationPatchRequestThrottling) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableGetNotificationsResponseInnerThrottling(val *GetNotificationsResponseInnerThrottling) *NullableGetNotificationsResponseInnerThrottling {
-	return &NullableGetNotificationsResponseInnerThrottling{value: val, isSet: true}
+func NewNullableNotificationPatchRequestThrottling(val *NotificationPatchRequestThrottling) *NullableNotificationPatchRequestThrottling {
+	return &NullableNotificationPatchRequestThrottling{value: val, isSet: true}
 }
 
-func (v NullableGetNotificationsResponseInnerThrottling) MarshalJSON() ([]byte, error) {
+func (v NullableNotificationPatchRequestThrottling) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableGetNotificationsResponseInnerThrottling) UnmarshalJSON(src []byte) error {
+func (v *NullableNotificationPatchRequestThrottling) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

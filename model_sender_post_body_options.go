@@ -1,5 +1,5 @@
 /*
-NotificationAPI
+Pingram
 
 Internal API for notification delivery and management
 
@@ -17,7 +17,7 @@ import (
 // checks if the SenderPostBodyOptions type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SenderPostBodyOptions{}
 
-// SenderPostBodyOptions struct for SenderPostBodyOptions
+// SenderPostBodyOptions Per-channel overrides for send options (email, APN, FCM).
 type SenderPostBodyOptions struct {
 	Email *SenderPostBodyOptionsEmail `json:"email,omitempty"`
 	Apn   *SenderPostBodyOptionsApn   `json:"apn,omitempty"`

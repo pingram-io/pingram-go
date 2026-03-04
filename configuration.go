@@ -1,5 +1,5 @@
 /*
-NotificationAPI
+Pingram
 
 Internal API for notification delivery and management
 
@@ -92,11 +92,11 @@ type Configuration struct {
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		DefaultHeader: make(map[string]string),
-		UserAgent:     "pingram-go/0.1.5",
+		UserAgent:     "pingram-go/0.1.6",
 		Debug:         false,
 		Servers: ServerConfigurations{
 			{
-				URL:         "https://api.notificationapi.com",
+				URL:         "https://api.pingram.io",
 				Description: "Production",
 			},
 		},

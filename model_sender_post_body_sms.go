@@ -1,5 +1,5 @@
 /*
-NotificationAPI
+Pingram
 
 Internal API for notification delivery and management
 
@@ -17,8 +17,9 @@ import (
 // checks if the SenderPostBodySms type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SenderPostBodySms{}
 
-// SenderPostBodySms struct for SenderPostBodySms
+// SenderPostBodySms Inline SMS content (message, autoReply).
 type SenderPostBodySms struct {
+	// SMS body text.
 	Message   *string                     `json:"message,omitempty"`
 	AutoReply *SenderPostBodySmsAutoReply `json:"autoReply,omitempty"`
 }

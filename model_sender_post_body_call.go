@@ -16,36 +16,37 @@ import (
 	"fmt"
 )
 
-// checks if the DeleteKeyResponse type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &DeleteKeyResponse{}
+// checks if the SenderPostBodyCall type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SenderPostBodyCall{}
 
-// DeleteKeyResponse Response body for DELETE /keys/{keyId} endpoint Confirms successful revocation of an API key
-type DeleteKeyResponse struct {
+// SenderPostBodyCall Inline call content (message).
+type SenderPostBodyCall struct {
+	// Text to speak (TTS).
 	Message string `json:"message"`
 }
 
-type _DeleteKeyResponse DeleteKeyResponse
+type _SenderPostBodyCall SenderPostBodyCall
 
-// NewDeleteKeyResponse instantiates a new DeleteKeyResponse object
+// NewSenderPostBodyCall instantiates a new SenderPostBodyCall object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeleteKeyResponse(message string) *DeleteKeyResponse {
-	this := DeleteKeyResponse{}
+func NewSenderPostBodyCall(message string) *SenderPostBodyCall {
+	this := SenderPostBodyCall{}
 	this.Message = message
 	return &this
 }
 
-// NewDeleteKeyResponseWithDefaults instantiates a new DeleteKeyResponse object
+// NewSenderPostBodyCallWithDefaults instantiates a new SenderPostBodyCall object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewDeleteKeyResponseWithDefaults() *DeleteKeyResponse {
-	this := DeleteKeyResponse{}
+func NewSenderPostBodyCallWithDefaults() *SenderPostBodyCall {
+	this := SenderPostBodyCall{}
 	return &this
 }
 
 // GetMessage returns the Message field value
-func (o *DeleteKeyResponse) GetMessage() string {
+func (o *SenderPostBodyCall) GetMessage() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -56,7 +57,7 @@ func (o *DeleteKeyResponse) GetMessage() string {
 
 // GetMessageOk returns a tuple with the Message field value
 // and a boolean to check if the value has been set.
-func (o *DeleteKeyResponse) GetMessageOk() (*string, bool) {
+func (o *SenderPostBodyCall) GetMessageOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -64,11 +65,11 @@ func (o *DeleteKeyResponse) GetMessageOk() (*string, bool) {
 }
 
 // SetMessage sets field value
-func (o *DeleteKeyResponse) SetMessage(v string) {
+func (o *SenderPostBodyCall) SetMessage(v string) {
 	o.Message = v
 }
 
-func (o DeleteKeyResponse) MarshalJSON() ([]byte, error) {
+func (o SenderPostBodyCall) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -76,13 +77,13 @@ func (o DeleteKeyResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o DeleteKeyResponse) ToMap() (map[string]interface{}, error) {
+func (o SenderPostBodyCall) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["message"] = o.Message
 	return toSerialize, nil
 }
 
-func (o *DeleteKeyResponse) UnmarshalJSON(data []byte) (err error) {
+func (o *SenderPostBodyCall) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -104,53 +105,53 @@ func (o *DeleteKeyResponse) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varDeleteKeyResponse := _DeleteKeyResponse{}
+	varSenderPostBodyCall := _SenderPostBodyCall{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varDeleteKeyResponse)
+	err = decoder.Decode(&varSenderPostBodyCall)
 
 	if err != nil {
 		return err
 	}
 
-	*o = DeleteKeyResponse(varDeleteKeyResponse)
+	*o = SenderPostBodyCall(varSenderPostBodyCall)
 
 	return err
 }
 
-type NullableDeleteKeyResponse struct {
-	value *DeleteKeyResponse
+type NullableSenderPostBodyCall struct {
+	value *SenderPostBodyCall
 	isSet bool
 }
 
-func (v NullableDeleteKeyResponse) Get() *DeleteKeyResponse {
+func (v NullableSenderPostBodyCall) Get() *SenderPostBodyCall {
 	return v.value
 }
 
-func (v *NullableDeleteKeyResponse) Set(val *DeleteKeyResponse) {
+func (v *NullableSenderPostBodyCall) Set(val *SenderPostBodyCall) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableDeleteKeyResponse) IsSet() bool {
+func (v NullableSenderPostBodyCall) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableDeleteKeyResponse) Unset() {
+func (v *NullableSenderPostBodyCall) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableDeleteKeyResponse(val *DeleteKeyResponse) *NullableDeleteKeyResponse {
-	return &NullableDeleteKeyResponse{value: val, isSet: true}
+func NewNullableSenderPostBodyCall(val *SenderPostBodyCall) *NullableSenderPostBodyCall {
+	return &NullableSenderPostBodyCall{value: val, isSet: true}
 }
 
-func (v NullableDeleteKeyResponse) MarshalJSON() ([]byte, error) {
+func (v NullableSenderPostBodyCall) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableDeleteKeyResponse) UnmarshalJSON(src []byte) error {
+func (v *NullableSenderPostBodyCall) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

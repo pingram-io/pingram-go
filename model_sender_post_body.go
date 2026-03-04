@@ -1,5 +1,5 @@
 /*
-NotificationAPI
+Pingram
 
 Internal API for notification delivery and management
 
@@ -23,24 +23,30 @@ type SenderPostBody struct {
 	// Deprecated
 	User *SenderPostBodyUser `json:"user,omitempty"`
 	// Deprecated
-	MergeTags         map[string]interface{}      `json:"mergeTags,omitempty"`
-	Replace           *map[string]string          `json:"replace,omitempty"`
-	Type              *string                     `json:"type,omitempty"`
-	To                *SenderPostBodyTo           `json:"to,omitempty"`
-	ForceChannels     []ChannelsEnum              `json:"forceChannels,omitempty"`
-	Parameters        map[string]interface{}      `json:"parameters,omitempty"`
-	SecondaryId       *string                     `json:"secondaryId,omitempty"`
-	TemplateId        *string                     `json:"templateId,omitempty"`
-	SubNotificationId *string                     `json:"subNotificationId,omitempty"`
-	Options           *SenderPostBodyOptions      `json:"options,omitempty"`
-	Schedule          *string                     `json:"schedule,omitempty"`
-	Email             *SenderPostBodyEmail        `json:"email,omitempty"`
-	Inapp             *SenderPostBodyInapp        `json:"inapp,omitempty"`
-	Sms               *SenderPostBodySms          `json:"sms,omitempty"`
-	Call              *SenderPostBodySmsAutoReply `json:"call,omitempty"`
-	WebPush           *SenderPostBodyWebPush      `json:"web_push,omitempty"`
-	MobilePush        *SenderPostBodyMobilePush   `json:"mobile_push,omitempty"`
-	Slack             *SenderPostBodySlack        `json:"slack,omitempty"`
+	MergeTags map[string]interface{} `json:"mergeTags,omitempty"`
+	Replace   *map[string]string     `json:"replace,omitempty"`
+	// ID of the notification type (e.g. \"welcome_email\"). Creates a new notification if it does not exist.
+	Type *string           `json:"type,omitempty"`
+	To   *SenderPostBodyTo `json:"to,omitempty"`
+	// Override which channels to send to (e.g. [\"EMAIL\", \"SMS\"]). Bypasses notification channel config.
+	ForceChannels []ChannelsEnum `json:"forceChannels,omitempty"`
+	// Key-value pairs for template merge tags. Replaces placeholders like {{firstName}} in templates.
+	Parameters map[string]interface{} `json:"parameters,omitempty"`
+	// Optional sub-notification identifier for grouping or tracking.
+	SecondaryId *string `json:"secondaryId,omitempty"`
+	// Specific template ID to use. If omitted, uses the default template for each channel.
+	TemplateId *string `json:"templateId,omitempty"`
+	// Sub-notification identifier (e.g. for grouping related notifications).
+	SubNotificationId *string                   `json:"subNotificationId,omitempty"`
+	Options           *SenderPostBodyOptions    `json:"options,omitempty"`
+	Schedule          *string                   `json:"schedule,omitempty"`
+	Email             *SenderPostBodyEmail      `json:"email,omitempty"`
+	Inapp             *SenderPostBodyInapp      `json:"inapp,omitempty"`
+	Sms               *SenderPostBodySms        `json:"sms,omitempty"`
+	Call              *SenderPostBodyCall       `json:"call,omitempty"`
+	WebPush           *SenderPostBodyWebPush    `json:"web_push,omitempty"`
+	MobilePush        *SenderPostBodyMobilePush `json:"mobile_push,omitempty"`
+	Slack             *SenderPostBodySlack      `json:"slack,omitempty"`
 }
 
 // NewSenderPostBody instantiates a new SenderPostBody object
@@ -579,9 +585,9 @@ func (o *SenderPostBody) SetSms(v SenderPostBodySms) {
 }
 
 // GetCall returns the Call field value if set, zero value otherwise.
-func (o *SenderPostBody) GetCall() SenderPostBodySmsAutoReply {
+func (o *SenderPostBody) GetCall() SenderPostBodyCall {
 	if o == nil || IsNil(o.Call) {
-		var ret SenderPostBodySmsAutoReply
+		var ret SenderPostBodyCall
 		return ret
 	}
 	return *o.Call
@@ -589,7 +595,7 @@ func (o *SenderPostBody) GetCall() SenderPostBodySmsAutoReply {
 
 // GetCallOk returns a tuple with the Call field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SenderPostBody) GetCallOk() (*SenderPostBodySmsAutoReply, bool) {
+func (o *SenderPostBody) GetCallOk() (*SenderPostBodyCall, bool) {
 	if o == nil || IsNil(o.Call) {
 		return nil, false
 	}
@@ -605,8 +611,8 @@ func (o *SenderPostBody) HasCall() bool {
 	return false
 }
 
-// SetCall gets a reference to the given SenderPostBodySmsAutoReply and assigns it to the Call field.
-func (o *SenderPostBody) SetCall(v SenderPostBodySmsAutoReply) {
+// SetCall gets a reference to the given SenderPostBodyCall and assigns it to the Call field.
+func (o *SenderPostBody) SetCall(v SenderPostBodyCall) {
 	o.Call = &v
 }
 

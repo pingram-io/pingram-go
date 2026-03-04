@@ -1,5 +1,5 @@
 /*
-NotificationAPI
+Pingram
 
 Internal API for notification delivery and management
 
@@ -19,20 +19,31 @@ import (
 // checks if the SenderPostBodySlack type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SenderPostBodySlack{}
 
-// SenderPostBodySlack struct for SenderPostBodySlack
+// SenderPostBodySlack Inline Slack content (text, blocks, etc.).
 type SenderPostBodySlack struct {
-	Text           string                                       `json:"text"`
-	Blocks         []map[string]interface{}                     `json:"blocks,omitempty"`
-	Username       *string                                      `json:"username,omitempty"`
-	Icon           *string                                      `json:"icon,omitempty"`
-	ThreadTs       *string                                      `json:"thread_ts,omitempty"`
-	ReplyBroadcast *bool                                        `json:"reply_broadcast,omitempty"`
-	Parse          *string                                      `json:"parse,omitempty"`
-	LinkNames      *bool                                        `json:"link_names,omitempty"`
-	Mrkdwn         *bool                                        `json:"mrkdwn,omitempty"`
-	UnfurlLinks    *bool                                        `json:"unfurl_links,omitempty"`
-	UnfurlMedia    *bool                                        `json:"unfurl_media,omitempty"`
-	Metadata       *GetTemplatesListResponseInnerAnyOf5Metadata `json:"metadata,omitempty"`
+	// Fallback plain text (required when using blocks).
+	Text string `json:"text"`
+	// Slack Block Kit blocks.
+	Blocks []map[string]interface{} `json:"blocks,omitempty"`
+	// Override bot username.
+	Username *string `json:"username,omitempty"`
+	// Icon: emoji (e.g. \":smile:\") or URL. Default: bot's icon.
+	Icon *string `json:"icon,omitempty"`
+	// Parent message `ts` to post in a thread.
+	ThreadTs *string `json:"thread_ts,omitempty"`
+	// When true with thread_ts, broadcasts reply to channel. Default: false.
+	ReplyBroadcast *bool `json:"reply_broadcast,omitempty"`
+	// URL parsing: \"full\" (clickable links) or \"none\". Default: \"none\".
+	Parse *string `json:"parse,omitempty"`
+	// Convert channel and username refs to Slack links. Default: false.
+	LinkNames *bool `json:"link_names,omitempty"`
+	// Enable Slack markup (*bold*, _italic_, `code`). Default: true.
+	Mrkdwn *bool `json:"mrkdwn,omitempty"`
+	// Unfurl link previews. Default: true.
+	UnfurlLinks *bool `json:"unfurl_links,omitempty"`
+	// Unfurl media previews. Default: true.
+	UnfurlMedia *bool                                        `json:"unfurl_media,omitempty"`
+	Metadata    *GetTemplatesListResponseInnerAnyOf5Metadata `json:"metadata,omitempty"`
 }
 
 type _SenderPostBodySlack SenderPostBodySlack

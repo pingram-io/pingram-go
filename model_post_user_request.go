@@ -1,5 +1,5 @@
 /*
-NotificationAPI
+Pingram
 
 Internal API for notification delivery and management
 
@@ -19,12 +19,18 @@ var _ MappedNullable = &PostUserRequest{}
 
 // PostUserRequest struct for PostUserRequest
 type PostUserRequest struct {
-	Id            *string                                        `json:"id,omitempty"`
-	Email         *string                                        `json:"email,omitempty"`
-	Number        *string                                        `json:"number,omitempty"`
-	PushTokens    []GetUsersResponseUsersInnerPushTokensInner    `json:"pushTokens,omitempty"`
+	// Unique user identifier. Required.
+	Id *string `json:"id,omitempty"`
+	// User's email address for email notifications.
+	Email *string `json:"email,omitempty"`
+	// User's phone number for SMS/call notifications.
+	Number *string `json:"number,omitempty"`
+	// Mobile push tokens (FCM, APN) for push notifications.
+	PushTokens []GetUsersResponseUsersInnerPushTokensInner `json:"pushTokens,omitempty"`
+	// Web push subscription config from the browser.
 	WebPushTokens []GetUsersResponseUsersInnerWebPushTokensInner `json:"webPushTokens,omitempty"`
-	Timezone      *string                                        `json:"timezone,omitempty"`
+	// User's timezone (e.g. \"America/New_York\") for scheduling.
+	Timezone *string `json:"timezone,omitempty"`
 	// The destination channel of slack notifications sent to this user. Can be either of the following: - Channel name, e.g. \"test\" - Channel name with # prefix, e.g. \"#test\" - Channel ID, e.g. \"C1234567890\" - User ID for DM, e.g. \"U1234567890\" - Username with @ prefix, e.g. \"@test\"
 	SlackChannel *string                               `json:"slackChannel,omitempty"`
 	SlackToken   *GetUsersResponseUsersInnerSlackToken `json:"slackToken,omitempty"`

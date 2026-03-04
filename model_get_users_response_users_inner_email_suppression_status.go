@@ -1,5 +1,5 @@
 /*
-NotificationAPI
+Pingram
 
 Internal API for notification delivery and management
 
@@ -19,7 +19,7 @@ import (
 // checks if the GetUsersResponseUsersInnerEmailSuppressionStatus type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GetUsersResponseUsersInnerEmailSuppressionStatus{}
 
-// GetUsersResponseUsersInnerEmailSuppressionStatus struct for GetUsersResponseUsersInnerEmailSuppressionStatus
+// GetUsersResponseUsersInnerEmailSuppressionStatus Bounce or complaint status if email was suppressed. Read-only.
 type GetUsersResponseUsersInnerEmailSuppressionStatus struct {
 	Reason  string                 `json:"reason"`
 	Details map[string]interface{} `json:"details"`

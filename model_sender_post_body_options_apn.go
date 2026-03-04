@@ -1,5 +1,5 @@
 /*
-NotificationAPI
+Pingram
 
 Internal API for notification delivery and management
 
@@ -17,15 +17,22 @@ import (
 // checks if the SenderPostBodyOptionsApn type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SenderPostBodyOptionsApn{}
 
-// SenderPostBodyOptionsApn struct for SenderPostBodyOptionsApn
+// SenderPostBodyOptionsApn Apple Push Notification (APN) overrides.
 type SenderPostBodyOptionsApn struct {
-	Expiry           *float32 `json:"expiry,omitempty"`
-	Priority         *float32 `json:"priority,omitempty"`
-	CollapseId       *string  `json:"collapseId,omitempty"`
-	ThreadId         *string  `json:"threadId,omitempty"`
-	Badge            *float32 `json:"badge,omitempty"`
-	Sound            *string  `json:"sound,omitempty"`
-	ContentAvailable *bool    `json:"contentAvailable,omitempty"`
+	// Seconds until the notification expires.
+	Expiry *float32 `json:"expiry,omitempty"`
+	// Delivery priority (10 = immediate, 5 = power-saving).
+	Priority *float32 `json:"priority,omitempty"`
+	// Group notifications with the same ID (replaces previous).
+	CollapseId *string `json:"collapseId,omitempty"`
+	// Thread identifier for grouping notifications.
+	ThreadId *string `json:"threadId,omitempty"`
+	// Badge count on app icon.
+	Badge *float32 `json:"badge,omitempty"`
+	// Sound file name.
+	Sound *string `json:"sound,omitempty"`
+	// Silent background notification (no alert).
+	ContentAvailable *bool `json:"contentAvailable,omitempty"`
 }
 
 // NewSenderPostBodyOptionsApn instantiates a new SenderPostBodyOptionsApn object

@@ -1,5 +1,5 @@
 /*
-NotificationAPI
+Pingram
 
 Internal API for notification delivery and management
 
@@ -19,9 +19,11 @@ import (
 // checks if the SenderPostBodyMobilePush type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SenderPostBodyMobilePush{}
 
-// SenderPostBodyMobilePush struct for SenderPostBodyMobilePush
+// SenderPostBodyMobilePush Inline mobile push content (title, message).
 type SenderPostBodyMobilePush struct {
-	Title   string `json:"title"`
+	// Notification title.
+	Title string `json:"title"`
+	// Body text.
 	Message string `json:"message"`
 }
 

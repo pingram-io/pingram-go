@@ -1,5 +1,5 @@
 /*
-NotificationAPI
+Pingram
 
 Internal API for notification delivery and management
 
@@ -19,13 +19,13 @@ var _ MappedNullable = &NotificationPatchRequest{}
 
 // NotificationPatchRequest struct for NotificationPatchRequest
 type NotificationPatchRequest struct {
-	Title         *string                                     `json:"title,omitempty"`
-	Channels      []ChannelsEnum                              `json:"channels,omitempty"`
-	Enabled       *bool                                       `json:"enabled,omitempty"`
-	Deduplication *GetNotificationsResponseInnerDeduplication `json:"deduplication,omitempty"`
-	Throttling    *GetNotificationsResponseInnerThrottling    `json:"throttling,omitempty"`
-	Retention     *float32                                    `json:"retention,omitempty"`
-	Options       *GetNotificationsResponseInnerOptions       `json:"options,omitempty"`
+	Title         *string                                       `json:"title,omitempty"`
+	Channels      []ChannelsEnum                                `json:"channels,omitempty"`
+	Enabled       *bool                                         `json:"enabled,omitempty"`
+	Deduplication NullableNotificationPatchRequestDeduplication `json:"deduplication,omitempty"`
+	Throttling    NullableNotificationPatchRequestThrottling    `json:"throttling,omitempty"`
+	Retention     NullableFloat32                               `json:"retention,omitempty"`
+	Options       *GetNotificationsResponseInnerOptions         `json:"options,omitempty"`
 }
 
 // NewNotificationPatchRequest instantiates a new NotificationPatchRequest object
@@ -141,100 +141,133 @@ func (o *NotificationPatchRequest) SetEnabled(v bool) {
 	o.Enabled = &v
 }
 
-// GetDeduplication returns the Deduplication field value if set, zero value otherwise.
-func (o *NotificationPatchRequest) GetDeduplication() GetNotificationsResponseInnerDeduplication {
-	if o == nil || IsNil(o.Deduplication) {
-		var ret GetNotificationsResponseInnerDeduplication
+// GetDeduplication returns the Deduplication field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *NotificationPatchRequest) GetDeduplication() NotificationPatchRequestDeduplication {
+	if o == nil || IsNil(o.Deduplication.Get()) {
+		var ret NotificationPatchRequestDeduplication
 		return ret
 	}
-	return *o.Deduplication
+	return *o.Deduplication.Get()
 }
 
 // GetDeduplicationOk returns a tuple with the Deduplication field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationPatchRequest) GetDeduplicationOk() (*GetNotificationsResponseInnerDeduplication, bool) {
-	if o == nil || IsNil(o.Deduplication) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *NotificationPatchRequest) GetDeduplicationOk() (*NotificationPatchRequestDeduplication, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Deduplication, true
+	return o.Deduplication.Get(), o.Deduplication.IsSet()
 }
 
 // HasDeduplication returns a boolean if a field has been set.
 func (o *NotificationPatchRequest) HasDeduplication() bool {
-	if o != nil && !IsNil(o.Deduplication) {
+	if o != nil && o.Deduplication.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDeduplication gets a reference to the given GetNotificationsResponseInnerDeduplication and assigns it to the Deduplication field.
-func (o *NotificationPatchRequest) SetDeduplication(v GetNotificationsResponseInnerDeduplication) {
-	o.Deduplication = &v
+// SetDeduplication gets a reference to the given NullableNotificationPatchRequestDeduplication and assigns it to the Deduplication field.
+func (o *NotificationPatchRequest) SetDeduplication(v NotificationPatchRequestDeduplication) {
+	o.Deduplication.Set(&v)
 }
 
-// GetThrottling returns the Throttling field value if set, zero value otherwise.
-func (o *NotificationPatchRequest) GetThrottling() GetNotificationsResponseInnerThrottling {
-	if o == nil || IsNil(o.Throttling) {
-		var ret GetNotificationsResponseInnerThrottling
+// SetDeduplicationNil sets the value for Deduplication to be an explicit nil
+func (o *NotificationPatchRequest) SetDeduplicationNil() {
+	o.Deduplication.Set(nil)
+}
+
+// UnsetDeduplication ensures that no value is present for Deduplication, not even an explicit nil
+func (o *NotificationPatchRequest) UnsetDeduplication() {
+	o.Deduplication.Unset()
+}
+
+// GetThrottling returns the Throttling field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *NotificationPatchRequest) GetThrottling() NotificationPatchRequestThrottling {
+	if o == nil || IsNil(o.Throttling.Get()) {
+		var ret NotificationPatchRequestThrottling
 		return ret
 	}
-	return *o.Throttling
+	return *o.Throttling.Get()
 }
 
 // GetThrottlingOk returns a tuple with the Throttling field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationPatchRequest) GetThrottlingOk() (*GetNotificationsResponseInnerThrottling, bool) {
-	if o == nil || IsNil(o.Throttling) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *NotificationPatchRequest) GetThrottlingOk() (*NotificationPatchRequestThrottling, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Throttling, true
+	return o.Throttling.Get(), o.Throttling.IsSet()
 }
 
 // HasThrottling returns a boolean if a field has been set.
 func (o *NotificationPatchRequest) HasThrottling() bool {
-	if o != nil && !IsNil(o.Throttling) {
+	if o != nil && o.Throttling.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetThrottling gets a reference to the given GetNotificationsResponseInnerThrottling and assigns it to the Throttling field.
-func (o *NotificationPatchRequest) SetThrottling(v GetNotificationsResponseInnerThrottling) {
-	o.Throttling = &v
+// SetThrottling gets a reference to the given NullableNotificationPatchRequestThrottling and assigns it to the Throttling field.
+func (o *NotificationPatchRequest) SetThrottling(v NotificationPatchRequestThrottling) {
+	o.Throttling.Set(&v)
 }
 
-// GetRetention returns the Retention field value if set, zero value otherwise.
+// SetThrottlingNil sets the value for Throttling to be an explicit nil
+func (o *NotificationPatchRequest) SetThrottlingNil() {
+	o.Throttling.Set(nil)
+}
+
+// UnsetThrottling ensures that no value is present for Throttling, not even an explicit nil
+func (o *NotificationPatchRequest) UnsetThrottling() {
+	o.Throttling.Unset()
+}
+
+// GetRetention returns the Retention field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *NotificationPatchRequest) GetRetention() float32 {
-	if o == nil || IsNil(o.Retention) {
+	if o == nil || IsNil(o.Retention.Get()) {
 		var ret float32
 		return ret
 	}
-	return *o.Retention
+	return *o.Retention.Get()
 }
 
 // GetRetentionOk returns a tuple with the Retention field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NotificationPatchRequest) GetRetentionOk() (*float32, bool) {
-	if o == nil || IsNil(o.Retention) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Retention, true
+	return o.Retention.Get(), o.Retention.IsSet()
 }
 
 // HasRetention returns a boolean if a field has been set.
 func (o *NotificationPatchRequest) HasRetention() bool {
-	if o != nil && !IsNil(o.Retention) {
+	if o != nil && o.Retention.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetRetention gets a reference to the given float32 and assigns it to the Retention field.
+// SetRetention gets a reference to the given NullableFloat32 and assigns it to the Retention field.
 func (o *NotificationPatchRequest) SetRetention(v float32) {
-	o.Retention = &v
+	o.Retention.Set(&v)
+}
+
+// SetRetentionNil sets the value for Retention to be an explicit nil
+func (o *NotificationPatchRequest) SetRetentionNil() {
+	o.Retention.Set(nil)
+}
+
+// UnsetRetention ensures that no value is present for Retention, not even an explicit nil
+func (o *NotificationPatchRequest) UnsetRetention() {
+	o.Retention.Unset()
 }
 
 // GetOptions returns the Options field value if set, zero value otherwise.
@@ -288,14 +321,14 @@ func (o NotificationPatchRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
 	}
-	if !IsNil(o.Deduplication) {
-		toSerialize["deduplication"] = o.Deduplication
+	if o.Deduplication.IsSet() {
+		toSerialize["deduplication"] = o.Deduplication.Get()
 	}
-	if !IsNil(o.Throttling) {
-		toSerialize["throttling"] = o.Throttling
+	if o.Throttling.IsSet() {
+		toSerialize["throttling"] = o.Throttling.Get()
 	}
-	if !IsNil(o.Retention) {
-		toSerialize["retention"] = o.Retention
+	if o.Retention.IsSet() {
+		toSerialize["retention"] = o.Retention.Get()
 	}
 	if !IsNil(o.Options) {
 		toSerialize["options"] = o.Options

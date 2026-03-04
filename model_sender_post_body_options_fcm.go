@@ -1,5 +1,5 @@
 /*
-NotificationAPI
+Pingram
 
 Internal API for notification delivery and management
 
@@ -17,7 +17,7 @@ import (
 // checks if the SenderPostBodyOptionsFcm type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SenderPostBodyOptionsFcm{}
 
-// SenderPostBodyOptionsFcm struct for SenderPostBodyOptionsFcm
+// SenderPostBodyOptionsFcm Firebase Cloud Messaging (FCM) overrides.
 type SenderPostBodyOptionsFcm struct {
 	Android *SenderPostBodyOptionsFcmAndroid `json:"android,omitempty"`
 }

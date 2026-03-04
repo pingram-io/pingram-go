@@ -1,5 +1,5 @@
 /*
-NotificationAPI
+Pingram
 
 Internal API for notification delivery and management
 
@@ -17,15 +17,22 @@ import (
 // checks if the SenderPostBodyOptionsEmail type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SenderPostBodyOptionsEmail{}
 
-// SenderPostBodyOptionsEmail struct for SenderPostBodyOptionsEmail
+// SenderPostBodyOptionsEmail Email-specific overrides.
 type SenderPostBodyOptionsEmail struct {
-	ReplyToAddresses []string                                     `json:"replyToAddresses,omitempty"`
-	CcAddresses      []string                                     `json:"ccAddresses,omitempty"`
-	BccAddresses     []string                                     `json:"bccAddresses,omitempty"`
-	FromAddress      *string                                      `json:"fromAddress,omitempty"`
-	FromName         *string                                      `json:"fromName,omitempty"`
-	Attachments      []SenderPostBodyOptionsEmailAttachmentsInner `json:"attachments,omitempty"`
-	Condition        *string                                      `json:"condition,omitempty"`
+	// Reply-to addresses for the email.
+	ReplyToAddresses []string `json:"replyToAddresses,omitempty"`
+	// CC recipients.
+	CcAddresses []string `json:"ccAddresses,omitempty"`
+	// BCC recipients.
+	BccAddresses []string `json:"bccAddresses,omitempty"`
+	// Override sender email address.
+	FromAddress *string `json:"fromAddress,omitempty"`
+	// Override sender display name.
+	FromName *string `json:"fromName,omitempty"`
+	// File attachments (by URL or inline base64 content).
+	Attachments []SenderPostBodyOptionsEmailAttachmentsInner `json:"attachments,omitempty"`
+	// Conditional expression for when to send (e.g. merge tag logic).
+	Condition *string `json:"condition,omitempty"`
 }
 
 // NewSenderPostBodyOptionsEmail instantiates a new SenderPostBodyOptionsEmail object
