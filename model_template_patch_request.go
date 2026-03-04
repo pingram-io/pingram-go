@@ -12,58 +12,707 @@ package pingram
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
-// TemplatePatchRequest Request body for updating a template. Use EMAIL fields (html, subject, senderName, etc.) when channel is EMAIL. Use INAPP_WEB fields (title, redirectURL, imageURL, instant, batch) when channel is INAPP_WEB. Other channels have their own shapes; only include properties that apply to the channel.
+// checks if the TemplatePatchRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TemplatePatchRequest{}
+
+// TemplatePatchRequest Request body for updating a template. Include only properties that apply to the channel in the path. EMAIL: html, subject, senderName, etc. | INAPP_WEB: title, redirectURL, instant, batch | SMS/CALL: text | PUSH/WEB_PUSH: title, message, icon, url | SLACK: text, blocks, username, icon
 type TemplatePatchRequest struct {
-	TemplatePatchRequestAnyOf  *TemplatePatchRequestAnyOf
-	TemplatePatchRequestAnyOf1 *TemplatePatchRequestAnyOf1
+	// HTML body of the email.
+	Html *string `json:"html,omitempty"`
+	// Preview text (e.g. for inbox).
+	PreviewText *string `json:"previewText,omitempty"`
+	// Internal editor representation of the email content (e.g. Bee or Redactor JSON). Used for editing and component embedding; the actual email sent to recipients uses the html field.
+	Internal *string `json:"internal,omitempty"`
+	// Email subject line.
+	Subject *string `json:"subject,omitempty"`
+	// Sender display name.
+	SenderName *string `json:"senderName,omitempty"`
+	// Sender email address.
+	SenderEmail *string `json:"senderEmail,omitempty"`
+	// Migration metadata (e.g. from template migration).
+	Migration *string `json:"migration,omitempty"`
+	// Notification title (in-app).
+	Title *string `json:"title,omitempty"`
+	// URL to open when the user taps the notification.
+	RedirectURL *string `json:"redirectURL,omitempty"`
+	// Image URL shown in the in-app notification.
+	ImageURL *string                      `json:"imageURL,omitempty"`
+	Instant  *TemplatePatchRequestInstant `json:"instant,omitempty"`
+	Batch    *TemplatePatchRequestBatch   `json:"batch,omitempty"`
+	// Message text (SMS or call).
+	Text *string `json:"text,omitempty"`
+	// Push notification body text. (title is shared with INAPP_WEB above.)
+	Message *string `json:"message,omitempty"`
+	// Web push: icon URL. Slack: bot icon (emoji or URL).
+	Icon *string `json:"icon,omitempty"`
+	// Web push: URL to open when the notification is clicked.
+	Url *string `json:"url,omitempty"`
+	// Slack message blocks (optional).
+	Blocks []map[string]interface{} `json:"blocks,omitempty"`
+	// Slack bot username.
+	Username *string `json:"username,omitempty"`
 }
 
-// Unmarshal JSON data into any of the pointers in the struct
-func (dst *TemplatePatchRequest) UnmarshalJSON(data []byte) error {
-	var err error
-	// try to unmarshal JSON data into TemplatePatchRequestAnyOf
-	err = json.Unmarshal(data, &dst.TemplatePatchRequestAnyOf)
-	if err == nil {
-		jsonTemplatePatchRequestAnyOf, _ := json.Marshal(dst.TemplatePatchRequestAnyOf)
-		if string(jsonTemplatePatchRequestAnyOf) == "{}" { // empty struct
-			dst.TemplatePatchRequestAnyOf = nil
-		} else {
-			return nil // data stored in dst.TemplatePatchRequestAnyOf, return on the first match
-		}
-	} else {
-		dst.TemplatePatchRequestAnyOf = nil
-	}
-
-	// try to unmarshal JSON data into TemplatePatchRequestAnyOf1
-	err = json.Unmarshal(data, &dst.TemplatePatchRequestAnyOf1)
-	if err == nil {
-		jsonTemplatePatchRequestAnyOf1, _ := json.Marshal(dst.TemplatePatchRequestAnyOf1)
-		if string(jsonTemplatePatchRequestAnyOf1) == "{}" { // empty struct
-			dst.TemplatePatchRequestAnyOf1 = nil
-		} else {
-			return nil // data stored in dst.TemplatePatchRequestAnyOf1, return on the first match
-		}
-	} else {
-		dst.TemplatePatchRequestAnyOf1 = nil
-	}
-
-	return fmt.Errorf("data failed to match schemas in anyOf(TemplatePatchRequest)")
+// NewTemplatePatchRequest instantiates a new TemplatePatchRequest object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewTemplatePatchRequest() *TemplatePatchRequest {
+	this := TemplatePatchRequest{}
+	return &this
 }
 
-// Marshal data from the first non-nil pointers in the struct to JSON
-func (src TemplatePatchRequest) MarshalJSON() ([]byte, error) {
-	if src.TemplatePatchRequestAnyOf != nil {
-		return json.Marshal(&src.TemplatePatchRequestAnyOf)
+// NewTemplatePatchRequestWithDefaults instantiates a new TemplatePatchRequest object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewTemplatePatchRequestWithDefaults() *TemplatePatchRequest {
+	this := TemplatePatchRequest{}
+	return &this
+}
+
+// GetHtml returns the Html field value if set, zero value otherwise.
+func (o *TemplatePatchRequest) GetHtml() string {
+	if o == nil || IsNil(o.Html) {
+		var ret string
+		return ret
+	}
+	return *o.Html
+}
+
+// GetHtmlOk returns a tuple with the Html field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TemplatePatchRequest) GetHtmlOk() (*string, bool) {
+	if o == nil || IsNil(o.Html) {
+		return nil, false
+	}
+	return o.Html, true
+}
+
+// HasHtml returns a boolean if a field has been set.
+func (o *TemplatePatchRequest) HasHtml() bool {
+	if o != nil && !IsNil(o.Html) {
+		return true
 	}
 
-	if src.TemplatePatchRequestAnyOf1 != nil {
-		return json.Marshal(&src.TemplatePatchRequestAnyOf1)
+	return false
+}
+
+// SetHtml gets a reference to the given string and assigns it to the Html field.
+func (o *TemplatePatchRequest) SetHtml(v string) {
+	o.Html = &v
+}
+
+// GetPreviewText returns the PreviewText field value if set, zero value otherwise.
+func (o *TemplatePatchRequest) GetPreviewText() string {
+	if o == nil || IsNil(o.PreviewText) {
+		var ret string
+		return ret
+	}
+	return *o.PreviewText
+}
+
+// GetPreviewTextOk returns a tuple with the PreviewText field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TemplatePatchRequest) GetPreviewTextOk() (*string, bool) {
+	if o == nil || IsNil(o.PreviewText) {
+		return nil, false
+	}
+	return o.PreviewText, true
+}
+
+// HasPreviewText returns a boolean if a field has been set.
+func (o *TemplatePatchRequest) HasPreviewText() bool {
+	if o != nil && !IsNil(o.PreviewText) {
+		return true
 	}
 
-	return nil, nil // no data in anyOf schemas
+	return false
+}
+
+// SetPreviewText gets a reference to the given string and assigns it to the PreviewText field.
+func (o *TemplatePatchRequest) SetPreviewText(v string) {
+	o.PreviewText = &v
+}
+
+// GetInternal returns the Internal field value if set, zero value otherwise.
+func (o *TemplatePatchRequest) GetInternal() string {
+	if o == nil || IsNil(o.Internal) {
+		var ret string
+		return ret
+	}
+	return *o.Internal
+}
+
+// GetInternalOk returns a tuple with the Internal field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TemplatePatchRequest) GetInternalOk() (*string, bool) {
+	if o == nil || IsNil(o.Internal) {
+		return nil, false
+	}
+	return o.Internal, true
+}
+
+// HasInternal returns a boolean if a field has been set.
+func (o *TemplatePatchRequest) HasInternal() bool {
+	if o != nil && !IsNil(o.Internal) {
+		return true
+	}
+
+	return false
+}
+
+// SetInternal gets a reference to the given string and assigns it to the Internal field.
+func (o *TemplatePatchRequest) SetInternal(v string) {
+	o.Internal = &v
+}
+
+// GetSubject returns the Subject field value if set, zero value otherwise.
+func (o *TemplatePatchRequest) GetSubject() string {
+	if o == nil || IsNil(o.Subject) {
+		var ret string
+		return ret
+	}
+	return *o.Subject
+}
+
+// GetSubjectOk returns a tuple with the Subject field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TemplatePatchRequest) GetSubjectOk() (*string, bool) {
+	if o == nil || IsNil(o.Subject) {
+		return nil, false
+	}
+	return o.Subject, true
+}
+
+// HasSubject returns a boolean if a field has been set.
+func (o *TemplatePatchRequest) HasSubject() bool {
+	if o != nil && !IsNil(o.Subject) {
+		return true
+	}
+
+	return false
+}
+
+// SetSubject gets a reference to the given string and assigns it to the Subject field.
+func (o *TemplatePatchRequest) SetSubject(v string) {
+	o.Subject = &v
+}
+
+// GetSenderName returns the SenderName field value if set, zero value otherwise.
+func (o *TemplatePatchRequest) GetSenderName() string {
+	if o == nil || IsNil(o.SenderName) {
+		var ret string
+		return ret
+	}
+	return *o.SenderName
+}
+
+// GetSenderNameOk returns a tuple with the SenderName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TemplatePatchRequest) GetSenderNameOk() (*string, bool) {
+	if o == nil || IsNil(o.SenderName) {
+		return nil, false
+	}
+	return o.SenderName, true
+}
+
+// HasSenderName returns a boolean if a field has been set.
+func (o *TemplatePatchRequest) HasSenderName() bool {
+	if o != nil && !IsNil(o.SenderName) {
+		return true
+	}
+
+	return false
+}
+
+// SetSenderName gets a reference to the given string and assigns it to the SenderName field.
+func (o *TemplatePatchRequest) SetSenderName(v string) {
+	o.SenderName = &v
+}
+
+// GetSenderEmail returns the SenderEmail field value if set, zero value otherwise.
+func (o *TemplatePatchRequest) GetSenderEmail() string {
+	if o == nil || IsNil(o.SenderEmail) {
+		var ret string
+		return ret
+	}
+	return *o.SenderEmail
+}
+
+// GetSenderEmailOk returns a tuple with the SenderEmail field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TemplatePatchRequest) GetSenderEmailOk() (*string, bool) {
+	if o == nil || IsNil(o.SenderEmail) {
+		return nil, false
+	}
+	return o.SenderEmail, true
+}
+
+// HasSenderEmail returns a boolean if a field has been set.
+func (o *TemplatePatchRequest) HasSenderEmail() bool {
+	if o != nil && !IsNil(o.SenderEmail) {
+		return true
+	}
+
+	return false
+}
+
+// SetSenderEmail gets a reference to the given string and assigns it to the SenderEmail field.
+func (o *TemplatePatchRequest) SetSenderEmail(v string) {
+	o.SenderEmail = &v
+}
+
+// GetMigration returns the Migration field value if set, zero value otherwise.
+func (o *TemplatePatchRequest) GetMigration() string {
+	if o == nil || IsNil(o.Migration) {
+		var ret string
+		return ret
+	}
+	return *o.Migration
+}
+
+// GetMigrationOk returns a tuple with the Migration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TemplatePatchRequest) GetMigrationOk() (*string, bool) {
+	if o == nil || IsNil(o.Migration) {
+		return nil, false
+	}
+	return o.Migration, true
+}
+
+// HasMigration returns a boolean if a field has been set.
+func (o *TemplatePatchRequest) HasMigration() bool {
+	if o != nil && !IsNil(o.Migration) {
+		return true
+	}
+
+	return false
+}
+
+// SetMigration gets a reference to the given string and assigns it to the Migration field.
+func (o *TemplatePatchRequest) SetMigration(v string) {
+	o.Migration = &v
+}
+
+// GetTitle returns the Title field value if set, zero value otherwise.
+func (o *TemplatePatchRequest) GetTitle() string {
+	if o == nil || IsNil(o.Title) {
+		var ret string
+		return ret
+	}
+	return *o.Title
+}
+
+// GetTitleOk returns a tuple with the Title field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TemplatePatchRequest) GetTitleOk() (*string, bool) {
+	if o == nil || IsNil(o.Title) {
+		return nil, false
+	}
+	return o.Title, true
+}
+
+// HasTitle returns a boolean if a field has been set.
+func (o *TemplatePatchRequest) HasTitle() bool {
+	if o != nil && !IsNil(o.Title) {
+		return true
+	}
+
+	return false
+}
+
+// SetTitle gets a reference to the given string and assigns it to the Title field.
+func (o *TemplatePatchRequest) SetTitle(v string) {
+	o.Title = &v
+}
+
+// GetRedirectURL returns the RedirectURL field value if set, zero value otherwise.
+func (o *TemplatePatchRequest) GetRedirectURL() string {
+	if o == nil || IsNil(o.RedirectURL) {
+		var ret string
+		return ret
+	}
+	return *o.RedirectURL
+}
+
+// GetRedirectURLOk returns a tuple with the RedirectURL field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TemplatePatchRequest) GetRedirectURLOk() (*string, bool) {
+	if o == nil || IsNil(o.RedirectURL) {
+		return nil, false
+	}
+	return o.RedirectURL, true
+}
+
+// HasRedirectURL returns a boolean if a field has been set.
+func (o *TemplatePatchRequest) HasRedirectURL() bool {
+	if o != nil && !IsNil(o.RedirectURL) {
+		return true
+	}
+
+	return false
+}
+
+// SetRedirectURL gets a reference to the given string and assigns it to the RedirectURL field.
+func (o *TemplatePatchRequest) SetRedirectURL(v string) {
+	o.RedirectURL = &v
+}
+
+// GetImageURL returns the ImageURL field value if set, zero value otherwise.
+func (o *TemplatePatchRequest) GetImageURL() string {
+	if o == nil || IsNil(o.ImageURL) {
+		var ret string
+		return ret
+	}
+	return *o.ImageURL
+}
+
+// GetImageURLOk returns a tuple with the ImageURL field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TemplatePatchRequest) GetImageURLOk() (*string, bool) {
+	if o == nil || IsNil(o.ImageURL) {
+		return nil, false
+	}
+	return o.ImageURL, true
+}
+
+// HasImageURL returns a boolean if a field has been set.
+func (o *TemplatePatchRequest) HasImageURL() bool {
+	if o != nil && !IsNil(o.ImageURL) {
+		return true
+	}
+
+	return false
+}
+
+// SetImageURL gets a reference to the given string and assigns it to the ImageURL field.
+func (o *TemplatePatchRequest) SetImageURL(v string) {
+	o.ImageURL = &v
+}
+
+// GetInstant returns the Instant field value if set, zero value otherwise.
+func (o *TemplatePatchRequest) GetInstant() TemplatePatchRequestInstant {
+	if o == nil || IsNil(o.Instant) {
+		var ret TemplatePatchRequestInstant
+		return ret
+	}
+	return *o.Instant
+}
+
+// GetInstantOk returns a tuple with the Instant field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TemplatePatchRequest) GetInstantOk() (*TemplatePatchRequestInstant, bool) {
+	if o == nil || IsNil(o.Instant) {
+		return nil, false
+	}
+	return o.Instant, true
+}
+
+// HasInstant returns a boolean if a field has been set.
+func (o *TemplatePatchRequest) HasInstant() bool {
+	if o != nil && !IsNil(o.Instant) {
+		return true
+	}
+
+	return false
+}
+
+// SetInstant gets a reference to the given TemplatePatchRequestInstant and assigns it to the Instant field.
+func (o *TemplatePatchRequest) SetInstant(v TemplatePatchRequestInstant) {
+	o.Instant = &v
+}
+
+// GetBatch returns the Batch field value if set, zero value otherwise.
+func (o *TemplatePatchRequest) GetBatch() TemplatePatchRequestBatch {
+	if o == nil || IsNil(o.Batch) {
+		var ret TemplatePatchRequestBatch
+		return ret
+	}
+	return *o.Batch
+}
+
+// GetBatchOk returns a tuple with the Batch field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TemplatePatchRequest) GetBatchOk() (*TemplatePatchRequestBatch, bool) {
+	if o == nil || IsNil(o.Batch) {
+		return nil, false
+	}
+	return o.Batch, true
+}
+
+// HasBatch returns a boolean if a field has been set.
+func (o *TemplatePatchRequest) HasBatch() bool {
+	if o != nil && !IsNil(o.Batch) {
+		return true
+	}
+
+	return false
+}
+
+// SetBatch gets a reference to the given TemplatePatchRequestBatch and assigns it to the Batch field.
+func (o *TemplatePatchRequest) SetBatch(v TemplatePatchRequestBatch) {
+	o.Batch = &v
+}
+
+// GetText returns the Text field value if set, zero value otherwise.
+func (o *TemplatePatchRequest) GetText() string {
+	if o == nil || IsNil(o.Text) {
+		var ret string
+		return ret
+	}
+	return *o.Text
+}
+
+// GetTextOk returns a tuple with the Text field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TemplatePatchRequest) GetTextOk() (*string, bool) {
+	if o == nil || IsNil(o.Text) {
+		return nil, false
+	}
+	return o.Text, true
+}
+
+// HasText returns a boolean if a field has been set.
+func (o *TemplatePatchRequest) HasText() bool {
+	if o != nil && !IsNil(o.Text) {
+		return true
+	}
+
+	return false
+}
+
+// SetText gets a reference to the given string and assigns it to the Text field.
+func (o *TemplatePatchRequest) SetText(v string) {
+	o.Text = &v
+}
+
+// GetMessage returns the Message field value if set, zero value otherwise.
+func (o *TemplatePatchRequest) GetMessage() string {
+	if o == nil || IsNil(o.Message) {
+		var ret string
+		return ret
+	}
+	return *o.Message
+}
+
+// GetMessageOk returns a tuple with the Message field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TemplatePatchRequest) GetMessageOk() (*string, bool) {
+	if o == nil || IsNil(o.Message) {
+		return nil, false
+	}
+	return o.Message, true
+}
+
+// HasMessage returns a boolean if a field has been set.
+func (o *TemplatePatchRequest) HasMessage() bool {
+	if o != nil && !IsNil(o.Message) {
+		return true
+	}
+
+	return false
+}
+
+// SetMessage gets a reference to the given string and assigns it to the Message field.
+func (o *TemplatePatchRequest) SetMessage(v string) {
+	o.Message = &v
+}
+
+// GetIcon returns the Icon field value if set, zero value otherwise.
+func (o *TemplatePatchRequest) GetIcon() string {
+	if o == nil || IsNil(o.Icon) {
+		var ret string
+		return ret
+	}
+	return *o.Icon
+}
+
+// GetIconOk returns a tuple with the Icon field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TemplatePatchRequest) GetIconOk() (*string, bool) {
+	if o == nil || IsNil(o.Icon) {
+		return nil, false
+	}
+	return o.Icon, true
+}
+
+// HasIcon returns a boolean if a field has been set.
+func (o *TemplatePatchRequest) HasIcon() bool {
+	if o != nil && !IsNil(o.Icon) {
+		return true
+	}
+
+	return false
+}
+
+// SetIcon gets a reference to the given string and assigns it to the Icon field.
+func (o *TemplatePatchRequest) SetIcon(v string) {
+	o.Icon = &v
+}
+
+// GetUrl returns the Url field value if set, zero value otherwise.
+func (o *TemplatePatchRequest) GetUrl() string {
+	if o == nil || IsNil(o.Url) {
+		var ret string
+		return ret
+	}
+	return *o.Url
+}
+
+// GetUrlOk returns a tuple with the Url field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TemplatePatchRequest) GetUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.Url) {
+		return nil, false
+	}
+	return o.Url, true
+}
+
+// HasUrl returns a boolean if a field has been set.
+func (o *TemplatePatchRequest) HasUrl() bool {
+	if o != nil && !IsNil(o.Url) {
+		return true
+	}
+
+	return false
+}
+
+// SetUrl gets a reference to the given string and assigns it to the Url field.
+func (o *TemplatePatchRequest) SetUrl(v string) {
+	o.Url = &v
+}
+
+// GetBlocks returns the Blocks field value if set, zero value otherwise.
+func (o *TemplatePatchRequest) GetBlocks() []map[string]interface{} {
+	if o == nil || IsNil(o.Blocks) {
+		var ret []map[string]interface{}
+		return ret
+	}
+	return o.Blocks
+}
+
+// GetBlocksOk returns a tuple with the Blocks field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TemplatePatchRequest) GetBlocksOk() ([]map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Blocks) {
+		return nil, false
+	}
+	return o.Blocks, true
+}
+
+// HasBlocks returns a boolean if a field has been set.
+func (o *TemplatePatchRequest) HasBlocks() bool {
+	if o != nil && !IsNil(o.Blocks) {
+		return true
+	}
+
+	return false
+}
+
+// SetBlocks gets a reference to the given []map[string]interface{} and assigns it to the Blocks field.
+func (o *TemplatePatchRequest) SetBlocks(v []map[string]interface{}) {
+	o.Blocks = v
+}
+
+// GetUsername returns the Username field value if set, zero value otherwise.
+func (o *TemplatePatchRequest) GetUsername() string {
+	if o == nil || IsNil(o.Username) {
+		var ret string
+		return ret
+	}
+	return *o.Username
+}
+
+// GetUsernameOk returns a tuple with the Username field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TemplatePatchRequest) GetUsernameOk() (*string, bool) {
+	if o == nil || IsNil(o.Username) {
+		return nil, false
+	}
+	return o.Username, true
+}
+
+// HasUsername returns a boolean if a field has been set.
+func (o *TemplatePatchRequest) HasUsername() bool {
+	if o != nil && !IsNil(o.Username) {
+		return true
+	}
+
+	return false
+}
+
+// SetUsername gets a reference to the given string and assigns it to the Username field.
+func (o *TemplatePatchRequest) SetUsername(v string) {
+	o.Username = &v
+}
+
+func (o TemplatePatchRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TemplatePatchRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Html) {
+		toSerialize["html"] = o.Html
+	}
+	if !IsNil(o.PreviewText) {
+		toSerialize["previewText"] = o.PreviewText
+	}
+	if !IsNil(o.Internal) {
+		toSerialize["internal"] = o.Internal
+	}
+	if !IsNil(o.Subject) {
+		toSerialize["subject"] = o.Subject
+	}
+	if !IsNil(o.SenderName) {
+		toSerialize["senderName"] = o.SenderName
+	}
+	if !IsNil(o.SenderEmail) {
+		toSerialize["senderEmail"] = o.SenderEmail
+	}
+	if !IsNil(o.Migration) {
+		toSerialize["migration"] = o.Migration
+	}
+	if !IsNil(o.Title) {
+		toSerialize["title"] = o.Title
+	}
+	if !IsNil(o.RedirectURL) {
+		toSerialize["redirectURL"] = o.RedirectURL
+	}
+	if !IsNil(o.ImageURL) {
+		toSerialize["imageURL"] = o.ImageURL
+	}
+	if !IsNil(o.Instant) {
+		toSerialize["instant"] = o.Instant
+	}
+	if !IsNil(o.Batch) {
+		toSerialize["batch"] = o.Batch
+	}
+	if !IsNil(o.Text) {
+		toSerialize["text"] = o.Text
+	}
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
+	}
+	if !IsNil(o.Icon) {
+		toSerialize["icon"] = o.Icon
+	}
+	if !IsNil(o.Url) {
+		toSerialize["url"] = o.Url
+	}
+	if !IsNil(o.Blocks) {
+		toSerialize["blocks"] = o.Blocks
+	}
+	if !IsNil(o.Username) {
+		toSerialize["username"] = o.Username
+	}
+	return toSerialize, nil
 }
 
 type NullableTemplatePatchRequest struct {

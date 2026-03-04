@@ -42,9 +42,9 @@ type TemplatePostRequest struct {
 	// URL to open when the user taps the notification.
 	RedirectURL *string `json:"redirectURL,omitempty"`
 	// Image URL shown in the in-app notification.
-	ImageURL *string                     `json:"imageURL,omitempty"`
-	Instant  *TemplatePostRequestInstant `json:"instant,omitempty"`
-	Batch    *TemplatePostRequestBatch   `json:"batch,omitempty"`
+	ImageURL *string                      `json:"imageURL,omitempty"`
+	Instant  *TemplatePatchRequestInstant `json:"instant,omitempty"`
+	Batch    *TemplatePatchRequestBatch   `json:"batch,omitempty"`
 	// Message text (SMS or call).
 	Text *string `json:"text,omitempty"`
 	// Push notification body text. (title is shared with INAPP_WEB above.)
@@ -424,9 +424,9 @@ func (o *TemplatePostRequest) SetImageURL(v string) {
 }
 
 // GetInstant returns the Instant field value if set, zero value otherwise.
-func (o *TemplatePostRequest) GetInstant() TemplatePostRequestInstant {
+func (o *TemplatePostRequest) GetInstant() TemplatePatchRequestInstant {
 	if o == nil || IsNil(o.Instant) {
-		var ret TemplatePostRequestInstant
+		var ret TemplatePatchRequestInstant
 		return ret
 	}
 	return *o.Instant
@@ -434,7 +434,7 @@ func (o *TemplatePostRequest) GetInstant() TemplatePostRequestInstant {
 
 // GetInstantOk returns a tuple with the Instant field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TemplatePostRequest) GetInstantOk() (*TemplatePostRequestInstant, bool) {
+func (o *TemplatePostRequest) GetInstantOk() (*TemplatePatchRequestInstant, bool) {
 	if o == nil || IsNil(o.Instant) {
 		return nil, false
 	}
@@ -450,15 +450,15 @@ func (o *TemplatePostRequest) HasInstant() bool {
 	return false
 }
 
-// SetInstant gets a reference to the given TemplatePostRequestInstant and assigns it to the Instant field.
-func (o *TemplatePostRequest) SetInstant(v TemplatePostRequestInstant) {
+// SetInstant gets a reference to the given TemplatePatchRequestInstant and assigns it to the Instant field.
+func (o *TemplatePostRequest) SetInstant(v TemplatePatchRequestInstant) {
 	o.Instant = &v
 }
 
 // GetBatch returns the Batch field value if set, zero value otherwise.
-func (o *TemplatePostRequest) GetBatch() TemplatePostRequestBatch {
+func (o *TemplatePostRequest) GetBatch() TemplatePatchRequestBatch {
 	if o == nil || IsNil(o.Batch) {
-		var ret TemplatePostRequestBatch
+		var ret TemplatePatchRequestBatch
 		return ret
 	}
 	return *o.Batch
@@ -466,7 +466,7 @@ func (o *TemplatePostRequest) GetBatch() TemplatePostRequestBatch {
 
 // GetBatchOk returns a tuple with the Batch field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TemplatePostRequest) GetBatchOk() (*TemplatePostRequestBatch, bool) {
+func (o *TemplatePostRequest) GetBatchOk() (*TemplatePatchRequestBatch, bool) {
 	if o == nil || IsNil(o.Batch) {
 		return nil, false
 	}
@@ -482,8 +482,8 @@ func (o *TemplatePostRequest) HasBatch() bool {
 	return false
 }
 
-// SetBatch gets a reference to the given TemplatePostRequestBatch and assigns it to the Batch field.
-func (o *TemplatePostRequest) SetBatch(v TemplatePostRequestBatch) {
+// SetBatch gets a reference to the given TemplatePatchRequestBatch and assigns it to the Batch field.
+func (o *TemplatePostRequest) SetBatch(v TemplatePatchRequestBatch) {
 	o.Batch = &v
 }
 

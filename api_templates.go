@@ -613,7 +613,7 @@ func (a *TemplatesAPIService) TemplatesSetDefaultTemplateExecute(r ApiTemplatesS
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/notifications/{notificationId}/{channel}/templates/default"
+	localVarPath := localBasePath + "/notifications/{notificationId}/{channel}/templates/default-selection"
 	localVarPath = strings.Replace(localVarPath, "{"+"notificationId"+"}", url.PathEscape(parameterValueToString(r.notificationId, "notificationId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"channel"+"}", url.PathEscape(parameterValueToString(r.channel, "channel")), -1)
 

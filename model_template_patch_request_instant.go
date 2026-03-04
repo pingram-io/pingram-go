@@ -16,38 +16,38 @@ import (
 	"fmt"
 )
 
-// checks if the TemplatePostRequestInstant type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &TemplatePostRequestInstant{}
+// checks if the TemplatePatchRequestInstant type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TemplatePatchRequestInstant{}
 
-// TemplatePostRequestInstant Copy for instant (real-time) delivery.
-type TemplatePostRequestInstant struct {
+// TemplatePatchRequestInstant Copy for instant (real-time) delivery.
+type TemplatePatchRequestInstant struct {
 	Title       *string `json:"title,omitempty"`
 	RedirectURL *string `json:"redirectURL,omitempty"`
 	ImageURL    string  `json:"imageURL"`
 }
 
-type _TemplatePostRequestInstant TemplatePostRequestInstant
+type _TemplatePatchRequestInstant TemplatePatchRequestInstant
 
-// NewTemplatePostRequestInstant instantiates a new TemplatePostRequestInstant object
+// NewTemplatePatchRequestInstant instantiates a new TemplatePatchRequestInstant object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTemplatePostRequestInstant(imageURL string) *TemplatePostRequestInstant {
-	this := TemplatePostRequestInstant{}
+func NewTemplatePatchRequestInstant(imageURL string) *TemplatePatchRequestInstant {
+	this := TemplatePatchRequestInstant{}
 	this.ImageURL = imageURL
 	return &this
 }
 
-// NewTemplatePostRequestInstantWithDefaults instantiates a new TemplatePostRequestInstant object
+// NewTemplatePatchRequestInstantWithDefaults instantiates a new TemplatePatchRequestInstant object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewTemplatePostRequestInstantWithDefaults() *TemplatePostRequestInstant {
-	this := TemplatePostRequestInstant{}
+func NewTemplatePatchRequestInstantWithDefaults() *TemplatePatchRequestInstant {
+	this := TemplatePatchRequestInstant{}
 	return &this
 }
 
 // GetTitle returns the Title field value if set, zero value otherwise.
-func (o *TemplatePostRequestInstant) GetTitle() string {
+func (o *TemplatePatchRequestInstant) GetTitle() string {
 	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
@@ -57,7 +57,7 @@ func (o *TemplatePostRequestInstant) GetTitle() string {
 
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TemplatePostRequestInstant) GetTitleOk() (*string, bool) {
+func (o *TemplatePatchRequestInstant) GetTitleOk() (*string, bool) {
 	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
@@ -65,7 +65,7 @@ func (o *TemplatePostRequestInstant) GetTitleOk() (*string, bool) {
 }
 
 // HasTitle returns a boolean if a field has been set.
-func (o *TemplatePostRequestInstant) HasTitle() bool {
+func (o *TemplatePatchRequestInstant) HasTitle() bool {
 	if o != nil && !IsNil(o.Title) {
 		return true
 	}
@@ -74,12 +74,12 @@ func (o *TemplatePostRequestInstant) HasTitle() bool {
 }
 
 // SetTitle gets a reference to the given string and assigns it to the Title field.
-func (o *TemplatePostRequestInstant) SetTitle(v string) {
+func (o *TemplatePatchRequestInstant) SetTitle(v string) {
 	o.Title = &v
 }
 
 // GetRedirectURL returns the RedirectURL field value if set, zero value otherwise.
-func (o *TemplatePostRequestInstant) GetRedirectURL() string {
+func (o *TemplatePatchRequestInstant) GetRedirectURL() string {
 	if o == nil || IsNil(o.RedirectURL) {
 		var ret string
 		return ret
@@ -89,7 +89,7 @@ func (o *TemplatePostRequestInstant) GetRedirectURL() string {
 
 // GetRedirectURLOk returns a tuple with the RedirectURL field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TemplatePostRequestInstant) GetRedirectURLOk() (*string, bool) {
+func (o *TemplatePatchRequestInstant) GetRedirectURLOk() (*string, bool) {
 	if o == nil || IsNil(o.RedirectURL) {
 		return nil, false
 	}
@@ -97,7 +97,7 @@ func (o *TemplatePostRequestInstant) GetRedirectURLOk() (*string, bool) {
 }
 
 // HasRedirectURL returns a boolean if a field has been set.
-func (o *TemplatePostRequestInstant) HasRedirectURL() bool {
+func (o *TemplatePatchRequestInstant) HasRedirectURL() bool {
 	if o != nil && !IsNil(o.RedirectURL) {
 		return true
 	}
@@ -106,12 +106,12 @@ func (o *TemplatePostRequestInstant) HasRedirectURL() bool {
 }
 
 // SetRedirectURL gets a reference to the given string and assigns it to the RedirectURL field.
-func (o *TemplatePostRequestInstant) SetRedirectURL(v string) {
+func (o *TemplatePatchRequestInstant) SetRedirectURL(v string) {
 	o.RedirectURL = &v
 }
 
 // GetImageURL returns the ImageURL field value
-func (o *TemplatePostRequestInstant) GetImageURL() string {
+func (o *TemplatePatchRequestInstant) GetImageURL() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -122,7 +122,7 @@ func (o *TemplatePostRequestInstant) GetImageURL() string {
 
 // GetImageURLOk returns a tuple with the ImageURL field value
 // and a boolean to check if the value has been set.
-func (o *TemplatePostRequestInstant) GetImageURLOk() (*string, bool) {
+func (o *TemplatePatchRequestInstant) GetImageURLOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -130,11 +130,11 @@ func (o *TemplatePostRequestInstant) GetImageURLOk() (*string, bool) {
 }
 
 // SetImageURL sets field value
-func (o *TemplatePostRequestInstant) SetImageURL(v string) {
+func (o *TemplatePatchRequestInstant) SetImageURL(v string) {
 	o.ImageURL = v
 }
 
-func (o TemplatePostRequestInstant) MarshalJSON() ([]byte, error) {
+func (o TemplatePatchRequestInstant) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -142,7 +142,7 @@ func (o TemplatePostRequestInstant) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o TemplatePostRequestInstant) ToMap() (map[string]interface{}, error) {
+func (o TemplatePatchRequestInstant) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
@@ -154,7 +154,7 @@ func (o TemplatePostRequestInstant) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *TemplatePostRequestInstant) UnmarshalJSON(data []byte) (err error) {
+func (o *TemplatePatchRequestInstant) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -176,53 +176,53 @@ func (o *TemplatePostRequestInstant) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varTemplatePostRequestInstant := _TemplatePostRequestInstant{}
+	varTemplatePatchRequestInstant := _TemplatePatchRequestInstant{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varTemplatePostRequestInstant)
+	err = decoder.Decode(&varTemplatePatchRequestInstant)
 
 	if err != nil {
 		return err
 	}
 
-	*o = TemplatePostRequestInstant(varTemplatePostRequestInstant)
+	*o = TemplatePatchRequestInstant(varTemplatePatchRequestInstant)
 
 	return err
 }
 
-type NullableTemplatePostRequestInstant struct {
-	value *TemplatePostRequestInstant
+type NullableTemplatePatchRequestInstant struct {
+	value *TemplatePatchRequestInstant
 	isSet bool
 }
 
-func (v NullableTemplatePostRequestInstant) Get() *TemplatePostRequestInstant {
+func (v NullableTemplatePatchRequestInstant) Get() *TemplatePatchRequestInstant {
 	return v.value
 }
 
-func (v *NullableTemplatePostRequestInstant) Set(val *TemplatePostRequestInstant) {
+func (v *NullableTemplatePatchRequestInstant) Set(val *TemplatePatchRequestInstant) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableTemplatePostRequestInstant) IsSet() bool {
+func (v NullableTemplatePatchRequestInstant) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableTemplatePostRequestInstant) Unset() {
+func (v *NullableTemplatePatchRequestInstant) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableTemplatePostRequestInstant(val *TemplatePostRequestInstant) *NullableTemplatePostRequestInstant {
-	return &NullableTemplatePostRequestInstant{value: val, isSet: true}
+func NewNullableTemplatePatchRequestInstant(val *TemplatePatchRequestInstant) *NullableTemplatePatchRequestInstant {
+	return &NullableTemplatePatchRequestInstant{value: val, isSet: true}
 }
 
-func (v NullableTemplatePostRequestInstant) MarshalJSON() ([]byte, error) {
+func (v NullableTemplatePatchRequestInstant) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableTemplatePostRequestInstant) UnmarshalJSON(src []byte) error {
+func (v *NullableTemplatePatchRequestInstant) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
