@@ -33,7 +33,6 @@ type GetTemplatesListResponseInnerAnyOf struct {
 	Subject        string           `json:"subject"`
 	SenderName     string           `json:"senderName"`
 	SenderEmail    string           `json:"senderEmail"`
-	Migration      *string          `json:"migration,omitempty"`
 }
 
 type _GetTemplatesListResponseInnerAnyOf GetTemplatesListResponseInnerAnyOf
@@ -369,38 +368,6 @@ func (o *GetTemplatesListResponseInnerAnyOf) SetSenderEmail(v string) {
 	o.SenderEmail = v
 }
 
-// GetMigration returns the Migration field value if set, zero value otherwise.
-func (o *GetTemplatesListResponseInnerAnyOf) GetMigration() string {
-	if o == nil || IsNil(o.Migration) {
-		var ret string
-		return ret
-	}
-	return *o.Migration
-}
-
-// GetMigrationOk returns a tuple with the Migration field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GetTemplatesListResponseInnerAnyOf) GetMigrationOk() (*string, bool) {
-	if o == nil || IsNil(o.Migration) {
-		return nil, false
-	}
-	return o.Migration, true
-}
-
-// HasMigration returns a boolean if a field has been set.
-func (o *GetTemplatesListResponseInnerAnyOf) HasMigration() bool {
-	if o != nil && !IsNil(o.Migration) {
-		return true
-	}
-
-	return false
-}
-
-// SetMigration gets a reference to the given string and assigns it to the Migration field.
-func (o *GetTemplatesListResponseInnerAnyOf) SetMigration(v string) {
-	o.Migration = &v
-}
-
 func (o GetTemplatesListResponseInnerAnyOf) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -427,9 +394,6 @@ func (o GetTemplatesListResponseInnerAnyOf) ToMap() (map[string]interface{}, err
 	toSerialize["subject"] = o.Subject
 	toSerialize["senderName"] = o.SenderName
 	toSerialize["senderEmail"] = o.SenderEmail
-	if !IsNil(o.Migration) {
-		toSerialize["migration"] = o.Migration
-	}
 	return toSerialize, nil
 }
 

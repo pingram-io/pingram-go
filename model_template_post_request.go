@@ -35,8 +35,6 @@ type TemplatePostRequest struct {
 	SenderName *string `json:"senderName,omitempty"`
 	// Sender email address.
 	SenderEmail *string `json:"senderEmail,omitempty"`
-	// Migration metadata (e.g. from template migration).
-	Migration *string `json:"migration,omitempty"`
 	// Notification title (in-app).
 	Title *string `json:"title,omitempty"`
 	// URL to open when the user taps the notification.
@@ -293,38 +291,6 @@ func (o *TemplatePostRequest) HasSenderEmail() bool {
 // SetSenderEmail gets a reference to the given string and assigns it to the SenderEmail field.
 func (o *TemplatePostRequest) SetSenderEmail(v string) {
 	o.SenderEmail = &v
-}
-
-// GetMigration returns the Migration field value if set, zero value otherwise.
-func (o *TemplatePostRequest) GetMigration() string {
-	if o == nil || IsNil(o.Migration) {
-		var ret string
-		return ret
-	}
-	return *o.Migration
-}
-
-// GetMigrationOk returns a tuple with the Migration field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *TemplatePostRequest) GetMigrationOk() (*string, bool) {
-	if o == nil || IsNil(o.Migration) {
-		return nil, false
-	}
-	return o.Migration, true
-}
-
-// HasMigration returns a boolean if a field has been set.
-func (o *TemplatePostRequest) HasMigration() bool {
-	if o != nil && !IsNil(o.Migration) {
-		return true
-	}
-
-	return false
-}
-
-// SetMigration gets a reference to the given string and assigns it to the Migration field.
-func (o *TemplatePostRequest) SetMigration(v string) {
-	o.Migration = &v
 }
 
 // GetTitle returns the Title field value if set, zero value otherwise.
@@ -707,9 +673,6 @@ func (o TemplatePostRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.SenderEmail) {
 		toSerialize["senderEmail"] = o.SenderEmail
-	}
-	if !IsNil(o.Migration) {
-		toSerialize["migration"] = o.Migration
 	}
 	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
