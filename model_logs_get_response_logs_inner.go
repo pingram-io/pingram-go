@@ -148,25 +148,36 @@ type LogsGetResponseLogsInner struct {
 	CallDeliveredAt              *string  `json:"call_delivered_at,omitempty"`
 	CallDeliveredAfter           *float32 `json:"call_delivered_after,omitempty"`
 	CallDeliveredCode            *string  `json:"call_delivered_code,omitempty"`
-	CallFailedAt                 *string  `json:"call_failed_at,omitempty"`
-	CallFailedCode               *string  `json:"call_failed_code,omitempty"`
-	CallFailedInternal           *string  `json:"call_failed_internal,omitempty"`
-	SmsFailedAt                  *string  `json:"sms_failed_at,omitempty"`
-	SmsFailedCode                *string  `json:"sms_failed_code,omitempty"`
-	SmsFailedInternal            *string  `json:"sms_failed_internal,omitempty"`
-	SmsSentAt                    *string  `json:"sms_sent_at,omitempty"`
-	SmsSentAfter                 *float32 `json:"sms_sent_after,omitempty"`
-	SmsSentFrom                  *string  `json:"sms_sent_from,omitempty"`
-	SmsSentCarrier               *string  `json:"sms_sent_carrier,omitempty"`
-	SmsSentLineType              *string  `json:"sms_sent_line_type,omitempty"`
-	SmsSentEncoding              *string  `json:"sms_sent_encoding,omitempty"`
-	SmsSentSegments              *float32 `json:"sms_sent_segments,omitempty"`
-	SmsSentParts                 *float32 `json:"sms_sent_parts,omitempty"`
-	SmsDeliveredAt               *string  `json:"sms_delivered_at,omitempty"`
-	SmsDeliveredAfter            *float32 `json:"sms_delivered_after,omitempty"`
-	ScheduleUpdatedAt            *string  `json:"schedule_updated_at,omitempty"`
-	ScheduleUpdatedTo            *string  `json:"schedule_updated_to,omitempty"`
-	ScheduleDeletedAt            *string  `json:"schedule_deleted_at,omitempty"`
+	CallDeliveredCostInternal    *float32 `json:"call_delivered_cost_internal,omitempty"`
+	// Same value as call_delivered_cost_internal (for API/external use)
+	CallDeliveredCost  *float32 `json:"call_delivered_cost,omitempty"`
+	CallFailedAt       *string  `json:"call_failed_at,omitempty"`
+	CallFailedCode     *string  `json:"call_failed_code,omitempty"`
+	CallFailedInternal *string  `json:"call_failed_internal,omitempty"`
+	SmsFailedAt        *string  `json:"sms_failed_at,omitempty"`
+	SmsFailedCode      *string  `json:"sms_failed_code,omitempty"`
+	SmsFailedInternal  *string  `json:"sms_failed_internal,omitempty"`
+	SmsSentAt          *string  `json:"sms_sent_at,omitempty"`
+	SmsSentAfter       *float32 `json:"sms_sent_after,omitempty"`
+	SmsSentFrom        *string  `json:"sms_sent_from,omitempty"`
+	SmsSentCarrier     *string  `json:"sms_sent_carrier,omitempty"`
+	SmsSentLineType    *string  `json:"sms_sent_line_type,omitempty"`
+	SmsSentEncoding    *string  `json:"sms_sent_encoding,omitempty"`
+	SmsSentSegments    *float32 `json:"sms_sent_segments,omitempty"`
+	SmsSentParts       *float32 `json:"sms_sent_parts,omitempty"`
+	SmsSentCost        *float32 `json:"sms_sent_cost,omitempty"`
+	SmsSentCountry     *string  `json:"sms_sent_country,omitempty"`
+	// Actual cost from Telnyx/Twilio (internal)
+	SmsCarrierCostInternal *float32 `json:"sms_carrier_cost_internal,omitempty"`
+	SmsCarrierFeeInternal  *float32 `json:"sms_carrier_fee_internal,omitempty"`
+	SmsRateInternal        *float32 `json:"sms_rate_internal,omitempty"`
+	SmsDeliveredAt         *string  `json:"sms_delivered_at,omitempty"`
+	SmsDeliveredAfter      *float32 `json:"sms_delivered_after,omitempty"`
+	// Actual cost from Twilio webhook (USD), for internal logging
+	SmsDeliveredCostInternal *float32 `json:"sms_delivered_cost_internal,omitempty"`
+	ScheduleUpdatedAt        *string  `json:"schedule_updated_at,omitempty"`
+	ScheduleUpdatedTo        *string  `json:"schedule_updated_to,omitempty"`
+	ScheduleDeletedAt        *string  `json:"schedule_deleted_at,omitempty"`
 }
 
 type _LogsGetResponseLogsInner LogsGetResponseLogsInner
@@ -4238,6 +4249,70 @@ func (o *LogsGetResponseLogsInner) SetCallDeliveredCode(v string) {
 	o.CallDeliveredCode = &v
 }
 
+// GetCallDeliveredCostInternal returns the CallDeliveredCostInternal field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetCallDeliveredCostInternal() float32 {
+	if o == nil || IsNil(o.CallDeliveredCostInternal) {
+		var ret float32
+		return ret
+	}
+	return *o.CallDeliveredCostInternal
+}
+
+// GetCallDeliveredCostInternalOk returns a tuple with the CallDeliveredCostInternal field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetCallDeliveredCostInternalOk() (*float32, bool) {
+	if o == nil || IsNil(o.CallDeliveredCostInternal) {
+		return nil, false
+	}
+	return o.CallDeliveredCostInternal, true
+}
+
+// HasCallDeliveredCostInternal returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasCallDeliveredCostInternal() bool {
+	if o != nil && !IsNil(o.CallDeliveredCostInternal) {
+		return true
+	}
+
+	return false
+}
+
+// SetCallDeliveredCostInternal gets a reference to the given float32 and assigns it to the CallDeliveredCostInternal field.
+func (o *LogsGetResponseLogsInner) SetCallDeliveredCostInternal(v float32) {
+	o.CallDeliveredCostInternal = &v
+}
+
+// GetCallDeliveredCost returns the CallDeliveredCost field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetCallDeliveredCost() float32 {
+	if o == nil || IsNil(o.CallDeliveredCost) {
+		var ret float32
+		return ret
+	}
+	return *o.CallDeliveredCost
+}
+
+// GetCallDeliveredCostOk returns a tuple with the CallDeliveredCost field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetCallDeliveredCostOk() (*float32, bool) {
+	if o == nil || IsNil(o.CallDeliveredCost) {
+		return nil, false
+	}
+	return o.CallDeliveredCost, true
+}
+
+// HasCallDeliveredCost returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasCallDeliveredCost() bool {
+	if o != nil && !IsNil(o.CallDeliveredCost) {
+		return true
+	}
+
+	return false
+}
+
+// SetCallDeliveredCost gets a reference to the given float32 and assigns it to the CallDeliveredCost field.
+func (o *LogsGetResponseLogsInner) SetCallDeliveredCost(v float32) {
+	o.CallDeliveredCost = &v
+}
+
 // GetCallFailedAt returns the CallFailedAt field value if set, zero value otherwise.
 func (o *LogsGetResponseLogsInner) GetCallFailedAt() string {
 	if o == nil || IsNil(o.CallFailedAt) {
@@ -4686,6 +4761,166 @@ func (o *LogsGetResponseLogsInner) SetSmsSentParts(v float32) {
 	o.SmsSentParts = &v
 }
 
+// GetSmsSentCost returns the SmsSentCost field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetSmsSentCost() float32 {
+	if o == nil || IsNil(o.SmsSentCost) {
+		var ret float32
+		return ret
+	}
+	return *o.SmsSentCost
+}
+
+// GetSmsSentCostOk returns a tuple with the SmsSentCost field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetSmsSentCostOk() (*float32, bool) {
+	if o == nil || IsNil(o.SmsSentCost) {
+		return nil, false
+	}
+	return o.SmsSentCost, true
+}
+
+// HasSmsSentCost returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasSmsSentCost() bool {
+	if o != nil && !IsNil(o.SmsSentCost) {
+		return true
+	}
+
+	return false
+}
+
+// SetSmsSentCost gets a reference to the given float32 and assigns it to the SmsSentCost field.
+func (o *LogsGetResponseLogsInner) SetSmsSentCost(v float32) {
+	o.SmsSentCost = &v
+}
+
+// GetSmsSentCountry returns the SmsSentCountry field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetSmsSentCountry() string {
+	if o == nil || IsNil(o.SmsSentCountry) {
+		var ret string
+		return ret
+	}
+	return *o.SmsSentCountry
+}
+
+// GetSmsSentCountryOk returns a tuple with the SmsSentCountry field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetSmsSentCountryOk() (*string, bool) {
+	if o == nil || IsNil(o.SmsSentCountry) {
+		return nil, false
+	}
+	return o.SmsSentCountry, true
+}
+
+// HasSmsSentCountry returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasSmsSentCountry() bool {
+	if o != nil && !IsNil(o.SmsSentCountry) {
+		return true
+	}
+
+	return false
+}
+
+// SetSmsSentCountry gets a reference to the given string and assigns it to the SmsSentCountry field.
+func (o *LogsGetResponseLogsInner) SetSmsSentCountry(v string) {
+	o.SmsSentCountry = &v
+}
+
+// GetSmsCarrierCostInternal returns the SmsCarrierCostInternal field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetSmsCarrierCostInternal() float32 {
+	if o == nil || IsNil(o.SmsCarrierCostInternal) {
+		var ret float32
+		return ret
+	}
+	return *o.SmsCarrierCostInternal
+}
+
+// GetSmsCarrierCostInternalOk returns a tuple with the SmsCarrierCostInternal field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetSmsCarrierCostInternalOk() (*float32, bool) {
+	if o == nil || IsNil(o.SmsCarrierCostInternal) {
+		return nil, false
+	}
+	return o.SmsCarrierCostInternal, true
+}
+
+// HasSmsCarrierCostInternal returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasSmsCarrierCostInternal() bool {
+	if o != nil && !IsNil(o.SmsCarrierCostInternal) {
+		return true
+	}
+
+	return false
+}
+
+// SetSmsCarrierCostInternal gets a reference to the given float32 and assigns it to the SmsCarrierCostInternal field.
+func (o *LogsGetResponseLogsInner) SetSmsCarrierCostInternal(v float32) {
+	o.SmsCarrierCostInternal = &v
+}
+
+// GetSmsCarrierFeeInternal returns the SmsCarrierFeeInternal field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetSmsCarrierFeeInternal() float32 {
+	if o == nil || IsNil(o.SmsCarrierFeeInternal) {
+		var ret float32
+		return ret
+	}
+	return *o.SmsCarrierFeeInternal
+}
+
+// GetSmsCarrierFeeInternalOk returns a tuple with the SmsCarrierFeeInternal field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetSmsCarrierFeeInternalOk() (*float32, bool) {
+	if o == nil || IsNil(o.SmsCarrierFeeInternal) {
+		return nil, false
+	}
+	return o.SmsCarrierFeeInternal, true
+}
+
+// HasSmsCarrierFeeInternal returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasSmsCarrierFeeInternal() bool {
+	if o != nil && !IsNil(o.SmsCarrierFeeInternal) {
+		return true
+	}
+
+	return false
+}
+
+// SetSmsCarrierFeeInternal gets a reference to the given float32 and assigns it to the SmsCarrierFeeInternal field.
+func (o *LogsGetResponseLogsInner) SetSmsCarrierFeeInternal(v float32) {
+	o.SmsCarrierFeeInternal = &v
+}
+
+// GetSmsRateInternal returns the SmsRateInternal field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetSmsRateInternal() float32 {
+	if o == nil || IsNil(o.SmsRateInternal) {
+		var ret float32
+		return ret
+	}
+	return *o.SmsRateInternal
+}
+
+// GetSmsRateInternalOk returns a tuple with the SmsRateInternal field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetSmsRateInternalOk() (*float32, bool) {
+	if o == nil || IsNil(o.SmsRateInternal) {
+		return nil, false
+	}
+	return o.SmsRateInternal, true
+}
+
+// HasSmsRateInternal returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasSmsRateInternal() bool {
+	if o != nil && !IsNil(o.SmsRateInternal) {
+		return true
+	}
+
+	return false
+}
+
+// SetSmsRateInternal gets a reference to the given float32 and assigns it to the SmsRateInternal field.
+func (o *LogsGetResponseLogsInner) SetSmsRateInternal(v float32) {
+	o.SmsRateInternal = &v
+}
+
 // GetSmsDeliveredAt returns the SmsDeliveredAt field value if set, zero value otherwise.
 func (o *LogsGetResponseLogsInner) GetSmsDeliveredAt() string {
 	if o == nil || IsNil(o.SmsDeliveredAt) {
@@ -4748,6 +4983,38 @@ func (o *LogsGetResponseLogsInner) HasSmsDeliveredAfter() bool {
 // SetSmsDeliveredAfter gets a reference to the given float32 and assigns it to the SmsDeliveredAfter field.
 func (o *LogsGetResponseLogsInner) SetSmsDeliveredAfter(v float32) {
 	o.SmsDeliveredAfter = &v
+}
+
+// GetSmsDeliveredCostInternal returns the SmsDeliveredCostInternal field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetSmsDeliveredCostInternal() float32 {
+	if o == nil || IsNil(o.SmsDeliveredCostInternal) {
+		var ret float32
+		return ret
+	}
+	return *o.SmsDeliveredCostInternal
+}
+
+// GetSmsDeliveredCostInternalOk returns a tuple with the SmsDeliveredCostInternal field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetSmsDeliveredCostInternalOk() (*float32, bool) {
+	if o == nil || IsNil(o.SmsDeliveredCostInternal) {
+		return nil, false
+	}
+	return o.SmsDeliveredCostInternal, true
+}
+
+// HasSmsDeliveredCostInternal returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasSmsDeliveredCostInternal() bool {
+	if o != nil && !IsNil(o.SmsDeliveredCostInternal) {
+		return true
+	}
+
+	return false
+}
+
+// SetSmsDeliveredCostInternal gets a reference to the given float32 and assigns it to the SmsDeliveredCostInternal field.
+func (o *LogsGetResponseLogsInner) SetSmsDeliveredCostInternal(v float32) {
+	o.SmsDeliveredCostInternal = &v
 }
 
 // GetScheduleUpdatedAt returns the ScheduleUpdatedAt field value if set, zero value otherwise.
@@ -5233,6 +5500,12 @@ func (o LogsGetResponseLogsInner) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CallDeliveredCode) {
 		toSerialize["call_delivered_code"] = o.CallDeliveredCode
 	}
+	if !IsNil(o.CallDeliveredCostInternal) {
+		toSerialize["call_delivered_cost_internal"] = o.CallDeliveredCostInternal
+	}
+	if !IsNil(o.CallDeliveredCost) {
+		toSerialize["call_delivered_cost"] = o.CallDeliveredCost
+	}
 	if !IsNil(o.CallFailedAt) {
 		toSerialize["call_failed_at"] = o.CallFailedAt
 	}
@@ -5275,11 +5548,29 @@ func (o LogsGetResponseLogsInner) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SmsSentParts) {
 		toSerialize["sms_sent_parts"] = o.SmsSentParts
 	}
+	if !IsNil(o.SmsSentCost) {
+		toSerialize["sms_sent_cost"] = o.SmsSentCost
+	}
+	if !IsNil(o.SmsSentCountry) {
+		toSerialize["sms_sent_country"] = o.SmsSentCountry
+	}
+	if !IsNil(o.SmsCarrierCostInternal) {
+		toSerialize["sms_carrier_cost_internal"] = o.SmsCarrierCostInternal
+	}
+	if !IsNil(o.SmsCarrierFeeInternal) {
+		toSerialize["sms_carrier_fee_internal"] = o.SmsCarrierFeeInternal
+	}
+	if !IsNil(o.SmsRateInternal) {
+		toSerialize["sms_rate_internal"] = o.SmsRateInternal
+	}
 	if !IsNil(o.SmsDeliveredAt) {
 		toSerialize["sms_delivered_at"] = o.SmsDeliveredAt
 	}
 	if !IsNil(o.SmsDeliveredAfter) {
 		toSerialize["sms_delivered_after"] = o.SmsDeliveredAfter
+	}
+	if !IsNil(o.SmsDeliveredCostInternal) {
+		toSerialize["sms_delivered_cost_internal"] = o.SmsDeliveredCostInternal
 	}
 	if !IsNil(o.ScheduleUpdatedAt) {
 		toSerialize["schedule_updated_at"] = o.ScheduleUpdatedAt

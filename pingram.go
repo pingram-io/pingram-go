@@ -71,6 +71,10 @@ type Client struct {
 
 	MembersAPI *MembersAPIService
 
+	OrganizationAPI *OrganizationAPIService
+
+	PushSettingsAPI *PushSettingsAPIService
+
 	SenderAPI *SenderAPIService
 
 	TemplatesAPI *TemplatesAPIService
@@ -80,6 +84,8 @@ type Client struct {
 	UserAPI *UserAPIService
 
 	UsersAPI *UsersAPIService
+
+	WebhooksAPI *WebhooksAPIService
 }
 
 // NewClient creates a new Pingram client with the given API key
@@ -125,6 +131,10 @@ func NewClient(apiKey string, opts ...ClientOption) *Client {
 
 	c.MembersAPI = (*MembersAPIService)(&c.common)
 
+	c.OrganizationAPI = (*OrganizationAPIService)(&c.common)
+
+	c.PushSettingsAPI = (*PushSettingsAPIService)(&c.common)
+
 	c.SenderAPI = (*SenderAPIService)(&c.common)
 
 	c.TemplatesAPI = (*TemplatesAPIService)(&c.common)
@@ -134,6 +144,8 @@ func NewClient(apiKey string, opts ...ClientOption) *Client {
 	c.UserAPI = (*UserAPIService)(&c.common)
 
 	c.UsersAPI = (*UsersAPIService)(&c.common)
+
+	c.WebhooksAPI = (*WebhooksAPIService)(&c.common)
 
 	return c
 }

@@ -72,6 +72,10 @@ type APIClient struct {
 
 	MembersAPI *MembersAPIService
 
+	OrganizationAPI *OrganizationAPIService
+
+	PushSettingsAPI *PushSettingsAPIService
+
 	SenderAPI *SenderAPIService
 
 	TemplatesAPI *TemplatesAPIService
@@ -81,6 +85,8 @@ type APIClient struct {
 	UserAPI *UserAPIService
 
 	UsersAPI *UsersAPIService
+
+	WebhooksAPI *WebhooksAPIService
 }
 
 type service struct {
@@ -111,11 +117,14 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.KeysAPI = (*KeysAPIService)(&c.common)
 	c.LogsAPI = (*LogsAPIService)(&c.common)
 	c.MembersAPI = (*MembersAPIService)(&c.common)
+	c.OrganizationAPI = (*OrganizationAPIService)(&c.common)
+	c.PushSettingsAPI = (*PushSettingsAPIService)(&c.common)
 	c.SenderAPI = (*SenderAPIService)(&c.common)
 	c.TemplatesAPI = (*TemplatesAPIService)(&c.common)
 	c.TypesAPI = (*TypesAPIService)(&c.common)
 	c.UserAPI = (*UserAPIService)(&c.common)
 	c.UsersAPI = (*UsersAPIService)(&c.common)
+	c.WebhooksAPI = (*WebhooksAPIService)(&c.common)
 
 	return c
 }

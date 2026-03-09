@@ -21,9 +21,12 @@ var _ MappedNullable = &BillingPostRequestBody{}
 
 // BillingPostRequestBody struct for BillingPostRequestBody
 type BillingPostRequestBody struct {
-	PriceId    string `json:"priceId"`
-	SuccessUrl string `json:"successUrl"`
-	CancelUrl  string `json:"cancelUrl"`
+	// Price ID for the message tier (EMAIL, INAPP_WEB, WEB_PUSH, PUSH, SLACK)
+	MessagePriceId *string `json:"messagePriceId,omitempty"`
+	// Price ID for the budget tier (SMS, CALL)
+	BudgetPriceId *string `json:"budgetPriceId,omitempty"`
+	SuccessUrl    string  `json:"successUrl"`
+	CancelUrl     string  `json:"cancelUrl"`
 }
 
 type _BillingPostRequestBody BillingPostRequestBody
@@ -32,9 +35,8 @@ type _BillingPostRequestBody BillingPostRequestBody
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBillingPostRequestBody(priceId string, successUrl string, cancelUrl string) *BillingPostRequestBody {
+func NewBillingPostRequestBody(successUrl string, cancelUrl string) *BillingPostRequestBody {
 	this := BillingPostRequestBody{}
-	this.PriceId = priceId
 	this.SuccessUrl = successUrl
 	this.CancelUrl = cancelUrl
 	return &this
@@ -48,28 +50,68 @@ func NewBillingPostRequestBodyWithDefaults() *BillingPostRequestBody {
 	return &this
 }
 
-// GetPriceId returns the PriceId field value
-func (o *BillingPostRequestBody) GetPriceId() string {
-	if o == nil {
+// GetMessagePriceId returns the MessagePriceId field value if set, zero value otherwise.
+func (o *BillingPostRequestBody) GetMessagePriceId() string {
+	if o == nil || IsNil(o.MessagePriceId) {
 		var ret string
 		return ret
 	}
-
-	return o.PriceId
+	return *o.MessagePriceId
 }
 
-// GetPriceIdOk returns a tuple with the PriceId field value
+// GetMessagePriceIdOk returns a tuple with the MessagePriceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BillingPostRequestBody) GetPriceIdOk() (*string, bool) {
-	if o == nil {
+func (o *BillingPostRequestBody) GetMessagePriceIdOk() (*string, bool) {
+	if o == nil || IsNil(o.MessagePriceId) {
 		return nil, false
 	}
-	return &o.PriceId, true
+	return o.MessagePriceId, true
 }
 
-// SetPriceId sets field value
-func (o *BillingPostRequestBody) SetPriceId(v string) {
-	o.PriceId = v
+// HasMessagePriceId returns a boolean if a field has been set.
+func (o *BillingPostRequestBody) HasMessagePriceId() bool {
+	if o != nil && !IsNil(o.MessagePriceId) {
+		return true
+	}
+
+	return false
+}
+
+// SetMessagePriceId gets a reference to the given string and assigns it to the MessagePriceId field.
+func (o *BillingPostRequestBody) SetMessagePriceId(v string) {
+	o.MessagePriceId = &v
+}
+
+// GetBudgetPriceId returns the BudgetPriceId field value if set, zero value otherwise.
+func (o *BillingPostRequestBody) GetBudgetPriceId() string {
+	if o == nil || IsNil(o.BudgetPriceId) {
+		var ret string
+		return ret
+	}
+	return *o.BudgetPriceId
+}
+
+// GetBudgetPriceIdOk returns a tuple with the BudgetPriceId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingPostRequestBody) GetBudgetPriceIdOk() (*string, bool) {
+	if o == nil || IsNil(o.BudgetPriceId) {
+		return nil, false
+	}
+	return o.BudgetPriceId, true
+}
+
+// HasBudgetPriceId returns a boolean if a field has been set.
+func (o *BillingPostRequestBody) HasBudgetPriceId() bool {
+	if o != nil && !IsNil(o.BudgetPriceId) {
+		return true
+	}
+
+	return false
+}
+
+// SetBudgetPriceId gets a reference to the given string and assigns it to the BudgetPriceId field.
+func (o *BillingPostRequestBody) SetBudgetPriceId(v string) {
+	o.BudgetPriceId = &v
 }
 
 // GetSuccessUrl returns the SuccessUrl field value
@@ -130,7 +172,12 @@ func (o BillingPostRequestBody) MarshalJSON() ([]byte, error) {
 
 func (o BillingPostRequestBody) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["priceId"] = o.PriceId
+	if !IsNil(o.MessagePriceId) {
+		toSerialize["messagePriceId"] = o.MessagePriceId
+	}
+	if !IsNil(o.BudgetPriceId) {
+		toSerialize["budgetPriceId"] = o.BudgetPriceId
+	}
 	toSerialize["successUrl"] = o.SuccessUrl
 	toSerialize["cancelUrl"] = o.CancelUrl
 	return toSerialize, nil
@@ -141,7 +188,6 @@ func (o *BillingPostRequestBody) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"priceId",
 		"successUrl",
 		"cancelUrl",
 	}

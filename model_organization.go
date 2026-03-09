@@ -16,11 +16,11 @@ import (
 	"fmt"
 )
 
-// checks if the BillingPostResponseBody type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &BillingPostResponseBody{}
+// checks if the Organization type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Organization{}
 
-// BillingPostResponseBody POST /billing response: account + merged usage limits (when present) + optional session.
-type BillingPostResponseBody struct {
+// Organization Organization document in organizations table. Holds usage caps; one org can have multiple accounts.
+type Organization struct {
 	OrganizationId   string  `json:"organizationId"`
 	OrganizationType string  `json:"organizationType"`
 	Creator          string  `json:"creator"`
@@ -39,25 +39,26 @@ type BillingPostResponseBody struct {
 	StripeSubscriptionId *string        `json:"stripeSubscriptionId,omitempty"`
 	SubscriptionStatus   NullableString `json:"subscriptionStatus,omitempty"`
 	// Verification status; internalCap applies when not 'verified'.
-	Status                        *string  `json:"status,omitempty"`
+	Status *string `json:"status,omitempty"`
+	// Unverified account cap (per-channel message limit).
+	InternalCap                   *float32 `json:"internalCap,omitempty"`
 	PendingDowngradeCostCap       *float32 `json:"pendingDowngradeCostCap,omitempty"`
 	PendingDowngradeMessagesCap   *float32 `json:"pendingDowngradeMessagesCap,omitempty"`
 	PendingDowngradeSmsCap        *float32 `json:"pendingDowngradeSmsCap,omitempty"`
 	PendingDowngradeCallCap       *float32 `json:"pendingDowngradeCallCap,omitempty"`
+	PendingDowngradeInternalCap   *float32 `json:"pendingDowngradeInternalCap,omitempty"`
 	PendingDowngradeEffectiveDate *string  `json:"pendingDowngradeEffectiveDate,omitempty"`
 	PendingDowngradeAccountType   *string  `json:"pendingDowngradeAccountType,omitempty"`
-	SessionId                     *string  `json:"sessionId,omitempty"`
-	Url                           *string  `json:"url,omitempty"`
 }
 
-type _BillingPostResponseBody BillingPostResponseBody
+type _Organization Organization
 
-// NewBillingPostResponseBody instantiates a new BillingPostResponseBody object
+// NewOrganization instantiates a new Organization object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBillingPostResponseBody(organizationId string, organizationType string, creator string, messagesCap float32, costCap float32, createdAt string, updatedAt string, anniversaryDate string, allowOverage bool, name string) *BillingPostResponseBody {
-	this := BillingPostResponseBody{}
+func NewOrganization(organizationId string, organizationType string, creator string, messagesCap float32, costCap float32, createdAt string, updatedAt string, anniversaryDate string, allowOverage bool, name string) *Organization {
+	this := Organization{}
 	this.OrganizationId = organizationId
 	this.OrganizationType = organizationType
 	this.Creator = creator
@@ -71,16 +72,16 @@ func NewBillingPostResponseBody(organizationId string, organizationType string, 
 	return &this
 }
 
-// NewBillingPostResponseBodyWithDefaults instantiates a new BillingPostResponseBody object
+// NewOrganizationWithDefaults instantiates a new Organization object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewBillingPostResponseBodyWithDefaults() *BillingPostResponseBody {
-	this := BillingPostResponseBody{}
+func NewOrganizationWithDefaults() *Organization {
+	this := Organization{}
 	return &this
 }
 
 // GetOrganizationId returns the OrganizationId field value
-func (o *BillingPostResponseBody) GetOrganizationId() string {
+func (o *Organization) GetOrganizationId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -91,7 +92,7 @@ func (o *BillingPostResponseBody) GetOrganizationId() string {
 
 // GetOrganizationIdOk returns a tuple with the OrganizationId field value
 // and a boolean to check if the value has been set.
-func (o *BillingPostResponseBody) GetOrganizationIdOk() (*string, bool) {
+func (o *Organization) GetOrganizationIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -99,12 +100,12 @@ func (o *BillingPostResponseBody) GetOrganizationIdOk() (*string, bool) {
 }
 
 // SetOrganizationId sets field value
-func (o *BillingPostResponseBody) SetOrganizationId(v string) {
+func (o *Organization) SetOrganizationId(v string) {
 	o.OrganizationId = v
 }
 
 // GetOrganizationType returns the OrganizationType field value
-func (o *BillingPostResponseBody) GetOrganizationType() string {
+func (o *Organization) GetOrganizationType() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -115,7 +116,7 @@ func (o *BillingPostResponseBody) GetOrganizationType() string {
 
 // GetOrganizationTypeOk returns a tuple with the OrganizationType field value
 // and a boolean to check if the value has been set.
-func (o *BillingPostResponseBody) GetOrganizationTypeOk() (*string, bool) {
+func (o *Organization) GetOrganizationTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -123,12 +124,12 @@ func (o *BillingPostResponseBody) GetOrganizationTypeOk() (*string, bool) {
 }
 
 // SetOrganizationType sets field value
-func (o *BillingPostResponseBody) SetOrganizationType(v string) {
+func (o *Organization) SetOrganizationType(v string) {
 	o.OrganizationType = v
 }
 
 // GetCreator returns the Creator field value
-func (o *BillingPostResponseBody) GetCreator() string {
+func (o *Organization) GetCreator() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -139,7 +140,7 @@ func (o *BillingPostResponseBody) GetCreator() string {
 
 // GetCreatorOk returns a tuple with the Creator field value
 // and a boolean to check if the value has been set.
-func (o *BillingPostResponseBody) GetCreatorOk() (*string, bool) {
+func (o *Organization) GetCreatorOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -147,12 +148,12 @@ func (o *BillingPostResponseBody) GetCreatorOk() (*string, bool) {
 }
 
 // SetCreator sets field value
-func (o *BillingPostResponseBody) SetCreator(v string) {
+func (o *Organization) SetCreator(v string) {
 	o.Creator = v
 }
 
 // GetMessagesCap returns the MessagesCap field value
-func (o *BillingPostResponseBody) GetMessagesCap() float32 {
+func (o *Organization) GetMessagesCap() float32 {
 	if o == nil {
 		var ret float32
 		return ret
@@ -163,7 +164,7 @@ func (o *BillingPostResponseBody) GetMessagesCap() float32 {
 
 // GetMessagesCapOk returns a tuple with the MessagesCap field value
 // and a boolean to check if the value has been set.
-func (o *BillingPostResponseBody) GetMessagesCapOk() (*float32, bool) {
+func (o *Organization) GetMessagesCapOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -171,12 +172,12 @@ func (o *BillingPostResponseBody) GetMessagesCapOk() (*float32, bool) {
 }
 
 // SetMessagesCap sets field value
-func (o *BillingPostResponseBody) SetMessagesCap(v float32) {
+func (o *Organization) SetMessagesCap(v float32) {
 	o.MessagesCap = v
 }
 
 // GetCostCap returns the CostCap field value
-func (o *BillingPostResponseBody) GetCostCap() float32 {
+func (o *Organization) GetCostCap() float32 {
 	if o == nil {
 		var ret float32
 		return ret
@@ -187,7 +188,7 @@ func (o *BillingPostResponseBody) GetCostCap() float32 {
 
 // GetCostCapOk returns a tuple with the CostCap field value
 // and a boolean to check if the value has been set.
-func (o *BillingPostResponseBody) GetCostCapOk() (*float32, bool) {
+func (o *Organization) GetCostCapOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -195,12 +196,12 @@ func (o *BillingPostResponseBody) GetCostCapOk() (*float32, bool) {
 }
 
 // SetCostCap sets field value
-func (o *BillingPostResponseBody) SetCostCap(v float32) {
+func (o *Organization) SetCostCap(v float32) {
 	o.CostCap = v
 }
 
 // GetCreatedAt returns the CreatedAt field value
-func (o *BillingPostResponseBody) GetCreatedAt() string {
+func (o *Organization) GetCreatedAt() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -211,7 +212,7 @@ func (o *BillingPostResponseBody) GetCreatedAt() string {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value
 // and a boolean to check if the value has been set.
-func (o *BillingPostResponseBody) GetCreatedAtOk() (*string, bool) {
+func (o *Organization) GetCreatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -219,12 +220,12 @@ func (o *BillingPostResponseBody) GetCreatedAtOk() (*string, bool) {
 }
 
 // SetCreatedAt sets field value
-func (o *BillingPostResponseBody) SetCreatedAt(v string) {
+func (o *Organization) SetCreatedAt(v string) {
 	o.CreatedAt = v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value
-func (o *BillingPostResponseBody) GetUpdatedAt() string {
+func (o *Organization) GetUpdatedAt() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -235,7 +236,7 @@ func (o *BillingPostResponseBody) GetUpdatedAt() string {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value
 // and a boolean to check if the value has been set.
-func (o *BillingPostResponseBody) GetUpdatedAtOk() (*string, bool) {
+func (o *Organization) GetUpdatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -243,12 +244,12 @@ func (o *BillingPostResponseBody) GetUpdatedAtOk() (*string, bool) {
 }
 
 // SetUpdatedAt sets field value
-func (o *BillingPostResponseBody) SetUpdatedAt(v string) {
+func (o *Organization) SetUpdatedAt(v string) {
 	o.UpdatedAt = v
 }
 
 // GetAnniversaryDate returns the AnniversaryDate field value
-func (o *BillingPostResponseBody) GetAnniversaryDate() string {
+func (o *Organization) GetAnniversaryDate() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -259,7 +260,7 @@ func (o *BillingPostResponseBody) GetAnniversaryDate() string {
 
 // GetAnniversaryDateOk returns a tuple with the AnniversaryDate field value
 // and a boolean to check if the value has been set.
-func (o *BillingPostResponseBody) GetAnniversaryDateOk() (*string, bool) {
+func (o *Organization) GetAnniversaryDateOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -267,12 +268,12 @@ func (o *BillingPostResponseBody) GetAnniversaryDateOk() (*string, bool) {
 }
 
 // SetAnniversaryDate sets field value
-func (o *BillingPostResponseBody) SetAnniversaryDate(v string) {
+func (o *Organization) SetAnniversaryDate(v string) {
 	o.AnniversaryDate = v
 }
 
 // GetAllowOverage returns the AllowOverage field value
-func (o *BillingPostResponseBody) GetAllowOverage() bool {
+func (o *Organization) GetAllowOverage() bool {
 	if o == nil {
 		var ret bool
 		return ret
@@ -283,7 +284,7 @@ func (o *BillingPostResponseBody) GetAllowOverage() bool {
 
 // GetAllowOverageOk returns a tuple with the AllowOverage field value
 // and a boolean to check if the value has been set.
-func (o *BillingPostResponseBody) GetAllowOverageOk() (*bool, bool) {
+func (o *Organization) GetAllowOverageOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -291,12 +292,12 @@ func (o *BillingPostResponseBody) GetAllowOverageOk() (*bool, bool) {
 }
 
 // SetAllowOverage sets field value
-func (o *BillingPostResponseBody) SetAllowOverage(v bool) {
+func (o *Organization) SetAllowOverage(v bool) {
 	o.AllowOverage = v
 }
 
 // GetName returns the Name field value
-func (o *BillingPostResponseBody) GetName() string {
+func (o *Organization) GetName() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -307,7 +308,7 @@ func (o *BillingPostResponseBody) GetName() string {
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-func (o *BillingPostResponseBody) GetNameOk() (*string, bool) {
+func (o *Organization) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -315,12 +316,12 @@ func (o *BillingPostResponseBody) GetNameOk() (*string, bool) {
 }
 
 // SetName sets field value
-func (o *BillingPostResponseBody) SetName(v string) {
+func (o *Organization) SetName(v string) {
 	o.Name = v
 }
 
 // GetSmsCap returns the SmsCap field value if set, zero value otherwise.
-func (o *BillingPostResponseBody) GetSmsCap() float32 {
+func (o *Organization) GetSmsCap() float32 {
 	if o == nil || IsNil(o.SmsCap) {
 		var ret float32
 		return ret
@@ -330,7 +331,7 @@ func (o *BillingPostResponseBody) GetSmsCap() float32 {
 
 // GetSmsCapOk returns a tuple with the SmsCap field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BillingPostResponseBody) GetSmsCapOk() (*float32, bool) {
+func (o *Organization) GetSmsCapOk() (*float32, bool) {
 	if o == nil || IsNil(o.SmsCap) {
 		return nil, false
 	}
@@ -338,7 +339,7 @@ func (o *BillingPostResponseBody) GetSmsCapOk() (*float32, bool) {
 }
 
 // HasSmsCap returns a boolean if a field has been set.
-func (o *BillingPostResponseBody) HasSmsCap() bool {
+func (o *Organization) HasSmsCap() bool {
 	if o != nil && !IsNil(o.SmsCap) {
 		return true
 	}
@@ -347,12 +348,12 @@ func (o *BillingPostResponseBody) HasSmsCap() bool {
 }
 
 // SetSmsCap gets a reference to the given float32 and assigns it to the SmsCap field.
-func (o *BillingPostResponseBody) SetSmsCap(v float32) {
+func (o *Organization) SetSmsCap(v float32) {
 	o.SmsCap = &v
 }
 
 // GetCallCap returns the CallCap field value if set, zero value otherwise.
-func (o *BillingPostResponseBody) GetCallCap() float32 {
+func (o *Organization) GetCallCap() float32 {
 	if o == nil || IsNil(o.CallCap) {
 		var ret float32
 		return ret
@@ -362,7 +363,7 @@ func (o *BillingPostResponseBody) GetCallCap() float32 {
 
 // GetCallCapOk returns a tuple with the CallCap field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BillingPostResponseBody) GetCallCapOk() (*float32, bool) {
+func (o *Organization) GetCallCapOk() (*float32, bool) {
 	if o == nil || IsNil(o.CallCap) {
 		return nil, false
 	}
@@ -370,7 +371,7 @@ func (o *BillingPostResponseBody) GetCallCapOk() (*float32, bool) {
 }
 
 // HasCallCap returns a boolean if a field has been set.
-func (o *BillingPostResponseBody) HasCallCap() bool {
+func (o *Organization) HasCallCap() bool {
 	if o != nil && !IsNil(o.CallCap) {
 		return true
 	}
@@ -379,12 +380,12 @@ func (o *BillingPostResponseBody) HasCallCap() bool {
 }
 
 // SetCallCap gets a reference to the given float32 and assigns it to the CallCap field.
-func (o *BillingPostResponseBody) SetCallCap(v float32) {
+func (o *Organization) SetCallCap(v float32) {
 	o.CallCap = &v
 }
 
 // GetStripeCustomerId returns the StripeCustomerId field value if set, zero value otherwise.
-func (o *BillingPostResponseBody) GetStripeCustomerId() string {
+func (o *Organization) GetStripeCustomerId() string {
 	if o == nil || IsNil(o.StripeCustomerId) {
 		var ret string
 		return ret
@@ -394,7 +395,7 @@ func (o *BillingPostResponseBody) GetStripeCustomerId() string {
 
 // GetStripeCustomerIdOk returns a tuple with the StripeCustomerId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BillingPostResponseBody) GetStripeCustomerIdOk() (*string, bool) {
+func (o *Organization) GetStripeCustomerIdOk() (*string, bool) {
 	if o == nil || IsNil(o.StripeCustomerId) {
 		return nil, false
 	}
@@ -402,7 +403,7 @@ func (o *BillingPostResponseBody) GetStripeCustomerIdOk() (*string, bool) {
 }
 
 // HasStripeCustomerId returns a boolean if a field has been set.
-func (o *BillingPostResponseBody) HasStripeCustomerId() bool {
+func (o *Organization) HasStripeCustomerId() bool {
 	if o != nil && !IsNil(o.StripeCustomerId) {
 		return true
 	}
@@ -411,12 +412,12 @@ func (o *BillingPostResponseBody) HasStripeCustomerId() bool {
 }
 
 // SetStripeCustomerId gets a reference to the given string and assigns it to the StripeCustomerId field.
-func (o *BillingPostResponseBody) SetStripeCustomerId(v string) {
+func (o *Organization) SetStripeCustomerId(v string) {
 	o.StripeCustomerId = &v
 }
 
 // GetStripeSubscriptionId returns the StripeSubscriptionId field value if set, zero value otherwise.
-func (o *BillingPostResponseBody) GetStripeSubscriptionId() string {
+func (o *Organization) GetStripeSubscriptionId() string {
 	if o == nil || IsNil(o.StripeSubscriptionId) {
 		var ret string
 		return ret
@@ -426,7 +427,7 @@ func (o *BillingPostResponseBody) GetStripeSubscriptionId() string {
 
 // GetStripeSubscriptionIdOk returns a tuple with the StripeSubscriptionId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BillingPostResponseBody) GetStripeSubscriptionIdOk() (*string, bool) {
+func (o *Organization) GetStripeSubscriptionIdOk() (*string, bool) {
 	if o == nil || IsNil(o.StripeSubscriptionId) {
 		return nil, false
 	}
@@ -434,7 +435,7 @@ func (o *BillingPostResponseBody) GetStripeSubscriptionIdOk() (*string, bool) {
 }
 
 // HasStripeSubscriptionId returns a boolean if a field has been set.
-func (o *BillingPostResponseBody) HasStripeSubscriptionId() bool {
+func (o *Organization) HasStripeSubscriptionId() bool {
 	if o != nil && !IsNil(o.StripeSubscriptionId) {
 		return true
 	}
@@ -443,12 +444,12 @@ func (o *BillingPostResponseBody) HasStripeSubscriptionId() bool {
 }
 
 // SetStripeSubscriptionId gets a reference to the given string and assigns it to the StripeSubscriptionId field.
-func (o *BillingPostResponseBody) SetStripeSubscriptionId(v string) {
+func (o *Organization) SetStripeSubscriptionId(v string) {
 	o.StripeSubscriptionId = &v
 }
 
 // GetSubscriptionStatus returns the SubscriptionStatus field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *BillingPostResponseBody) GetSubscriptionStatus() string {
+func (o *Organization) GetSubscriptionStatus() string {
 	if o == nil || IsNil(o.SubscriptionStatus.Get()) {
 		var ret string
 		return ret
@@ -459,7 +460,7 @@ func (o *BillingPostResponseBody) GetSubscriptionStatus() string {
 // GetSubscriptionStatusOk returns a tuple with the SubscriptionStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *BillingPostResponseBody) GetSubscriptionStatusOk() (*string, bool) {
+func (o *Organization) GetSubscriptionStatusOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -467,7 +468,7 @@ func (o *BillingPostResponseBody) GetSubscriptionStatusOk() (*string, bool) {
 }
 
 // HasSubscriptionStatus returns a boolean if a field has been set.
-func (o *BillingPostResponseBody) HasSubscriptionStatus() bool {
+func (o *Organization) HasSubscriptionStatus() bool {
 	if o != nil && o.SubscriptionStatus.IsSet() {
 		return true
 	}
@@ -476,22 +477,22 @@ func (o *BillingPostResponseBody) HasSubscriptionStatus() bool {
 }
 
 // SetSubscriptionStatus gets a reference to the given NullableString and assigns it to the SubscriptionStatus field.
-func (o *BillingPostResponseBody) SetSubscriptionStatus(v string) {
+func (o *Organization) SetSubscriptionStatus(v string) {
 	o.SubscriptionStatus.Set(&v)
 }
 
 // SetSubscriptionStatusNil sets the value for SubscriptionStatus to be an explicit nil
-func (o *BillingPostResponseBody) SetSubscriptionStatusNil() {
+func (o *Organization) SetSubscriptionStatusNil() {
 	o.SubscriptionStatus.Set(nil)
 }
 
 // UnsetSubscriptionStatus ensures that no value is present for SubscriptionStatus, not even an explicit nil
-func (o *BillingPostResponseBody) UnsetSubscriptionStatus() {
+func (o *Organization) UnsetSubscriptionStatus() {
 	o.SubscriptionStatus.Unset()
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
-func (o *BillingPostResponseBody) GetStatus() string {
+func (o *Organization) GetStatus() string {
 	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
@@ -501,7 +502,7 @@ func (o *BillingPostResponseBody) GetStatus() string {
 
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BillingPostResponseBody) GetStatusOk() (*string, bool) {
+func (o *Organization) GetStatusOk() (*string, bool) {
 	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
@@ -509,7 +510,7 @@ func (o *BillingPostResponseBody) GetStatusOk() (*string, bool) {
 }
 
 // HasStatus returns a boolean if a field has been set.
-func (o *BillingPostResponseBody) HasStatus() bool {
+func (o *Organization) HasStatus() bool {
 	if o != nil && !IsNil(o.Status) {
 		return true
 	}
@@ -518,12 +519,44 @@ func (o *BillingPostResponseBody) HasStatus() bool {
 }
 
 // SetStatus gets a reference to the given string and assigns it to the Status field.
-func (o *BillingPostResponseBody) SetStatus(v string) {
+func (o *Organization) SetStatus(v string) {
 	o.Status = &v
 }
 
+// GetInternalCap returns the InternalCap field value if set, zero value otherwise.
+func (o *Organization) GetInternalCap() float32 {
+	if o == nil || IsNil(o.InternalCap) {
+		var ret float32
+		return ret
+	}
+	return *o.InternalCap
+}
+
+// GetInternalCapOk returns a tuple with the InternalCap field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Organization) GetInternalCapOk() (*float32, bool) {
+	if o == nil || IsNil(o.InternalCap) {
+		return nil, false
+	}
+	return o.InternalCap, true
+}
+
+// HasInternalCap returns a boolean if a field has been set.
+func (o *Organization) HasInternalCap() bool {
+	if o != nil && !IsNil(o.InternalCap) {
+		return true
+	}
+
+	return false
+}
+
+// SetInternalCap gets a reference to the given float32 and assigns it to the InternalCap field.
+func (o *Organization) SetInternalCap(v float32) {
+	o.InternalCap = &v
+}
+
 // GetPendingDowngradeCostCap returns the PendingDowngradeCostCap field value if set, zero value otherwise.
-func (o *BillingPostResponseBody) GetPendingDowngradeCostCap() float32 {
+func (o *Organization) GetPendingDowngradeCostCap() float32 {
 	if o == nil || IsNil(o.PendingDowngradeCostCap) {
 		var ret float32
 		return ret
@@ -533,7 +566,7 @@ func (o *BillingPostResponseBody) GetPendingDowngradeCostCap() float32 {
 
 // GetPendingDowngradeCostCapOk returns a tuple with the PendingDowngradeCostCap field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BillingPostResponseBody) GetPendingDowngradeCostCapOk() (*float32, bool) {
+func (o *Organization) GetPendingDowngradeCostCapOk() (*float32, bool) {
 	if o == nil || IsNil(o.PendingDowngradeCostCap) {
 		return nil, false
 	}
@@ -541,7 +574,7 @@ func (o *BillingPostResponseBody) GetPendingDowngradeCostCapOk() (*float32, bool
 }
 
 // HasPendingDowngradeCostCap returns a boolean if a field has been set.
-func (o *BillingPostResponseBody) HasPendingDowngradeCostCap() bool {
+func (o *Organization) HasPendingDowngradeCostCap() bool {
 	if o != nil && !IsNil(o.PendingDowngradeCostCap) {
 		return true
 	}
@@ -550,12 +583,12 @@ func (o *BillingPostResponseBody) HasPendingDowngradeCostCap() bool {
 }
 
 // SetPendingDowngradeCostCap gets a reference to the given float32 and assigns it to the PendingDowngradeCostCap field.
-func (o *BillingPostResponseBody) SetPendingDowngradeCostCap(v float32) {
+func (o *Organization) SetPendingDowngradeCostCap(v float32) {
 	o.PendingDowngradeCostCap = &v
 }
 
 // GetPendingDowngradeMessagesCap returns the PendingDowngradeMessagesCap field value if set, zero value otherwise.
-func (o *BillingPostResponseBody) GetPendingDowngradeMessagesCap() float32 {
+func (o *Organization) GetPendingDowngradeMessagesCap() float32 {
 	if o == nil || IsNil(o.PendingDowngradeMessagesCap) {
 		var ret float32
 		return ret
@@ -565,7 +598,7 @@ func (o *BillingPostResponseBody) GetPendingDowngradeMessagesCap() float32 {
 
 // GetPendingDowngradeMessagesCapOk returns a tuple with the PendingDowngradeMessagesCap field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BillingPostResponseBody) GetPendingDowngradeMessagesCapOk() (*float32, bool) {
+func (o *Organization) GetPendingDowngradeMessagesCapOk() (*float32, bool) {
 	if o == nil || IsNil(o.PendingDowngradeMessagesCap) {
 		return nil, false
 	}
@@ -573,7 +606,7 @@ func (o *BillingPostResponseBody) GetPendingDowngradeMessagesCapOk() (*float32, 
 }
 
 // HasPendingDowngradeMessagesCap returns a boolean if a field has been set.
-func (o *BillingPostResponseBody) HasPendingDowngradeMessagesCap() bool {
+func (o *Organization) HasPendingDowngradeMessagesCap() bool {
 	if o != nil && !IsNil(o.PendingDowngradeMessagesCap) {
 		return true
 	}
@@ -582,12 +615,12 @@ func (o *BillingPostResponseBody) HasPendingDowngradeMessagesCap() bool {
 }
 
 // SetPendingDowngradeMessagesCap gets a reference to the given float32 and assigns it to the PendingDowngradeMessagesCap field.
-func (o *BillingPostResponseBody) SetPendingDowngradeMessagesCap(v float32) {
+func (o *Organization) SetPendingDowngradeMessagesCap(v float32) {
 	o.PendingDowngradeMessagesCap = &v
 }
 
 // GetPendingDowngradeSmsCap returns the PendingDowngradeSmsCap field value if set, zero value otherwise.
-func (o *BillingPostResponseBody) GetPendingDowngradeSmsCap() float32 {
+func (o *Organization) GetPendingDowngradeSmsCap() float32 {
 	if o == nil || IsNil(o.PendingDowngradeSmsCap) {
 		var ret float32
 		return ret
@@ -597,7 +630,7 @@ func (o *BillingPostResponseBody) GetPendingDowngradeSmsCap() float32 {
 
 // GetPendingDowngradeSmsCapOk returns a tuple with the PendingDowngradeSmsCap field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BillingPostResponseBody) GetPendingDowngradeSmsCapOk() (*float32, bool) {
+func (o *Organization) GetPendingDowngradeSmsCapOk() (*float32, bool) {
 	if o == nil || IsNil(o.PendingDowngradeSmsCap) {
 		return nil, false
 	}
@@ -605,7 +638,7 @@ func (o *BillingPostResponseBody) GetPendingDowngradeSmsCapOk() (*float32, bool)
 }
 
 // HasPendingDowngradeSmsCap returns a boolean if a field has been set.
-func (o *BillingPostResponseBody) HasPendingDowngradeSmsCap() bool {
+func (o *Organization) HasPendingDowngradeSmsCap() bool {
 	if o != nil && !IsNil(o.PendingDowngradeSmsCap) {
 		return true
 	}
@@ -614,12 +647,12 @@ func (o *BillingPostResponseBody) HasPendingDowngradeSmsCap() bool {
 }
 
 // SetPendingDowngradeSmsCap gets a reference to the given float32 and assigns it to the PendingDowngradeSmsCap field.
-func (o *BillingPostResponseBody) SetPendingDowngradeSmsCap(v float32) {
+func (o *Organization) SetPendingDowngradeSmsCap(v float32) {
 	o.PendingDowngradeSmsCap = &v
 }
 
 // GetPendingDowngradeCallCap returns the PendingDowngradeCallCap field value if set, zero value otherwise.
-func (o *BillingPostResponseBody) GetPendingDowngradeCallCap() float32 {
+func (o *Organization) GetPendingDowngradeCallCap() float32 {
 	if o == nil || IsNil(o.PendingDowngradeCallCap) {
 		var ret float32
 		return ret
@@ -629,7 +662,7 @@ func (o *BillingPostResponseBody) GetPendingDowngradeCallCap() float32 {
 
 // GetPendingDowngradeCallCapOk returns a tuple with the PendingDowngradeCallCap field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BillingPostResponseBody) GetPendingDowngradeCallCapOk() (*float32, bool) {
+func (o *Organization) GetPendingDowngradeCallCapOk() (*float32, bool) {
 	if o == nil || IsNil(o.PendingDowngradeCallCap) {
 		return nil, false
 	}
@@ -637,7 +670,7 @@ func (o *BillingPostResponseBody) GetPendingDowngradeCallCapOk() (*float32, bool
 }
 
 // HasPendingDowngradeCallCap returns a boolean if a field has been set.
-func (o *BillingPostResponseBody) HasPendingDowngradeCallCap() bool {
+func (o *Organization) HasPendingDowngradeCallCap() bool {
 	if o != nil && !IsNil(o.PendingDowngradeCallCap) {
 		return true
 	}
@@ -646,12 +679,44 @@ func (o *BillingPostResponseBody) HasPendingDowngradeCallCap() bool {
 }
 
 // SetPendingDowngradeCallCap gets a reference to the given float32 and assigns it to the PendingDowngradeCallCap field.
-func (o *BillingPostResponseBody) SetPendingDowngradeCallCap(v float32) {
+func (o *Organization) SetPendingDowngradeCallCap(v float32) {
 	o.PendingDowngradeCallCap = &v
 }
 
+// GetPendingDowngradeInternalCap returns the PendingDowngradeInternalCap field value if set, zero value otherwise.
+func (o *Organization) GetPendingDowngradeInternalCap() float32 {
+	if o == nil || IsNil(o.PendingDowngradeInternalCap) {
+		var ret float32
+		return ret
+	}
+	return *o.PendingDowngradeInternalCap
+}
+
+// GetPendingDowngradeInternalCapOk returns a tuple with the PendingDowngradeInternalCap field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Organization) GetPendingDowngradeInternalCapOk() (*float32, bool) {
+	if o == nil || IsNil(o.PendingDowngradeInternalCap) {
+		return nil, false
+	}
+	return o.PendingDowngradeInternalCap, true
+}
+
+// HasPendingDowngradeInternalCap returns a boolean if a field has been set.
+func (o *Organization) HasPendingDowngradeInternalCap() bool {
+	if o != nil && !IsNil(o.PendingDowngradeInternalCap) {
+		return true
+	}
+
+	return false
+}
+
+// SetPendingDowngradeInternalCap gets a reference to the given float32 and assigns it to the PendingDowngradeInternalCap field.
+func (o *Organization) SetPendingDowngradeInternalCap(v float32) {
+	o.PendingDowngradeInternalCap = &v
+}
+
 // GetPendingDowngradeEffectiveDate returns the PendingDowngradeEffectiveDate field value if set, zero value otherwise.
-func (o *BillingPostResponseBody) GetPendingDowngradeEffectiveDate() string {
+func (o *Organization) GetPendingDowngradeEffectiveDate() string {
 	if o == nil || IsNil(o.PendingDowngradeEffectiveDate) {
 		var ret string
 		return ret
@@ -661,7 +726,7 @@ func (o *BillingPostResponseBody) GetPendingDowngradeEffectiveDate() string {
 
 // GetPendingDowngradeEffectiveDateOk returns a tuple with the PendingDowngradeEffectiveDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BillingPostResponseBody) GetPendingDowngradeEffectiveDateOk() (*string, bool) {
+func (o *Organization) GetPendingDowngradeEffectiveDateOk() (*string, bool) {
 	if o == nil || IsNil(o.PendingDowngradeEffectiveDate) {
 		return nil, false
 	}
@@ -669,7 +734,7 @@ func (o *BillingPostResponseBody) GetPendingDowngradeEffectiveDateOk() (*string,
 }
 
 // HasPendingDowngradeEffectiveDate returns a boolean if a field has been set.
-func (o *BillingPostResponseBody) HasPendingDowngradeEffectiveDate() bool {
+func (o *Organization) HasPendingDowngradeEffectiveDate() bool {
 	if o != nil && !IsNil(o.PendingDowngradeEffectiveDate) {
 		return true
 	}
@@ -678,12 +743,12 @@ func (o *BillingPostResponseBody) HasPendingDowngradeEffectiveDate() bool {
 }
 
 // SetPendingDowngradeEffectiveDate gets a reference to the given string and assigns it to the PendingDowngradeEffectiveDate field.
-func (o *BillingPostResponseBody) SetPendingDowngradeEffectiveDate(v string) {
+func (o *Organization) SetPendingDowngradeEffectiveDate(v string) {
 	o.PendingDowngradeEffectiveDate = &v
 }
 
 // GetPendingDowngradeAccountType returns the PendingDowngradeAccountType field value if set, zero value otherwise.
-func (o *BillingPostResponseBody) GetPendingDowngradeAccountType() string {
+func (o *Organization) GetPendingDowngradeAccountType() string {
 	if o == nil || IsNil(o.PendingDowngradeAccountType) {
 		var ret string
 		return ret
@@ -693,7 +758,7 @@ func (o *BillingPostResponseBody) GetPendingDowngradeAccountType() string {
 
 // GetPendingDowngradeAccountTypeOk returns a tuple with the PendingDowngradeAccountType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BillingPostResponseBody) GetPendingDowngradeAccountTypeOk() (*string, bool) {
+func (o *Organization) GetPendingDowngradeAccountTypeOk() (*string, bool) {
 	if o == nil || IsNil(o.PendingDowngradeAccountType) {
 		return nil, false
 	}
@@ -701,7 +766,7 @@ func (o *BillingPostResponseBody) GetPendingDowngradeAccountTypeOk() (*string, b
 }
 
 // HasPendingDowngradeAccountType returns a boolean if a field has been set.
-func (o *BillingPostResponseBody) HasPendingDowngradeAccountType() bool {
+func (o *Organization) HasPendingDowngradeAccountType() bool {
 	if o != nil && !IsNil(o.PendingDowngradeAccountType) {
 		return true
 	}
@@ -710,75 +775,11 @@ func (o *BillingPostResponseBody) HasPendingDowngradeAccountType() bool {
 }
 
 // SetPendingDowngradeAccountType gets a reference to the given string and assigns it to the PendingDowngradeAccountType field.
-func (o *BillingPostResponseBody) SetPendingDowngradeAccountType(v string) {
+func (o *Organization) SetPendingDowngradeAccountType(v string) {
 	o.PendingDowngradeAccountType = &v
 }
 
-// GetSessionId returns the SessionId field value if set, zero value otherwise.
-func (o *BillingPostResponseBody) GetSessionId() string {
-	if o == nil || IsNil(o.SessionId) {
-		var ret string
-		return ret
-	}
-	return *o.SessionId
-}
-
-// GetSessionIdOk returns a tuple with the SessionId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BillingPostResponseBody) GetSessionIdOk() (*string, bool) {
-	if o == nil || IsNil(o.SessionId) {
-		return nil, false
-	}
-	return o.SessionId, true
-}
-
-// HasSessionId returns a boolean if a field has been set.
-func (o *BillingPostResponseBody) HasSessionId() bool {
-	if o != nil && !IsNil(o.SessionId) {
-		return true
-	}
-
-	return false
-}
-
-// SetSessionId gets a reference to the given string and assigns it to the SessionId field.
-func (o *BillingPostResponseBody) SetSessionId(v string) {
-	o.SessionId = &v
-}
-
-// GetUrl returns the Url field value if set, zero value otherwise.
-func (o *BillingPostResponseBody) GetUrl() string {
-	if o == nil || IsNil(o.Url) {
-		var ret string
-		return ret
-	}
-	return *o.Url
-}
-
-// GetUrlOk returns a tuple with the Url field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BillingPostResponseBody) GetUrlOk() (*string, bool) {
-	if o == nil || IsNil(o.Url) {
-		return nil, false
-	}
-	return o.Url, true
-}
-
-// HasUrl returns a boolean if a field has been set.
-func (o *BillingPostResponseBody) HasUrl() bool {
-	if o != nil && !IsNil(o.Url) {
-		return true
-	}
-
-	return false
-}
-
-// SetUrl gets a reference to the given string and assigns it to the Url field.
-func (o *BillingPostResponseBody) SetUrl(v string) {
-	o.Url = &v
-}
-
-func (o BillingPostResponseBody) MarshalJSON() ([]byte, error) {
+func (o Organization) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -786,7 +787,7 @@ func (o BillingPostResponseBody) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o BillingPostResponseBody) ToMap() (map[string]interface{}, error) {
+func (o Organization) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["organizationId"] = o.OrganizationId
 	toSerialize["organizationType"] = o.OrganizationType
@@ -816,6 +817,9 @@ func (o BillingPostResponseBody) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+	if !IsNil(o.InternalCap) {
+		toSerialize["internalCap"] = o.InternalCap
+	}
 	if !IsNil(o.PendingDowngradeCostCap) {
 		toSerialize["pendingDowngradeCostCap"] = o.PendingDowngradeCostCap
 	}
@@ -828,22 +832,19 @@ func (o BillingPostResponseBody) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PendingDowngradeCallCap) {
 		toSerialize["pendingDowngradeCallCap"] = o.PendingDowngradeCallCap
 	}
+	if !IsNil(o.PendingDowngradeInternalCap) {
+		toSerialize["pendingDowngradeInternalCap"] = o.PendingDowngradeInternalCap
+	}
 	if !IsNil(o.PendingDowngradeEffectiveDate) {
 		toSerialize["pendingDowngradeEffectiveDate"] = o.PendingDowngradeEffectiveDate
 	}
 	if !IsNil(o.PendingDowngradeAccountType) {
 		toSerialize["pendingDowngradeAccountType"] = o.PendingDowngradeAccountType
 	}
-	if !IsNil(o.SessionId) {
-		toSerialize["sessionId"] = o.SessionId
-	}
-	if !IsNil(o.Url) {
-		toSerialize["url"] = o.Url
-	}
 	return toSerialize, nil
 }
 
-func (o *BillingPostResponseBody) UnmarshalJSON(data []byte) (err error) {
+func (o *Organization) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -874,53 +875,53 @@ func (o *BillingPostResponseBody) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varBillingPostResponseBody := _BillingPostResponseBody{}
+	varOrganization := _Organization{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varBillingPostResponseBody)
+	err = decoder.Decode(&varOrganization)
 
 	if err != nil {
 		return err
 	}
 
-	*o = BillingPostResponseBody(varBillingPostResponseBody)
+	*o = Organization(varOrganization)
 
 	return err
 }
 
-type NullableBillingPostResponseBody struct {
-	value *BillingPostResponseBody
+type NullableOrganization struct {
+	value *Organization
 	isSet bool
 }
 
-func (v NullableBillingPostResponseBody) Get() *BillingPostResponseBody {
+func (v NullableOrganization) Get() *Organization {
 	return v.value
 }
 
-func (v *NullableBillingPostResponseBody) Set(val *BillingPostResponseBody) {
+func (v *NullableOrganization) Set(val *Organization) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableBillingPostResponseBody) IsSet() bool {
+func (v NullableOrganization) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableBillingPostResponseBody) Unset() {
+func (v *NullableOrganization) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableBillingPostResponseBody(val *BillingPostResponseBody) *NullableBillingPostResponseBody {
-	return &NullableBillingPostResponseBody{value: val, isSet: true}
+func NewNullableOrganization(val *Organization) *NullableOrganization {
+	return &NullableOrganization{value: val, isSet: true}
 }
 
-func (v NullableBillingPostResponseBody) MarshalJSON() ([]byte, error) {
+func (v NullableOrganization) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableBillingPostResponseBody) UnmarshalJSON(src []byte) error {
+func (v *NullableOrganization) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

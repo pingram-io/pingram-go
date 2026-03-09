@@ -19,19 +19,14 @@ import (
 // checks if the AccountGetResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AccountGetResponse{}
 
-// AccountGetResponse struct for AccountGetResponse
+// AccountGetResponse GET /account response: basic account info (billing fields are on Organization).
 type AccountGetResponse struct {
-	AccountId                     string                                        `json:"accountId"`
-	Name                          string                                        `json:"name"`
-	AccountType                   string                                        `json:"accountType"`
-	CreatedAt                     string                                        `json:"createdAt"`
-	StripeCustomerId              *string                                       `json:"stripeCustomerId,omitempty"`
-	StripeSubscriptionId          *string                                       `json:"stripeSubscriptionId,omitempty"`
-	SubscriptionStatus            NullableString                                `json:"subscriptionStatus,omitempty"`
-	AnniversaryDate               *string                                       `json:"anniversaryDate,omitempty"`
-	PendingDowngradeEffectiveDate *string                                       `json:"pendingDowngradeEffectiveDate,omitempty"`
-	PendingDowngradeAccountType   *string                                       `json:"pendingDowngradeAccountType,omitempty"`
-	PendingDowngradeUsageLimit    *AccountGetResponsePendingDowngradeUsageLimit `json:"pendingDowngradeUsageLimit,omitempty"`
+	AccountId string `json:"accountId"`
+	// Optional organization ID; legacy accounts may not have one.
+	OrganizationId *string `json:"organizationId,omitempty"`
+	Name           string  `json:"name"`
+	AccountType    string  `json:"accountType"`
+	CreatedAt      string  `json:"createdAt"`
 }
 
 type _AccountGetResponse AccountGetResponse
@@ -79,6 +74,38 @@ func (o *AccountGetResponse) GetAccountIdOk() (*string, bool) {
 // SetAccountId sets field value
 func (o *AccountGetResponse) SetAccountId(v string) {
 	o.AccountId = v
+}
+
+// GetOrganizationId returns the OrganizationId field value if set, zero value otherwise.
+func (o *AccountGetResponse) GetOrganizationId() string {
+	if o == nil || IsNil(o.OrganizationId) {
+		var ret string
+		return ret
+	}
+	return *o.OrganizationId
+}
+
+// GetOrganizationIdOk returns a tuple with the OrganizationId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountGetResponse) GetOrganizationIdOk() (*string, bool) {
+	if o == nil || IsNil(o.OrganizationId) {
+		return nil, false
+	}
+	return o.OrganizationId, true
+}
+
+// HasOrganizationId returns a boolean if a field has been set.
+func (o *AccountGetResponse) HasOrganizationId() bool {
+	if o != nil && !IsNil(o.OrganizationId) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganizationId gets a reference to the given string and assigns it to the OrganizationId field.
+func (o *AccountGetResponse) SetOrganizationId(v string) {
+	o.OrganizationId = &v
 }
 
 // GetName returns the Name field value
@@ -153,241 +180,6 @@ func (o *AccountGetResponse) SetCreatedAt(v string) {
 	o.CreatedAt = v
 }
 
-// GetStripeCustomerId returns the StripeCustomerId field value if set, zero value otherwise.
-func (o *AccountGetResponse) GetStripeCustomerId() string {
-	if o == nil || IsNil(o.StripeCustomerId) {
-		var ret string
-		return ret
-	}
-	return *o.StripeCustomerId
-}
-
-// GetStripeCustomerIdOk returns a tuple with the StripeCustomerId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AccountGetResponse) GetStripeCustomerIdOk() (*string, bool) {
-	if o == nil || IsNil(o.StripeCustomerId) {
-		return nil, false
-	}
-	return o.StripeCustomerId, true
-}
-
-// HasStripeCustomerId returns a boolean if a field has been set.
-func (o *AccountGetResponse) HasStripeCustomerId() bool {
-	if o != nil && !IsNil(o.StripeCustomerId) {
-		return true
-	}
-
-	return false
-}
-
-// SetStripeCustomerId gets a reference to the given string and assigns it to the StripeCustomerId field.
-func (o *AccountGetResponse) SetStripeCustomerId(v string) {
-	o.StripeCustomerId = &v
-}
-
-// GetStripeSubscriptionId returns the StripeSubscriptionId field value if set, zero value otherwise.
-func (o *AccountGetResponse) GetStripeSubscriptionId() string {
-	if o == nil || IsNil(o.StripeSubscriptionId) {
-		var ret string
-		return ret
-	}
-	return *o.StripeSubscriptionId
-}
-
-// GetStripeSubscriptionIdOk returns a tuple with the StripeSubscriptionId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AccountGetResponse) GetStripeSubscriptionIdOk() (*string, bool) {
-	if o == nil || IsNil(o.StripeSubscriptionId) {
-		return nil, false
-	}
-	return o.StripeSubscriptionId, true
-}
-
-// HasStripeSubscriptionId returns a boolean if a field has been set.
-func (o *AccountGetResponse) HasStripeSubscriptionId() bool {
-	if o != nil && !IsNil(o.StripeSubscriptionId) {
-		return true
-	}
-
-	return false
-}
-
-// SetStripeSubscriptionId gets a reference to the given string and assigns it to the StripeSubscriptionId field.
-func (o *AccountGetResponse) SetStripeSubscriptionId(v string) {
-	o.StripeSubscriptionId = &v
-}
-
-// GetSubscriptionStatus returns the SubscriptionStatus field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *AccountGetResponse) GetSubscriptionStatus() string {
-	if o == nil || IsNil(o.SubscriptionStatus.Get()) {
-		var ret string
-		return ret
-	}
-	return *o.SubscriptionStatus.Get()
-}
-
-// GetSubscriptionStatusOk returns a tuple with the SubscriptionStatus field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *AccountGetResponse) GetSubscriptionStatusOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.SubscriptionStatus.Get(), o.SubscriptionStatus.IsSet()
-}
-
-// HasSubscriptionStatus returns a boolean if a field has been set.
-func (o *AccountGetResponse) HasSubscriptionStatus() bool {
-	if o != nil && o.SubscriptionStatus.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetSubscriptionStatus gets a reference to the given NullableString and assigns it to the SubscriptionStatus field.
-func (o *AccountGetResponse) SetSubscriptionStatus(v string) {
-	o.SubscriptionStatus.Set(&v)
-}
-
-// SetSubscriptionStatusNil sets the value for SubscriptionStatus to be an explicit nil
-func (o *AccountGetResponse) SetSubscriptionStatusNil() {
-	o.SubscriptionStatus.Set(nil)
-}
-
-// UnsetSubscriptionStatus ensures that no value is present for SubscriptionStatus, not even an explicit nil
-func (o *AccountGetResponse) UnsetSubscriptionStatus() {
-	o.SubscriptionStatus.Unset()
-}
-
-// GetAnniversaryDate returns the AnniversaryDate field value if set, zero value otherwise.
-func (o *AccountGetResponse) GetAnniversaryDate() string {
-	if o == nil || IsNil(o.AnniversaryDate) {
-		var ret string
-		return ret
-	}
-	return *o.AnniversaryDate
-}
-
-// GetAnniversaryDateOk returns a tuple with the AnniversaryDate field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AccountGetResponse) GetAnniversaryDateOk() (*string, bool) {
-	if o == nil || IsNil(o.AnniversaryDate) {
-		return nil, false
-	}
-	return o.AnniversaryDate, true
-}
-
-// HasAnniversaryDate returns a boolean if a field has been set.
-func (o *AccountGetResponse) HasAnniversaryDate() bool {
-	if o != nil && !IsNil(o.AnniversaryDate) {
-		return true
-	}
-
-	return false
-}
-
-// SetAnniversaryDate gets a reference to the given string and assigns it to the AnniversaryDate field.
-func (o *AccountGetResponse) SetAnniversaryDate(v string) {
-	o.AnniversaryDate = &v
-}
-
-// GetPendingDowngradeEffectiveDate returns the PendingDowngradeEffectiveDate field value if set, zero value otherwise.
-func (o *AccountGetResponse) GetPendingDowngradeEffectiveDate() string {
-	if o == nil || IsNil(o.PendingDowngradeEffectiveDate) {
-		var ret string
-		return ret
-	}
-	return *o.PendingDowngradeEffectiveDate
-}
-
-// GetPendingDowngradeEffectiveDateOk returns a tuple with the PendingDowngradeEffectiveDate field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AccountGetResponse) GetPendingDowngradeEffectiveDateOk() (*string, bool) {
-	if o == nil || IsNil(o.PendingDowngradeEffectiveDate) {
-		return nil, false
-	}
-	return o.PendingDowngradeEffectiveDate, true
-}
-
-// HasPendingDowngradeEffectiveDate returns a boolean if a field has been set.
-func (o *AccountGetResponse) HasPendingDowngradeEffectiveDate() bool {
-	if o != nil && !IsNil(o.PendingDowngradeEffectiveDate) {
-		return true
-	}
-
-	return false
-}
-
-// SetPendingDowngradeEffectiveDate gets a reference to the given string and assigns it to the PendingDowngradeEffectiveDate field.
-func (o *AccountGetResponse) SetPendingDowngradeEffectiveDate(v string) {
-	o.PendingDowngradeEffectiveDate = &v
-}
-
-// GetPendingDowngradeAccountType returns the PendingDowngradeAccountType field value if set, zero value otherwise.
-func (o *AccountGetResponse) GetPendingDowngradeAccountType() string {
-	if o == nil || IsNil(o.PendingDowngradeAccountType) {
-		var ret string
-		return ret
-	}
-	return *o.PendingDowngradeAccountType
-}
-
-// GetPendingDowngradeAccountTypeOk returns a tuple with the PendingDowngradeAccountType field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AccountGetResponse) GetPendingDowngradeAccountTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.PendingDowngradeAccountType) {
-		return nil, false
-	}
-	return o.PendingDowngradeAccountType, true
-}
-
-// HasPendingDowngradeAccountType returns a boolean if a field has been set.
-func (o *AccountGetResponse) HasPendingDowngradeAccountType() bool {
-	if o != nil && !IsNil(o.PendingDowngradeAccountType) {
-		return true
-	}
-
-	return false
-}
-
-// SetPendingDowngradeAccountType gets a reference to the given string and assigns it to the PendingDowngradeAccountType field.
-func (o *AccountGetResponse) SetPendingDowngradeAccountType(v string) {
-	o.PendingDowngradeAccountType = &v
-}
-
-// GetPendingDowngradeUsageLimit returns the PendingDowngradeUsageLimit field value if set, zero value otherwise.
-func (o *AccountGetResponse) GetPendingDowngradeUsageLimit() AccountGetResponsePendingDowngradeUsageLimit {
-	if o == nil || IsNil(o.PendingDowngradeUsageLimit) {
-		var ret AccountGetResponsePendingDowngradeUsageLimit
-		return ret
-	}
-	return *o.PendingDowngradeUsageLimit
-}
-
-// GetPendingDowngradeUsageLimitOk returns a tuple with the PendingDowngradeUsageLimit field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AccountGetResponse) GetPendingDowngradeUsageLimitOk() (*AccountGetResponsePendingDowngradeUsageLimit, bool) {
-	if o == nil || IsNil(o.PendingDowngradeUsageLimit) {
-		return nil, false
-	}
-	return o.PendingDowngradeUsageLimit, true
-}
-
-// HasPendingDowngradeUsageLimit returns a boolean if a field has been set.
-func (o *AccountGetResponse) HasPendingDowngradeUsageLimit() bool {
-	if o != nil && !IsNil(o.PendingDowngradeUsageLimit) {
-		return true
-	}
-
-	return false
-}
-
-// SetPendingDowngradeUsageLimit gets a reference to the given AccountGetResponsePendingDowngradeUsageLimit and assigns it to the PendingDowngradeUsageLimit field.
-func (o *AccountGetResponse) SetPendingDowngradeUsageLimit(v AccountGetResponsePendingDowngradeUsageLimit) {
-	o.PendingDowngradeUsageLimit = &v
-}
-
 func (o AccountGetResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -399,30 +191,12 @@ func (o AccountGetResponse) MarshalJSON() ([]byte, error) {
 func (o AccountGetResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["accountId"] = o.AccountId
+	if !IsNil(o.OrganizationId) {
+		toSerialize["organizationId"] = o.OrganizationId
+	}
 	toSerialize["name"] = o.Name
 	toSerialize["accountType"] = o.AccountType
 	toSerialize["createdAt"] = o.CreatedAt
-	if !IsNil(o.StripeCustomerId) {
-		toSerialize["stripeCustomerId"] = o.StripeCustomerId
-	}
-	if !IsNil(o.StripeSubscriptionId) {
-		toSerialize["stripeSubscriptionId"] = o.StripeSubscriptionId
-	}
-	if o.SubscriptionStatus.IsSet() {
-		toSerialize["subscriptionStatus"] = o.SubscriptionStatus.Get()
-	}
-	if !IsNil(o.AnniversaryDate) {
-		toSerialize["anniversaryDate"] = o.AnniversaryDate
-	}
-	if !IsNil(o.PendingDowngradeEffectiveDate) {
-		toSerialize["pendingDowngradeEffectiveDate"] = o.PendingDowngradeEffectiveDate
-	}
-	if !IsNil(o.PendingDowngradeAccountType) {
-		toSerialize["pendingDowngradeAccountType"] = o.PendingDowngradeAccountType
-	}
-	if !IsNil(o.PendingDowngradeUsageLimit) {
-		toSerialize["pendingDowngradeUsageLimit"] = o.PendingDowngradeUsageLimit
-	}
 	return toSerialize, nil
 }
 
