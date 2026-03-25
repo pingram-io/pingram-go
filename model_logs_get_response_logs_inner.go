@@ -56,19 +56,23 @@ type LogsGetResponseLogsInner struct {
 	EmailDeliveredAt             *string  `json:"email_delivered_at,omitempty"`
 	EmailDeliveredRecipients     *string  `json:"email_delivered_recipients,omitempty"`
 	EmailDeliveredAfter          *float32 `json:"email_delivered_after,omitempty"`
+	EmailDeliveredWebhookRes     *string  `json:"email_delivered_webhook_res,omitempty"`
 	EmailFailedAt                *string  `json:"email_failed_at,omitempty"`
 	EmailFailedCode              *string  `json:"email_failed_code,omitempty"`
 	EmailFailedRecipient         *string  `json:"email_failed_recipient,omitempty"`
 	EmailFailedDiagnosticCode    *string  `json:"email_failed_diagnostic_code,omitempty"`
 	EmailFailedInternal          *string  `json:"email_failed_internal,omitempty"`
+	EmailFailedWebhookRes        *string  `json:"email_failed_webhook_res,omitempty"`
 	EmailOpenedAt                *string  `json:"email_opened_at,omitempty"`
 	EmailOpenedUserAgent         *string  `json:"email_opened_user_agent,omitempty"`
 	EmailOpenedIp                *string  `json:"email_opened_ip,omitempty"`
+	EmailOpenedWebhookRes        *string  `json:"email_opened_webhook_res,omitempty"`
 	EmailClickedAt               *string  `json:"email_clicked_at,omitempty"`
 	EmailClickedUserAgent        *string  `json:"email_clicked_user_agent,omitempty"`
 	EmailClickedIp               *string  `json:"email_clicked_ip,omitempty"`
 	EmailClickedLink             *string  `json:"email_clicked_link,omitempty"`
 	EmailClickedLinkTags         *string  `json:"email_clicked_link_tags,omitempty"`
+	EmailClickedWebhookRes       *string  `json:"email_clicked_webhook_res,omitempty"`
 	EmailInboundAt               *string  `json:"email_inbound_at,omitempty"`
 	EmailInboundFrom             *string  `json:"email_inbound_from,omitempty"`
 	EmailInboundFromName         *string  `json:"email_inbound_from_name,omitempty"`
@@ -1305,6 +1309,38 @@ func (o *LogsGetResponseLogsInner) SetEmailDeliveredAfter(v float32) {
 	o.EmailDeliveredAfter = &v
 }
 
+// GetEmailDeliveredWebhookRes returns the EmailDeliveredWebhookRes field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetEmailDeliveredWebhookRes() string {
+	if o == nil || IsNil(o.EmailDeliveredWebhookRes) {
+		var ret string
+		return ret
+	}
+	return *o.EmailDeliveredWebhookRes
+}
+
+// GetEmailDeliveredWebhookResOk returns a tuple with the EmailDeliveredWebhookRes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetEmailDeliveredWebhookResOk() (*string, bool) {
+	if o == nil || IsNil(o.EmailDeliveredWebhookRes) {
+		return nil, false
+	}
+	return o.EmailDeliveredWebhookRes, true
+}
+
+// HasEmailDeliveredWebhookRes returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasEmailDeliveredWebhookRes() bool {
+	if o != nil && !IsNil(o.EmailDeliveredWebhookRes) {
+		return true
+	}
+
+	return false
+}
+
+// SetEmailDeliveredWebhookRes gets a reference to the given string and assigns it to the EmailDeliveredWebhookRes field.
+func (o *LogsGetResponseLogsInner) SetEmailDeliveredWebhookRes(v string) {
+	o.EmailDeliveredWebhookRes = &v
+}
+
 // GetEmailFailedAt returns the EmailFailedAt field value if set, zero value otherwise.
 func (o *LogsGetResponseLogsInner) GetEmailFailedAt() string {
 	if o == nil || IsNil(o.EmailFailedAt) {
@@ -1465,6 +1501,38 @@ func (o *LogsGetResponseLogsInner) SetEmailFailedInternal(v string) {
 	o.EmailFailedInternal = &v
 }
 
+// GetEmailFailedWebhookRes returns the EmailFailedWebhookRes field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetEmailFailedWebhookRes() string {
+	if o == nil || IsNil(o.EmailFailedWebhookRes) {
+		var ret string
+		return ret
+	}
+	return *o.EmailFailedWebhookRes
+}
+
+// GetEmailFailedWebhookResOk returns a tuple with the EmailFailedWebhookRes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetEmailFailedWebhookResOk() (*string, bool) {
+	if o == nil || IsNil(o.EmailFailedWebhookRes) {
+		return nil, false
+	}
+	return o.EmailFailedWebhookRes, true
+}
+
+// HasEmailFailedWebhookRes returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasEmailFailedWebhookRes() bool {
+	if o != nil && !IsNil(o.EmailFailedWebhookRes) {
+		return true
+	}
+
+	return false
+}
+
+// SetEmailFailedWebhookRes gets a reference to the given string and assigns it to the EmailFailedWebhookRes field.
+func (o *LogsGetResponseLogsInner) SetEmailFailedWebhookRes(v string) {
+	o.EmailFailedWebhookRes = &v
+}
+
 // GetEmailOpenedAt returns the EmailOpenedAt field value if set, zero value otherwise.
 func (o *LogsGetResponseLogsInner) GetEmailOpenedAt() string {
 	if o == nil || IsNil(o.EmailOpenedAt) {
@@ -1559,6 +1627,38 @@ func (o *LogsGetResponseLogsInner) HasEmailOpenedIp() bool {
 // SetEmailOpenedIp gets a reference to the given string and assigns it to the EmailOpenedIp field.
 func (o *LogsGetResponseLogsInner) SetEmailOpenedIp(v string) {
 	o.EmailOpenedIp = &v
+}
+
+// GetEmailOpenedWebhookRes returns the EmailOpenedWebhookRes field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetEmailOpenedWebhookRes() string {
+	if o == nil || IsNil(o.EmailOpenedWebhookRes) {
+		var ret string
+		return ret
+	}
+	return *o.EmailOpenedWebhookRes
+}
+
+// GetEmailOpenedWebhookResOk returns a tuple with the EmailOpenedWebhookRes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetEmailOpenedWebhookResOk() (*string, bool) {
+	if o == nil || IsNil(o.EmailOpenedWebhookRes) {
+		return nil, false
+	}
+	return o.EmailOpenedWebhookRes, true
+}
+
+// HasEmailOpenedWebhookRes returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasEmailOpenedWebhookRes() bool {
+	if o != nil && !IsNil(o.EmailOpenedWebhookRes) {
+		return true
+	}
+
+	return false
+}
+
+// SetEmailOpenedWebhookRes gets a reference to the given string and assigns it to the EmailOpenedWebhookRes field.
+func (o *LogsGetResponseLogsInner) SetEmailOpenedWebhookRes(v string) {
+	o.EmailOpenedWebhookRes = &v
 }
 
 // GetEmailClickedAt returns the EmailClickedAt field value if set, zero value otherwise.
@@ -1719,6 +1819,38 @@ func (o *LogsGetResponseLogsInner) HasEmailClickedLinkTags() bool {
 // SetEmailClickedLinkTags gets a reference to the given string and assigns it to the EmailClickedLinkTags field.
 func (o *LogsGetResponseLogsInner) SetEmailClickedLinkTags(v string) {
 	o.EmailClickedLinkTags = &v
+}
+
+// GetEmailClickedWebhookRes returns the EmailClickedWebhookRes field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetEmailClickedWebhookRes() string {
+	if o == nil || IsNil(o.EmailClickedWebhookRes) {
+		var ret string
+		return ret
+	}
+	return *o.EmailClickedWebhookRes
+}
+
+// GetEmailClickedWebhookResOk returns a tuple with the EmailClickedWebhookRes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetEmailClickedWebhookResOk() (*string, bool) {
+	if o == nil || IsNil(o.EmailClickedWebhookRes) {
+		return nil, false
+	}
+	return o.EmailClickedWebhookRes, true
+}
+
+// HasEmailClickedWebhookRes returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasEmailClickedWebhookRes() bool {
+	if o != nil && !IsNil(o.EmailClickedWebhookRes) {
+		return true
+	}
+
+	return false
+}
+
+// SetEmailClickedWebhookRes gets a reference to the given string and assigns it to the EmailClickedWebhookRes field.
+func (o *LogsGetResponseLogsInner) SetEmailClickedWebhookRes(v string) {
+	o.EmailClickedWebhookRes = &v
 }
 
 // GetEmailInboundAt returns the EmailInboundAt field value if set, zero value otherwise.
@@ -5224,6 +5356,9 @@ func (o LogsGetResponseLogsInner) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.EmailDeliveredAfter) {
 		toSerialize["email_delivered_after"] = o.EmailDeliveredAfter
 	}
+	if !IsNil(o.EmailDeliveredWebhookRes) {
+		toSerialize["email_delivered_webhook_res"] = o.EmailDeliveredWebhookRes
+	}
 	if !IsNil(o.EmailFailedAt) {
 		toSerialize["email_failed_at"] = o.EmailFailedAt
 	}
@@ -5239,6 +5374,9 @@ func (o LogsGetResponseLogsInner) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.EmailFailedInternal) {
 		toSerialize["email_failed_internal"] = o.EmailFailedInternal
 	}
+	if !IsNil(o.EmailFailedWebhookRes) {
+		toSerialize["email_failed_webhook_res"] = o.EmailFailedWebhookRes
+	}
 	if !IsNil(o.EmailOpenedAt) {
 		toSerialize["email_opened_at"] = o.EmailOpenedAt
 	}
@@ -5247,6 +5385,9 @@ func (o LogsGetResponseLogsInner) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.EmailOpenedIp) {
 		toSerialize["email_opened_ip"] = o.EmailOpenedIp
+	}
+	if !IsNil(o.EmailOpenedWebhookRes) {
+		toSerialize["email_opened_webhook_res"] = o.EmailOpenedWebhookRes
 	}
 	if !IsNil(o.EmailClickedAt) {
 		toSerialize["email_clicked_at"] = o.EmailClickedAt
@@ -5262,6 +5403,9 @@ func (o LogsGetResponseLogsInner) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.EmailClickedLinkTags) {
 		toSerialize["email_clicked_link_tags"] = o.EmailClickedLinkTags
+	}
+	if !IsNil(o.EmailClickedWebhookRes) {
+		toSerialize["email_clicked_webhook_res"] = o.EmailClickedWebhookRes
 	}
 	if !IsNil(o.EmailInboundAt) {
 		toSerialize["email_inbound_at"] = o.EmailInboundAt
