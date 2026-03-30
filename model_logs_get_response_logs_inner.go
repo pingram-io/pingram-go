@@ -171,6 +171,8 @@ type LogsGetResponseLogsInner struct {
 	SmsSentParts       *float32 `json:"sms_sent_parts,omitempty"`
 	SmsSentCost        *float32 `json:"sms_sent_cost,omitempty"`
 	SmsSentCountry     *string  `json:"sms_sent_country,omitempty"`
+	// Unique message ID from provider (Twilio SID or Telnyx ID)
+	SmsSentMessageId *string `json:"sms_sent_messageId,omitempty"`
 	// Actual cost from Telnyx/Twilio (internal)
 	SmsCarrierCostInternal *float32 `json:"sms_carrier_cost_internal,omitempty"`
 	SmsCarrierFeeInternal  *float32 `json:"sms_carrier_fee_internal,omitempty"`
@@ -4957,6 +4959,38 @@ func (o *LogsGetResponseLogsInner) SetSmsSentCountry(v string) {
 	o.SmsSentCountry = &v
 }
 
+// GetSmsSentMessageId returns the SmsSentMessageId field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetSmsSentMessageId() string {
+	if o == nil || IsNil(o.SmsSentMessageId) {
+		var ret string
+		return ret
+	}
+	return *o.SmsSentMessageId
+}
+
+// GetSmsSentMessageIdOk returns a tuple with the SmsSentMessageId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetSmsSentMessageIdOk() (*string, bool) {
+	if o == nil || IsNil(o.SmsSentMessageId) {
+		return nil, false
+	}
+	return o.SmsSentMessageId, true
+}
+
+// HasSmsSentMessageId returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasSmsSentMessageId() bool {
+	if o != nil && !IsNil(o.SmsSentMessageId) {
+		return true
+	}
+
+	return false
+}
+
+// SetSmsSentMessageId gets a reference to the given string and assigns it to the SmsSentMessageId field.
+func (o *LogsGetResponseLogsInner) SetSmsSentMessageId(v string) {
+	o.SmsSentMessageId = &v
+}
+
 // GetSmsCarrierCostInternal returns the SmsCarrierCostInternal field value if set, zero value otherwise.
 func (o *LogsGetResponseLogsInner) GetSmsCarrierCostInternal() float32 {
 	if o == nil || IsNil(o.SmsCarrierCostInternal) {
@@ -5697,6 +5731,9 @@ func (o LogsGetResponseLogsInner) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.SmsSentCountry) {
 		toSerialize["sms_sent_country"] = o.SmsSentCountry
+	}
+	if !IsNil(o.SmsSentMessageId) {
+		toSerialize["sms_sent_messageId"] = o.SmsSentMessageId
 	}
 	if !IsNil(o.SmsCarrierCostInternal) {
 		toSerialize["sms_carrier_cost_internal"] = o.SmsCarrierCostInternal
