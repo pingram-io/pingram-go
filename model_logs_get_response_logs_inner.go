@@ -90,11 +90,13 @@ type LogsGetResponseLogsInner struct {
 	EmailInboundInReplyTo        *string  `json:"email_inbound_in_reply_to,omitempty"`
 	EmailInboundReferences       *string  `json:"email_inbound_references,omitempty"`
 	EmailInboundWebhookDelivered *bool    `json:"email_inbound_webhook_delivered,omitempty"`
+	EmailInboundWebhookRes       *string  `json:"email_inbound_webhook_res,omitempty"`
 	EmailInboundResolutionType   *string  `json:"email_inbound_resolution_type,omitempty"`
 	SmsInboundAt                 *string  `json:"sms_inbound_at,omitempty"`
 	SmsInboundFrom               *string  `json:"sms_inbound_from,omitempty"`
 	SmsInboundText               *string  `json:"sms_inbound_text,omitempty"`
 	SmsInboundWebhookDelivered   *bool    `json:"sms_inbound_webhook_delivered,omitempty"`
+	SmsInboundWebhookRes         *string  `json:"sms_inbound_webhook_res,omitempty"`
 	SmsRepliedAt                 *string  `json:"sms_replied_at,omitempty"`
 	SmsRepliedTo                 *string  `json:"sms_replied_to,omitempty"`
 	SmsRepliedText               *string  `json:"sms_replied_text,omitempty"`
@@ -2399,6 +2401,38 @@ func (o *LogsGetResponseLogsInner) SetEmailInboundWebhookDelivered(v bool) {
 	o.EmailInboundWebhookDelivered = &v
 }
 
+// GetEmailInboundWebhookRes returns the EmailInboundWebhookRes field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetEmailInboundWebhookRes() string {
+	if o == nil || IsNil(o.EmailInboundWebhookRes) {
+		var ret string
+		return ret
+	}
+	return *o.EmailInboundWebhookRes
+}
+
+// GetEmailInboundWebhookResOk returns a tuple with the EmailInboundWebhookRes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetEmailInboundWebhookResOk() (*string, bool) {
+	if o == nil || IsNil(o.EmailInboundWebhookRes) {
+		return nil, false
+	}
+	return o.EmailInboundWebhookRes, true
+}
+
+// HasEmailInboundWebhookRes returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasEmailInboundWebhookRes() bool {
+	if o != nil && !IsNil(o.EmailInboundWebhookRes) {
+		return true
+	}
+
+	return false
+}
+
+// SetEmailInboundWebhookRes gets a reference to the given string and assigns it to the EmailInboundWebhookRes field.
+func (o *LogsGetResponseLogsInner) SetEmailInboundWebhookRes(v string) {
+	o.EmailInboundWebhookRes = &v
+}
+
 // GetEmailInboundResolutionType returns the EmailInboundResolutionType field value if set, zero value otherwise.
 func (o *LogsGetResponseLogsInner) GetEmailInboundResolutionType() string {
 	if o == nil || IsNil(o.EmailInboundResolutionType) {
@@ -2557,6 +2591,38 @@ func (o *LogsGetResponseLogsInner) HasSmsInboundWebhookDelivered() bool {
 // SetSmsInboundWebhookDelivered gets a reference to the given bool and assigns it to the SmsInboundWebhookDelivered field.
 func (o *LogsGetResponseLogsInner) SetSmsInboundWebhookDelivered(v bool) {
 	o.SmsInboundWebhookDelivered = &v
+}
+
+// GetSmsInboundWebhookRes returns the SmsInboundWebhookRes field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetSmsInboundWebhookRes() string {
+	if o == nil || IsNil(o.SmsInboundWebhookRes) {
+		var ret string
+		return ret
+	}
+	return *o.SmsInboundWebhookRes
+}
+
+// GetSmsInboundWebhookResOk returns a tuple with the SmsInboundWebhookRes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetSmsInboundWebhookResOk() (*string, bool) {
+	if o == nil || IsNil(o.SmsInboundWebhookRes) {
+		return nil, false
+	}
+	return o.SmsInboundWebhookRes, true
+}
+
+// HasSmsInboundWebhookRes returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasSmsInboundWebhookRes() bool {
+	if o != nil && !IsNil(o.SmsInboundWebhookRes) {
+		return true
+	}
+
+	return false
+}
+
+// SetSmsInboundWebhookRes gets a reference to the given string and assigns it to the SmsInboundWebhookRes field.
+func (o *LogsGetResponseLogsInner) SetSmsInboundWebhookRes(v string) {
+	o.SmsInboundWebhookRes = &v
 }
 
 // GetSmsRepliedAt returns the SmsRepliedAt field value if set, zero value otherwise.
@@ -5492,6 +5558,9 @@ func (o LogsGetResponseLogsInner) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.EmailInboundWebhookDelivered) {
 		toSerialize["email_inbound_webhook_delivered"] = o.EmailInboundWebhookDelivered
 	}
+	if !IsNil(o.EmailInboundWebhookRes) {
+		toSerialize["email_inbound_webhook_res"] = o.EmailInboundWebhookRes
+	}
 	if !IsNil(o.EmailInboundResolutionType) {
 		toSerialize["email_inbound_resolution_type"] = o.EmailInboundResolutionType
 	}
@@ -5506,6 +5575,9 @@ func (o LogsGetResponseLogsInner) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.SmsInboundWebhookDelivered) {
 		toSerialize["sms_inbound_webhook_delivered"] = o.SmsInboundWebhookDelivered
+	}
+	if !IsNil(o.SmsInboundWebhookRes) {
+		toSerialize["sms_inbound_webhook_res"] = o.SmsInboundWebhookRes
 	}
 	if !IsNil(o.SmsRepliedAt) {
 		toSerialize["sms_replied_at"] = o.SmsRepliedAt
