@@ -22,6 +22,7 @@ type SenderPostBodyOptions struct {
 	Email *SenderPostBodyOptionsEmail `json:"email,omitempty"`
 	Apn   *SenderPostBodyOptionsApn   `json:"apn,omitempty"`
 	Fcm   *SenderPostBodyOptionsFcm   `json:"fcm,omitempty"`
+	Push  *SenderPostBodyOptionsPush  `json:"push,omitempty"`
 }
 
 // NewSenderPostBodyOptions instantiates a new SenderPostBodyOptions object
@@ -137,6 +138,38 @@ func (o *SenderPostBodyOptions) SetFcm(v SenderPostBodyOptionsFcm) {
 	o.Fcm = &v
 }
 
+// GetPush returns the Push field value if set, zero value otherwise.
+func (o *SenderPostBodyOptions) GetPush() SenderPostBodyOptionsPush {
+	if o == nil || IsNil(o.Push) {
+		var ret SenderPostBodyOptionsPush
+		return ret
+	}
+	return *o.Push
+}
+
+// GetPushOk returns a tuple with the Push field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SenderPostBodyOptions) GetPushOk() (*SenderPostBodyOptionsPush, bool) {
+	if o == nil || IsNil(o.Push) {
+		return nil, false
+	}
+	return o.Push, true
+}
+
+// HasPush returns a boolean if a field has been set.
+func (o *SenderPostBodyOptions) HasPush() bool {
+	if o != nil && !IsNil(o.Push) {
+		return true
+	}
+
+	return false
+}
+
+// SetPush gets a reference to the given SenderPostBodyOptionsPush and assigns it to the Push field.
+func (o *SenderPostBodyOptions) SetPush(v SenderPostBodyOptionsPush) {
+	o.Push = &v
+}
+
 func (o SenderPostBodyOptions) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -155,6 +188,9 @@ func (o SenderPostBodyOptions) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Fcm) {
 		toSerialize["fcm"] = o.Fcm
+	}
+	if !IsNil(o.Push) {
+		toSerialize["push"] = o.Push
 	}
 	return toSerialize, nil
 }
