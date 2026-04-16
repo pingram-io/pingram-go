@@ -38,7 +38,7 @@ type BillingPostResponseBody struct {
 	StripeCustomerId     *string        `json:"stripeCustomerId,omitempty"`
 	StripeSubscriptionId *string        `json:"stripeSubscriptionId,omitempty"`
 	SubscriptionStatus   NullableString `json:"subscriptionStatus,omitempty"`
-	// Verification status; internalCap applies when not 'verified'.
+	// Verification status.
 	Status                        *string  `json:"status,omitempty"`
 	PendingDowngradeCostCap       *float32 `json:"pendingDowngradeCostCap,omitempty"`
 	PendingDowngradeMessagesCap   *float32 `json:"pendingDowngradeMessagesCap,omitempty"`

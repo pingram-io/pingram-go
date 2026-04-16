@@ -19,36 +19,21 @@ import (
 // checks if the Organization type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Organization{}
 
-// Organization Organization document in organizations table. Holds usage caps; one org can have multiple accounts.
+// Organization Organization details for the authenticated account: identifiers, billing-cycle dates, usage caps (messages, SMS, calls, cost), and timestamps. Returned by GET /account/organization.
 type Organization struct {
-	OrganizationId   string  `json:"organizationId"`
-	OrganizationType string  `json:"organizationType"`
-	Creator          string  `json:"creator"`
-	MessagesCap      float32 `json:"messagesCap"`
-	CostCap          float32 `json:"costCap"`
-	CreatedAt        string  `json:"createdAt"`
-	UpdatedAt        string  `json:"updatedAt"`
+	OrganizationId   string   `json:"organizationId"`
+	OrganizationType string   `json:"organizationType"`
+	Creator          string   `json:"creator"`
+	Name             string   `json:"name"`
+	MessagesCap      float32  `json:"messagesCap"`
+	CostCap          float32  `json:"costCap"`
+	SmsCap           *float32 `json:"smsCap,omitempty"`
+	CallCap          *float32 `json:"callCap,omitempty"`
 	// ISO date (YYYY-MM-DD) when the billing cycle resets.
-	AnniversaryDate string   `json:"anniversaryDate"`
-	AllowOverage    bool     `json:"allowOverage"`
-	Name            string   `json:"name"`
-	SmsCap          *float32 `json:"smsCap,omitempty"`
-	CallCap         *float32 `json:"callCap,omitempty"`
-	// Stripe subscription ID.
-	StripeCustomerId     *string        `json:"stripeCustomerId,omitempty"`
-	StripeSubscriptionId *string        `json:"stripeSubscriptionId,omitempty"`
-	SubscriptionStatus   NullableString `json:"subscriptionStatus,omitempty"`
-	// Verification status; internalCap applies when not 'verified'.
-	Status *string `json:"status,omitempty"`
-	// Unverified account cap (per-channel message limit).
-	InternalCap                   *float32 `json:"internalCap,omitempty"`
-	PendingDowngradeCostCap       *float32 `json:"pendingDowngradeCostCap,omitempty"`
-	PendingDowngradeMessagesCap   *float32 `json:"pendingDowngradeMessagesCap,omitempty"`
-	PendingDowngradeSmsCap        *float32 `json:"pendingDowngradeSmsCap,omitempty"`
-	PendingDowngradeCallCap       *float32 `json:"pendingDowngradeCallCap,omitempty"`
-	PendingDowngradeInternalCap   *float32 `json:"pendingDowngradeInternalCap,omitempty"`
-	PendingDowngradeEffectiveDate *string  `json:"pendingDowngradeEffectiveDate,omitempty"`
-	PendingDowngradeAccountType   *string  `json:"pendingDowngradeAccountType,omitempty"`
+	AnniversaryDate string `json:"anniversaryDate"`
+	AllowOverage    bool   `json:"allowOverage"`
+	CreatedAt       string `json:"createdAt"`
+	UpdatedAt       string `json:"updatedAt"`
 }
 
 type _Organization Organization
@@ -57,18 +42,18 @@ type _Organization Organization
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOrganization(organizationId string, organizationType string, creator string, messagesCap float32, costCap float32, createdAt string, updatedAt string, anniversaryDate string, allowOverage bool, name string) *Organization {
+func NewOrganization(organizationId string, organizationType string, creator string, name string, messagesCap float32, costCap float32, anniversaryDate string, allowOverage bool, createdAt string, updatedAt string) *Organization {
 	this := Organization{}
 	this.OrganizationId = organizationId
 	this.OrganizationType = organizationType
 	this.Creator = creator
+	this.Name = name
 	this.MessagesCap = messagesCap
 	this.CostCap = costCap
-	this.CreatedAt = createdAt
-	this.UpdatedAt = updatedAt
 	this.AnniversaryDate = anniversaryDate
 	this.AllowOverage = allowOverage
-	this.Name = name
+	this.CreatedAt = createdAt
+	this.UpdatedAt = updatedAt
 	return &this
 }
 
@@ -152,6 +137,30 @@ func (o *Organization) SetCreator(v string) {
 	o.Creator = v
 }
 
+// GetName returns the Name field value
+func (o *Organization) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *Organization) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *Organization) SetName(v string) {
+	o.Name = v
+}
+
 // GetMessagesCap returns the MessagesCap field value
 func (o *Organization) GetMessagesCap() float32 {
 	if o == nil {
@@ -198,126 +207,6 @@ func (o *Organization) GetCostCapOk() (*float32, bool) {
 // SetCostCap sets field value
 func (o *Organization) SetCostCap(v float32) {
 	o.CostCap = v
-}
-
-// GetCreatedAt returns the CreatedAt field value
-func (o *Organization) GetCreatedAt() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.CreatedAt
-}
-
-// GetCreatedAtOk returns a tuple with the CreatedAt field value
-// and a boolean to check if the value has been set.
-func (o *Organization) GetCreatedAtOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CreatedAt, true
-}
-
-// SetCreatedAt sets field value
-func (o *Organization) SetCreatedAt(v string) {
-	o.CreatedAt = v
-}
-
-// GetUpdatedAt returns the UpdatedAt field value
-func (o *Organization) GetUpdatedAt() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.UpdatedAt
-}
-
-// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
-// and a boolean to check if the value has been set.
-func (o *Organization) GetUpdatedAtOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.UpdatedAt, true
-}
-
-// SetUpdatedAt sets field value
-func (o *Organization) SetUpdatedAt(v string) {
-	o.UpdatedAt = v
-}
-
-// GetAnniversaryDate returns the AnniversaryDate field value
-func (o *Organization) GetAnniversaryDate() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.AnniversaryDate
-}
-
-// GetAnniversaryDateOk returns a tuple with the AnniversaryDate field value
-// and a boolean to check if the value has been set.
-func (o *Organization) GetAnniversaryDateOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.AnniversaryDate, true
-}
-
-// SetAnniversaryDate sets field value
-func (o *Organization) SetAnniversaryDate(v string) {
-	o.AnniversaryDate = v
-}
-
-// GetAllowOverage returns the AllowOverage field value
-func (o *Organization) GetAllowOverage() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.AllowOverage
-}
-
-// GetAllowOverageOk returns a tuple with the AllowOverage field value
-// and a boolean to check if the value has been set.
-func (o *Organization) GetAllowOverageOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.AllowOverage, true
-}
-
-// SetAllowOverage sets field value
-func (o *Organization) SetAllowOverage(v bool) {
-	o.AllowOverage = v
-}
-
-// GetName returns the Name field value
-func (o *Organization) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *Organization) GetNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *Organization) SetName(v string) {
-	o.Name = v
 }
 
 // GetSmsCap returns the SmsCap field value if set, zero value otherwise.
@@ -384,399 +273,100 @@ func (o *Organization) SetCallCap(v float32) {
 	o.CallCap = &v
 }
 
-// GetStripeCustomerId returns the StripeCustomerId field value if set, zero value otherwise.
-func (o *Organization) GetStripeCustomerId() string {
-	if o == nil || IsNil(o.StripeCustomerId) {
+// GetAnniversaryDate returns the AnniversaryDate field value
+func (o *Organization) GetAnniversaryDate() string {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.StripeCustomerId
+
+	return o.AnniversaryDate
 }
 
-// GetStripeCustomerIdOk returns a tuple with the StripeCustomerId field value if set, nil otherwise
+// GetAnniversaryDateOk returns a tuple with the AnniversaryDate field value
 // and a boolean to check if the value has been set.
-func (o *Organization) GetStripeCustomerIdOk() (*string, bool) {
-	if o == nil || IsNil(o.StripeCustomerId) {
-		return nil, false
-	}
-	return o.StripeCustomerId, true
-}
-
-// HasStripeCustomerId returns a boolean if a field has been set.
-func (o *Organization) HasStripeCustomerId() bool {
-	if o != nil && !IsNil(o.StripeCustomerId) {
-		return true
-	}
-
-	return false
-}
-
-// SetStripeCustomerId gets a reference to the given string and assigns it to the StripeCustomerId field.
-func (o *Organization) SetStripeCustomerId(v string) {
-	o.StripeCustomerId = &v
-}
-
-// GetStripeSubscriptionId returns the StripeSubscriptionId field value if set, zero value otherwise.
-func (o *Organization) GetStripeSubscriptionId() string {
-	if o == nil || IsNil(o.StripeSubscriptionId) {
-		var ret string
-		return ret
-	}
-	return *o.StripeSubscriptionId
-}
-
-// GetStripeSubscriptionIdOk returns a tuple with the StripeSubscriptionId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Organization) GetStripeSubscriptionIdOk() (*string, bool) {
-	if o == nil || IsNil(o.StripeSubscriptionId) {
-		return nil, false
-	}
-	return o.StripeSubscriptionId, true
-}
-
-// HasStripeSubscriptionId returns a boolean if a field has been set.
-func (o *Organization) HasStripeSubscriptionId() bool {
-	if o != nil && !IsNil(o.StripeSubscriptionId) {
-		return true
-	}
-
-	return false
-}
-
-// SetStripeSubscriptionId gets a reference to the given string and assigns it to the StripeSubscriptionId field.
-func (o *Organization) SetStripeSubscriptionId(v string) {
-	o.StripeSubscriptionId = &v
-}
-
-// GetSubscriptionStatus returns the SubscriptionStatus field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Organization) GetSubscriptionStatus() string {
-	if o == nil || IsNil(o.SubscriptionStatus.Get()) {
-		var ret string
-		return ret
-	}
-	return *o.SubscriptionStatus.Get()
-}
-
-// GetSubscriptionStatusOk returns a tuple with the SubscriptionStatus field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Organization) GetSubscriptionStatusOk() (*string, bool) {
+func (o *Organization) GetAnniversaryDateOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.SubscriptionStatus.Get(), o.SubscriptionStatus.IsSet()
+	return &o.AnniversaryDate, true
 }
 
-// HasSubscriptionStatus returns a boolean if a field has been set.
-func (o *Organization) HasSubscriptionStatus() bool {
-	if o != nil && o.SubscriptionStatus.IsSet() {
-		return true
+// SetAnniversaryDate sets field value
+func (o *Organization) SetAnniversaryDate(v string) {
+	o.AnniversaryDate = v
+}
+
+// GetAllowOverage returns the AllowOverage field value
+func (o *Organization) GetAllowOverage() bool {
+	if o == nil {
+		var ret bool
+		return ret
 	}
 
-	return false
+	return o.AllowOverage
 }
 
-// SetSubscriptionStatus gets a reference to the given NullableString and assigns it to the SubscriptionStatus field.
-func (o *Organization) SetSubscriptionStatus(v string) {
-	o.SubscriptionStatus.Set(&v)
+// GetAllowOverageOk returns a tuple with the AllowOverage field value
+// and a boolean to check if the value has been set.
+func (o *Organization) GetAllowOverageOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AllowOverage, true
 }
 
-// SetSubscriptionStatusNil sets the value for SubscriptionStatus to be an explicit nil
-func (o *Organization) SetSubscriptionStatusNil() {
-	o.SubscriptionStatus.Set(nil)
+// SetAllowOverage sets field value
+func (o *Organization) SetAllowOverage(v bool) {
+	o.AllowOverage = v
 }
 
-// UnsetSubscriptionStatus ensures that no value is present for SubscriptionStatus, not even an explicit nil
-func (o *Organization) UnsetSubscriptionStatus() {
-	o.SubscriptionStatus.Unset()
-}
-
-// GetStatus returns the Status field value if set, zero value otherwise.
-func (o *Organization) GetStatus() string {
-	if o == nil || IsNil(o.Status) {
+// GetCreatedAt returns the CreatedAt field value
+func (o *Organization) GetCreatedAt() string {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Status
+
+	return o.CreatedAt
 }
 
-// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// GetCreatedAtOk returns a tuple with the CreatedAt field value
 // and a boolean to check if the value has been set.
-func (o *Organization) GetStatusOk() (*string, bool) {
-	if o == nil || IsNil(o.Status) {
+func (o *Organization) GetCreatedAtOk() (*string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Status, true
+	return &o.CreatedAt, true
 }
 
-// HasStatus returns a boolean if a field has been set.
-func (o *Organization) HasStatus() bool {
-	if o != nil && !IsNil(o.Status) {
-		return true
-	}
-
-	return false
+// SetCreatedAt sets field value
+func (o *Organization) SetCreatedAt(v string) {
+	o.CreatedAt = v
 }
 
-// SetStatus gets a reference to the given string and assigns it to the Status field.
-func (o *Organization) SetStatus(v string) {
-	o.Status = &v
-}
-
-// GetInternalCap returns the InternalCap field value if set, zero value otherwise.
-func (o *Organization) GetInternalCap() float32 {
-	if o == nil || IsNil(o.InternalCap) {
-		var ret float32
-		return ret
-	}
-	return *o.InternalCap
-}
-
-// GetInternalCapOk returns a tuple with the InternalCap field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Organization) GetInternalCapOk() (*float32, bool) {
-	if o == nil || IsNil(o.InternalCap) {
-		return nil, false
-	}
-	return o.InternalCap, true
-}
-
-// HasInternalCap returns a boolean if a field has been set.
-func (o *Organization) HasInternalCap() bool {
-	if o != nil && !IsNil(o.InternalCap) {
-		return true
-	}
-
-	return false
-}
-
-// SetInternalCap gets a reference to the given float32 and assigns it to the InternalCap field.
-func (o *Organization) SetInternalCap(v float32) {
-	o.InternalCap = &v
-}
-
-// GetPendingDowngradeCostCap returns the PendingDowngradeCostCap field value if set, zero value otherwise.
-func (o *Organization) GetPendingDowngradeCostCap() float32 {
-	if o == nil || IsNil(o.PendingDowngradeCostCap) {
-		var ret float32
-		return ret
-	}
-	return *o.PendingDowngradeCostCap
-}
-
-// GetPendingDowngradeCostCapOk returns a tuple with the PendingDowngradeCostCap field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Organization) GetPendingDowngradeCostCapOk() (*float32, bool) {
-	if o == nil || IsNil(o.PendingDowngradeCostCap) {
-		return nil, false
-	}
-	return o.PendingDowngradeCostCap, true
-}
-
-// HasPendingDowngradeCostCap returns a boolean if a field has been set.
-func (o *Organization) HasPendingDowngradeCostCap() bool {
-	if o != nil && !IsNil(o.PendingDowngradeCostCap) {
-		return true
-	}
-
-	return false
-}
-
-// SetPendingDowngradeCostCap gets a reference to the given float32 and assigns it to the PendingDowngradeCostCap field.
-func (o *Organization) SetPendingDowngradeCostCap(v float32) {
-	o.PendingDowngradeCostCap = &v
-}
-
-// GetPendingDowngradeMessagesCap returns the PendingDowngradeMessagesCap field value if set, zero value otherwise.
-func (o *Organization) GetPendingDowngradeMessagesCap() float32 {
-	if o == nil || IsNil(o.PendingDowngradeMessagesCap) {
-		var ret float32
-		return ret
-	}
-	return *o.PendingDowngradeMessagesCap
-}
-
-// GetPendingDowngradeMessagesCapOk returns a tuple with the PendingDowngradeMessagesCap field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Organization) GetPendingDowngradeMessagesCapOk() (*float32, bool) {
-	if o == nil || IsNil(o.PendingDowngradeMessagesCap) {
-		return nil, false
-	}
-	return o.PendingDowngradeMessagesCap, true
-}
-
-// HasPendingDowngradeMessagesCap returns a boolean if a field has been set.
-func (o *Organization) HasPendingDowngradeMessagesCap() bool {
-	if o != nil && !IsNil(o.PendingDowngradeMessagesCap) {
-		return true
-	}
-
-	return false
-}
-
-// SetPendingDowngradeMessagesCap gets a reference to the given float32 and assigns it to the PendingDowngradeMessagesCap field.
-func (o *Organization) SetPendingDowngradeMessagesCap(v float32) {
-	o.PendingDowngradeMessagesCap = &v
-}
-
-// GetPendingDowngradeSmsCap returns the PendingDowngradeSmsCap field value if set, zero value otherwise.
-func (o *Organization) GetPendingDowngradeSmsCap() float32 {
-	if o == nil || IsNil(o.PendingDowngradeSmsCap) {
-		var ret float32
-		return ret
-	}
-	return *o.PendingDowngradeSmsCap
-}
-
-// GetPendingDowngradeSmsCapOk returns a tuple with the PendingDowngradeSmsCap field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Organization) GetPendingDowngradeSmsCapOk() (*float32, bool) {
-	if o == nil || IsNil(o.PendingDowngradeSmsCap) {
-		return nil, false
-	}
-	return o.PendingDowngradeSmsCap, true
-}
-
-// HasPendingDowngradeSmsCap returns a boolean if a field has been set.
-func (o *Organization) HasPendingDowngradeSmsCap() bool {
-	if o != nil && !IsNil(o.PendingDowngradeSmsCap) {
-		return true
-	}
-
-	return false
-}
-
-// SetPendingDowngradeSmsCap gets a reference to the given float32 and assigns it to the PendingDowngradeSmsCap field.
-func (o *Organization) SetPendingDowngradeSmsCap(v float32) {
-	o.PendingDowngradeSmsCap = &v
-}
-
-// GetPendingDowngradeCallCap returns the PendingDowngradeCallCap field value if set, zero value otherwise.
-func (o *Organization) GetPendingDowngradeCallCap() float32 {
-	if o == nil || IsNil(o.PendingDowngradeCallCap) {
-		var ret float32
-		return ret
-	}
-	return *o.PendingDowngradeCallCap
-}
-
-// GetPendingDowngradeCallCapOk returns a tuple with the PendingDowngradeCallCap field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Organization) GetPendingDowngradeCallCapOk() (*float32, bool) {
-	if o == nil || IsNil(o.PendingDowngradeCallCap) {
-		return nil, false
-	}
-	return o.PendingDowngradeCallCap, true
-}
-
-// HasPendingDowngradeCallCap returns a boolean if a field has been set.
-func (o *Organization) HasPendingDowngradeCallCap() bool {
-	if o != nil && !IsNil(o.PendingDowngradeCallCap) {
-		return true
-	}
-
-	return false
-}
-
-// SetPendingDowngradeCallCap gets a reference to the given float32 and assigns it to the PendingDowngradeCallCap field.
-func (o *Organization) SetPendingDowngradeCallCap(v float32) {
-	o.PendingDowngradeCallCap = &v
-}
-
-// GetPendingDowngradeInternalCap returns the PendingDowngradeInternalCap field value if set, zero value otherwise.
-func (o *Organization) GetPendingDowngradeInternalCap() float32 {
-	if o == nil || IsNil(o.PendingDowngradeInternalCap) {
-		var ret float32
-		return ret
-	}
-	return *o.PendingDowngradeInternalCap
-}
-
-// GetPendingDowngradeInternalCapOk returns a tuple with the PendingDowngradeInternalCap field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Organization) GetPendingDowngradeInternalCapOk() (*float32, bool) {
-	if o == nil || IsNil(o.PendingDowngradeInternalCap) {
-		return nil, false
-	}
-	return o.PendingDowngradeInternalCap, true
-}
-
-// HasPendingDowngradeInternalCap returns a boolean if a field has been set.
-func (o *Organization) HasPendingDowngradeInternalCap() bool {
-	if o != nil && !IsNil(o.PendingDowngradeInternalCap) {
-		return true
-	}
-
-	return false
-}
-
-// SetPendingDowngradeInternalCap gets a reference to the given float32 and assigns it to the PendingDowngradeInternalCap field.
-func (o *Organization) SetPendingDowngradeInternalCap(v float32) {
-	o.PendingDowngradeInternalCap = &v
-}
-
-// GetPendingDowngradeEffectiveDate returns the PendingDowngradeEffectiveDate field value if set, zero value otherwise.
-func (o *Organization) GetPendingDowngradeEffectiveDate() string {
-	if o == nil || IsNil(o.PendingDowngradeEffectiveDate) {
+// GetUpdatedAt returns the UpdatedAt field value
+func (o *Organization) GetUpdatedAt() string {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.PendingDowngradeEffectiveDate
+
+	return o.UpdatedAt
 }
 
-// GetPendingDowngradeEffectiveDateOk returns a tuple with the PendingDowngradeEffectiveDate field value if set, nil otherwise
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
 // and a boolean to check if the value has been set.
-func (o *Organization) GetPendingDowngradeEffectiveDateOk() (*string, bool) {
-	if o == nil || IsNil(o.PendingDowngradeEffectiveDate) {
+func (o *Organization) GetUpdatedAtOk() (*string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.PendingDowngradeEffectiveDate, true
+	return &o.UpdatedAt, true
 }
 
-// HasPendingDowngradeEffectiveDate returns a boolean if a field has been set.
-func (o *Organization) HasPendingDowngradeEffectiveDate() bool {
-	if o != nil && !IsNil(o.PendingDowngradeEffectiveDate) {
-		return true
-	}
-
-	return false
-}
-
-// SetPendingDowngradeEffectiveDate gets a reference to the given string and assigns it to the PendingDowngradeEffectiveDate field.
-func (o *Organization) SetPendingDowngradeEffectiveDate(v string) {
-	o.PendingDowngradeEffectiveDate = &v
-}
-
-// GetPendingDowngradeAccountType returns the PendingDowngradeAccountType field value if set, zero value otherwise.
-func (o *Organization) GetPendingDowngradeAccountType() string {
-	if o == nil || IsNil(o.PendingDowngradeAccountType) {
-		var ret string
-		return ret
-	}
-	return *o.PendingDowngradeAccountType
-}
-
-// GetPendingDowngradeAccountTypeOk returns a tuple with the PendingDowngradeAccountType field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Organization) GetPendingDowngradeAccountTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.PendingDowngradeAccountType) {
-		return nil, false
-	}
-	return o.PendingDowngradeAccountType, true
-}
-
-// HasPendingDowngradeAccountType returns a boolean if a field has been set.
-func (o *Organization) HasPendingDowngradeAccountType() bool {
-	if o != nil && !IsNil(o.PendingDowngradeAccountType) {
-		return true
-	}
-
-	return false
-}
-
-// SetPendingDowngradeAccountType gets a reference to the given string and assigns it to the PendingDowngradeAccountType field.
-func (o *Organization) SetPendingDowngradeAccountType(v string) {
-	o.PendingDowngradeAccountType = &v
+// SetUpdatedAt sets field value
+func (o *Organization) SetUpdatedAt(v string) {
+	o.UpdatedAt = v
 }
 
 func (o Organization) MarshalJSON() ([]byte, error) {
@@ -792,55 +382,19 @@ func (o Organization) ToMap() (map[string]interface{}, error) {
 	toSerialize["organizationId"] = o.OrganizationId
 	toSerialize["organizationType"] = o.OrganizationType
 	toSerialize["creator"] = o.Creator
+	toSerialize["name"] = o.Name
 	toSerialize["messagesCap"] = o.MessagesCap
 	toSerialize["costCap"] = o.CostCap
-	toSerialize["createdAt"] = o.CreatedAt
-	toSerialize["updatedAt"] = o.UpdatedAt
-	toSerialize["anniversaryDate"] = o.AnniversaryDate
-	toSerialize["allowOverage"] = o.AllowOverage
-	toSerialize["name"] = o.Name
 	if !IsNil(o.SmsCap) {
 		toSerialize["smsCap"] = o.SmsCap
 	}
 	if !IsNil(o.CallCap) {
 		toSerialize["callCap"] = o.CallCap
 	}
-	if !IsNil(o.StripeCustomerId) {
-		toSerialize["stripeCustomerId"] = o.StripeCustomerId
-	}
-	if !IsNil(o.StripeSubscriptionId) {
-		toSerialize["stripeSubscriptionId"] = o.StripeSubscriptionId
-	}
-	if o.SubscriptionStatus.IsSet() {
-		toSerialize["subscriptionStatus"] = o.SubscriptionStatus.Get()
-	}
-	if !IsNil(o.Status) {
-		toSerialize["status"] = o.Status
-	}
-	if !IsNil(o.InternalCap) {
-		toSerialize["internalCap"] = o.InternalCap
-	}
-	if !IsNil(o.PendingDowngradeCostCap) {
-		toSerialize["pendingDowngradeCostCap"] = o.PendingDowngradeCostCap
-	}
-	if !IsNil(o.PendingDowngradeMessagesCap) {
-		toSerialize["pendingDowngradeMessagesCap"] = o.PendingDowngradeMessagesCap
-	}
-	if !IsNil(o.PendingDowngradeSmsCap) {
-		toSerialize["pendingDowngradeSmsCap"] = o.PendingDowngradeSmsCap
-	}
-	if !IsNil(o.PendingDowngradeCallCap) {
-		toSerialize["pendingDowngradeCallCap"] = o.PendingDowngradeCallCap
-	}
-	if !IsNil(o.PendingDowngradeInternalCap) {
-		toSerialize["pendingDowngradeInternalCap"] = o.PendingDowngradeInternalCap
-	}
-	if !IsNil(o.PendingDowngradeEffectiveDate) {
-		toSerialize["pendingDowngradeEffectiveDate"] = o.PendingDowngradeEffectiveDate
-	}
-	if !IsNil(o.PendingDowngradeAccountType) {
-		toSerialize["pendingDowngradeAccountType"] = o.PendingDowngradeAccountType
-	}
+	toSerialize["anniversaryDate"] = o.AnniversaryDate
+	toSerialize["allowOverage"] = o.AllowOverage
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["updatedAt"] = o.UpdatedAt
 	return toSerialize, nil
 }
 
@@ -852,13 +406,13 @@ func (o *Organization) UnmarshalJSON(data []byte) (err error) {
 		"organizationId",
 		"organizationType",
 		"creator",
+		"name",
 		"messagesCap",
 		"costCap",
-		"createdAt",
-		"updatedAt",
 		"anniversaryDate",
 		"allowOverage",
-		"name",
+		"createdAt",
+		"updatedAt",
 	}
 
 	allProperties := make(map[string]interface{})

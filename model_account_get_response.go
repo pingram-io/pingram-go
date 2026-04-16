@@ -19,7 +19,7 @@ import (
 // checks if the AccountGetResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AccountGetResponse{}
 
-// AccountGetResponse GET /account response: basic account info (billing fields are on Organization).
+// AccountGetResponse GET /account response: basic account info (billing fields are on the organization).
 type AccountGetResponse struct {
 	AccountId string `json:"accountId"`
 	// Optional organization ID; legacy accounts may not have one.
