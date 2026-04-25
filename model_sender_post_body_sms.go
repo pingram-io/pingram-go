@@ -17,11 +17,13 @@ import (
 // checks if the SenderPostBodySms type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SenderPostBodySms{}
 
-// SenderPostBodySms Inline SMS content (message, autoReply).
+// SenderPostBodySms Inline SMS content (message, autoReply, from).
 type SenderPostBodySms struct {
 	// SMS body text.
 	Message   *string                     `json:"message,omitempty"`
 	AutoReply *SenderPostBodySmsAutoReply `json:"autoReply,omitempty"`
+	// Override the sender phone number. Must be a verified number in your Telnyx account.
+	From *string `json:"from,omitempty"`
 }
 
 // NewSenderPostBodySms instantiates a new SenderPostBodySms object
@@ -105,6 +107,38 @@ func (o *SenderPostBodySms) SetAutoReply(v SenderPostBodySmsAutoReply) {
 	o.AutoReply = &v
 }
 
+// GetFrom returns the From field value if set, zero value otherwise.
+func (o *SenderPostBodySms) GetFrom() string {
+	if o == nil || IsNil(o.From) {
+		var ret string
+		return ret
+	}
+	return *o.From
+}
+
+// GetFromOk returns a tuple with the From field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SenderPostBodySms) GetFromOk() (*string, bool) {
+	if o == nil || IsNil(o.From) {
+		return nil, false
+	}
+	return o.From, true
+}
+
+// HasFrom returns a boolean if a field has been set.
+func (o *SenderPostBodySms) HasFrom() bool {
+	if o != nil && !IsNil(o.From) {
+		return true
+	}
+
+	return false
+}
+
+// SetFrom gets a reference to the given string and assigns it to the From field.
+func (o *SenderPostBodySms) SetFrom(v string) {
+	o.From = &v
+}
+
 func (o SenderPostBodySms) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -120,6 +154,9 @@ func (o SenderPostBodySms) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.AutoReply) {
 		toSerialize["autoReply"] = o.AutoReply
+	}
+	if !IsNil(o.From) {
+		toSerialize["from"] = o.From
 	}
 	return toSerialize, nil
 }
