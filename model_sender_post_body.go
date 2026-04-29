@@ -19,12 +19,16 @@ var _ MappedNullable = &SenderPostBody{}
 
 // SenderPostBody struct for SenderPostBody
 type SenderPostBody struct {
+	// @deprecated Use type instead
+	// Deprecated
 	NotificationId *string `json:"notificationId,omitempty"`
 	// Deprecated
 	User *SenderPostBodyUser `json:"user,omitempty"`
 	// Deprecated
 	MergeTags map[string]interface{} `json:"mergeTags,omitempty"`
-	Replace   *map[string]string     `json:"replace,omitempty"`
+	// @deprecated Use parameters instead
+	// Deprecated
+	Replace *map[string]string `json:"replace,omitempty"`
 	// ID of the notification type (e.g. \"welcome_email\"). Creates a new notification if it does not exist.
 	Type *string           `json:"type,omitempty"`
 	To   *SenderPostBodyTo `json:"to,omitempty"`
@@ -67,6 +71,7 @@ func NewSenderPostBodyWithDefaults() *SenderPostBody {
 }
 
 // GetNotificationId returns the NotificationId field value if set, zero value otherwise.
+// Deprecated
 func (o *SenderPostBody) GetNotificationId() string {
 	if o == nil || IsNil(o.NotificationId) {
 		var ret string
@@ -77,6 +82,7 @@ func (o *SenderPostBody) GetNotificationId() string {
 
 // GetNotificationIdOk returns a tuple with the NotificationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *SenderPostBody) GetNotificationIdOk() (*string, bool) {
 	if o == nil || IsNil(o.NotificationId) {
 		return nil, false
@@ -94,6 +100,7 @@ func (o *SenderPostBody) HasNotificationId() bool {
 }
 
 // SetNotificationId gets a reference to the given string and assigns it to the NotificationId field.
+// Deprecated
 func (o *SenderPostBody) SetNotificationId(v string) {
 	o.NotificationId = &v
 }
@@ -169,6 +176,7 @@ func (o *SenderPostBody) SetMergeTags(v map[string]interface{}) {
 }
 
 // GetReplace returns the Replace field value if set, zero value otherwise.
+// Deprecated
 func (o *SenderPostBody) GetReplace() map[string]string {
 	if o == nil || IsNil(o.Replace) {
 		var ret map[string]string
@@ -179,6 +187,7 @@ func (o *SenderPostBody) GetReplace() map[string]string {
 
 // GetReplaceOk returns a tuple with the Replace field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *SenderPostBody) GetReplaceOk() (*map[string]string, bool) {
 	if o == nil || IsNil(o.Replace) {
 		return nil, false
@@ -196,6 +205,7 @@ func (o *SenderPostBody) HasReplace() bool {
 }
 
 // SetReplace gets a reference to the given map[string]string and assigns it to the Replace field.
+// Deprecated
 func (o *SenderPostBody) SetReplace(v map[string]string) {
 	o.Replace = &v
 }
