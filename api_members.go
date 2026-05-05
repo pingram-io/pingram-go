@@ -33,7 +33,7 @@ func (r ApiMembersGetAutoJoinRequest) Execute() (*AutoJoinGetResponse, *http.Res
 }
 
 /*
-MembersGetAutoJoin Get auto-join domains for the account
+MembersGetAutoJoin Get auto-join domains for the organization
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param envId Environment ID
@@ -141,7 +141,7 @@ func (r ApiMembersInviteMemberRequest) Execute() (*InvitePostResponse, *http.Res
 }
 
 /*
-MembersInviteMember Invite a new member to the account
+MembersInviteMember Invite a new member to the organization
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param envId Environment ID
@@ -248,7 +248,7 @@ func (r ApiMembersListMembersRequest) Execute() ([]GetMembersResponseInner, *htt
 }
 
 /*
-MembersListMembers Get a list of team members in the account
+MembersListMembers Get a list of team members in the organization
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param envId Environment ID
@@ -351,7 +351,7 @@ func (r ApiMembersRemoveMemberRequest) Execute() (*SuccessResponse, *http.Respon
 }
 
 /*
-MembersRemoveMember Remove a member from the account
+MembersRemoveMember Remove a member from the organization
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param envId Environment ID
@@ -462,7 +462,7 @@ func (r ApiMembersSetAutoJoinRequest) Execute() (*AutoJoinPostResponse, *http.Re
 }
 
 /*
-MembersSetAutoJoin Set auto-join domains for the account
+MembersSetAutoJoin Set auto-join domains for the organization
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param envId Environment ID

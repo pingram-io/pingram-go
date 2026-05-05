@@ -21,12 +21,10 @@ var _ MappedNullable = &AccountGetResponse{}
 
 // AccountGetResponse GET /account response: basic account info (billing fields are on the organization).
 type AccountGetResponse struct {
-	AccountId string `json:"accountId"`
-	// Optional organization ID; legacy accounts may not have one.
-	OrganizationId *string `json:"organizationId,omitempty"`
-	Name           string  `json:"name"`
-	AccountType    string  `json:"accountType"`
-	CreatedAt      string  `json:"createdAt"`
+	AccountId      string `json:"accountId"`
+	OrganizationId string `json:"organizationId"`
+	Name           string `json:"name"`
+	CreatedAt      string `json:"createdAt"`
 }
 
 type _AccountGetResponse AccountGetResponse
@@ -35,11 +33,11 @@ type _AccountGetResponse AccountGetResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAccountGetResponse(accountId string, name string, accountType string, createdAt string) *AccountGetResponse {
+func NewAccountGetResponse(accountId string, organizationId string, name string, createdAt string) *AccountGetResponse {
 	this := AccountGetResponse{}
 	this.AccountId = accountId
+	this.OrganizationId = organizationId
 	this.Name = name
-	this.AccountType = accountType
 	this.CreatedAt = createdAt
 	return &this
 }
@@ -76,36 +74,28 @@ func (o *AccountGetResponse) SetAccountId(v string) {
 	o.AccountId = v
 }
 
-// GetOrganizationId returns the OrganizationId field value if set, zero value otherwise.
+// GetOrganizationId returns the OrganizationId field value
 func (o *AccountGetResponse) GetOrganizationId() string {
-	if o == nil || IsNil(o.OrganizationId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.OrganizationId
+
+	return o.OrganizationId
 }
 
-// GetOrganizationIdOk returns a tuple with the OrganizationId field value if set, nil otherwise
+// GetOrganizationIdOk returns a tuple with the OrganizationId field value
 // and a boolean to check if the value has been set.
 func (o *AccountGetResponse) GetOrganizationIdOk() (*string, bool) {
-	if o == nil || IsNil(o.OrganizationId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.OrganizationId, true
+	return &o.OrganizationId, true
 }
 
-// HasOrganizationId returns a boolean if a field has been set.
-func (o *AccountGetResponse) HasOrganizationId() bool {
-	if o != nil && !IsNil(o.OrganizationId) {
-		return true
-	}
-
-	return false
-}
-
-// SetOrganizationId gets a reference to the given string and assigns it to the OrganizationId field.
+// SetOrganizationId sets field value
 func (o *AccountGetResponse) SetOrganizationId(v string) {
-	o.OrganizationId = &v
+	o.OrganizationId = v
 }
 
 // GetName returns the Name field value
@@ -130,30 +120,6 @@ func (o *AccountGetResponse) GetNameOk() (*string, bool) {
 // SetName sets field value
 func (o *AccountGetResponse) SetName(v string) {
 	o.Name = v
-}
-
-// GetAccountType returns the AccountType field value
-func (o *AccountGetResponse) GetAccountType() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.AccountType
-}
-
-// GetAccountTypeOk returns a tuple with the AccountType field value
-// and a boolean to check if the value has been set.
-func (o *AccountGetResponse) GetAccountTypeOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.AccountType, true
-}
-
-// SetAccountType sets field value
-func (o *AccountGetResponse) SetAccountType(v string) {
-	o.AccountType = v
 }
 
 // GetCreatedAt returns the CreatedAt field value
@@ -191,11 +157,8 @@ func (o AccountGetResponse) MarshalJSON() ([]byte, error) {
 func (o AccountGetResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["accountId"] = o.AccountId
-	if !IsNil(o.OrganizationId) {
-		toSerialize["organizationId"] = o.OrganizationId
-	}
+	toSerialize["organizationId"] = o.OrganizationId
 	toSerialize["name"] = o.Name
-	toSerialize["accountType"] = o.AccountType
 	toSerialize["createdAt"] = o.CreatedAt
 	return toSerialize, nil
 }
@@ -206,8 +169,8 @@ func (o *AccountGetResponse) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"accountId",
+		"organizationId",
 		"name",
-		"accountType",
 		"createdAt",
 	}
 
