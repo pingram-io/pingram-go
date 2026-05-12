@@ -71,6 +71,8 @@ type Client struct {
 
 	MembersAPI *MembersAPIService
 
+	NumbersAPI *NumbersAPIService
+
 	OrganizationAPI *OrganizationAPIService
 
 	PushSettingsAPI *PushSettingsAPIService
@@ -130,6 +132,8 @@ func NewClient(apiKey string, opts ...ClientOption) *Client {
 	c.LogsAPI = (*LogsAPIService)(&c.common)
 
 	c.MembersAPI = (*MembersAPIService)(&c.common)
+
+	c.NumbersAPI = (*NumbersAPIService)(&c.common)
 
 	c.OrganizationAPI = (*OrganizationAPIService)(&c.common)
 
