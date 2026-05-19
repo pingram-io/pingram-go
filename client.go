@@ -76,6 +76,8 @@ type APIClient struct {
 
 	OrganizationAPI *OrganizationAPIService
 
+	ProfileAPI *ProfileAPIService
+
 	PushSettingsAPI *PushSettingsAPIService
 
 	SenderAPI *SenderAPIService
@@ -121,6 +123,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.MembersAPI = (*MembersAPIService)(&c.common)
 	c.NumbersAPI = (*NumbersAPIService)(&c.common)
 	c.OrganizationAPI = (*OrganizationAPIService)(&c.common)
+	c.ProfileAPI = (*ProfileAPIService)(&c.common)
 	c.PushSettingsAPI = (*PushSettingsAPIService)(&c.common)
 	c.SenderAPI = (*SenderAPIService)(&c.common)
 	c.TemplatesAPI = (*TemplatesAPIService)(&c.common)
