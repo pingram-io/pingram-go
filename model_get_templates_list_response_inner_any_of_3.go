@@ -27,8 +27,7 @@ type GetTemplatesListResponseInnerAnyOf3 struct {
 	Channel        ChannelsEnum     `json:"channel"`
 	Default        bool             `json:"default"`
 	IsDefaultFor   *map[string]bool `json:"isDefaultFor,omitempty"`
-	Title          string           `json:"title"`
-	Message        string           `json:"message"`
+	Text           string           `json:"text"`
 }
 
 type _GetTemplatesListResponseInnerAnyOf3 GetTemplatesListResponseInnerAnyOf3
@@ -37,15 +36,14 @@ type _GetTemplatesListResponseInnerAnyOf3 GetTemplatesListResponseInnerAnyOf3
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetTemplatesListResponseInnerAnyOf3(envId string, notificationId string, templateId string, channel ChannelsEnum, default_ bool, title string, message string) *GetTemplatesListResponseInnerAnyOf3 {
+func NewGetTemplatesListResponseInnerAnyOf3(envId string, notificationId string, templateId string, channel ChannelsEnum, default_ bool, text string) *GetTemplatesListResponseInnerAnyOf3 {
 	this := GetTemplatesListResponseInnerAnyOf3{}
 	this.EnvId = envId
 	this.NotificationId = notificationId
 	this.TemplateId = templateId
 	this.Channel = channel
 	this.Default = default_
-	this.Title = title
-	this.Message = message
+	this.Text = text
 	return &this
 }
 
@@ -209,52 +207,28 @@ func (o *GetTemplatesListResponseInnerAnyOf3) SetIsDefaultFor(v map[string]bool)
 	o.IsDefaultFor = &v
 }
 
-// GetTitle returns the Title field value
-func (o *GetTemplatesListResponseInnerAnyOf3) GetTitle() string {
+// GetText returns the Text field value
+func (o *GetTemplatesListResponseInnerAnyOf3) GetText() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Title
+	return o.Text
 }
 
-// GetTitleOk returns a tuple with the Title field value
+// GetTextOk returns a tuple with the Text field value
 // and a boolean to check if the value has been set.
-func (o *GetTemplatesListResponseInnerAnyOf3) GetTitleOk() (*string, bool) {
+func (o *GetTemplatesListResponseInnerAnyOf3) GetTextOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Title, true
+	return &o.Text, true
 }
 
-// SetTitle sets field value
-func (o *GetTemplatesListResponseInnerAnyOf3) SetTitle(v string) {
-	o.Title = v
-}
-
-// GetMessage returns the Message field value
-func (o *GetTemplatesListResponseInnerAnyOf3) GetMessage() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Message
-}
-
-// GetMessageOk returns a tuple with the Message field value
-// and a boolean to check if the value has been set.
-func (o *GetTemplatesListResponseInnerAnyOf3) GetMessageOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Message, true
-}
-
-// SetMessage sets field value
-func (o *GetTemplatesListResponseInnerAnyOf3) SetMessage(v string) {
-	o.Message = v
+// SetText sets field value
+func (o *GetTemplatesListResponseInnerAnyOf3) SetText(v string) {
+	o.Text = v
 }
 
 func (o GetTemplatesListResponseInnerAnyOf3) MarshalJSON() ([]byte, error) {
@@ -275,8 +249,7 @@ func (o GetTemplatesListResponseInnerAnyOf3) ToMap() (map[string]interface{}, er
 	if !IsNil(o.IsDefaultFor) {
 		toSerialize["isDefaultFor"] = o.IsDefaultFor
 	}
-	toSerialize["title"] = o.Title
-	toSerialize["message"] = o.Message
+	toSerialize["text"] = o.Text
 	return toSerialize, nil
 }
 
@@ -290,8 +263,7 @@ func (o *GetTemplatesListResponseInnerAnyOf3) UnmarshalJSON(data []byte) (err er
 		"templateId",
 		"channel",
 		"default",
-		"title",
-		"message",
+		"text",
 	}
 
 	allProperties := make(map[string]interface{})

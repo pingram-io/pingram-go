@@ -94,67 +94,71 @@ type LogsGetResponseLogsInner struct {
 	EmailInboundResolutionType   *string  `json:"email_inbound_resolution_type,omitempty"`
 	SmsInboundAt                 *string  `json:"sms_inbound_at,omitempty"`
 	SmsInboundFrom               *string  `json:"sms_inbound_from,omitempty"`
-	SmsInboundText               *string  `json:"sms_inbound_text,omitempty"`
-	SmsInboundWebhookDelivered   *bool    `json:"sms_inbound_webhook_delivered,omitempty"`
-	SmsInboundWebhookRes         *string  `json:"sms_inbound_webhook_res,omitempty"`
-	SmsRepliedAt                 *string  `json:"sms_replied_at,omitempty"`
-	SmsRepliedTo                 *string  `json:"sms_replied_to,omitempty"`
-	SmsRepliedText               *string  `json:"sms_replied_text,omitempty"`
-	SmsRepliedSegments           *float32 `json:"sms_replied_segments,omitempty"`
-	SmsRepliedEncoding           *string  `json:"sms_replied_encoding,omitempty"`
-	WebPushSentToken             *string  `json:"web_push_sent_token,omitempty"`
-	WebPushSentAt                *string  `json:"web_push_sent_at,omitempty"`
-	WebPushSentAfter             *float32 `json:"web_push_sent_after,omitempty"`
-	WebPushDeliveredAt           *string  `json:"web_push_delivered_at,omitempty"`
-	WebPushDeliveredAfter        *float32 `json:"web_push_delivered_after,omitempty"`
-	WebPushDeliveredToken        *string  `json:"web_push_delivered_token,omitempty"`
-	WebPushDeliveredInternal     *string  `json:"web_push_delivered_internal,omitempty"`
-	WebPushFailedAt              *string  `json:"web_push_failed_at,omitempty"`
-	WebPushFailedToken           *string  `json:"web_push_failed_token,omitempty"`
-	WebPushFailedCode            *string  `json:"web_push_failed_code,omitempty"`
-	WebPushFailedInternal        *string  `json:"web_push_failed_internal,omitempty"`
-	ProcessedAt                  *string  `json:"processed_at,omitempty"`
-	Ignored                      *string  `json:"ignored,omitempty"`
-	ScheduledFor                 *string  `json:"scheduled_for,omitempty"`
-	UserId                       *string  `json:"user_id,omitempty"`
-	UserEmail                    *string  `json:"user_email,omitempty"`
-	UserNumber                   *string  `json:"user_number,omitempty"`
-	EmailRouting                 *string  `json:"email_routing,omitempty"`
-	EmailRoutingReason           *string  `json:"email_routing_reason,omitempty"`
-	SmsRouting                   *string  `json:"sms_routing,omitempty"`
-	SmsRoutingReason             *string  `json:"sms_routing_reason,omitempty"`
-	WebPushRouting               *string  `json:"web_push_routing,omitempty"`
-	WebPushRoutingReason         *string  `json:"web_push_routing_reason,omitempty"`
-	MobilePushRouting            *string  `json:"mobile_push_routing,omitempty"`
-	MobilePushRoutingReason      *string  `json:"mobile_push_routing_reason,omitempty"`
-	CallRouting                  *string  `json:"call_routing,omitempty"`
-	CallRoutingReason            *string  `json:"call_routing_reason,omitempty"`
-	InappRouting                 *string  `json:"inapp_routing,omitempty"`
-	InappRoutingReason           *string  `json:"inapp_routing_reason,omitempty"`
-	SlackRouting                 *string  `json:"slack_routing,omitempty"`
-	SlackRoutingReason           *string  `json:"slack_routing_reason,omitempty"`
-	EmailPreview                 *string  `json:"email_preview,omitempty"`
-	SmsPreview                   *string  `json:"sms_preview,omitempty"`
-	CallPreview                  *string  `json:"call_preview,omitempty"`
-	WebPushPreview               *string  `json:"web_push_preview,omitempty"`
-	MobilePushPreview            *string  `json:"mobile_push_preview,omitempty"`
-	SlackPreview                 *string  `json:"slack_preview,omitempty"`
-	InappPreview                 *string  `json:"inapp_preview,omitempty"`
-	SlackSentAt                  *string  `json:"slack_sent_at,omitempty"`
-	SlackSentAfter               *float32 `json:"slack_sent_after,omitempty"`
-	SlackDeliveredAt             *string  `json:"slack_delivered_at,omitempty"`
-	SlackDeliveredAfter          *float32 `json:"slack_delivered_after,omitempty"`
-	SlackDeliveredInternal       *string  `json:"slack_delivered_internal,omitempty"`
-	SlackFailedAt                *string  `json:"slack_failed_at,omitempty"`
-	SlackFailedCode              *string  `json:"slack_failed_code,omitempty"`
-	SlackFailedInternal          *string  `json:"slack_failed_internal,omitempty"`
-	CallSentAt                   *string  `json:"call_sent_at,omitempty"`
-	CallSentAfter                *float32 `json:"call_sent_after,omitempty"`
-	CallSentFrom                 *string  `json:"call_sent_from,omitempty"`
-	CallDeliveredAt              *string  `json:"call_delivered_at,omitempty"`
-	CallDeliveredAfter           *float32 `json:"call_delivered_after,omitempty"`
-	CallDeliveredCode            *string  `json:"call_delivered_code,omitempty"`
-	CallDeliveredCostInternal    *float32 `json:"call_delivered_cost_internal,omitempty"`
+	// Pingram number that received the inbound message.
+	SmsInboundTo               *string `json:"sms_inbound_to,omitempty"`
+	SmsInboundText             *string `json:"sms_inbound_text,omitempty"`
+	SmsInboundWebhookDelivered *bool   `json:"sms_inbound_webhook_delivered,omitempty"`
+	SmsInboundWebhookRes       *string `json:"sms_inbound_webhook_res,omitempty"`
+	// Truncated JSON string of inbound MMS metadata when present.
+	SmsInboundMedia           *string  `json:"sms_inbound_media,omitempty"`
+	SmsRepliedAt              *string  `json:"sms_replied_at,omitempty"`
+	SmsRepliedTo              *string  `json:"sms_replied_to,omitempty"`
+	SmsRepliedText            *string  `json:"sms_replied_text,omitempty"`
+	SmsRepliedSegments        *float32 `json:"sms_replied_segments,omitempty"`
+	SmsRepliedEncoding        *string  `json:"sms_replied_encoding,omitempty"`
+	WebPushSentToken          *string  `json:"web_push_sent_token,omitempty"`
+	WebPushSentAt             *string  `json:"web_push_sent_at,omitempty"`
+	WebPushSentAfter          *float32 `json:"web_push_sent_after,omitempty"`
+	WebPushDeliveredAt        *string  `json:"web_push_delivered_at,omitempty"`
+	WebPushDeliveredAfter     *float32 `json:"web_push_delivered_after,omitempty"`
+	WebPushDeliveredToken     *string  `json:"web_push_delivered_token,omitempty"`
+	WebPushDeliveredInternal  *string  `json:"web_push_delivered_internal,omitempty"`
+	WebPushFailedAt           *string  `json:"web_push_failed_at,omitempty"`
+	WebPushFailedToken        *string  `json:"web_push_failed_token,omitempty"`
+	WebPushFailedCode         *string  `json:"web_push_failed_code,omitempty"`
+	WebPushFailedInternal     *string  `json:"web_push_failed_internal,omitempty"`
+	ProcessedAt               *string  `json:"processed_at,omitempty"`
+	Ignored                   *string  `json:"ignored,omitempty"`
+	ScheduledFor              *string  `json:"scheduled_for,omitempty"`
+	UserId                    *string  `json:"user_id,omitempty"`
+	UserEmail                 *string  `json:"user_email,omitempty"`
+	UserNumber                *string  `json:"user_number,omitempty"`
+	EmailRouting              *string  `json:"email_routing,omitempty"`
+	EmailRoutingReason        *string  `json:"email_routing_reason,omitempty"`
+	SmsRouting                *string  `json:"sms_routing,omitempty"`
+	SmsRoutingReason          *string  `json:"sms_routing_reason,omitempty"`
+	WebPushRouting            *string  `json:"web_push_routing,omitempty"`
+	WebPushRoutingReason      *string  `json:"web_push_routing_reason,omitempty"`
+	MobilePushRouting         *string  `json:"mobile_push_routing,omitempty"`
+	MobilePushRoutingReason   *string  `json:"mobile_push_routing_reason,omitempty"`
+	CallRouting               *string  `json:"call_routing,omitempty"`
+	CallRoutingReason         *string  `json:"call_routing_reason,omitempty"`
+	InappRouting              *string  `json:"inapp_routing,omitempty"`
+	InappRoutingReason        *string  `json:"inapp_routing_reason,omitempty"`
+	SlackRouting              *string  `json:"slack_routing,omitempty"`
+	SlackRoutingReason        *string  `json:"slack_routing_reason,omitempty"`
+	EmailPreview              *string  `json:"email_preview,omitempty"`
+	SmsPreview                *string  `json:"sms_preview,omitempty"`
+	CallPreview               *string  `json:"call_preview,omitempty"`
+	WebPushPreview            *string  `json:"web_push_preview,omitempty"`
+	MobilePushPreview         *string  `json:"mobile_push_preview,omitempty"`
+	SlackPreview              *string  `json:"slack_preview,omitempty"`
+	InappPreview              *string  `json:"inapp_preview,omitempty"`
+	SlackSentAt               *string  `json:"slack_sent_at,omitempty"`
+	SlackSentAfter            *float32 `json:"slack_sent_after,omitempty"`
+	SlackDeliveredAt          *string  `json:"slack_delivered_at,omitempty"`
+	SlackDeliveredAfter       *float32 `json:"slack_delivered_after,omitempty"`
+	SlackDeliveredInternal    *string  `json:"slack_delivered_internal,omitempty"`
+	SlackFailedAt             *string  `json:"slack_failed_at,omitempty"`
+	SlackFailedCode           *string  `json:"slack_failed_code,omitempty"`
+	SlackFailedInternal       *string  `json:"slack_failed_internal,omitempty"`
+	CallSentAt                *string  `json:"call_sent_at,omitempty"`
+	CallSentAfter             *float32 `json:"call_sent_after,omitempty"`
+	CallSentFrom              *string  `json:"call_sent_from,omitempty"`
+	CallDeliveredAt           *string  `json:"call_delivered_at,omitempty"`
+	CallDeliveredAfter        *float32 `json:"call_delivered_after,omitempty"`
+	CallDeliveredCode         *string  `json:"call_delivered_code,omitempty"`
+	CallDeliveredCostInternal *float32 `json:"call_delivered_cost_internal,omitempty"`
 	// Same value as call_delivered_cost_internal (for API/external use)
 	CallDeliveredCost  *float32 `json:"call_delivered_cost,omitempty"`
 	CallFailedAt       *string  `json:"call_failed_at,omitempty"`
@@ -175,6 +179,8 @@ type LogsGetResponseLogsInner struct {
 	SmsSentCountry     *string  `json:"sms_sent_country,omitempty"`
 	// Unique message ID from provider (Twilio SID or Telnyx ID)
 	SmsSentMessageId *string `json:"sms_sent_messageId,omitempty"`
+	// True when the send included MMS (`mediaUrls`).
+	SmsSentMms *bool `json:"sms_sent_mms,omitempty"`
 	// Actual cost from Telnyx/Twilio (internal)
 	SmsCarrierCostInternal *float32 `json:"sms_carrier_cost_internal,omitempty"`
 	SmsCarrierFeeInternal  *float32 `json:"sms_carrier_fee_internal,omitempty"`
@@ -2529,6 +2535,38 @@ func (o *LogsGetResponseLogsInner) SetSmsInboundFrom(v string) {
 	o.SmsInboundFrom = &v
 }
 
+// GetSmsInboundTo returns the SmsInboundTo field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetSmsInboundTo() string {
+	if o == nil || IsNil(o.SmsInboundTo) {
+		var ret string
+		return ret
+	}
+	return *o.SmsInboundTo
+}
+
+// GetSmsInboundToOk returns a tuple with the SmsInboundTo field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetSmsInboundToOk() (*string, bool) {
+	if o == nil || IsNil(o.SmsInboundTo) {
+		return nil, false
+	}
+	return o.SmsInboundTo, true
+}
+
+// HasSmsInboundTo returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasSmsInboundTo() bool {
+	if o != nil && !IsNil(o.SmsInboundTo) {
+		return true
+	}
+
+	return false
+}
+
+// SetSmsInboundTo gets a reference to the given string and assigns it to the SmsInboundTo field.
+func (o *LogsGetResponseLogsInner) SetSmsInboundTo(v string) {
+	o.SmsInboundTo = &v
+}
+
 // GetSmsInboundText returns the SmsInboundText field value if set, zero value otherwise.
 func (o *LogsGetResponseLogsInner) GetSmsInboundText() string {
 	if o == nil || IsNil(o.SmsInboundText) {
@@ -2623,6 +2661,38 @@ func (o *LogsGetResponseLogsInner) HasSmsInboundWebhookRes() bool {
 // SetSmsInboundWebhookRes gets a reference to the given string and assigns it to the SmsInboundWebhookRes field.
 func (o *LogsGetResponseLogsInner) SetSmsInboundWebhookRes(v string) {
 	o.SmsInboundWebhookRes = &v
+}
+
+// GetSmsInboundMedia returns the SmsInboundMedia field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetSmsInboundMedia() string {
+	if o == nil || IsNil(o.SmsInboundMedia) {
+		var ret string
+		return ret
+	}
+	return *o.SmsInboundMedia
+}
+
+// GetSmsInboundMediaOk returns a tuple with the SmsInboundMedia field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetSmsInboundMediaOk() (*string, bool) {
+	if o == nil || IsNil(o.SmsInboundMedia) {
+		return nil, false
+	}
+	return o.SmsInboundMedia, true
+}
+
+// HasSmsInboundMedia returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasSmsInboundMedia() bool {
+	if o != nil && !IsNil(o.SmsInboundMedia) {
+		return true
+	}
+
+	return false
+}
+
+// SetSmsInboundMedia gets a reference to the given string and assigns it to the SmsInboundMedia field.
+func (o *LogsGetResponseLogsInner) SetSmsInboundMedia(v string) {
+	o.SmsInboundMedia = &v
 }
 
 // GetSmsRepliedAt returns the SmsRepliedAt field value if set, zero value otherwise.
@@ -5057,6 +5127,38 @@ func (o *LogsGetResponseLogsInner) SetSmsSentMessageId(v string) {
 	o.SmsSentMessageId = &v
 }
 
+// GetSmsSentMms returns the SmsSentMms field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetSmsSentMms() bool {
+	if o == nil || IsNil(o.SmsSentMms) {
+		var ret bool
+		return ret
+	}
+	return *o.SmsSentMms
+}
+
+// GetSmsSentMmsOk returns a tuple with the SmsSentMms field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetSmsSentMmsOk() (*bool, bool) {
+	if o == nil || IsNil(o.SmsSentMms) {
+		return nil, false
+	}
+	return o.SmsSentMms, true
+}
+
+// HasSmsSentMms returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasSmsSentMms() bool {
+	if o != nil && !IsNil(o.SmsSentMms) {
+		return true
+	}
+
+	return false
+}
+
+// SetSmsSentMms gets a reference to the given bool and assigns it to the SmsSentMms field.
+func (o *LogsGetResponseLogsInner) SetSmsSentMms(v bool) {
+	o.SmsSentMms = &v
+}
+
 // GetSmsCarrierCostInternal returns the SmsCarrierCostInternal field value if set, zero value otherwise.
 func (o *LogsGetResponseLogsInner) GetSmsCarrierCostInternal() float32 {
 	if o == nil || IsNil(o.SmsCarrierCostInternal) {
@@ -5570,6 +5672,9 @@ func (o LogsGetResponseLogsInner) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SmsInboundFrom) {
 		toSerialize["sms_inbound_from"] = o.SmsInboundFrom
 	}
+	if !IsNil(o.SmsInboundTo) {
+		toSerialize["sms_inbound_to"] = o.SmsInboundTo
+	}
 	if !IsNil(o.SmsInboundText) {
 		toSerialize["sms_inbound_text"] = o.SmsInboundText
 	}
@@ -5578,6 +5683,9 @@ func (o LogsGetResponseLogsInner) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.SmsInboundWebhookRes) {
 		toSerialize["sms_inbound_webhook_res"] = o.SmsInboundWebhookRes
+	}
+	if !IsNil(o.SmsInboundMedia) {
+		toSerialize["sms_inbound_media"] = o.SmsInboundMedia
 	}
 	if !IsNil(o.SmsRepliedAt) {
 		toSerialize["sms_replied_at"] = o.SmsRepliedAt
@@ -5806,6 +5914,9 @@ func (o LogsGetResponseLogsInner) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.SmsSentMessageId) {
 		toSerialize["sms_sent_messageId"] = o.SmsSentMessageId
+	}
+	if !IsNil(o.SmsSentMms) {
+		toSerialize["sms_sent_mms"] = o.SmsSentMms
 	}
 	if !IsNil(o.SmsCarrierCostInternal) {
 		toSerialize["sms_carrier_cost_internal"] = o.SmsCarrierCostInternal

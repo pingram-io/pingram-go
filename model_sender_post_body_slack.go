@@ -43,7 +43,7 @@ type SenderPostBodySlack struct {
 	UnfurlLinks *bool `json:"unfurl_links,omitempty"`
 	// Unfurl media previews. Default: true.
 	UnfurlMedia *bool                                        `json:"unfurl_media,omitempty"`
-	Metadata    *GetTemplatesListResponseInnerAnyOf5Metadata `json:"metadata,omitempty"`
+	Metadata    *GetTemplatesListResponseInnerAnyOf6Metadata `json:"metadata,omitempty"`
 }
 
 type _SenderPostBodySlack SenderPostBodySlack
@@ -411,9 +411,9 @@ func (o *SenderPostBodySlack) SetUnfurlMedia(v bool) {
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *SenderPostBodySlack) GetMetadata() GetTemplatesListResponseInnerAnyOf5Metadata {
+func (o *SenderPostBodySlack) GetMetadata() GetTemplatesListResponseInnerAnyOf6Metadata {
 	if o == nil || IsNil(o.Metadata) {
-		var ret GetTemplatesListResponseInnerAnyOf5Metadata
+		var ret GetTemplatesListResponseInnerAnyOf6Metadata
 		return ret
 	}
 	return *o.Metadata
@@ -421,7 +421,7 @@ func (o *SenderPostBodySlack) GetMetadata() GetTemplatesListResponseInnerAnyOf5M
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SenderPostBodySlack) GetMetadataOk() (*GetTemplatesListResponseInnerAnyOf5Metadata, bool) {
+func (o *SenderPostBodySlack) GetMetadataOk() (*GetTemplatesListResponseInnerAnyOf6Metadata, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
@@ -437,8 +437,8 @@ func (o *SenderPostBodySlack) HasMetadata() bool {
 	return false
 }
 
-// SetMetadata gets a reference to the given GetTemplatesListResponseInnerAnyOf5Metadata and assigns it to the Metadata field.
-func (o *SenderPostBodySlack) SetMetadata(v GetTemplatesListResponseInnerAnyOf5Metadata) {
+// SetMetadata gets a reference to the given GetTemplatesListResponseInnerAnyOf6Metadata and assigns it to the Metadata field.
+func (o *SenderPostBodySlack) SetMetadata(v GetTemplatesListResponseInnerAnyOf6Metadata) {
 	o.Metadata = &v
 }
 

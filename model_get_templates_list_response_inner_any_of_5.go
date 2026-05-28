@@ -21,24 +21,16 @@ var _ MappedNullable = &GetTemplatesListResponseInnerAnyOf5{}
 
 // GetTemplatesListResponseInnerAnyOf5 struct for GetTemplatesListResponseInnerAnyOf5
 type GetTemplatesListResponseInnerAnyOf5 struct {
-	EnvId          string                                       `json:"envId"`
-	NotificationId string                                       `json:"notificationId"`
-	TemplateId     string                                       `json:"templateId"`
-	Channel        ChannelsEnum                                 `json:"channel"`
-	Default        bool                                         `json:"default"`
-	IsDefaultFor   *map[string]bool                             `json:"isDefaultFor,omitempty"`
-	Text           string                                       `json:"text"`
-	Blocks         []map[string]interface{}                     `json:"blocks,omitempty"`
-	Username       *string                                      `json:"username,omitempty"`
-	Icon           *string                                      `json:"icon,omitempty"`
-	ThreadTs       *string                                      `json:"thread_ts,omitempty"`
-	ReplyBroadcast *bool                                        `json:"reply_broadcast,omitempty"`
-	Parse          *string                                      `json:"parse,omitempty"`
-	LinkNames      *bool                                        `json:"link_names,omitempty"`
-	Mrkdwn         *bool                                        `json:"mrkdwn,omitempty"`
-	UnfurlLinks    *bool                                        `json:"unfurl_links,omitempty"`
-	UnfurlMedia    *bool                                        `json:"unfurl_media,omitempty"`
-	Metadata       *GetTemplatesListResponseInnerAnyOf5Metadata `json:"metadata,omitempty"`
+	EnvId          string           `json:"envId"`
+	NotificationId string           `json:"notificationId"`
+	TemplateId     string           `json:"templateId"`
+	Channel        ChannelsEnum     `json:"channel"`
+	Default        bool             `json:"default"`
+	IsDefaultFor   *map[string]bool `json:"isDefaultFor,omitempty"`
+	Title          string           `json:"title"`
+	Message        string           `json:"message"`
+	Icon           *string          `json:"icon,omitempty"`
+	Url            *string          `json:"url,omitempty"`
 }
 
 type _GetTemplatesListResponseInnerAnyOf5 GetTemplatesListResponseInnerAnyOf5
@@ -47,14 +39,15 @@ type _GetTemplatesListResponseInnerAnyOf5 GetTemplatesListResponseInnerAnyOf5
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetTemplatesListResponseInnerAnyOf5(envId string, notificationId string, templateId string, channel ChannelsEnum, default_ bool, text string) *GetTemplatesListResponseInnerAnyOf5 {
+func NewGetTemplatesListResponseInnerAnyOf5(envId string, notificationId string, templateId string, channel ChannelsEnum, default_ bool, title string, message string) *GetTemplatesListResponseInnerAnyOf5 {
 	this := GetTemplatesListResponseInnerAnyOf5{}
 	this.EnvId = envId
 	this.NotificationId = notificationId
 	this.TemplateId = templateId
 	this.Channel = channel
 	this.Default = default_
-	this.Text = text
+	this.Title = title
+	this.Message = message
 	return &this
 }
 
@@ -218,92 +211,52 @@ func (o *GetTemplatesListResponseInnerAnyOf5) SetIsDefaultFor(v map[string]bool)
 	o.IsDefaultFor = &v
 }
 
-// GetText returns the Text field value
-func (o *GetTemplatesListResponseInnerAnyOf5) GetText() string {
+// GetTitle returns the Title field value
+func (o *GetTemplatesListResponseInnerAnyOf5) GetTitle() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Text
+	return o.Title
 }
 
-// GetTextOk returns a tuple with the Text field value
+// GetTitleOk returns a tuple with the Title field value
 // and a boolean to check if the value has been set.
-func (o *GetTemplatesListResponseInnerAnyOf5) GetTextOk() (*string, bool) {
+func (o *GetTemplatesListResponseInnerAnyOf5) GetTitleOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Text, true
+	return &o.Title, true
 }
 
-// SetText sets field value
-func (o *GetTemplatesListResponseInnerAnyOf5) SetText(v string) {
-	o.Text = v
+// SetTitle sets field value
+func (o *GetTemplatesListResponseInnerAnyOf5) SetTitle(v string) {
+	o.Title = v
 }
 
-// GetBlocks returns the Blocks field value if set, zero value otherwise.
-func (o *GetTemplatesListResponseInnerAnyOf5) GetBlocks() []map[string]interface{} {
-	if o == nil || IsNil(o.Blocks) {
-		var ret []map[string]interface{}
-		return ret
-	}
-	return o.Blocks
-}
-
-// GetBlocksOk returns a tuple with the Blocks field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GetTemplatesListResponseInnerAnyOf5) GetBlocksOk() ([]map[string]interface{}, bool) {
-	if o == nil || IsNil(o.Blocks) {
-		return nil, false
-	}
-	return o.Blocks, true
-}
-
-// HasBlocks returns a boolean if a field has been set.
-func (o *GetTemplatesListResponseInnerAnyOf5) HasBlocks() bool {
-	if o != nil && !IsNil(o.Blocks) {
-		return true
-	}
-
-	return false
-}
-
-// SetBlocks gets a reference to the given []map[string]interface{} and assigns it to the Blocks field.
-func (o *GetTemplatesListResponseInnerAnyOf5) SetBlocks(v []map[string]interface{}) {
-	o.Blocks = v
-}
-
-// GetUsername returns the Username field value if set, zero value otherwise.
-func (o *GetTemplatesListResponseInnerAnyOf5) GetUsername() string {
-	if o == nil || IsNil(o.Username) {
+// GetMessage returns the Message field value
+func (o *GetTemplatesListResponseInnerAnyOf5) GetMessage() string {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Username
+
+	return o.Message
 }
 
-// GetUsernameOk returns a tuple with the Username field value if set, nil otherwise
+// GetMessageOk returns a tuple with the Message field value
 // and a boolean to check if the value has been set.
-func (o *GetTemplatesListResponseInnerAnyOf5) GetUsernameOk() (*string, bool) {
-	if o == nil || IsNil(o.Username) {
+func (o *GetTemplatesListResponseInnerAnyOf5) GetMessageOk() (*string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Username, true
+	return &o.Message, true
 }
 
-// HasUsername returns a boolean if a field has been set.
-func (o *GetTemplatesListResponseInnerAnyOf5) HasUsername() bool {
-	if o != nil && !IsNil(o.Username) {
-		return true
-	}
-
-	return false
-}
-
-// SetUsername gets a reference to the given string and assigns it to the Username field.
-func (o *GetTemplatesListResponseInnerAnyOf5) SetUsername(v string) {
-	o.Username = &v
+// SetMessage sets field value
+func (o *GetTemplatesListResponseInnerAnyOf5) SetMessage(v string) {
+	o.Message = v
 }
 
 // GetIcon returns the Icon field value if set, zero value otherwise.
@@ -338,260 +291,36 @@ func (o *GetTemplatesListResponseInnerAnyOf5) SetIcon(v string) {
 	o.Icon = &v
 }
 
-// GetThreadTs returns the ThreadTs field value if set, zero value otherwise.
-func (o *GetTemplatesListResponseInnerAnyOf5) GetThreadTs() string {
-	if o == nil || IsNil(o.ThreadTs) {
+// GetUrl returns the Url field value if set, zero value otherwise.
+func (o *GetTemplatesListResponseInnerAnyOf5) GetUrl() string {
+	if o == nil || IsNil(o.Url) {
 		var ret string
 		return ret
 	}
-	return *o.ThreadTs
+	return *o.Url
 }
 
-// GetThreadTsOk returns a tuple with the ThreadTs field value if set, nil otherwise
+// GetUrlOk returns a tuple with the Url field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetTemplatesListResponseInnerAnyOf5) GetThreadTsOk() (*string, bool) {
-	if o == nil || IsNil(o.ThreadTs) {
+func (o *GetTemplatesListResponseInnerAnyOf5) GetUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.Url) {
 		return nil, false
 	}
-	return o.ThreadTs, true
+	return o.Url, true
 }
 
-// HasThreadTs returns a boolean if a field has been set.
-func (o *GetTemplatesListResponseInnerAnyOf5) HasThreadTs() bool {
-	if o != nil && !IsNil(o.ThreadTs) {
+// HasUrl returns a boolean if a field has been set.
+func (o *GetTemplatesListResponseInnerAnyOf5) HasUrl() bool {
+	if o != nil && !IsNil(o.Url) {
 		return true
 	}
 
 	return false
 }
 
-// SetThreadTs gets a reference to the given string and assigns it to the ThreadTs field.
-func (o *GetTemplatesListResponseInnerAnyOf5) SetThreadTs(v string) {
-	o.ThreadTs = &v
-}
-
-// GetReplyBroadcast returns the ReplyBroadcast field value if set, zero value otherwise.
-func (o *GetTemplatesListResponseInnerAnyOf5) GetReplyBroadcast() bool {
-	if o == nil || IsNil(o.ReplyBroadcast) {
-		var ret bool
-		return ret
-	}
-	return *o.ReplyBroadcast
-}
-
-// GetReplyBroadcastOk returns a tuple with the ReplyBroadcast field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GetTemplatesListResponseInnerAnyOf5) GetReplyBroadcastOk() (*bool, bool) {
-	if o == nil || IsNil(o.ReplyBroadcast) {
-		return nil, false
-	}
-	return o.ReplyBroadcast, true
-}
-
-// HasReplyBroadcast returns a boolean if a field has been set.
-func (o *GetTemplatesListResponseInnerAnyOf5) HasReplyBroadcast() bool {
-	if o != nil && !IsNil(o.ReplyBroadcast) {
-		return true
-	}
-
-	return false
-}
-
-// SetReplyBroadcast gets a reference to the given bool and assigns it to the ReplyBroadcast field.
-func (o *GetTemplatesListResponseInnerAnyOf5) SetReplyBroadcast(v bool) {
-	o.ReplyBroadcast = &v
-}
-
-// GetParse returns the Parse field value if set, zero value otherwise.
-func (o *GetTemplatesListResponseInnerAnyOf5) GetParse() string {
-	if o == nil || IsNil(o.Parse) {
-		var ret string
-		return ret
-	}
-	return *o.Parse
-}
-
-// GetParseOk returns a tuple with the Parse field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GetTemplatesListResponseInnerAnyOf5) GetParseOk() (*string, bool) {
-	if o == nil || IsNil(o.Parse) {
-		return nil, false
-	}
-	return o.Parse, true
-}
-
-// HasParse returns a boolean if a field has been set.
-func (o *GetTemplatesListResponseInnerAnyOf5) HasParse() bool {
-	if o != nil && !IsNil(o.Parse) {
-		return true
-	}
-
-	return false
-}
-
-// SetParse gets a reference to the given string and assigns it to the Parse field.
-func (o *GetTemplatesListResponseInnerAnyOf5) SetParse(v string) {
-	o.Parse = &v
-}
-
-// GetLinkNames returns the LinkNames field value if set, zero value otherwise.
-func (o *GetTemplatesListResponseInnerAnyOf5) GetLinkNames() bool {
-	if o == nil || IsNil(o.LinkNames) {
-		var ret bool
-		return ret
-	}
-	return *o.LinkNames
-}
-
-// GetLinkNamesOk returns a tuple with the LinkNames field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GetTemplatesListResponseInnerAnyOf5) GetLinkNamesOk() (*bool, bool) {
-	if o == nil || IsNil(o.LinkNames) {
-		return nil, false
-	}
-	return o.LinkNames, true
-}
-
-// HasLinkNames returns a boolean if a field has been set.
-func (o *GetTemplatesListResponseInnerAnyOf5) HasLinkNames() bool {
-	if o != nil && !IsNil(o.LinkNames) {
-		return true
-	}
-
-	return false
-}
-
-// SetLinkNames gets a reference to the given bool and assigns it to the LinkNames field.
-func (o *GetTemplatesListResponseInnerAnyOf5) SetLinkNames(v bool) {
-	o.LinkNames = &v
-}
-
-// GetMrkdwn returns the Mrkdwn field value if set, zero value otherwise.
-func (o *GetTemplatesListResponseInnerAnyOf5) GetMrkdwn() bool {
-	if o == nil || IsNil(o.Mrkdwn) {
-		var ret bool
-		return ret
-	}
-	return *o.Mrkdwn
-}
-
-// GetMrkdwnOk returns a tuple with the Mrkdwn field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GetTemplatesListResponseInnerAnyOf5) GetMrkdwnOk() (*bool, bool) {
-	if o == nil || IsNil(o.Mrkdwn) {
-		return nil, false
-	}
-	return o.Mrkdwn, true
-}
-
-// HasMrkdwn returns a boolean if a field has been set.
-func (o *GetTemplatesListResponseInnerAnyOf5) HasMrkdwn() bool {
-	if o != nil && !IsNil(o.Mrkdwn) {
-		return true
-	}
-
-	return false
-}
-
-// SetMrkdwn gets a reference to the given bool and assigns it to the Mrkdwn field.
-func (o *GetTemplatesListResponseInnerAnyOf5) SetMrkdwn(v bool) {
-	o.Mrkdwn = &v
-}
-
-// GetUnfurlLinks returns the UnfurlLinks field value if set, zero value otherwise.
-func (o *GetTemplatesListResponseInnerAnyOf5) GetUnfurlLinks() bool {
-	if o == nil || IsNil(o.UnfurlLinks) {
-		var ret bool
-		return ret
-	}
-	return *o.UnfurlLinks
-}
-
-// GetUnfurlLinksOk returns a tuple with the UnfurlLinks field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GetTemplatesListResponseInnerAnyOf5) GetUnfurlLinksOk() (*bool, bool) {
-	if o == nil || IsNil(o.UnfurlLinks) {
-		return nil, false
-	}
-	return o.UnfurlLinks, true
-}
-
-// HasUnfurlLinks returns a boolean if a field has been set.
-func (o *GetTemplatesListResponseInnerAnyOf5) HasUnfurlLinks() bool {
-	if o != nil && !IsNil(o.UnfurlLinks) {
-		return true
-	}
-
-	return false
-}
-
-// SetUnfurlLinks gets a reference to the given bool and assigns it to the UnfurlLinks field.
-func (o *GetTemplatesListResponseInnerAnyOf5) SetUnfurlLinks(v bool) {
-	o.UnfurlLinks = &v
-}
-
-// GetUnfurlMedia returns the UnfurlMedia field value if set, zero value otherwise.
-func (o *GetTemplatesListResponseInnerAnyOf5) GetUnfurlMedia() bool {
-	if o == nil || IsNil(o.UnfurlMedia) {
-		var ret bool
-		return ret
-	}
-	return *o.UnfurlMedia
-}
-
-// GetUnfurlMediaOk returns a tuple with the UnfurlMedia field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GetTemplatesListResponseInnerAnyOf5) GetUnfurlMediaOk() (*bool, bool) {
-	if o == nil || IsNil(o.UnfurlMedia) {
-		return nil, false
-	}
-	return o.UnfurlMedia, true
-}
-
-// HasUnfurlMedia returns a boolean if a field has been set.
-func (o *GetTemplatesListResponseInnerAnyOf5) HasUnfurlMedia() bool {
-	if o != nil && !IsNil(o.UnfurlMedia) {
-		return true
-	}
-
-	return false
-}
-
-// SetUnfurlMedia gets a reference to the given bool and assigns it to the UnfurlMedia field.
-func (o *GetTemplatesListResponseInnerAnyOf5) SetUnfurlMedia(v bool) {
-	o.UnfurlMedia = &v
-}
-
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *GetTemplatesListResponseInnerAnyOf5) GetMetadata() GetTemplatesListResponseInnerAnyOf5Metadata {
-	if o == nil || IsNil(o.Metadata) {
-		var ret GetTemplatesListResponseInnerAnyOf5Metadata
-		return ret
-	}
-	return *o.Metadata
-}
-
-// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GetTemplatesListResponseInnerAnyOf5) GetMetadataOk() (*GetTemplatesListResponseInnerAnyOf5Metadata, bool) {
-	if o == nil || IsNil(o.Metadata) {
-		return nil, false
-	}
-	return o.Metadata, true
-}
-
-// HasMetadata returns a boolean if a field has been set.
-func (o *GetTemplatesListResponseInnerAnyOf5) HasMetadata() bool {
-	if o != nil && !IsNil(o.Metadata) {
-		return true
-	}
-
-	return false
-}
-
-// SetMetadata gets a reference to the given GetTemplatesListResponseInnerAnyOf5Metadata and assigns it to the Metadata field.
-func (o *GetTemplatesListResponseInnerAnyOf5) SetMetadata(v GetTemplatesListResponseInnerAnyOf5Metadata) {
-	o.Metadata = &v
+// SetUrl gets a reference to the given string and assigns it to the Url field.
+func (o *GetTemplatesListResponseInnerAnyOf5) SetUrl(v string) {
+	o.Url = &v
 }
 
 func (o GetTemplatesListResponseInnerAnyOf5) MarshalJSON() ([]byte, error) {
@@ -612,39 +341,13 @@ func (o GetTemplatesListResponseInnerAnyOf5) ToMap() (map[string]interface{}, er
 	if !IsNil(o.IsDefaultFor) {
 		toSerialize["isDefaultFor"] = o.IsDefaultFor
 	}
-	toSerialize["text"] = o.Text
-	if !IsNil(o.Blocks) {
-		toSerialize["blocks"] = o.Blocks
-	}
-	if !IsNil(o.Username) {
-		toSerialize["username"] = o.Username
-	}
+	toSerialize["title"] = o.Title
+	toSerialize["message"] = o.Message
 	if !IsNil(o.Icon) {
 		toSerialize["icon"] = o.Icon
 	}
-	if !IsNil(o.ThreadTs) {
-		toSerialize["thread_ts"] = o.ThreadTs
-	}
-	if !IsNil(o.ReplyBroadcast) {
-		toSerialize["reply_broadcast"] = o.ReplyBroadcast
-	}
-	if !IsNil(o.Parse) {
-		toSerialize["parse"] = o.Parse
-	}
-	if !IsNil(o.LinkNames) {
-		toSerialize["link_names"] = o.LinkNames
-	}
-	if !IsNil(o.Mrkdwn) {
-		toSerialize["mrkdwn"] = o.Mrkdwn
-	}
-	if !IsNil(o.UnfurlLinks) {
-		toSerialize["unfurl_links"] = o.UnfurlLinks
-	}
-	if !IsNil(o.UnfurlMedia) {
-		toSerialize["unfurl_media"] = o.UnfurlMedia
-	}
-	if !IsNil(o.Metadata) {
-		toSerialize["metadata"] = o.Metadata
+	if !IsNil(o.Url) {
+		toSerialize["url"] = o.Url
 	}
 	return toSerialize, nil
 }
@@ -659,7 +362,8 @@ func (o *GetTemplatesListResponseInnerAnyOf5) UnmarshalJSON(data []byte) (err er
 		"templateId",
 		"channel",
 		"default",
-		"text",
+		"title",
+		"message",
 	}
 
 	allProperties := make(map[string]interface{})

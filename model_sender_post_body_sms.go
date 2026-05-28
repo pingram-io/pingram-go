@@ -17,10 +17,12 @@ import (
 // checks if the SenderPostBodySms type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SenderPostBodySms{}
 
-// SenderPostBodySms Inline SMS content (message, autoReply, from).
+// SenderPostBodySms Inline SMS content (message, autoReply, from, mediaUrls).
 type SenderPostBodySms struct {
-	// SMS body text.
-	Message   *string                     `json:"message,omitempty"`
+	// SMS/MMS body text.
+	Message *string `json:"message,omitempty"`
+	// Public HTTPS URLs of media to attach (MMS). Telnyx and Twilio fetch these via GET. Total size limits apply per provider.
+	MediaUrls []string                    `json:"mediaUrls,omitempty"`
 	AutoReply *SenderPostBodySmsAutoReply `json:"autoReply,omitempty"`
 	// Override the sender phone number. Must be a verified number in your Telnyx account.
 	From *string `json:"from,omitempty"`
@@ -73,6 +75,38 @@ func (o *SenderPostBodySms) HasMessage() bool {
 // SetMessage gets a reference to the given string and assigns it to the Message field.
 func (o *SenderPostBodySms) SetMessage(v string) {
 	o.Message = &v
+}
+
+// GetMediaUrls returns the MediaUrls field value if set, zero value otherwise.
+func (o *SenderPostBodySms) GetMediaUrls() []string {
+	if o == nil || IsNil(o.MediaUrls) {
+		var ret []string
+		return ret
+	}
+	return o.MediaUrls
+}
+
+// GetMediaUrlsOk returns a tuple with the MediaUrls field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SenderPostBodySms) GetMediaUrlsOk() ([]string, bool) {
+	if o == nil || IsNil(o.MediaUrls) {
+		return nil, false
+	}
+	return o.MediaUrls, true
+}
+
+// HasMediaUrls returns a boolean if a field has been set.
+func (o *SenderPostBodySms) HasMediaUrls() bool {
+	if o != nil && !IsNil(o.MediaUrls) {
+		return true
+	}
+
+	return false
+}
+
+// SetMediaUrls gets a reference to the given []string and assigns it to the MediaUrls field.
+func (o *SenderPostBodySms) SetMediaUrls(v []string) {
+	o.MediaUrls = v
 }
 
 // GetAutoReply returns the AutoReply field value if set, zero value otherwise.
@@ -151,6 +185,9 @@ func (o SenderPostBodySms) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Message) {
 		toSerialize["message"] = o.Message
+	}
+	if !IsNil(o.MediaUrls) {
+		toSerialize["mediaUrls"] = o.MediaUrls
 	}
 	if !IsNil(o.AutoReply) {
 		toSerialize["autoReply"] = o.AutoReply

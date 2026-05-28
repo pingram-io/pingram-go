@@ -21,25 +21,27 @@ var _ MappedNullable = &GetLogsResponseMessagesInner{}
 
 // GetLogsResponseMessagesInner struct for GetLogsResponseMessagesInner
 type GetLogsResponseMessagesInner struct {
-	TrackingId     string                                         `json:"trackingId"`
-	EventType      string                                         `json:"eventType"`
-	Timestamp      string                                         `json:"timestamp"`
-	EpochMs        float32                                        `json:"epochMs"`
-	Inbox          *string                                        `json:"inbox,omitempty"`
-	From           *string                                        `json:"from,omitempty"`
-	FromName       *string                                        `json:"fromName,omitempty"`
-	Subject        *string                                        `json:"subject,omitempty"`
-	To             []string                                       `json:"to,omitempty"`
-	Cc             []string                                       `json:"cc,omitempty"`
-	Bcc            []string                                       `json:"bcc,omitempty"`
-	ReplyTo        *string                                        `json:"replyTo,omitempty"`
-	BodyText       *string                                        `json:"bodyText,omitempty"`
-	BodyHtml       *string                                        `json:"bodyHtml,omitempty"`
-	Attachments    []GetLogsResponseMessagesInnerAttachmentsInner `json:"attachments,omitempty"`
-	MessageId      *string                                        `json:"messageId,omitempty"`
-	InReplyTo      *string                                        `json:"inReplyTo,omitempty"`
-	References     *string                                        `json:"references,omitempty"`
-	ResolutionType *string                                        `json:"resolutionType,omitempty"`
+	TrackingId  string                                         `json:"trackingId"`
+	EventType   string                                         `json:"eventType"`
+	Timestamp   string                                         `json:"timestamp"`
+	EpochMs     float32                                        `json:"epochMs"`
+	Inbox       *string                                        `json:"inbox,omitempty"`
+	From        *string                                        `json:"from,omitempty"`
+	FromName    *string                                        `json:"fromName,omitempty"`
+	Subject     *string                                        `json:"subject,omitempty"`
+	To          []string                                       `json:"to,omitempty"`
+	Cc          []string                                       `json:"cc,omitempty"`
+	Bcc         []string                                       `json:"bcc,omitempty"`
+	ReplyTo     *string                                        `json:"replyTo,omitempty"`
+	BodyText    *string                                        `json:"bodyText,omitempty"`
+	BodyHtml    *string                                        `json:"bodyHtml,omitempty"`
+	Attachments []GetLogsResponseMessagesInnerAttachmentsInner `json:"attachments,omitempty"`
+	// Inbound MMS attachments (includes contentType when available).
+	Media          []GetLogsResponseMessagesInnerMediaInner `json:"media,omitempty"`
+	MessageId      *string                                  `json:"messageId,omitempty"`
+	InReplyTo      *string                                  `json:"inReplyTo,omitempty"`
+	References     *string                                  `json:"references,omitempty"`
+	ResolutionType *string                                  `json:"resolutionType,omitempty"`
 }
 
 type _GetLogsResponseMessagesInner GetLogsResponseMessagesInner
@@ -513,6 +515,38 @@ func (o *GetLogsResponseMessagesInner) SetAttachments(v []GetLogsResponseMessage
 	o.Attachments = v
 }
 
+// GetMedia returns the Media field value if set, zero value otherwise.
+func (o *GetLogsResponseMessagesInner) GetMedia() []GetLogsResponseMessagesInnerMediaInner {
+	if o == nil || IsNil(o.Media) {
+		var ret []GetLogsResponseMessagesInnerMediaInner
+		return ret
+	}
+	return o.Media
+}
+
+// GetMediaOk returns a tuple with the Media field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetLogsResponseMessagesInner) GetMediaOk() ([]GetLogsResponseMessagesInnerMediaInner, bool) {
+	if o == nil || IsNil(o.Media) {
+		return nil, false
+	}
+	return o.Media, true
+}
+
+// HasMedia returns a boolean if a field has been set.
+func (o *GetLogsResponseMessagesInner) HasMedia() bool {
+	if o != nil && !IsNil(o.Media) {
+		return true
+	}
+
+	return false
+}
+
+// SetMedia gets a reference to the given []GetLogsResponseMessagesInnerMediaInner and assigns it to the Media field.
+func (o *GetLogsResponseMessagesInner) SetMedia(v []GetLogsResponseMessagesInnerMediaInner) {
+	o.Media = v
+}
+
 // GetMessageId returns the MessageId field value if set, zero value otherwise.
 func (o *GetLogsResponseMessagesInner) GetMessageId() string {
 	if o == nil || IsNil(o.MessageId) {
@@ -687,6 +721,9 @@ func (o GetLogsResponseMessagesInner) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Attachments) {
 		toSerialize["attachments"] = o.Attachments
+	}
+	if !IsNil(o.Media) {
+		toSerialize["media"] = o.Media
 	}
 	if !IsNil(o.MessageId) {
 		toSerialize["messageId"] = o.MessageId

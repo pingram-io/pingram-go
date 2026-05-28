@@ -23,6 +23,7 @@ type GetTemplatesListResponseInner struct {
 	GetTemplatesListResponseInnerAnyOf3 *GetTemplatesListResponseInnerAnyOf3
 	GetTemplatesListResponseInnerAnyOf4 *GetTemplatesListResponseInnerAnyOf4
 	GetTemplatesListResponseInnerAnyOf5 *GetTemplatesListResponseInnerAnyOf5
+	GetTemplatesListResponseInnerAnyOf6 *GetTemplatesListResponseInnerAnyOf6
 }
 
 // Unmarshal JSON data into any of the pointers in the struct
@@ -106,6 +107,19 @@ func (dst *GetTemplatesListResponseInner) UnmarshalJSON(data []byte) error {
 		dst.GetTemplatesListResponseInnerAnyOf5 = nil
 	}
 
+	// try to unmarshal JSON data into GetTemplatesListResponseInnerAnyOf6
+	err = json.Unmarshal(data, &dst.GetTemplatesListResponseInnerAnyOf6)
+	if err == nil {
+		jsonGetTemplatesListResponseInnerAnyOf6, _ := json.Marshal(dst.GetTemplatesListResponseInnerAnyOf6)
+		if string(jsonGetTemplatesListResponseInnerAnyOf6) == "{}" { // empty struct
+			dst.GetTemplatesListResponseInnerAnyOf6 = nil
+		} else {
+			return nil // data stored in dst.GetTemplatesListResponseInnerAnyOf6, return on the first match
+		}
+	} else {
+		dst.GetTemplatesListResponseInnerAnyOf6 = nil
+	}
+
 	return fmt.Errorf("data failed to match schemas in anyOf(GetTemplatesListResponseInner)")
 }
 
@@ -133,6 +147,10 @@ func (src GetTemplatesListResponseInner) MarshalJSON() ([]byte, error) {
 
 	if src.GetTemplatesListResponseInnerAnyOf5 != nil {
 		return json.Marshal(&src.GetTemplatesListResponseInnerAnyOf5)
+	}
+
+	if src.GetTemplatesListResponseInnerAnyOf6 != nil {
+		return json.Marshal(&src.GetTemplatesListResponseInnerAnyOf6)
 	}
 
 	return nil, nil // no data in anyOf schemas

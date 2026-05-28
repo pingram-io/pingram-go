@@ -29,8 +29,6 @@ type GetTemplatesListResponseInnerAnyOf4 struct {
 	IsDefaultFor   *map[string]bool `json:"isDefaultFor,omitempty"`
 	Title          string           `json:"title"`
 	Message        string           `json:"message"`
-	Icon           *string          `json:"icon,omitempty"`
-	Url            *string          `json:"url,omitempty"`
 }
 
 type _GetTemplatesListResponseInnerAnyOf4 GetTemplatesListResponseInnerAnyOf4
@@ -259,70 +257,6 @@ func (o *GetTemplatesListResponseInnerAnyOf4) SetMessage(v string) {
 	o.Message = v
 }
 
-// GetIcon returns the Icon field value if set, zero value otherwise.
-func (o *GetTemplatesListResponseInnerAnyOf4) GetIcon() string {
-	if o == nil || IsNil(o.Icon) {
-		var ret string
-		return ret
-	}
-	return *o.Icon
-}
-
-// GetIconOk returns a tuple with the Icon field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GetTemplatesListResponseInnerAnyOf4) GetIconOk() (*string, bool) {
-	if o == nil || IsNil(o.Icon) {
-		return nil, false
-	}
-	return o.Icon, true
-}
-
-// HasIcon returns a boolean if a field has been set.
-func (o *GetTemplatesListResponseInnerAnyOf4) HasIcon() bool {
-	if o != nil && !IsNil(o.Icon) {
-		return true
-	}
-
-	return false
-}
-
-// SetIcon gets a reference to the given string and assigns it to the Icon field.
-func (o *GetTemplatesListResponseInnerAnyOf4) SetIcon(v string) {
-	o.Icon = &v
-}
-
-// GetUrl returns the Url field value if set, zero value otherwise.
-func (o *GetTemplatesListResponseInnerAnyOf4) GetUrl() string {
-	if o == nil || IsNil(o.Url) {
-		var ret string
-		return ret
-	}
-	return *o.Url
-}
-
-// GetUrlOk returns a tuple with the Url field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GetTemplatesListResponseInnerAnyOf4) GetUrlOk() (*string, bool) {
-	if o == nil || IsNil(o.Url) {
-		return nil, false
-	}
-	return o.Url, true
-}
-
-// HasUrl returns a boolean if a field has been set.
-func (o *GetTemplatesListResponseInnerAnyOf4) HasUrl() bool {
-	if o != nil && !IsNil(o.Url) {
-		return true
-	}
-
-	return false
-}
-
-// SetUrl gets a reference to the given string and assigns it to the Url field.
-func (o *GetTemplatesListResponseInnerAnyOf4) SetUrl(v string) {
-	o.Url = &v
-}
-
 func (o GetTemplatesListResponseInnerAnyOf4) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -343,12 +277,6 @@ func (o GetTemplatesListResponseInnerAnyOf4) ToMap() (map[string]interface{}, er
 	}
 	toSerialize["title"] = o.Title
 	toSerialize["message"] = o.Message
-	if !IsNil(o.Icon) {
-		toSerialize["icon"] = o.Icon
-	}
-	if !IsNil(o.Url) {
-		toSerialize["url"] = o.Url
-	}
 	return toSerialize, nil
 }
 

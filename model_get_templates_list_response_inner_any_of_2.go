@@ -28,6 +28,8 @@ type GetTemplatesListResponseInnerAnyOf2 struct {
 	Default        bool             `json:"default"`
 	IsDefaultFor   *map[string]bool `json:"isDefaultFor,omitempty"`
 	Text           string           `json:"text"`
+	// Set when sending MMS (outbound).
+	MediaUrls []string `json:"mediaUrls,omitempty"`
 }
 
 type _GetTemplatesListResponseInnerAnyOf2 GetTemplatesListResponseInnerAnyOf2
@@ -231,6 +233,38 @@ func (o *GetTemplatesListResponseInnerAnyOf2) SetText(v string) {
 	o.Text = v
 }
 
+// GetMediaUrls returns the MediaUrls field value if set, zero value otherwise.
+func (o *GetTemplatesListResponseInnerAnyOf2) GetMediaUrls() []string {
+	if o == nil || IsNil(o.MediaUrls) {
+		var ret []string
+		return ret
+	}
+	return o.MediaUrls
+}
+
+// GetMediaUrlsOk returns a tuple with the MediaUrls field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetTemplatesListResponseInnerAnyOf2) GetMediaUrlsOk() ([]string, bool) {
+	if o == nil || IsNil(o.MediaUrls) {
+		return nil, false
+	}
+	return o.MediaUrls, true
+}
+
+// HasMediaUrls returns a boolean if a field has been set.
+func (o *GetTemplatesListResponseInnerAnyOf2) HasMediaUrls() bool {
+	if o != nil && !IsNil(o.MediaUrls) {
+		return true
+	}
+
+	return false
+}
+
+// SetMediaUrls gets a reference to the given []string and assigns it to the MediaUrls field.
+func (o *GetTemplatesListResponseInnerAnyOf2) SetMediaUrls(v []string) {
+	o.MediaUrls = v
+}
+
 func (o GetTemplatesListResponseInnerAnyOf2) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -250,6 +284,9 @@ func (o GetTemplatesListResponseInnerAnyOf2) ToMap() (map[string]interface{}, er
 		toSerialize["isDefaultFor"] = o.IsDefaultFor
 	}
 	toSerialize["text"] = o.Text
+	if !IsNil(o.MediaUrls) {
+		toSerialize["mediaUrls"] = o.MediaUrls
+	}
 	return toSerialize, nil
 }
 
