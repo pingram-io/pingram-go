@@ -21,10 +21,10 @@ var _ MappedNullable = &SenderPostBodySms{}
 type SenderPostBodySms struct {
 	// SMS/MMS body text.
 	Message *string `json:"message,omitempty"`
-	// Public HTTPS URLs of media to attach (MMS). Telnyx and Twilio fetch these via GET. Total size limits apply per provider.
+	// Public HTTPS URLs of media to attach (MMS). Carriers fetch these via GET. Total size limits apply per provider.
 	MediaUrls []string                    `json:"mediaUrls,omitempty"`
 	AutoReply *SenderPostBodySmsAutoReply `json:"autoReply,omitempty"`
-	// Override the sender phone number. Must be a verified number in your Telnyx account.
+	// Override the sender phone number. Must be a verified number on your account.
 	From *string `json:"from,omitempty"`
 }
 

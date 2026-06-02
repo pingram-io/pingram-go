@@ -60,6 +60,8 @@ type APIClient struct {
 
 	EditorAPI *EditorAPIService
 
+	EmailAPI *EmailAPIService
+
 	EnvironmentsAPI *EnvironmentsAPIService
 
 	HealthAPI *HealthAPIService
@@ -81,6 +83,8 @@ type APIClient struct {
 	PushSettingsAPI *PushSettingsAPIService
 
 	SenderAPI *SenderAPIService
+
+	SmsAPI *SmsAPIService
 
 	TemplatesAPI *TemplatesAPIService
 
@@ -115,6 +119,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.DefaultAPI = (*DefaultAPIService)(&c.common)
 	c.DomainsAPI = (*DomainsAPIService)(&c.common)
 	c.EditorAPI = (*EditorAPIService)(&c.common)
+	c.EmailAPI = (*EmailAPIService)(&c.common)
 	c.EnvironmentsAPI = (*EnvironmentsAPIService)(&c.common)
 	c.HealthAPI = (*HealthAPIService)(&c.common)
 	c.InsightsAPI = (*InsightsAPIService)(&c.common)
@@ -126,6 +131,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ProfileAPI = (*ProfileAPIService)(&c.common)
 	c.PushSettingsAPI = (*PushSettingsAPIService)(&c.common)
 	c.SenderAPI = (*SenderAPIService)(&c.common)
+	c.SmsAPI = (*SmsAPIService)(&c.common)
 	c.TemplatesAPI = (*TemplatesAPIService)(&c.common)
 	c.TypesAPI = (*TypesAPIService)(&c.common)
 	c.UserAPI = (*UserAPIService)(&c.common)
@@ -682,7 +688,14 @@ func strlen(s string) int {
 	return utf8.RuneCountInString(s)
 }
 
-// GenericOpenAPIError Provides access to the body, error and model on returned errors.
+func prefaceHTTPStatusWithApiJSONDetail(statusLine string, body []byte) string {
+	if hint := apiErrorDetailFromJSONBody(body); hint != "" {
+		return strings.TrimSpace(fmt.Sprintf("%s %s", statusLine, hint))
+	}
+	return strings.TrimSpace(statusLine)
+}
+
+// GenericOpenAPIError provides access to the body, error and model on returned errors.
 type GenericOpenAPIError struct {
 	body  []byte
 	error string
@@ -704,22 +717,109 @@ func (e GenericOpenAPIError) Model() interface{} {
 	return e.model
 }
 
-// format error message using title and detail when model implements rfc7807
-func formatErrorMessage(status string, v interface{}) string {
-	str := ""
-	metaValue := reflect.ValueOf(v).Elem()
+type apiErrorJSONEnvelope struct {
+	Error *struct {
+		Message string `json:"message"`
+	} `json:"error"`
+	Message  string   `json:"message"`
+	Messages []string `json:"messages"`
+}
 
-	if metaValue.Kind() == reflect.Struct {
-		field := metaValue.FieldByName("Title")
-		if field != (reflect.Value{}) {
-			str = fmt.Sprintf("%s", field.Interface())
+func apiErrorDetailFromJSONBody(body []byte) string {
+	if len(body) == 0 {
+		return ""
+	}
+	var env apiErrorJSONEnvelope
+	if err := json.Unmarshal(body, &env); err != nil {
+		return ""
+	}
+	if env.Error != nil && env.Error.Message != "" {
+		return env.Error.Message
+	}
+	if env.Message != "" {
+		return env.Message
+	}
+	if len(env.Messages) > 0 && env.Messages[0] != "" {
+		return env.Messages[0]
+	}
+	return ""
+}
+
+func structuredAPIErrorHint(v interface{}) string {
+	if v == nil {
+		return ""
+	}
+	val := reflect.ValueOf(v)
+	if val.Kind() == reflect.Ptr {
+		if val.IsNil() {
+			return ""
 		}
-
-		field = metaValue.FieldByName("Detail")
-		if field != (reflect.Value{}) {
-			str = fmt.Sprintf("%s (%s)", str, field.Interface())
+		val = val.Elem()
+	}
+	if val.Kind() != reflect.Struct {
+		return ""
+	}
+	title, detail := val.FieldByName("Title"), val.FieldByName("Detail")
+	str := ""
+	if title.IsValid() && title.Kind() == reflect.String {
+		str = title.String()
+	}
+	if detail.IsValid() && detail.Kind() == reflect.String && detail.String() != "" {
+		if str != "" {
+			str = fmt.Sprintf("%s (%s)", str, detail.String())
+		} else {
+			str = detail.String()
 		}
 	}
+	if str != "" {
+		return strings.TrimSpace(str)
+	}
 
-	return strings.TrimSpace(fmt.Sprintf("%s %s", status, str))
+	errFld := val.FieldByName("Error")
+	if errFld.IsValid() {
+		if errFld.Kind() == reflect.Ptr && !errFld.IsNil() {
+			errFld = errFld.Elem()
+		}
+		if errFld.Kind() == reflect.Struct {
+			msg := errFld.FieldByName("Message")
+			if msg.IsValid() && msg.Kind() == reflect.String && msg.String() != "" {
+				return msg.String()
+			}
+		}
+	}
+	topMsg := val.FieldByName("Message")
+	if topMsg.IsValid() && topMsg.Kind() == reflect.String && topMsg.String() != "" {
+		return topMsg.String()
+	}
+	msgs := val.FieldByName("Messages")
+	if msgs.IsValid() && msgs.Kind() == reflect.Slice && msgs.Len() > 0 {
+		el := msgs.Index(0)
+		if el.Kind() == reflect.String && el.String() != "" {
+			return el.String()
+		}
+	}
+	return ""
+}
+
+// formatErrorMessage builds a visible error aligned with Node fetch runtime (nested error.message, message, JSON body fallback, RFC7807 title/detail).
+func formatErrorMessage(status string, v interface{}, body []byte) string {
+	hint := structuredAPIErrorHint(v)
+	if hint == "" {
+		hint = apiErrorDetailFromJSONBody(body)
+	}
+	if hint != "" {
+		return strings.TrimSpace(fmt.Sprintf("%s %s", status, hint))
+	}
+	return strings.TrimSpace(status)
+}
+
+func formatDecodeErrorMessage(status string, body []byte, decodeErr error) string {
+	hint := apiErrorDetailFromJSONBody(body)
+	if hint != "" {
+		return strings.TrimSpace(fmt.Sprintf("%s %s", status, hint))
+	}
+	if decodeErr != nil {
+		return strings.TrimSpace(fmt.Sprintf("%s %s", status, decodeErr.Error()))
+	}
+	return strings.TrimSpace(status)
 }

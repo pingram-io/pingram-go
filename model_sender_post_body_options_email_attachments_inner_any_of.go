@@ -21,8 +21,9 @@ var _ MappedNullable = &SenderPostBodyOptionsEmailAttachmentsInnerAnyOf{}
 
 // SenderPostBodyOptionsEmailAttachmentsInnerAnyOf struct for SenderPostBodyOptionsEmailAttachmentsInnerAnyOf
 type SenderPostBodyOptionsEmailAttachmentsInnerAnyOf struct {
-	Filename string `json:"filename"`
-	Url      string `json:"url"`
+	Filename    string  `json:"filename"`
+	Content     string  `json:"content"`
+	ContentType *string `json:"contentType,omitempty"`
 }
 
 type _SenderPostBodyOptionsEmailAttachmentsInnerAnyOf SenderPostBodyOptionsEmailAttachmentsInnerAnyOf
@@ -31,10 +32,10 @@ type _SenderPostBodyOptionsEmailAttachmentsInnerAnyOf SenderPostBodyOptionsEmail
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSenderPostBodyOptionsEmailAttachmentsInnerAnyOf(filename string, url string) *SenderPostBodyOptionsEmailAttachmentsInnerAnyOf {
+func NewSenderPostBodyOptionsEmailAttachmentsInnerAnyOf(filename string, content string) *SenderPostBodyOptionsEmailAttachmentsInnerAnyOf {
 	this := SenderPostBodyOptionsEmailAttachmentsInnerAnyOf{}
 	this.Filename = filename
-	this.Url = url
+	this.Content = content
 	return &this
 }
 
@@ -70,28 +71,60 @@ func (o *SenderPostBodyOptionsEmailAttachmentsInnerAnyOf) SetFilename(v string) 
 	o.Filename = v
 }
 
-// GetUrl returns the Url field value
-func (o *SenderPostBodyOptionsEmailAttachmentsInnerAnyOf) GetUrl() string {
+// GetContent returns the Content field value
+func (o *SenderPostBodyOptionsEmailAttachmentsInnerAnyOf) GetContent() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Url
+	return o.Content
 }
 
-// GetUrlOk returns a tuple with the Url field value
+// GetContentOk returns a tuple with the Content field value
 // and a boolean to check if the value has been set.
-func (o *SenderPostBodyOptionsEmailAttachmentsInnerAnyOf) GetUrlOk() (*string, bool) {
+func (o *SenderPostBodyOptionsEmailAttachmentsInnerAnyOf) GetContentOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Url, true
+	return &o.Content, true
 }
 
-// SetUrl sets field value
-func (o *SenderPostBodyOptionsEmailAttachmentsInnerAnyOf) SetUrl(v string) {
-	o.Url = v
+// SetContent sets field value
+func (o *SenderPostBodyOptionsEmailAttachmentsInnerAnyOf) SetContent(v string) {
+	o.Content = v
+}
+
+// GetContentType returns the ContentType field value if set, zero value otherwise.
+func (o *SenderPostBodyOptionsEmailAttachmentsInnerAnyOf) GetContentType() string {
+	if o == nil || IsNil(o.ContentType) {
+		var ret string
+		return ret
+	}
+	return *o.ContentType
+}
+
+// GetContentTypeOk returns a tuple with the ContentType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SenderPostBodyOptionsEmailAttachmentsInnerAnyOf) GetContentTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.ContentType) {
+		return nil, false
+	}
+	return o.ContentType, true
+}
+
+// HasContentType returns a boolean if a field has been set.
+func (o *SenderPostBodyOptionsEmailAttachmentsInnerAnyOf) HasContentType() bool {
+	if o != nil && !IsNil(o.ContentType) {
+		return true
+	}
+
+	return false
+}
+
+// SetContentType gets a reference to the given string and assigns it to the ContentType field.
+func (o *SenderPostBodyOptionsEmailAttachmentsInnerAnyOf) SetContentType(v string) {
+	o.ContentType = &v
 }
 
 func (o SenderPostBodyOptionsEmailAttachmentsInnerAnyOf) MarshalJSON() ([]byte, error) {
@@ -105,7 +138,10 @@ func (o SenderPostBodyOptionsEmailAttachmentsInnerAnyOf) MarshalJSON() ([]byte, 
 func (o SenderPostBodyOptionsEmailAttachmentsInnerAnyOf) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["filename"] = o.Filename
-	toSerialize["url"] = o.Url
+	toSerialize["content"] = o.Content
+	if !IsNil(o.ContentType) {
+		toSerialize["contentType"] = o.ContentType
+	}
 	return toSerialize, nil
 }
 
@@ -115,7 +151,7 @@ func (o *SenderPostBodyOptionsEmailAttachmentsInnerAnyOf) UnmarshalJSON(data []b
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"filename",
-		"url",
+		"content",
 	}
 
 	allProperties := make(map[string]interface{})

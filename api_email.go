@@ -18,32 +18,32 @@ import (
 	"net/url"
 )
 
-// EditorAPIService EditorAPI service
-type EditorAPIService service
+// EmailAPIService EmailAPI service
+type EmailAPIService service
 
-type ApiEditorGenerateEditorTokenRequest struct {
-	ctx                       context.Context
-	ApiService                *EditorAPIService
-	emailAuthTokenPostRequest *EmailAuthTokenPostRequest
+type ApiEmailSendRequest struct {
+	ctx              context.Context
+	ApiService       *EmailAPIService
+	sendEmailRequest *SendEmailRequest
 }
 
-func (r ApiEditorGenerateEditorTokenRequest) EmailAuthTokenPostRequest(emailAuthTokenPostRequest EmailAuthTokenPostRequest) ApiEditorGenerateEditorTokenRequest {
-	r.emailAuthTokenPostRequest = &emailAuthTokenPostRequest
+func (r ApiEmailSendRequest) SendEmailRequest(sendEmailRequest SendEmailRequest) ApiEmailSendRequest {
+	r.sendEmailRequest = &sendEmailRequest
 	return r
 }
 
-func (r ApiEditorGenerateEditorTokenRequest) Execute() (*BeeTokenV2, *http.Response, error) {
-	return r.ApiService.EditorGenerateEditorTokenExecute(r)
+func (r ApiEmailSendRequest) Execute() (*SendEmailApiResponse, *http.Response, error) {
+	return r.ApiService.EmailSendExecute(r)
 }
 
 /*
-EditorGenerateEditorToken Get the email editor access token to load it it in your environment
+EmailSend Send an email notification directly without templates
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiEditorGenerateEditorTokenRequest
+	@return ApiEmailSendRequest
 */
-func (a *EditorAPIService) EditorGenerateEditorToken(ctx context.Context) ApiEditorGenerateEditorTokenRequest {
-	return ApiEditorGenerateEditorTokenRequest{
+func (a *EmailAPIService) EmailSend(ctx context.Context) ApiEmailSendRequest {
+	return ApiEmailSendRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -51,27 +51,27 @@ func (a *EditorAPIService) EditorGenerateEditorToken(ctx context.Context) ApiEdi
 
 // Execute executes the request
 //
-//	@return BeeTokenV2
-func (a *EditorAPIService) EditorGenerateEditorTokenExecute(r ApiEditorGenerateEditorTokenRequest) (*BeeTokenV2, *http.Response, error) {
+//	@return SendEmailApiResponse
+func (a *EmailAPIService) EmailSendExecute(r ApiEmailSendRequest) (*SendEmailApiResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BeeTokenV2
+		localVarReturnValue *SendEmailApiResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EditorAPIService.EditorGenerateEditorToken")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EmailAPIService.EmailSend")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/editor/token"
+	localVarPath := localBasePath + "/email"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.emailAuthTokenPostRequest == nil {
-		return localVarReturnValue, nil, reportError("emailAuthTokenPostRequest is required and must be specified")
+	if r.sendEmailRequest == nil {
+		return localVarReturnValue, nil, reportError("sendEmailRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -92,7 +92,7 @@ func (a *EditorAPIService) EditorGenerateEditorTokenExecute(r ApiEditorGenerateE
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.emailAuthTokenPostRequest
+	localVarPostBody = r.sendEmailRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

@@ -18,32 +18,32 @@ import (
 	"net/url"
 )
 
-// EditorAPIService EditorAPI service
-type EditorAPIService service
+// SmsAPIService SmsAPI service
+type SmsAPIService service
 
-type ApiEditorGenerateEditorTokenRequest struct {
-	ctx                       context.Context
-	ApiService                *EditorAPIService
-	emailAuthTokenPostRequest *EmailAuthTokenPostRequest
+type ApiSmsSendRequest struct {
+	ctx            context.Context
+	ApiService     *SmsAPIService
+	sendSmsRequest *SendSmsRequest
 }
 
-func (r ApiEditorGenerateEditorTokenRequest) EmailAuthTokenPostRequest(emailAuthTokenPostRequest EmailAuthTokenPostRequest) ApiEditorGenerateEditorTokenRequest {
-	r.emailAuthTokenPostRequest = &emailAuthTokenPostRequest
+func (r ApiSmsSendRequest) SendSmsRequest(sendSmsRequest SendSmsRequest) ApiSmsSendRequest {
+	r.sendSmsRequest = &sendSmsRequest
 	return r
 }
 
-func (r ApiEditorGenerateEditorTokenRequest) Execute() (*BeeTokenV2, *http.Response, error) {
-	return r.ApiService.EditorGenerateEditorTokenExecute(r)
+func (r ApiSmsSendRequest) Execute() (*SendSmsResponse, *http.Response, error) {
+	return r.ApiService.SmsSendExecute(r)
 }
 
 /*
-EditorGenerateEditorToken Get the email editor access token to load it it in your environment
+SmsSend Send an SMS notification directly without templates
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiEditorGenerateEditorTokenRequest
+	@return ApiSmsSendRequest
 */
-func (a *EditorAPIService) EditorGenerateEditorToken(ctx context.Context) ApiEditorGenerateEditorTokenRequest {
-	return ApiEditorGenerateEditorTokenRequest{
+func (a *SmsAPIService) SmsSend(ctx context.Context) ApiSmsSendRequest {
+	return ApiSmsSendRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -51,27 +51,27 @@ func (a *EditorAPIService) EditorGenerateEditorToken(ctx context.Context) ApiEdi
 
 // Execute executes the request
 //
-//	@return BeeTokenV2
-func (a *EditorAPIService) EditorGenerateEditorTokenExecute(r ApiEditorGenerateEditorTokenRequest) (*BeeTokenV2, *http.Response, error) {
+//	@return SendSmsResponse
+func (a *SmsAPIService) SmsSendExecute(r ApiSmsSendRequest) (*SendSmsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BeeTokenV2
+		localVarReturnValue *SendSmsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EditorAPIService.EditorGenerateEditorToken")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SmsAPIService.SmsSend")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/editor/token"
+	localVarPath := localBasePath + "/sms"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.emailAuthTokenPostRequest == nil {
-		return localVarReturnValue, nil, reportError("emailAuthTokenPostRequest is required and must be specified")
+	if r.sendSmsRequest == nil {
+		return localVarReturnValue, nil, reportError("sendSmsRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -92,7 +92,7 @@ func (a *EditorAPIService) EditorGenerateEditorTokenExecute(r ApiEditorGenerateE
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.emailAuthTokenPostRequest
+	localVarPostBody = r.sendSmsRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

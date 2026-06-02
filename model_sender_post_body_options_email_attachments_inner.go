@@ -17,13 +17,26 @@ import (
 
 // SenderPostBodyOptionsEmailAttachmentsInner struct for SenderPostBodyOptionsEmailAttachmentsInner
 type SenderPostBodyOptionsEmailAttachmentsInner struct {
-	SenderPostBodyOptionsEmailAttachmentsInnerAnyOf  *SenderPostBodyOptionsEmailAttachmentsInnerAnyOf
-	SenderPostBodyOptionsEmailAttachmentsInnerAnyOf1 *SenderPostBodyOptionsEmailAttachmentsInnerAnyOf1
+	SendEmailRequestAttachmentsInner                *SendEmailRequestAttachmentsInner
+	SenderPostBodyOptionsEmailAttachmentsInnerAnyOf *SenderPostBodyOptionsEmailAttachmentsInnerAnyOf
 }
 
 // Unmarshal JSON data into any of the pointers in the struct
 func (dst *SenderPostBodyOptionsEmailAttachmentsInner) UnmarshalJSON(data []byte) error {
 	var err error
+	// try to unmarshal JSON data into SendEmailRequestAttachmentsInner
+	err = json.Unmarshal(data, &dst.SendEmailRequestAttachmentsInner)
+	if err == nil {
+		jsonSendEmailRequestAttachmentsInner, _ := json.Marshal(dst.SendEmailRequestAttachmentsInner)
+		if string(jsonSendEmailRequestAttachmentsInner) == "{}" { // empty struct
+			dst.SendEmailRequestAttachmentsInner = nil
+		} else {
+			return nil // data stored in dst.SendEmailRequestAttachmentsInner, return on the first match
+		}
+	} else {
+		dst.SendEmailRequestAttachmentsInner = nil
+	}
+
 	// try to unmarshal JSON data into SenderPostBodyOptionsEmailAttachmentsInnerAnyOf
 	err = json.Unmarshal(data, &dst.SenderPostBodyOptionsEmailAttachmentsInnerAnyOf)
 	if err == nil {
@@ -37,30 +50,17 @@ func (dst *SenderPostBodyOptionsEmailAttachmentsInner) UnmarshalJSON(data []byte
 		dst.SenderPostBodyOptionsEmailAttachmentsInnerAnyOf = nil
 	}
 
-	// try to unmarshal JSON data into SenderPostBodyOptionsEmailAttachmentsInnerAnyOf1
-	err = json.Unmarshal(data, &dst.SenderPostBodyOptionsEmailAttachmentsInnerAnyOf1)
-	if err == nil {
-		jsonSenderPostBodyOptionsEmailAttachmentsInnerAnyOf1, _ := json.Marshal(dst.SenderPostBodyOptionsEmailAttachmentsInnerAnyOf1)
-		if string(jsonSenderPostBodyOptionsEmailAttachmentsInnerAnyOf1) == "{}" { // empty struct
-			dst.SenderPostBodyOptionsEmailAttachmentsInnerAnyOf1 = nil
-		} else {
-			return nil // data stored in dst.SenderPostBodyOptionsEmailAttachmentsInnerAnyOf1, return on the first match
-		}
-	} else {
-		dst.SenderPostBodyOptionsEmailAttachmentsInnerAnyOf1 = nil
-	}
-
 	return fmt.Errorf("data failed to match schemas in anyOf(SenderPostBodyOptionsEmailAttachmentsInner)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src SenderPostBodyOptionsEmailAttachmentsInner) MarshalJSON() ([]byte, error) {
-	if src.SenderPostBodyOptionsEmailAttachmentsInnerAnyOf != nil {
-		return json.Marshal(&src.SenderPostBodyOptionsEmailAttachmentsInnerAnyOf)
+	if src.SendEmailRequestAttachmentsInner != nil {
+		return json.Marshal(&src.SendEmailRequestAttachmentsInner)
 	}
 
-	if src.SenderPostBodyOptionsEmailAttachmentsInnerAnyOf1 != nil {
-		return json.Marshal(&src.SenderPostBodyOptionsEmailAttachmentsInnerAnyOf1)
+	if src.SenderPostBodyOptionsEmailAttachmentsInnerAnyOf != nil {
+		return json.Marshal(&src.SenderPostBodyOptionsEmailAttachmentsInnerAnyOf)
 	}
 
 	return nil, nil // no data in anyOf schemas

@@ -59,6 +59,8 @@ type Client struct {
 
 	EditorAPI *EditorAPIService
 
+	EmailAPI *EmailAPIService
+
 	EnvironmentsAPI *EnvironmentsAPIService
 
 	HealthAPI *HealthAPIService
@@ -80,6 +82,8 @@ type Client struct {
 	PushSettingsAPI *PushSettingsAPIService
 
 	SenderAPI *SenderAPIService
+
+	SmsAPI *SmsAPIService
 
 	TemplatesAPI *TemplatesAPIService
 
@@ -123,6 +127,8 @@ func NewClient(apiKey string, opts ...ClientOption) *Client {
 
 	c.EditorAPI = (*EditorAPIService)(&c.common)
 
+	c.EmailAPI = (*EmailAPIService)(&c.common)
+
 	c.EnvironmentsAPI = (*EnvironmentsAPIService)(&c.common)
 
 	c.HealthAPI = (*HealthAPIService)(&c.common)
@@ -144,6 +150,8 @@ func NewClient(apiKey string, opts ...ClientOption) *Client {
 	c.PushSettingsAPI = (*PushSettingsAPIService)(&c.common)
 
 	c.SenderAPI = (*SenderAPIService)(&c.common)
+
+	c.SmsAPI = (*SmsAPIService)(&c.common)
 
 	c.TemplatesAPI = (*TemplatesAPIService)(&c.common)
 

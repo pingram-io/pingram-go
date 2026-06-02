@@ -21,38 +21,40 @@ var _ MappedNullable = &LogsGetResponseLogsInner{}
 
 // LogsGetResponseLogsInner struct for LogsGetResponseLogsInner
 type LogsGetResponseLogsInner struct {
-	ReceivedAt                   *string  `json:"received_at,omitempty"`
-	Type                         *string  `json:"type,omitempty"`
-	EnvId                        *string  `json:"envId,omitempty"`
-	ClientId                     *string  `json:"clientId,omitempty"`
-	Agent                        *string  `json:"agent,omitempty"`
-	Ip                           *string  `json:"ip,omitempty"`
-	Request                      *string  `json:"request,omitempty"`
-	Test                         *bool    `json:"test,omitempty"`
-	TrackingId                   string   `json:"trackingId"`
-	AccountId                    string   `json:"accountId"`
-	FailedAt                     *string  `json:"failed_at,omitempty"`
-	FailedCode                   *string  `json:"failed_code,omitempty"`
-	FailedInternal               *string  `json:"failed_internal,omitempty"`
-	InappSentAt                  *string  `json:"inapp_sent_at,omitempty"`
-	InappSentAfter               *float32 `json:"inapp_sent_after,omitempty"`
-	InappDeliveredAt             *string  `json:"inapp_delivered_at,omitempty"`
-	InappDeliveredAfter          *float32 `json:"inapp_delivered_after,omitempty"`
-	InappFailedAt                *string  `json:"inapp_failed_at,omitempty"`
-	InappFailedCode              *string  `json:"inapp_failed_code,omitempty"`
-	InappFailedInternal          *string  `json:"inapp_failed_internal,omitempty"`
-	MobilePushFailedAt           *string  `json:"mobile_push_failed_at,omitempty"`
-	MobilePushFailedCode         *string  `json:"mobile_push_failed_code,omitempty"`
-	MobilePushFailedToken        *string  `json:"mobile_push_failed_token,omitempty"`
-	MobilePushFailedInternal     *string  `json:"mobile_push_failed_internal,omitempty"`
-	MobilePushSentAt             *string  `json:"mobile_push_sent_at,omitempty"`
-	MobilePushSentAfter          *float32 `json:"mobile_push_sent_after,omitempty"`
-	MobilePushSentToken          *string  `json:"mobile_push_sent_token,omitempty"`
-	MobilePushDeliveredAt        *string  `json:"mobile_push_delivered_at,omitempty"`
-	MobilePushDeliveredAfter     *float32 `json:"mobile_push_delivered_after,omitempty"`
-	EmailSentAt                  *string  `json:"email_sent_at,omitempty"`
-	EmailSentMessageId           *string  `json:"email_sent_message_id,omitempty"`
-	EmailSentAfter               *float32 `json:"email_sent_after,omitempty"`
+	ReceivedAt               *string  `json:"received_at,omitempty"`
+	Type                     *string  `json:"type,omitempty"`
+	EnvId                    *string  `json:"envId,omitempty"`
+	ClientId                 *string  `json:"clientId,omitempty"`
+	Agent                    *string  `json:"agent,omitempty"`
+	Ip                       *string  `json:"ip,omitempty"`
+	Request                  *string  `json:"request,omitempty"`
+	Test                     *bool    `json:"test,omitempty"`
+	TrackingId               string   `json:"trackingId"`
+	AccountId                string   `json:"accountId"`
+	FailedAt                 *string  `json:"failed_at,omitempty"`
+	FailedCode               *string  `json:"failed_code,omitempty"`
+	FailedInternal           *string  `json:"failed_internal,omitempty"`
+	InappSentAt              *string  `json:"inapp_sent_at,omitempty"`
+	InappSentAfter           *float32 `json:"inapp_sent_after,omitempty"`
+	InappDeliveredAt         *string  `json:"inapp_delivered_at,omitempty"`
+	InappDeliveredAfter      *float32 `json:"inapp_delivered_after,omitempty"`
+	InappFailedAt            *string  `json:"inapp_failed_at,omitempty"`
+	InappFailedCode          *string  `json:"inapp_failed_code,omitempty"`
+	InappFailedInternal      *string  `json:"inapp_failed_internal,omitempty"`
+	MobilePushFailedAt       *string  `json:"mobile_push_failed_at,omitempty"`
+	MobilePushFailedCode     *string  `json:"mobile_push_failed_code,omitempty"`
+	MobilePushFailedToken    *string  `json:"mobile_push_failed_token,omitempty"`
+	MobilePushFailedInternal *string  `json:"mobile_push_failed_internal,omitempty"`
+	MobilePushSentAt         *string  `json:"mobile_push_sent_at,omitempty"`
+	MobilePushSentAfter      *float32 `json:"mobile_push_sent_after,omitempty"`
+	MobilePushSentToken      *string  `json:"mobile_push_sent_token,omitempty"`
+	MobilePushDeliveredAt    *string  `json:"mobile_push_delivered_at,omitempty"`
+	MobilePushDeliveredAfter *float32 `json:"mobile_push_delivered_after,omitempty"`
+	EmailSentAt              *string  `json:"email_sent_at,omitempty"`
+	EmailSentMessageId       *string  `json:"email_sent_message_id,omitempty"`
+	EmailSentAfter           *float32 `json:"email_sent_after,omitempty"`
+	// Bare `POST /email` may set this on the `email_sent` row so Logs Insights `latest(email_preview)` still resolves after delivered/opened rows. Sender / SQS consumer paths omit this field (unchanged behavior).
+	EmailPreview                 *string  `json:"email_preview,omitempty"`
 	EmailDeliveredAt             *string  `json:"email_delivered_at,omitempty"`
 	EmailDeliveredRecipients     *string  `json:"email_delivered_recipients,omitempty"`
 	EmailDeliveredAfter          *float32 `json:"email_delivered_after,omitempty"`
@@ -137,7 +139,6 @@ type LogsGetResponseLogsInner struct {
 	InappRoutingReason        *string  `json:"inapp_routing_reason,omitempty"`
 	SlackRouting              *string  `json:"slack_routing,omitempty"`
 	SlackRoutingReason        *string  `json:"slack_routing_reason,omitempty"`
-	EmailPreview              *string  `json:"email_preview,omitempty"`
 	SmsPreview                *string  `json:"sms_preview,omitempty"`
 	CallPreview               *string  `json:"call_preview,omitempty"`
 	WebPushPreview            *string  `json:"web_push_preview,omitempty"`
@@ -177,17 +178,17 @@ type LogsGetResponseLogsInner struct {
 	SmsSentParts       *float32 `json:"sms_sent_parts,omitempty"`
 	SmsSentCost        *float32 `json:"sms_sent_cost,omitempty"`
 	SmsSentCountry     *string  `json:"sms_sent_country,omitempty"`
-	// Unique message ID from provider (Twilio SID or Telnyx ID)
+	// Unique message ID from the SMS provider
 	SmsSentMessageId *string `json:"sms_sent_messageId,omitempty"`
 	// True when the send included MMS (`mediaUrls`).
 	SmsSentMms *bool `json:"sms_sent_mms,omitempty"`
-	// Actual cost from Telnyx/Twilio (internal)
+	// Actual carrier cost (internal)
 	SmsCarrierCostInternal *float32 `json:"sms_carrier_cost_internal,omitempty"`
 	SmsCarrierFeeInternal  *float32 `json:"sms_carrier_fee_internal,omitempty"`
 	SmsRateInternal        *float32 `json:"sms_rate_internal,omitempty"`
 	SmsDeliveredAt         *string  `json:"sms_delivered_at,omitempty"`
 	SmsDeliveredAfter      *float32 `json:"sms_delivered_after,omitempty"`
-	// Actual cost from Twilio webhook (USD), for internal logging
+	// Actual delivery cost from carrier webhook (USD), for internal logging
 	SmsDeliveredCostInternal *float32 `json:"sms_delivered_cost_internal,omitempty"`
 	ScheduleUpdatedAt        *string  `json:"schedule_updated_at,omitempty"`
 	ScheduleUpdatedTo        *string  `json:"schedule_updated_to,omitempty"`
@@ -1221,6 +1222,38 @@ func (o *LogsGetResponseLogsInner) HasEmailSentAfter() bool {
 // SetEmailSentAfter gets a reference to the given float32 and assigns it to the EmailSentAfter field.
 func (o *LogsGetResponseLogsInner) SetEmailSentAfter(v float32) {
 	o.EmailSentAfter = &v
+}
+
+// GetEmailPreview returns the EmailPreview field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetEmailPreview() string {
+	if o == nil || IsNil(o.EmailPreview) {
+		var ret string
+		return ret
+	}
+	return *o.EmailPreview
+}
+
+// GetEmailPreviewOk returns a tuple with the EmailPreview field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetEmailPreviewOk() (*string, bool) {
+	if o == nil || IsNil(o.EmailPreview) {
+		return nil, false
+	}
+	return o.EmailPreview, true
+}
+
+// HasEmailPreview returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasEmailPreview() bool {
+	if o != nil && !IsNil(o.EmailPreview) {
+		return true
+	}
+
+	return false
+}
+
+// SetEmailPreview gets a reference to the given string and assigns it to the EmailPreview field.
+func (o *LogsGetResponseLogsInner) SetEmailPreview(v string) {
+	o.EmailPreview = &v
 }
 
 // GetEmailDeliveredAt returns the EmailDeliveredAt field value if set, zero value otherwise.
@@ -3847,38 +3880,6 @@ func (o *LogsGetResponseLogsInner) SetSlackRoutingReason(v string) {
 	o.SlackRoutingReason = &v
 }
 
-// GetEmailPreview returns the EmailPreview field value if set, zero value otherwise.
-func (o *LogsGetResponseLogsInner) GetEmailPreview() string {
-	if o == nil || IsNil(o.EmailPreview) {
-		var ret string
-		return ret
-	}
-	return *o.EmailPreview
-}
-
-// GetEmailPreviewOk returns a tuple with the EmailPreview field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *LogsGetResponseLogsInner) GetEmailPreviewOk() (*string, bool) {
-	if o == nil || IsNil(o.EmailPreview) {
-		return nil, false
-	}
-	return o.EmailPreview, true
-}
-
-// HasEmailPreview returns a boolean if a field has been set.
-func (o *LogsGetResponseLogsInner) HasEmailPreview() bool {
-	if o != nil && !IsNil(o.EmailPreview) {
-		return true
-	}
-
-	return false
-}
-
-// SetEmailPreview gets a reference to the given string and assigns it to the EmailPreview field.
-func (o *LogsGetResponseLogsInner) SetEmailPreview(v string) {
-	o.EmailPreview = &v
-}
-
 // GetSmsPreview returns the SmsPreview field value if set, zero value otherwise.
 func (o *LogsGetResponseLogsInner) GetSmsPreview() string {
 	if o == nil || IsNil(o.SmsPreview) {
@@ -5549,6 +5550,9 @@ func (o LogsGetResponseLogsInner) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.EmailSentAfter) {
 		toSerialize["email_sent_after"] = o.EmailSentAfter
 	}
+	if !IsNil(o.EmailPreview) {
+		toSerialize["email_preview"] = o.EmailPreview
+	}
 	if !IsNil(o.EmailDeliveredAt) {
 		toSerialize["email_delivered_at"] = o.EmailDeliveredAt
 	}
@@ -5794,9 +5798,6 @@ func (o LogsGetResponseLogsInner) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.SlackRoutingReason) {
 		toSerialize["slack_routing_reason"] = o.SlackRoutingReason
-	}
-	if !IsNil(o.EmailPreview) {
-		toSerialize["email_preview"] = o.EmailPreview
 	}
 	if !IsNil(o.SmsPreview) {
 		toSerialize["sms_preview"] = o.SmsPreview
