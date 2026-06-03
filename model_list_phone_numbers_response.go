@@ -22,6 +22,8 @@ var _ MappedNullable = &ListPhoneNumbersResponse{}
 // ListPhoneNumbersResponse Response for GET /numbers/list
 type ListPhoneNumbersResponse struct {
 	Numbers []ListPhoneNumbersResponseNumbersInner `json:"numbers"`
+	// E.164 shared number the account can send from when it has no dedicated number.
+	SharedNumber string `json:"sharedNumber"`
 }
 
 type _ListPhoneNumbersResponse ListPhoneNumbersResponse
@@ -30,9 +32,10 @@ type _ListPhoneNumbersResponse ListPhoneNumbersResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListPhoneNumbersResponse(numbers []ListPhoneNumbersResponseNumbersInner) *ListPhoneNumbersResponse {
+func NewListPhoneNumbersResponse(numbers []ListPhoneNumbersResponseNumbersInner, sharedNumber string) *ListPhoneNumbersResponse {
 	this := ListPhoneNumbersResponse{}
 	this.Numbers = numbers
+	this.SharedNumber = sharedNumber
 	return &this
 }
 
@@ -68,6 +71,30 @@ func (o *ListPhoneNumbersResponse) SetNumbers(v []ListPhoneNumbersResponseNumber
 	o.Numbers = v
 }
 
+// GetSharedNumber returns the SharedNumber field value
+func (o *ListPhoneNumbersResponse) GetSharedNumber() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.SharedNumber
+}
+
+// GetSharedNumberOk returns a tuple with the SharedNumber field value
+// and a boolean to check if the value has been set.
+func (o *ListPhoneNumbersResponse) GetSharedNumberOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SharedNumber, true
+}
+
+// SetSharedNumber sets field value
+func (o *ListPhoneNumbersResponse) SetSharedNumber(v string) {
+	o.SharedNumber = v
+}
+
 func (o ListPhoneNumbersResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -79,6 +106,7 @@ func (o ListPhoneNumbersResponse) MarshalJSON() ([]byte, error) {
 func (o ListPhoneNumbersResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["numbers"] = o.Numbers
+	toSerialize["sharedNumber"] = o.SharedNumber
 	return toSerialize, nil
 }
 
@@ -88,6 +116,7 @@ func (o *ListPhoneNumbersResponse) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"numbers",
+		"sharedNumber",
 	}
 
 	allProperties := make(map[string]interface{})
