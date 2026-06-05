@@ -27,6 +27,8 @@ type EventsWebhookResponse struct {
 	Webhook string `json:"webhook"`
 	// List of subscribed event types for this webhook configuration.
 	Events []string `json:"events"`
+	// HMAC secret for verifying webhook signatures. Use this with your X-Pingram-Signature verification.
+	Secret string `json:"secret"`
 }
 
 type _EventsWebhookResponse EventsWebhookResponse
@@ -35,11 +37,12 @@ type _EventsWebhookResponse EventsWebhookResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEventsWebhookResponse(webhookId string, webhook string, events []string) *EventsWebhookResponse {
+func NewEventsWebhookResponse(webhookId string, webhook string, events []string, secret string) *EventsWebhookResponse {
 	this := EventsWebhookResponse{}
 	this.WebhookId = webhookId
 	this.Webhook = webhook
 	this.Events = events
+	this.Secret = secret
 	return &this
 }
 
@@ -123,6 +126,30 @@ func (o *EventsWebhookResponse) SetEvents(v []string) {
 	o.Events = v
 }
 
+// GetSecret returns the Secret field value
+func (o *EventsWebhookResponse) GetSecret() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Secret
+}
+
+// GetSecretOk returns a tuple with the Secret field value
+// and a boolean to check if the value has been set.
+func (o *EventsWebhookResponse) GetSecretOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Secret, true
+}
+
+// SetSecret sets field value
+func (o *EventsWebhookResponse) SetSecret(v string) {
+	o.Secret = v
+}
+
 func (o EventsWebhookResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -136,6 +163,7 @@ func (o EventsWebhookResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["webhookId"] = o.WebhookId
 	toSerialize["webhook"] = o.Webhook
 	toSerialize["events"] = o.Events
+	toSerialize["secret"] = o.Secret
 	return toSerialize, nil
 }
 
@@ -147,6 +175,7 @@ func (o *EventsWebhookResponse) UnmarshalJSON(data []byte) (err error) {
 		"webhookId",
 		"webhook",
 		"events",
+		"secret",
 	}
 
 	allProperties := make(map[string]interface{})

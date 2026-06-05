@@ -102,64 +102,74 @@ type LogsGetResponseLogsInner struct {
 	SmsInboundWebhookDelivered *bool   `json:"sms_inbound_webhook_delivered,omitempty"`
 	SmsInboundWebhookRes       *string `json:"sms_inbound_webhook_res,omitempty"`
 	// Truncated JSON string of inbound MMS metadata when present.
-	SmsInboundMedia           *string  `json:"sms_inbound_media,omitempty"`
-	SmsRepliedAt              *string  `json:"sms_replied_at,omitempty"`
-	SmsRepliedTo              *string  `json:"sms_replied_to,omitempty"`
-	SmsRepliedText            *string  `json:"sms_replied_text,omitempty"`
-	SmsRepliedSegments        *float32 `json:"sms_replied_segments,omitempty"`
-	SmsRepliedEncoding        *string  `json:"sms_replied_encoding,omitempty"`
-	WebPushSentToken          *string  `json:"web_push_sent_token,omitempty"`
-	WebPushSentAt             *string  `json:"web_push_sent_at,omitempty"`
-	WebPushSentAfter          *float32 `json:"web_push_sent_after,omitempty"`
-	WebPushDeliveredAt        *string  `json:"web_push_delivered_at,omitempty"`
-	WebPushDeliveredAfter     *float32 `json:"web_push_delivered_after,omitempty"`
-	WebPushDeliveredToken     *string  `json:"web_push_delivered_token,omitempty"`
-	WebPushDeliveredInternal  *string  `json:"web_push_delivered_internal,omitempty"`
-	WebPushFailedAt           *string  `json:"web_push_failed_at,omitempty"`
-	WebPushFailedToken        *string  `json:"web_push_failed_token,omitempty"`
-	WebPushFailedCode         *string  `json:"web_push_failed_code,omitempty"`
-	WebPushFailedInternal     *string  `json:"web_push_failed_internal,omitempty"`
-	ProcessedAt               *string  `json:"processed_at,omitempty"`
-	Ignored                   *string  `json:"ignored,omitempty"`
-	ScheduledFor              *string  `json:"scheduled_for,omitempty"`
-	UserId                    *string  `json:"user_id,omitempty"`
-	UserEmail                 *string  `json:"user_email,omitempty"`
-	UserNumber                *string  `json:"user_number,omitempty"`
-	EmailRouting              *string  `json:"email_routing,omitempty"`
-	EmailRoutingReason        *string  `json:"email_routing_reason,omitempty"`
-	SmsRouting                *string  `json:"sms_routing,omitempty"`
-	SmsRoutingReason          *string  `json:"sms_routing_reason,omitempty"`
-	WebPushRouting            *string  `json:"web_push_routing,omitempty"`
-	WebPushRoutingReason      *string  `json:"web_push_routing_reason,omitempty"`
-	MobilePushRouting         *string  `json:"mobile_push_routing,omitempty"`
-	MobilePushRoutingReason   *string  `json:"mobile_push_routing_reason,omitempty"`
-	CallRouting               *string  `json:"call_routing,omitempty"`
-	CallRoutingReason         *string  `json:"call_routing_reason,omitempty"`
-	InappRouting              *string  `json:"inapp_routing,omitempty"`
-	InappRoutingReason        *string  `json:"inapp_routing_reason,omitempty"`
-	SlackRouting              *string  `json:"slack_routing,omitempty"`
-	SlackRoutingReason        *string  `json:"slack_routing_reason,omitempty"`
-	SmsPreview                *string  `json:"sms_preview,omitempty"`
-	CallPreview               *string  `json:"call_preview,omitempty"`
-	WebPushPreview            *string  `json:"web_push_preview,omitempty"`
-	MobilePushPreview         *string  `json:"mobile_push_preview,omitempty"`
-	SlackPreview              *string  `json:"slack_preview,omitempty"`
-	InappPreview              *string  `json:"inapp_preview,omitempty"`
-	SlackSentAt               *string  `json:"slack_sent_at,omitempty"`
-	SlackSentAfter            *float32 `json:"slack_sent_after,omitempty"`
-	SlackDeliveredAt          *string  `json:"slack_delivered_at,omitempty"`
-	SlackDeliveredAfter       *float32 `json:"slack_delivered_after,omitempty"`
-	SlackDeliveredInternal    *string  `json:"slack_delivered_internal,omitempty"`
-	SlackFailedAt             *string  `json:"slack_failed_at,omitempty"`
-	SlackFailedCode           *string  `json:"slack_failed_code,omitempty"`
-	SlackFailedInternal       *string  `json:"slack_failed_internal,omitempty"`
-	CallSentAt                *string  `json:"call_sent_at,omitempty"`
-	CallSentAfter             *float32 `json:"call_sent_after,omitempty"`
-	CallSentFrom              *string  `json:"call_sent_from,omitempty"`
-	CallDeliveredAt           *string  `json:"call_delivered_at,omitempty"`
-	CallDeliveredAfter        *float32 `json:"call_delivered_after,omitempty"`
-	CallDeliveredCode         *string  `json:"call_delivered_code,omitempty"`
-	CallDeliveredCostInternal *float32 `json:"call_delivered_cost_internal,omitempty"`
+	SmsInboundMedia                *string  `json:"sms_inbound_media,omitempty"`
+	SmsRepliedAt                   *string  `json:"sms_replied_at,omitempty"`
+	SmsRepliedTo                   *string  `json:"sms_replied_to,omitempty"`
+	SmsRepliedText                 *string  `json:"sms_replied_text,omitempty"`
+	SmsRepliedSegments             *float32 `json:"sms_replied_segments,omitempty"`
+	SmsRepliedEncoding             *string  `json:"sms_replied_encoding,omitempty"`
+	SmsUnsubscribeAt               *string  `json:"sms_unsubscribe_at,omitempty"`
+	SmsUnsubscribeFrom             *string  `json:"sms_unsubscribe_from,omitempty"`
+	SmsUnsubscribeKeyword          *string  `json:"sms_unsubscribe_keyword,omitempty"`
+	SmsUnsubscribeWebhookDelivered *bool    `json:"sms_unsubscribe_webhook_delivered,omitempty"`
+	SmsUnsubscribeWebhookRes       *string  `json:"sms_unsubscribe_webhook_res,omitempty"`
+	SmsSubscribeAt                 *string  `json:"sms_subscribe_at,omitempty"`
+	SmsSubscribeFrom               *string  `json:"sms_subscribe_from,omitempty"`
+	SmsSubscribeKeyword            *string  `json:"sms_subscribe_keyword,omitempty"`
+	SmsSubscribeWebhookDelivered   *bool    `json:"sms_subscribe_webhook_delivered,omitempty"`
+	SmsSubscribeWebhookRes         *string  `json:"sms_subscribe_webhook_res,omitempty"`
+	WebPushSentToken               *string  `json:"web_push_sent_token,omitempty"`
+	WebPushSentAt                  *string  `json:"web_push_sent_at,omitempty"`
+	WebPushSentAfter               *float32 `json:"web_push_sent_after,omitempty"`
+	WebPushDeliveredAt             *string  `json:"web_push_delivered_at,omitempty"`
+	WebPushDeliveredAfter          *float32 `json:"web_push_delivered_after,omitempty"`
+	WebPushDeliveredToken          *string  `json:"web_push_delivered_token,omitempty"`
+	WebPushDeliveredInternal       *string  `json:"web_push_delivered_internal,omitempty"`
+	WebPushFailedAt                *string  `json:"web_push_failed_at,omitempty"`
+	WebPushFailedToken             *string  `json:"web_push_failed_token,omitempty"`
+	WebPushFailedCode              *string  `json:"web_push_failed_code,omitempty"`
+	WebPushFailedInternal          *string  `json:"web_push_failed_internal,omitempty"`
+	ProcessedAt                    *string  `json:"processed_at,omitempty"`
+	Ignored                        *string  `json:"ignored,omitempty"`
+	ScheduledFor                   *string  `json:"scheduled_for,omitempty"`
+	UserId                         *string  `json:"user_id,omitempty"`
+	UserEmail                      *string  `json:"user_email,omitempty"`
+	UserNumber                     *string  `json:"user_number,omitempty"`
+	EmailRouting                   *string  `json:"email_routing,omitempty"`
+	EmailRoutingReason             *string  `json:"email_routing_reason,omitempty"`
+	SmsRouting                     *string  `json:"sms_routing,omitempty"`
+	SmsRoutingReason               *string  `json:"sms_routing_reason,omitempty"`
+	WebPushRouting                 *string  `json:"web_push_routing,omitempty"`
+	WebPushRoutingReason           *string  `json:"web_push_routing_reason,omitempty"`
+	MobilePushRouting              *string  `json:"mobile_push_routing,omitempty"`
+	MobilePushRoutingReason        *string  `json:"mobile_push_routing_reason,omitempty"`
+	CallRouting                    *string  `json:"call_routing,omitempty"`
+	CallRoutingReason              *string  `json:"call_routing_reason,omitempty"`
+	InappRouting                   *string  `json:"inapp_routing,omitempty"`
+	InappRoutingReason             *string  `json:"inapp_routing_reason,omitempty"`
+	SlackRouting                   *string  `json:"slack_routing,omitempty"`
+	SlackRoutingReason             *string  `json:"slack_routing_reason,omitempty"`
+	SmsPreview                     *string  `json:"sms_preview,omitempty"`
+	CallPreview                    *string  `json:"call_preview,omitempty"`
+	WebPushPreview                 *string  `json:"web_push_preview,omitempty"`
+	MobilePushPreview              *string  `json:"mobile_push_preview,omitempty"`
+	SlackPreview                   *string  `json:"slack_preview,omitempty"`
+	InappPreview                   *string  `json:"inapp_preview,omitempty"`
+	SlackSentAt                    *string  `json:"slack_sent_at,omitempty"`
+	SlackSentAfter                 *float32 `json:"slack_sent_after,omitempty"`
+	SlackDeliveredAt               *string  `json:"slack_delivered_at,omitempty"`
+	SlackDeliveredAfter            *float32 `json:"slack_delivered_after,omitempty"`
+	SlackDeliveredInternal         *string  `json:"slack_delivered_internal,omitempty"`
+	SlackFailedAt                  *string  `json:"slack_failed_at,omitempty"`
+	SlackFailedCode                *string  `json:"slack_failed_code,omitempty"`
+	SlackFailedInternal            *string  `json:"slack_failed_internal,omitempty"`
+	CallSentAt                     *string  `json:"call_sent_at,omitempty"`
+	CallSentAfter                  *float32 `json:"call_sent_after,omitempty"`
+	CallSentFrom                   *string  `json:"call_sent_from,omitempty"`
+	CallDeliveredAt                *string  `json:"call_delivered_at,omitempty"`
+	CallDeliveredAfter             *float32 `json:"call_delivered_after,omitempty"`
+	CallDeliveredCode              *string  `json:"call_delivered_code,omitempty"`
+	CallDeliveredCostInternal      *float32 `json:"call_delivered_cost_internal,omitempty"`
 	// Same value as call_delivered_cost_internal (for API/external use)
 	CallDeliveredCost  *float32 `json:"call_delivered_cost,omitempty"`
 	CallFailedAt       *string  `json:"call_failed_at,omitempty"`
@@ -2886,6 +2896,326 @@ func (o *LogsGetResponseLogsInner) HasSmsRepliedEncoding() bool {
 // SetSmsRepliedEncoding gets a reference to the given string and assigns it to the SmsRepliedEncoding field.
 func (o *LogsGetResponseLogsInner) SetSmsRepliedEncoding(v string) {
 	o.SmsRepliedEncoding = &v
+}
+
+// GetSmsUnsubscribeAt returns the SmsUnsubscribeAt field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetSmsUnsubscribeAt() string {
+	if o == nil || IsNil(o.SmsUnsubscribeAt) {
+		var ret string
+		return ret
+	}
+	return *o.SmsUnsubscribeAt
+}
+
+// GetSmsUnsubscribeAtOk returns a tuple with the SmsUnsubscribeAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetSmsUnsubscribeAtOk() (*string, bool) {
+	if o == nil || IsNil(o.SmsUnsubscribeAt) {
+		return nil, false
+	}
+	return o.SmsUnsubscribeAt, true
+}
+
+// HasSmsUnsubscribeAt returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasSmsUnsubscribeAt() bool {
+	if o != nil && !IsNil(o.SmsUnsubscribeAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetSmsUnsubscribeAt gets a reference to the given string and assigns it to the SmsUnsubscribeAt field.
+func (o *LogsGetResponseLogsInner) SetSmsUnsubscribeAt(v string) {
+	o.SmsUnsubscribeAt = &v
+}
+
+// GetSmsUnsubscribeFrom returns the SmsUnsubscribeFrom field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetSmsUnsubscribeFrom() string {
+	if o == nil || IsNil(o.SmsUnsubscribeFrom) {
+		var ret string
+		return ret
+	}
+	return *o.SmsUnsubscribeFrom
+}
+
+// GetSmsUnsubscribeFromOk returns a tuple with the SmsUnsubscribeFrom field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetSmsUnsubscribeFromOk() (*string, bool) {
+	if o == nil || IsNil(o.SmsUnsubscribeFrom) {
+		return nil, false
+	}
+	return o.SmsUnsubscribeFrom, true
+}
+
+// HasSmsUnsubscribeFrom returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasSmsUnsubscribeFrom() bool {
+	if o != nil && !IsNil(o.SmsUnsubscribeFrom) {
+		return true
+	}
+
+	return false
+}
+
+// SetSmsUnsubscribeFrom gets a reference to the given string and assigns it to the SmsUnsubscribeFrom field.
+func (o *LogsGetResponseLogsInner) SetSmsUnsubscribeFrom(v string) {
+	o.SmsUnsubscribeFrom = &v
+}
+
+// GetSmsUnsubscribeKeyword returns the SmsUnsubscribeKeyword field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetSmsUnsubscribeKeyword() string {
+	if o == nil || IsNil(o.SmsUnsubscribeKeyword) {
+		var ret string
+		return ret
+	}
+	return *o.SmsUnsubscribeKeyword
+}
+
+// GetSmsUnsubscribeKeywordOk returns a tuple with the SmsUnsubscribeKeyword field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetSmsUnsubscribeKeywordOk() (*string, bool) {
+	if o == nil || IsNil(o.SmsUnsubscribeKeyword) {
+		return nil, false
+	}
+	return o.SmsUnsubscribeKeyword, true
+}
+
+// HasSmsUnsubscribeKeyword returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasSmsUnsubscribeKeyword() bool {
+	if o != nil && !IsNil(o.SmsUnsubscribeKeyword) {
+		return true
+	}
+
+	return false
+}
+
+// SetSmsUnsubscribeKeyword gets a reference to the given string and assigns it to the SmsUnsubscribeKeyword field.
+func (o *LogsGetResponseLogsInner) SetSmsUnsubscribeKeyword(v string) {
+	o.SmsUnsubscribeKeyword = &v
+}
+
+// GetSmsUnsubscribeWebhookDelivered returns the SmsUnsubscribeWebhookDelivered field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetSmsUnsubscribeWebhookDelivered() bool {
+	if o == nil || IsNil(o.SmsUnsubscribeWebhookDelivered) {
+		var ret bool
+		return ret
+	}
+	return *o.SmsUnsubscribeWebhookDelivered
+}
+
+// GetSmsUnsubscribeWebhookDeliveredOk returns a tuple with the SmsUnsubscribeWebhookDelivered field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetSmsUnsubscribeWebhookDeliveredOk() (*bool, bool) {
+	if o == nil || IsNil(o.SmsUnsubscribeWebhookDelivered) {
+		return nil, false
+	}
+	return o.SmsUnsubscribeWebhookDelivered, true
+}
+
+// HasSmsUnsubscribeWebhookDelivered returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasSmsUnsubscribeWebhookDelivered() bool {
+	if o != nil && !IsNil(o.SmsUnsubscribeWebhookDelivered) {
+		return true
+	}
+
+	return false
+}
+
+// SetSmsUnsubscribeWebhookDelivered gets a reference to the given bool and assigns it to the SmsUnsubscribeWebhookDelivered field.
+func (o *LogsGetResponseLogsInner) SetSmsUnsubscribeWebhookDelivered(v bool) {
+	o.SmsUnsubscribeWebhookDelivered = &v
+}
+
+// GetSmsUnsubscribeWebhookRes returns the SmsUnsubscribeWebhookRes field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetSmsUnsubscribeWebhookRes() string {
+	if o == nil || IsNil(o.SmsUnsubscribeWebhookRes) {
+		var ret string
+		return ret
+	}
+	return *o.SmsUnsubscribeWebhookRes
+}
+
+// GetSmsUnsubscribeWebhookResOk returns a tuple with the SmsUnsubscribeWebhookRes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetSmsUnsubscribeWebhookResOk() (*string, bool) {
+	if o == nil || IsNil(o.SmsUnsubscribeWebhookRes) {
+		return nil, false
+	}
+	return o.SmsUnsubscribeWebhookRes, true
+}
+
+// HasSmsUnsubscribeWebhookRes returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasSmsUnsubscribeWebhookRes() bool {
+	if o != nil && !IsNil(o.SmsUnsubscribeWebhookRes) {
+		return true
+	}
+
+	return false
+}
+
+// SetSmsUnsubscribeWebhookRes gets a reference to the given string and assigns it to the SmsUnsubscribeWebhookRes field.
+func (o *LogsGetResponseLogsInner) SetSmsUnsubscribeWebhookRes(v string) {
+	o.SmsUnsubscribeWebhookRes = &v
+}
+
+// GetSmsSubscribeAt returns the SmsSubscribeAt field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetSmsSubscribeAt() string {
+	if o == nil || IsNil(o.SmsSubscribeAt) {
+		var ret string
+		return ret
+	}
+	return *o.SmsSubscribeAt
+}
+
+// GetSmsSubscribeAtOk returns a tuple with the SmsSubscribeAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetSmsSubscribeAtOk() (*string, bool) {
+	if o == nil || IsNil(o.SmsSubscribeAt) {
+		return nil, false
+	}
+	return o.SmsSubscribeAt, true
+}
+
+// HasSmsSubscribeAt returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasSmsSubscribeAt() bool {
+	if o != nil && !IsNil(o.SmsSubscribeAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetSmsSubscribeAt gets a reference to the given string and assigns it to the SmsSubscribeAt field.
+func (o *LogsGetResponseLogsInner) SetSmsSubscribeAt(v string) {
+	o.SmsSubscribeAt = &v
+}
+
+// GetSmsSubscribeFrom returns the SmsSubscribeFrom field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetSmsSubscribeFrom() string {
+	if o == nil || IsNil(o.SmsSubscribeFrom) {
+		var ret string
+		return ret
+	}
+	return *o.SmsSubscribeFrom
+}
+
+// GetSmsSubscribeFromOk returns a tuple with the SmsSubscribeFrom field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetSmsSubscribeFromOk() (*string, bool) {
+	if o == nil || IsNil(o.SmsSubscribeFrom) {
+		return nil, false
+	}
+	return o.SmsSubscribeFrom, true
+}
+
+// HasSmsSubscribeFrom returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasSmsSubscribeFrom() bool {
+	if o != nil && !IsNil(o.SmsSubscribeFrom) {
+		return true
+	}
+
+	return false
+}
+
+// SetSmsSubscribeFrom gets a reference to the given string and assigns it to the SmsSubscribeFrom field.
+func (o *LogsGetResponseLogsInner) SetSmsSubscribeFrom(v string) {
+	o.SmsSubscribeFrom = &v
+}
+
+// GetSmsSubscribeKeyword returns the SmsSubscribeKeyword field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetSmsSubscribeKeyword() string {
+	if o == nil || IsNil(o.SmsSubscribeKeyword) {
+		var ret string
+		return ret
+	}
+	return *o.SmsSubscribeKeyword
+}
+
+// GetSmsSubscribeKeywordOk returns a tuple with the SmsSubscribeKeyword field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetSmsSubscribeKeywordOk() (*string, bool) {
+	if o == nil || IsNil(o.SmsSubscribeKeyword) {
+		return nil, false
+	}
+	return o.SmsSubscribeKeyword, true
+}
+
+// HasSmsSubscribeKeyword returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasSmsSubscribeKeyword() bool {
+	if o != nil && !IsNil(o.SmsSubscribeKeyword) {
+		return true
+	}
+
+	return false
+}
+
+// SetSmsSubscribeKeyword gets a reference to the given string and assigns it to the SmsSubscribeKeyword field.
+func (o *LogsGetResponseLogsInner) SetSmsSubscribeKeyword(v string) {
+	o.SmsSubscribeKeyword = &v
+}
+
+// GetSmsSubscribeWebhookDelivered returns the SmsSubscribeWebhookDelivered field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetSmsSubscribeWebhookDelivered() bool {
+	if o == nil || IsNil(o.SmsSubscribeWebhookDelivered) {
+		var ret bool
+		return ret
+	}
+	return *o.SmsSubscribeWebhookDelivered
+}
+
+// GetSmsSubscribeWebhookDeliveredOk returns a tuple with the SmsSubscribeWebhookDelivered field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetSmsSubscribeWebhookDeliveredOk() (*bool, bool) {
+	if o == nil || IsNil(o.SmsSubscribeWebhookDelivered) {
+		return nil, false
+	}
+	return o.SmsSubscribeWebhookDelivered, true
+}
+
+// HasSmsSubscribeWebhookDelivered returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasSmsSubscribeWebhookDelivered() bool {
+	if o != nil && !IsNil(o.SmsSubscribeWebhookDelivered) {
+		return true
+	}
+
+	return false
+}
+
+// SetSmsSubscribeWebhookDelivered gets a reference to the given bool and assigns it to the SmsSubscribeWebhookDelivered field.
+func (o *LogsGetResponseLogsInner) SetSmsSubscribeWebhookDelivered(v bool) {
+	o.SmsSubscribeWebhookDelivered = &v
+}
+
+// GetSmsSubscribeWebhookRes returns the SmsSubscribeWebhookRes field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetSmsSubscribeWebhookRes() string {
+	if o == nil || IsNil(o.SmsSubscribeWebhookRes) {
+		var ret string
+		return ret
+	}
+	return *o.SmsSubscribeWebhookRes
+}
+
+// GetSmsSubscribeWebhookResOk returns a tuple with the SmsSubscribeWebhookRes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetSmsSubscribeWebhookResOk() (*string, bool) {
+	if o == nil || IsNil(o.SmsSubscribeWebhookRes) {
+		return nil, false
+	}
+	return o.SmsSubscribeWebhookRes, true
+}
+
+// HasSmsSubscribeWebhookRes returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasSmsSubscribeWebhookRes() bool {
+	if o != nil && !IsNil(o.SmsSubscribeWebhookRes) {
+		return true
+	}
+
+	return false
+}
+
+// SetSmsSubscribeWebhookRes gets a reference to the given string and assigns it to the SmsSubscribeWebhookRes field.
+func (o *LogsGetResponseLogsInner) SetSmsSubscribeWebhookRes(v string) {
+	o.SmsSubscribeWebhookRes = &v
 }
 
 // GetWebPushSentToken returns the WebPushSentToken field value if set, zero value otherwise.
@@ -5705,6 +6035,36 @@ func (o LogsGetResponseLogsInner) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.SmsRepliedEncoding) {
 		toSerialize["sms_replied_encoding"] = o.SmsRepliedEncoding
+	}
+	if !IsNil(o.SmsUnsubscribeAt) {
+		toSerialize["sms_unsubscribe_at"] = o.SmsUnsubscribeAt
+	}
+	if !IsNil(o.SmsUnsubscribeFrom) {
+		toSerialize["sms_unsubscribe_from"] = o.SmsUnsubscribeFrom
+	}
+	if !IsNil(o.SmsUnsubscribeKeyword) {
+		toSerialize["sms_unsubscribe_keyword"] = o.SmsUnsubscribeKeyword
+	}
+	if !IsNil(o.SmsUnsubscribeWebhookDelivered) {
+		toSerialize["sms_unsubscribe_webhook_delivered"] = o.SmsUnsubscribeWebhookDelivered
+	}
+	if !IsNil(o.SmsUnsubscribeWebhookRes) {
+		toSerialize["sms_unsubscribe_webhook_res"] = o.SmsUnsubscribeWebhookRes
+	}
+	if !IsNil(o.SmsSubscribeAt) {
+		toSerialize["sms_subscribe_at"] = o.SmsSubscribeAt
+	}
+	if !IsNil(o.SmsSubscribeFrom) {
+		toSerialize["sms_subscribe_from"] = o.SmsSubscribeFrom
+	}
+	if !IsNil(o.SmsSubscribeKeyword) {
+		toSerialize["sms_subscribe_keyword"] = o.SmsSubscribeKeyword
+	}
+	if !IsNil(o.SmsSubscribeWebhookDelivered) {
+		toSerialize["sms_subscribe_webhook_delivered"] = o.SmsSubscribeWebhookDelivered
+	}
+	if !IsNil(o.SmsSubscribeWebhookRes) {
+		toSerialize["sms_subscribe_webhook_res"] = o.SmsSubscribeWebhookRes
 	}
 	if !IsNil(o.WebPushSentToken) {
 		toSerialize["web_push_sent_token"] = o.WebPushSentToken
