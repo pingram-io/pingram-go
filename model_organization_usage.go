@@ -23,12 +23,14 @@ var _ MappedNullable = &OrganizationUsage{}
 type OrganizationUsage struct {
 	// Total message usage (EMAIL + INAPP_WEB + WEB_PUSH + PUSH + SLACK)
 	MessageUsage float32 `json:"messageUsage"`
-	// Total budget usage in USD (cost_SMS + cost_CALL)
+	// Total budget usage in USD (cost_SMS + cost_CALL + cost_NUMBER)
 	BudgetUsage float32 `json:"budgetUsage"`
 	// SMS cost in USD
 	CostSms float32 `json:"costSms"`
 	// Call cost in USD
 	CostCall float32 `json:"costCall"`
+	// Phone number rent in USD
+	CostNumber float32 `json:"costNumber"`
 	// Per-channel usage breakdown
 	ChannelUsages map[string]float32 `json:"channelUsages"`
 	// Billing cycle start date (ISO string)
@@ -43,12 +45,13 @@ type _OrganizationUsage OrganizationUsage
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOrganizationUsage(messageUsage float32, budgetUsage float32, costSms float32, costCall float32, channelUsages map[string]float32, billingCycleStart string, billingCycleEnd string) *OrganizationUsage {
+func NewOrganizationUsage(messageUsage float32, budgetUsage float32, costSms float32, costCall float32, costNumber float32, channelUsages map[string]float32, billingCycleStart string, billingCycleEnd string) *OrganizationUsage {
 	this := OrganizationUsage{}
 	this.MessageUsage = messageUsage
 	this.BudgetUsage = budgetUsage
 	this.CostSms = costSms
 	this.CostCall = costCall
+	this.CostNumber = costNumber
 	this.ChannelUsages = channelUsages
 	this.BillingCycleStart = billingCycleStart
 	this.BillingCycleEnd = billingCycleEnd
@@ -159,6 +162,30 @@ func (o *OrganizationUsage) SetCostCall(v float32) {
 	o.CostCall = v
 }
 
+// GetCostNumber returns the CostNumber field value
+func (o *OrganizationUsage) GetCostNumber() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.CostNumber
+}
+
+// GetCostNumberOk returns a tuple with the CostNumber field value
+// and a boolean to check if the value has been set.
+func (o *OrganizationUsage) GetCostNumberOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CostNumber, true
+}
+
+// SetCostNumber sets field value
+func (o *OrganizationUsage) SetCostNumber(v float32) {
+	o.CostNumber = v
+}
+
 // GetChannelUsages returns the ChannelUsages field value
 func (o *OrganizationUsage) GetChannelUsages() map[string]float32 {
 	if o == nil {
@@ -245,6 +272,7 @@ func (o OrganizationUsage) ToMap() (map[string]interface{}, error) {
 	toSerialize["budgetUsage"] = o.BudgetUsage
 	toSerialize["costSms"] = o.CostSms
 	toSerialize["costCall"] = o.CostCall
+	toSerialize["costNumber"] = o.CostNumber
 	toSerialize["channelUsages"] = o.ChannelUsages
 	toSerialize["billingCycleStart"] = o.BillingCycleStart
 	toSerialize["billingCycleEnd"] = o.BillingCycleEnd
@@ -260,6 +288,7 @@ func (o *OrganizationUsage) UnmarshalJSON(data []byte) (err error) {
 		"budgetUsage",
 		"costSms",
 		"costCall",
+		"costNumber",
 		"channelUsages",
 		"billingCycleStart",
 		"billingCycleEnd",

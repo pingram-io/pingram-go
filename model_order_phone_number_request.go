@@ -19,7 +19,7 @@ import (
 // checks if the OrderPhoneNumberRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &OrderPhoneNumberRequest{}
 
-// OrderPhoneNumberRequest Request body for POST /numbers/order
+// OrderPhoneNumberRequest struct for OrderPhoneNumberRequest
 type OrderPhoneNumberRequest struct {
 	// E.164 from search results
 	PhoneNumber string `json:"phoneNumber"`

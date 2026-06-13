@@ -19,7 +19,7 @@ import (
 // checks if the OrderPhoneNumberResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &OrderPhoneNumberResponse{}
 
-// OrderPhoneNumberResponse Response for POST /numbers/order
+// OrderPhoneNumberResponse struct for OrderPhoneNumberResponse
 type OrderPhoneNumberResponse struct {
 	OrderId     string `json:"orderId"`
 	Status      string `json:"status"`

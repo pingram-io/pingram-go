@@ -16,6 +16,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 // NumbersAPIService NumbersAPI service
@@ -31,7 +32,7 @@ func (r ApiNumbersListRequest) Execute() (*ListPhoneNumbersResponse, *http.Respo
 }
 
 /*
-NumbersList List all phone numbers registered for the account
+NumbersList List active phone numbers registered for the account
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiNumbersListRequest
@@ -151,6 +152,136 @@ func (a *NumbersAPIService) NumbersListExecute(r ApiNumbersListRequest) (*ListPh
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiNumbersListReleasedRequest struct {
+	ctx        context.Context
+	ApiService *NumbersAPIService
+}
+
+func (r ApiNumbersListReleasedRequest) Execute() (*ListReleasedPhoneNumbersResponse, *http.Response, error) {
+	return r.ApiService.NumbersListReleasedExecute(r)
+}
+
+/*
+NumbersListReleased List released phone numbers. Released numbers may be purchased again with 2 weeks of being released. Released numbers may be removed from released list after 2 weeks.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiNumbersListReleasedRequest
+*/
+func (a *NumbersAPIService) NumbersListReleased(ctx context.Context) ApiNumbersListReleasedRequest {
+	return ApiNumbersListReleasedRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ListReleasedPhoneNumbersResponse
+func (a *NumbersAPIService) NumbersListReleasedExecute(r ApiNumbersListReleasedRequest) (*ListReleasedPhoneNumbersResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ListReleasedPhoneNumbersResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NumbersAPIService.NumbersListReleased")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/numbers/released"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: prefaceHTTPStatusWithApiJSONDetail(localVarHTTPResponse.Status, localVarBody),
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 402 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 502 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiNumbersOrderNumberRequest struct {
 	ctx                     context.Context
 	ApiService              *NumbersAPIService
@@ -167,7 +298,7 @@ func (r ApiNumbersOrderNumberRequest) Execute() (*OrderPhoneNumberResponse, *htt
 }
 
 /*
-NumbersOrderNumber Purchase a phone number for the authenticated account
+NumbersOrderNumber Purchase a phone number for the authenticated account, or reactivate a released number owned by the account (preserves original createdAt).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiNumbersOrderNumberRequest
@@ -223,6 +354,140 @@ func (a *NumbersAPIService) NumbersOrderNumberExecute(r ApiNumbersOrderNumberReq
 	}
 	// body params
 	localVarPostBody = r.orderPhoneNumberRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: prefaceHTTPStatusWithApiJSONDetail(localVarHTTPResponse.Status, localVarBody),
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 402 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 502 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiNumbersReleaseNumberRequest struct {
+	ctx         context.Context
+	ApiService  *NumbersAPIService
+	phoneNumber string
+}
+
+func (r ApiNumbersReleaseNumberRequest) Execute() (*ReleasePhoneNumberResponse, *http.Response, error) {
+	return r.ApiService.NumbersReleaseNumberExecute(r)
+}
+
+/*
+NumbersReleaseNumber Release a phone number from the account. No refund for the current billing month.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param phoneNumber E.164 phone number to release
+	@return ApiNumbersReleaseNumberRequest
+*/
+func (a *NumbersAPIService) NumbersReleaseNumber(ctx context.Context, phoneNumber string) ApiNumbersReleaseNumberRequest {
+	return ApiNumbersReleaseNumberRequest{
+		ApiService:  a,
+		ctx:         ctx,
+		phoneNumber: phoneNumber,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ReleasePhoneNumberResponse
+func (a *NumbersAPIService) NumbersReleaseNumberExecute(r ApiNumbersReleaseNumberRequest) (*ReleasePhoneNumberResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ReleasePhoneNumberResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NumbersAPIService.NumbersReleaseNumber")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/numbers/{phoneNumber}"
+	localVarPath = strings.Replace(localVarPath, "{"+"phoneNumber"+"}", url.PathEscape(parameterValueToString(r.phoneNumber, "phoneNumber")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

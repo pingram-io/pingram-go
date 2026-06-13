@@ -19,7 +19,7 @@ import (
 // checks if the ListPhoneNumbersResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ListPhoneNumbersResponse{}
 
-// ListPhoneNumbersResponse Response for GET /numbers/list
+// ListPhoneNumbersResponse struct for ListPhoneNumbersResponse
 type ListPhoneNumbersResponse struct {
 	Numbers []ListPhoneNumbersResponseNumbersInner `json:"numbers"`
 	// E.164 shared number the account can send from when it has no dedicated number.

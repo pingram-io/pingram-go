@@ -19,7 +19,7 @@ import (
 // checks if the A2pRegistration type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &A2pRegistration{}
 
-// A2pRegistration Public response type for A2P registration - excludes internal Telnyx IDs
+// A2pRegistration Public response type for A2P registration
 type A2pRegistration struct {
 	AccountId              string  `json:"accountId"`
 	ScenarioId             string  `json:"scenarioId"`

@@ -19,13 +19,27 @@ import (
 // checks if the ListPhoneNumbersResponseNumbersInner type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ListPhoneNumbersResponseNumbersInner{}
 
-// ListPhoneNumbersResponseNumbersInner One phone number owned by the account
+// ListPhoneNumbersResponseNumbersInner Represents a phone number in the account
 type ListPhoneNumbersResponseNumbersInner struct {
 	// E.164
 	PhoneNumber string  `json:"phoneNumber"`
 	Label       *string `json:"label,omitempty"`
 	// ISO timestamp when the number was registered
 	CreatedAt string `json:"createdAt"`
+	// ISO 3166-1 alpha-2 country code
+	CountryCode string `json:"countryCode"`
+	// e.g. local, toll_free
+	NumberType string `json:"numberType"`
+	// active or released
+	BillingStatus string `json:"billingStatus"`
+	// YYYY-MM-DD next monthly rent charge
+	NextBillingDate string `json:"nextBillingDate"`
+	// Monthly cost in USD
+	MonthlyPrice float32 `json:"monthlyPrice"`
+	// US 10DLC readiness derived from stored campaign assignment
+	A2pStatus *string `json:"a2pStatus,omitempty"`
+	// ISO timestamp when the number was released (released numbers only)
+	ReleasedAt *string `json:"releasedAt,omitempty"`
 }
 
 type _ListPhoneNumbersResponseNumbersInner ListPhoneNumbersResponseNumbersInner
@@ -34,10 +48,15 @@ type _ListPhoneNumbersResponseNumbersInner ListPhoneNumbersResponseNumbersInner
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListPhoneNumbersResponseNumbersInner(phoneNumber string, createdAt string) *ListPhoneNumbersResponseNumbersInner {
+func NewListPhoneNumbersResponseNumbersInner(phoneNumber string, createdAt string, countryCode string, numberType string, billingStatus string, nextBillingDate string, monthlyPrice float32) *ListPhoneNumbersResponseNumbersInner {
 	this := ListPhoneNumbersResponseNumbersInner{}
 	this.PhoneNumber = phoneNumber
 	this.CreatedAt = createdAt
+	this.CountryCode = countryCode
+	this.NumberType = numberType
+	this.BillingStatus = billingStatus
+	this.NextBillingDate = nextBillingDate
+	this.MonthlyPrice = monthlyPrice
 	return &this
 }
 
@@ -129,6 +148,190 @@ func (o *ListPhoneNumbersResponseNumbersInner) SetCreatedAt(v string) {
 	o.CreatedAt = v
 }
 
+// GetCountryCode returns the CountryCode field value
+func (o *ListPhoneNumbersResponseNumbersInner) GetCountryCode() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.CountryCode
+}
+
+// GetCountryCodeOk returns a tuple with the CountryCode field value
+// and a boolean to check if the value has been set.
+func (o *ListPhoneNumbersResponseNumbersInner) GetCountryCodeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CountryCode, true
+}
+
+// SetCountryCode sets field value
+func (o *ListPhoneNumbersResponseNumbersInner) SetCountryCode(v string) {
+	o.CountryCode = v
+}
+
+// GetNumberType returns the NumberType field value
+func (o *ListPhoneNumbersResponseNumbersInner) GetNumberType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.NumberType
+}
+
+// GetNumberTypeOk returns a tuple with the NumberType field value
+// and a boolean to check if the value has been set.
+func (o *ListPhoneNumbersResponseNumbersInner) GetNumberTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.NumberType, true
+}
+
+// SetNumberType sets field value
+func (o *ListPhoneNumbersResponseNumbersInner) SetNumberType(v string) {
+	o.NumberType = v
+}
+
+// GetBillingStatus returns the BillingStatus field value
+func (o *ListPhoneNumbersResponseNumbersInner) GetBillingStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.BillingStatus
+}
+
+// GetBillingStatusOk returns a tuple with the BillingStatus field value
+// and a boolean to check if the value has been set.
+func (o *ListPhoneNumbersResponseNumbersInner) GetBillingStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.BillingStatus, true
+}
+
+// SetBillingStatus sets field value
+func (o *ListPhoneNumbersResponseNumbersInner) SetBillingStatus(v string) {
+	o.BillingStatus = v
+}
+
+// GetNextBillingDate returns the NextBillingDate field value
+func (o *ListPhoneNumbersResponseNumbersInner) GetNextBillingDate() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.NextBillingDate
+}
+
+// GetNextBillingDateOk returns a tuple with the NextBillingDate field value
+// and a boolean to check if the value has been set.
+func (o *ListPhoneNumbersResponseNumbersInner) GetNextBillingDateOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.NextBillingDate, true
+}
+
+// SetNextBillingDate sets field value
+func (o *ListPhoneNumbersResponseNumbersInner) SetNextBillingDate(v string) {
+	o.NextBillingDate = v
+}
+
+// GetMonthlyPrice returns the MonthlyPrice field value
+func (o *ListPhoneNumbersResponseNumbersInner) GetMonthlyPrice() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.MonthlyPrice
+}
+
+// GetMonthlyPriceOk returns a tuple with the MonthlyPrice field value
+// and a boolean to check if the value has been set.
+func (o *ListPhoneNumbersResponseNumbersInner) GetMonthlyPriceOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.MonthlyPrice, true
+}
+
+// SetMonthlyPrice sets field value
+func (o *ListPhoneNumbersResponseNumbersInner) SetMonthlyPrice(v float32) {
+	o.MonthlyPrice = v
+}
+
+// GetA2pStatus returns the A2pStatus field value if set, zero value otherwise.
+func (o *ListPhoneNumbersResponseNumbersInner) GetA2pStatus() string {
+	if o == nil || IsNil(o.A2pStatus) {
+		var ret string
+		return ret
+	}
+	return *o.A2pStatus
+}
+
+// GetA2pStatusOk returns a tuple with the A2pStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ListPhoneNumbersResponseNumbersInner) GetA2pStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.A2pStatus) {
+		return nil, false
+	}
+	return o.A2pStatus, true
+}
+
+// HasA2pStatus returns a boolean if a field has been set.
+func (o *ListPhoneNumbersResponseNumbersInner) HasA2pStatus() bool {
+	if o != nil && !IsNil(o.A2pStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetA2pStatus gets a reference to the given string and assigns it to the A2pStatus field.
+func (o *ListPhoneNumbersResponseNumbersInner) SetA2pStatus(v string) {
+	o.A2pStatus = &v
+}
+
+// GetReleasedAt returns the ReleasedAt field value if set, zero value otherwise.
+func (o *ListPhoneNumbersResponseNumbersInner) GetReleasedAt() string {
+	if o == nil || IsNil(o.ReleasedAt) {
+		var ret string
+		return ret
+	}
+	return *o.ReleasedAt
+}
+
+// GetReleasedAtOk returns a tuple with the ReleasedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ListPhoneNumbersResponseNumbersInner) GetReleasedAtOk() (*string, bool) {
+	if o == nil || IsNil(o.ReleasedAt) {
+		return nil, false
+	}
+	return o.ReleasedAt, true
+}
+
+// HasReleasedAt returns a boolean if a field has been set.
+func (o *ListPhoneNumbersResponseNumbersInner) HasReleasedAt() bool {
+	if o != nil && !IsNil(o.ReleasedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetReleasedAt gets a reference to the given string and assigns it to the ReleasedAt field.
+func (o *ListPhoneNumbersResponseNumbersInner) SetReleasedAt(v string) {
+	o.ReleasedAt = &v
+}
+
 func (o ListPhoneNumbersResponseNumbersInner) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -144,6 +347,17 @@ func (o ListPhoneNumbersResponseNumbersInner) ToMap() (map[string]interface{}, e
 		toSerialize["label"] = o.Label
 	}
 	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["countryCode"] = o.CountryCode
+	toSerialize["numberType"] = o.NumberType
+	toSerialize["billingStatus"] = o.BillingStatus
+	toSerialize["nextBillingDate"] = o.NextBillingDate
+	toSerialize["monthlyPrice"] = o.MonthlyPrice
+	if !IsNil(o.A2pStatus) {
+		toSerialize["a2pStatus"] = o.A2pStatus
+	}
+	if !IsNil(o.ReleasedAt) {
+		toSerialize["releasedAt"] = o.ReleasedAt
+	}
 	return toSerialize, nil
 }
 
@@ -154,6 +368,11 @@ func (o *ListPhoneNumbersResponseNumbersInner) UnmarshalJSON(data []byte) (err e
 	requiredProperties := []string{
 		"phoneNumber",
 		"createdAt",
+		"countryCode",
+		"numberType",
+		"billingStatus",
+		"nextBillingDate",
+		"monthlyPrice",
 	}
 
 	allProperties := make(map[string]interface{})

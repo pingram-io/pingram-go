@@ -29,7 +29,7 @@ type SendSmsRequest struct {
 	Message string `json:"message"`
 	// The ISO 8601 datetime to schedule the SMS notification.
 	Schedule *string `json:"schedule,omitempty"`
-	// Override the sender phone number. Must be a verified number in your Telnyx account.
+	// Override the sender phone number. Must be a dedicated number on your Pingram account.
 	From      *string                     `json:"from,omitempty"`
 	AutoReply *SenderPostBodySmsAutoReply `json:"autoReply,omitempty"`
 }

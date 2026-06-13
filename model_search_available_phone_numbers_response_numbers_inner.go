@@ -29,6 +29,8 @@ type SearchAvailablePhoneNumbersResponseNumbersInner struct {
 	PhoneNumberType *string `json:"phoneNumberType,omitempty"`
 	// e.g. sms, voice, mms
 	Features []string `json:"features,omitempty"`
+	// Monthly cost in USD
+	MonthlyPrice float32 `json:"monthlyPrice"`
 }
 
 type _SearchAvailablePhoneNumbersResponseNumbersInner SearchAvailablePhoneNumbersResponseNumbersInner
@@ -37,9 +39,10 @@ type _SearchAvailablePhoneNumbersResponseNumbersInner SearchAvailablePhoneNumber
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSearchAvailablePhoneNumbersResponseNumbersInner(phoneNumber string) *SearchAvailablePhoneNumbersResponseNumbersInner {
+func NewSearchAvailablePhoneNumbersResponseNumbersInner(phoneNumber string, monthlyPrice float32) *SearchAvailablePhoneNumbersResponseNumbersInner {
 	this := SearchAvailablePhoneNumbersResponseNumbersInner{}
 	this.PhoneNumber = phoneNumber
+	this.MonthlyPrice = monthlyPrice
 	return &this
 }
 
@@ -203,6 +206,30 @@ func (o *SearchAvailablePhoneNumbersResponseNumbersInner) SetFeatures(v []string
 	o.Features = v
 }
 
+// GetMonthlyPrice returns the MonthlyPrice field value
+func (o *SearchAvailablePhoneNumbersResponseNumbersInner) GetMonthlyPrice() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.MonthlyPrice
+}
+
+// GetMonthlyPriceOk returns a tuple with the MonthlyPrice field value
+// and a boolean to check if the value has been set.
+func (o *SearchAvailablePhoneNumbersResponseNumbersInner) GetMonthlyPriceOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.MonthlyPrice, true
+}
+
+// SetMonthlyPrice sets field value
+func (o *SearchAvailablePhoneNumbersResponseNumbersInner) SetMonthlyPrice(v float32) {
+	o.MonthlyPrice = v
+}
+
 func (o SearchAvailablePhoneNumbersResponseNumbersInner) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -226,6 +253,7 @@ func (o SearchAvailablePhoneNumbersResponseNumbersInner) ToMap() (map[string]int
 	if !IsNil(o.Features) {
 		toSerialize["features"] = o.Features
 	}
+	toSerialize["monthlyPrice"] = o.MonthlyPrice
 	return toSerialize, nil
 }
 
@@ -235,6 +263,7 @@ func (o *SearchAvailablePhoneNumbersResponseNumbersInner) UnmarshalJSON(data []b
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"phoneNumber",
+		"monthlyPrice",
 	}
 
 	allProperties := make(map[string]interface{})

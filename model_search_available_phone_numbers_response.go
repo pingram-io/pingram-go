@@ -19,7 +19,7 @@ import (
 // checks if the SearchAvailablePhoneNumbersResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SearchAvailablePhoneNumbersResponse{}
 
-// SearchAvailablePhoneNumbersResponse Response for GET /numbers/available
+// SearchAvailablePhoneNumbersResponse struct for SearchAvailablePhoneNumbersResponse
 type SearchAvailablePhoneNumbersResponse struct {
 	Numbers []SearchAvailablePhoneNumbersResponseNumbersInner `json:"numbers"`
 }
