@@ -30,8 +30,7 @@ type SendSmsRequest struct {
 	// The ISO 8601 datetime to schedule the SMS notification.
 	Schedule *string `json:"schedule,omitempty"`
 	// Override the sender phone number. Must be a dedicated number on your Pingram account.
-	From      *string                     `json:"from,omitempty"`
-	AutoReply *SenderPostBodySmsAutoReply `json:"autoReply,omitempty"`
+	From *string `json:"from,omitempty"`
 }
 
 type _SendSmsRequest SendSmsRequest
@@ -192,38 +191,6 @@ func (o *SendSmsRequest) SetFrom(v string) {
 	o.From = &v
 }
 
-// GetAutoReply returns the AutoReply field value if set, zero value otherwise.
-func (o *SendSmsRequest) GetAutoReply() SenderPostBodySmsAutoReply {
-	if o == nil || IsNil(o.AutoReply) {
-		var ret SenderPostBodySmsAutoReply
-		return ret
-	}
-	return *o.AutoReply
-}
-
-// GetAutoReplyOk returns a tuple with the AutoReply field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SendSmsRequest) GetAutoReplyOk() (*SenderPostBodySmsAutoReply, bool) {
-	if o == nil || IsNil(o.AutoReply) {
-		return nil, false
-	}
-	return o.AutoReply, true
-}
-
-// HasAutoReply returns a boolean if a field has been set.
-func (o *SendSmsRequest) HasAutoReply() bool {
-	if o != nil && !IsNil(o.AutoReply) {
-		return true
-	}
-
-	return false
-}
-
-// SetAutoReply gets a reference to the given SenderPostBodySmsAutoReply and assigns it to the AutoReply field.
-func (o *SendSmsRequest) SetAutoReply(v SenderPostBodySmsAutoReply) {
-	o.AutoReply = &v
-}
-
 func (o SendSmsRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -242,9 +209,6 @@ func (o SendSmsRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.From) {
 		toSerialize["from"] = o.From
-	}
-	if !IsNil(o.AutoReply) {
-		toSerialize["autoReply"] = o.AutoReply
 	}
 	return toSerialize, nil
 }
