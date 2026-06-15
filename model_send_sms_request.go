@@ -19,14 +19,16 @@ import (
 // checks if the SendSmsRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SendSmsRequest{}
 
-// SendSmsRequest Request body for `POST /sms` (send SMS without a template).
+// SendSmsRequest Request body for `POST /sms` (send SMS or MMS without a template).
 type SendSmsRequest struct {
 	// The notification type to send.
 	Type string `json:"type"`
 	// The phone number of the recipient.
 	To string `json:"to"`
-	// The message of the SMS notification.
-	Message string `json:"message"`
+	// The message of the SMS or MMS notification. Optional when `mediaUrls` is provided.
+	Message *string `json:"message,omitempty"`
+	// Public HTTPS URLs of media to attach (MMS).
+	MediaUrls []string `json:"mediaUrls,omitempty"`
 	// The ISO 8601 datetime to schedule the SMS notification.
 	Schedule *string `json:"schedule,omitempty"`
 	// Override the sender phone number. Must be a dedicated number on your Pingram account.
@@ -39,11 +41,10 @@ type _SendSmsRequest SendSmsRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSendSmsRequest(type_ string, to string, message string) *SendSmsRequest {
+func NewSendSmsRequest(type_ string, to string) *SendSmsRequest {
 	this := SendSmsRequest{}
 	this.Type = type_
 	this.To = to
-	this.Message = message
 	return &this
 }
 
@@ -103,28 +104,68 @@ func (o *SendSmsRequest) SetTo(v string) {
 	o.To = v
 }
 
-// GetMessage returns the Message field value
+// GetMessage returns the Message field value if set, zero value otherwise.
 func (o *SendSmsRequest) GetMessage() string {
-	if o == nil {
+	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
 	}
-
-	return o.Message
+	return *o.Message
 }
 
-// GetMessageOk returns a tuple with the Message field value
+// GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SendSmsRequest) GetMessageOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
-	return &o.Message, true
+	return o.Message, true
 }
 
-// SetMessage sets field value
+// HasMessage returns a boolean if a field has been set.
+func (o *SendSmsRequest) HasMessage() bool {
+	if o != nil && !IsNil(o.Message) {
+		return true
+	}
+
+	return false
+}
+
+// SetMessage gets a reference to the given string and assigns it to the Message field.
 func (o *SendSmsRequest) SetMessage(v string) {
-	o.Message = v
+	o.Message = &v
+}
+
+// GetMediaUrls returns the MediaUrls field value if set, zero value otherwise.
+func (o *SendSmsRequest) GetMediaUrls() []string {
+	if o == nil || IsNil(o.MediaUrls) {
+		var ret []string
+		return ret
+	}
+	return o.MediaUrls
+}
+
+// GetMediaUrlsOk returns a tuple with the MediaUrls field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SendSmsRequest) GetMediaUrlsOk() ([]string, bool) {
+	if o == nil || IsNil(o.MediaUrls) {
+		return nil, false
+	}
+	return o.MediaUrls, true
+}
+
+// HasMediaUrls returns a boolean if a field has been set.
+func (o *SendSmsRequest) HasMediaUrls() bool {
+	if o != nil && !IsNil(o.MediaUrls) {
+		return true
+	}
+
+	return false
+}
+
+// SetMediaUrls gets a reference to the given []string and assigns it to the MediaUrls field.
+func (o *SendSmsRequest) SetMediaUrls(v []string) {
+	o.MediaUrls = v
 }
 
 // GetSchedule returns the Schedule field value if set, zero value otherwise.
@@ -203,7 +244,12 @@ func (o SendSmsRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["type"] = o.Type
 	toSerialize["to"] = o.To
-	toSerialize["message"] = o.Message
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
+	}
+	if !IsNil(o.MediaUrls) {
+		toSerialize["mediaUrls"] = o.MediaUrls
+	}
 	if !IsNil(o.Schedule) {
 		toSerialize["schedule"] = o.Schedule
 	}
@@ -220,7 +266,6 @@ func (o *SendSmsRequest) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"type",
 		"to",
-		"message",
 	}
 
 	allProperties := make(map[string]interface{})

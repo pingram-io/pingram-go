@@ -37,7 +37,7 @@ func (r ApiSmsSendRequest) Execute() (*SendSmsResponse, *http.Response, error) {
 }
 
 /*
-SmsSend Send an SMS notification directly without templates
+SmsSend Send an SMS or MMS notification directly without templates
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiSmsSendRequest
