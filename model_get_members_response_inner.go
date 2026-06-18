@@ -27,6 +27,7 @@ type GetMembersResponseInner struct {
 	CreatedAt      string   `json:"createdAt"`
 	Email          *string  `json:"email,omitempty"`
 	Groups         []string `json:"groups,omitempty"`
+	EnabledMFAs    []string `json:"enabledMFAs,omitempty"`
 }
 
 type _GetMembersResponseInner GetMembersResponseInner
@@ -212,6 +213,38 @@ func (o *GetMembersResponseInner) SetGroups(v []string) {
 	o.Groups = v
 }
 
+// GetEnabledMFAs returns the EnabledMFAs field value if set, zero value otherwise.
+func (o *GetMembersResponseInner) GetEnabledMFAs() []string {
+	if o == nil || IsNil(o.EnabledMFAs) {
+		var ret []string
+		return ret
+	}
+	return o.EnabledMFAs
+}
+
+// GetEnabledMFAsOk returns a tuple with the EnabledMFAs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetMembersResponseInner) GetEnabledMFAsOk() ([]string, bool) {
+	if o == nil || IsNil(o.EnabledMFAs) {
+		return nil, false
+	}
+	return o.EnabledMFAs, true
+}
+
+// HasEnabledMFAs returns a boolean if a field has been set.
+func (o *GetMembersResponseInner) HasEnabledMFAs() bool {
+	if o != nil && !IsNil(o.EnabledMFAs) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnabledMFAs gets a reference to the given []string and assigns it to the EnabledMFAs field.
+func (o *GetMembersResponseInner) SetEnabledMFAs(v []string) {
+	o.EnabledMFAs = v
+}
+
 func (o GetMembersResponseInner) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -231,6 +264,9 @@ func (o GetMembersResponseInner) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Groups) {
 		toSerialize["groups"] = o.Groups
+	}
+	if !IsNil(o.EnabledMFAs) {
+		toSerialize["enabledMFAs"] = o.EnabledMFAs
 	}
 	return toSerialize, nil
 }
