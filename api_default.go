@@ -37,7 +37,7 @@ func (r ApiSendRequest) Execute() (*SenderPostResponse, *http.Response, error) {
 }
 
 /*
-Send Send a notification
+Send Send a notification (email, SMS, etc.) to one user. Requires a notification `type` which categorizes this messages for future reporting, and channel-specific payloads such as `email` or `sms`. Recipient is specified with the `to` parameter. Returns a `trackingId` for error or delivery lookup through our Logs.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiSendRequest

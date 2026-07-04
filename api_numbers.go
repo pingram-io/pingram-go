@@ -32,7 +32,7 @@ func (r ApiNumbersListRequest) Execute() (*ListPhoneNumbersResponse, *http.Respo
 }
 
 /*
-NumbersList List active phone numbers registered for the account
+NumbersList List active phone numbers registered for the account.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiNumbersListRequest
@@ -298,7 +298,7 @@ func (r ApiNumbersOrderNumberRequest) Execute() (*OrderPhoneNumberResponse, *htt
 }
 
 /*
-NumbersOrderNumber Purchase a phone number for the authenticated account, or reactivate a released number owned by the account (preserves original createdAt).
+NumbersOrderNumber Purchase a phone number for the authenticated account, or reactivate a released number owned by the account (preserves original createdAt). Pass `phoneNumber` in E.164 format (e.g. +15551234567).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiNumbersOrderNumberRequest
@@ -595,7 +595,7 @@ func (r ApiNumbersSearchAvailableRequest) Execute() (*SearchAvailablePhoneNumber
 }
 
 /*
-NumbersSearchAvailable Search for available phone numbers
+NumbersSearchAvailable Search for available phone numbers to purchase. Requires `countryCode` (e.g. US, CA). Use before ordering a number.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiNumbersSearchAvailableRequest

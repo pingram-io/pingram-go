@@ -38,7 +38,7 @@ func (r ApiDomainsAddDomainRequest) Execute() ([]GetSendersResponseInner, *http.
 }
 
 /*
-DomainsAddDomain Request to verify a new sender domain
+DomainsAddDomain Add and start verification for a new sender domain. Pass the domain only (not a full email address).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiDomainsAddDomainRequest
@@ -174,10 +174,10 @@ func (r ApiDomainsDeleteDomainRequest) Execute() (*SuccessResponse, *http.Respon
 }
 
 /*
-DomainsDeleteDomain Delete a sender domain or email address
+DomainsDeleteDomain Remove a sender domain from the account.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param sender Sender domain or email address (URL encoded)
+	@param sender Sender domain (URL encoded)
 	@return ApiDomainsDeleteDomainRequest
 */
 func (a *DomainsAPIService) DomainsDeleteDomain(ctx context.Context, sender string) ApiDomainsDeleteDomainRequest {
@@ -307,7 +307,7 @@ func (r ApiDomainsListDomainsRequest) Execute() ([]GetSendersResponseInner, *htt
 }
 
 /*
-DomainsListDomains Get all sender domains configured for the account
+DomainsListDomains List sender domains configured for the account (for outbound email).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiDomainsListDomainsRequest

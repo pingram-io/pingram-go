@@ -37,7 +37,7 @@ func (r ApiEmailSendRequest) Execute() (*SendEmailApiResponse, *http.Response, e
 }
 
 /*
-EmailSend Send an email notification directly without templates
+EmailSend Send an email. Requires `type`, `to`, `subject`, and `html`. Optional: `fromAddress`, `fromName`, `schedule`, attachments. The fromAddress must be a verified domain; otherwise our built-in address will be used which is fine for testing purposes.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiEmailSendRequest

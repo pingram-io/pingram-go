@@ -176,7 +176,7 @@ func (r ApiLogsGetLogsRequest) Execute() (*GetLogsResponse, *http.Response, erro
 }
 
 /*
-LogsGetLogs List logs for the authenticated account
+LogsGetLogs List recent notification logs for the authenticated account, newest first.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiLogsGetLogsRequest
@@ -313,7 +313,7 @@ func (r ApiLogsGetLogsByTrackingIdsRequest) Execute() (*LogsGetResponse, *http.R
 }
 
 /*
-LogsGetLogsByTrackingIds Get logs by tracking IDs (comma-separated, max 25 IDs)
+LogsGetLogsByTrackingIds Get logs by tracking IDs (comma-separated, max 25 IDs). Use after sending email or SMS to look up delivery status.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param trackingIds Comma-separated tracking IDs (URL encoded)
@@ -447,10 +447,10 @@ func (r ApiLogsGetLogsQueryResultRequest) Execute() (*LogsQueryResultResponse, *
 }
 
 /*
-LogsGetLogsQueryResult Get results from a query ID
+LogsGetLogsQueryResult Get results from a log query started with Start Log Query. Poll until status is Complete.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param queryId Query ID
+	@param queryId Query ID returned by Start Log Query
 	@return ApiLogsGetLogsQueryResultRequest
 */
 func (a *LogsAPIService) LogsGetLogsQueryResult(ctx context.Context, queryId string) ApiLogsGetLogsQueryResultRequest {
@@ -586,7 +586,7 @@ func (r ApiLogsStartLogsQueryRequest) Execute() (*LogsQueryResponse, *http.Respo
 }
 
 /*
-LogsStartLogsQuery Start a log query and return query ID for asynchronous log searching
+LogsStartLogsQuery Start an asynchronous log search over a date range. Returns a `queryId`; poll with Get Log Query Results until status is Complete.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiLogsStartLogsQueryRequest

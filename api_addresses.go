@@ -37,7 +37,7 @@ func (r ApiAddressesCreateAddressRequest) Execute() (*AddressResponse, *http.Res
 }
 
 /*
-AddressesCreateAddress Create a new email address for inbound/outbound purposes. Each account can have one builtin address and many custom addresses. Custom addresses must belong to configured domains.
+AddressesCreateAddress Create a new email inbox. Omit `domain` for a built-in `@mail.pingram.io` address; set `domain` and `displayName` for a custom address on a verified domain.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiAddressesCreateAddressRequest
@@ -172,7 +172,7 @@ func (r ApiAddressesListAddressesRequest) Execute() (*AccountAddressesResponse, 
 }
 
 /*
-AddressesListAddresses Lists all email addresses the account has configured to send and receive emails. Custom addresses must belong to configured domains.
+AddressesListAddresses List email inboxes (addresses) configured for receiving. Custom addresses must use a verified domain.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiAddressesListAddressesRequest
@@ -308,7 +308,7 @@ func (r ApiAddressesUpdateAddressRequest) Execute() (*AddressResponse, *http.Res
 }
 
 /*
-AddressesUpdateAddress Update an existing address
+AddressesUpdateAddress Update an inbox prefix or display name.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiAddressesUpdateAddressRequest

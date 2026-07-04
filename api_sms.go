@@ -37,7 +37,7 @@ func (r ApiSmsSendRequest) Execute() (*SendSmsResponse, *http.Response, error) {
 }
 
 /*
-SmsSend Send an SMS or MMS notification directly without templates
+SmsSend Send an SMS or MMS directly without a template. Requires `type` and `to`. Pass `message` and/or `mediaUrls`. Optional: `from`, `schedule`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiSmsSendRequest
