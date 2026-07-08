@@ -41,7 +41,7 @@ type SendEmailRequest struct {
 	CcAddresses []string `json:"ccAddresses,omitempty"`
 	// The BCC addresses of the email.
 	BccAddresses []string `json:"bccAddresses,omitempty"`
-	// The attachments of the email.
+	// URL-based file attachments. Up to 20 MB per file.
 	Attachments []SendEmailRequestAttachmentsInner `json:"attachments,omitempty"`
 	// The ISO 8601 datetime to schedule the email.
 	Schedule *string `json:"schedule,omitempty"`

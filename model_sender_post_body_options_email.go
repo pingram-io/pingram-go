@@ -29,7 +29,7 @@ type SenderPostBodyOptionsEmail struct {
 	FromAddress *string `json:"fromAddress,omitempty"`
 	// Override sender display name.
 	FromName *string `json:"fromName,omitempty"`
-	// File attachments (by URL or inline base64 content).
+	// File attachments (by URL or inline base64 content). Inline `content`: ~4 MB raw per file (413 if exceeded). URL `url`: up to 20 MB per file.
 	Attachments []SenderPostBodyOptionsEmailAttachmentsInner `json:"attachments,omitempty"`
 	// Conditional expression for when to send (e.g. merge tag logic).
 	Condition *string `json:"condition,omitempty"`
