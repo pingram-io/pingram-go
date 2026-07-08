@@ -27,10 +27,6 @@ type SendEmailApiResponseAnyOf1Error struct {
 	Message string `json:"message"`
 	// Actionable hint for fixing the error.
 	Fix *string `json:"fix,omitempty"`
-	// Provider that rejected the message (e.g. 'ses').
-	Provider *string `json:"provider,omitempty"`
-	// Provider-specific error code.
-	ProviderCode *string `json:"providerCode,omitempty"`
 }
 
 type _SendEmailApiResponseAnyOf1Error SendEmailApiResponseAnyOf1Error
@@ -134,70 +130,6 @@ func (o *SendEmailApiResponseAnyOf1Error) SetFix(v string) {
 	o.Fix = &v
 }
 
-// GetProvider returns the Provider field value if set, zero value otherwise.
-func (o *SendEmailApiResponseAnyOf1Error) GetProvider() string {
-	if o == nil || IsNil(o.Provider) {
-		var ret string
-		return ret
-	}
-	return *o.Provider
-}
-
-// GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SendEmailApiResponseAnyOf1Error) GetProviderOk() (*string, bool) {
-	if o == nil || IsNil(o.Provider) {
-		return nil, false
-	}
-	return o.Provider, true
-}
-
-// HasProvider returns a boolean if a field has been set.
-func (o *SendEmailApiResponseAnyOf1Error) HasProvider() bool {
-	if o != nil && !IsNil(o.Provider) {
-		return true
-	}
-
-	return false
-}
-
-// SetProvider gets a reference to the given string and assigns it to the Provider field.
-func (o *SendEmailApiResponseAnyOf1Error) SetProvider(v string) {
-	o.Provider = &v
-}
-
-// GetProviderCode returns the ProviderCode field value if set, zero value otherwise.
-func (o *SendEmailApiResponseAnyOf1Error) GetProviderCode() string {
-	if o == nil || IsNil(o.ProviderCode) {
-		var ret string
-		return ret
-	}
-	return *o.ProviderCode
-}
-
-// GetProviderCodeOk returns a tuple with the ProviderCode field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SendEmailApiResponseAnyOf1Error) GetProviderCodeOk() (*string, bool) {
-	if o == nil || IsNil(o.ProviderCode) {
-		return nil, false
-	}
-	return o.ProviderCode, true
-}
-
-// HasProviderCode returns a boolean if a field has been set.
-func (o *SendEmailApiResponseAnyOf1Error) HasProviderCode() bool {
-	if o != nil && !IsNil(o.ProviderCode) {
-		return true
-	}
-
-	return false
-}
-
-// SetProviderCode gets a reference to the given string and assigns it to the ProviderCode field.
-func (o *SendEmailApiResponseAnyOf1Error) SetProviderCode(v string) {
-	o.ProviderCode = &v
-}
-
 func (o SendEmailApiResponseAnyOf1Error) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -212,12 +144,6 @@ func (o SendEmailApiResponseAnyOf1Error) ToMap() (map[string]interface{}, error)
 	toSerialize["message"] = o.Message
 	if !IsNil(o.Fix) {
 		toSerialize["fix"] = o.Fix
-	}
-	if !IsNil(o.Provider) {
-		toSerialize["provider"] = o.Provider
-	}
-	if !IsNil(o.ProviderCode) {
-		toSerialize["providerCode"] = o.ProviderCode
 	}
 	return toSerialize, nil
 }
