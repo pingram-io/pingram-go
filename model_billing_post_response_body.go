@@ -29,6 +29,7 @@ type BillingPostResponseBody struct {
 	CostCap          float32  `json:"costCap"`
 	SmsCap           *float32 `json:"smsCap,omitempty"`
 	CallCap          *float32 `json:"callCap,omitempty"`
+	BillingVersion   *float32 `json:"billingVersion,omitempty"`
 	// ISO date (YYYY-MM-DD) when the billing cycle resets.
 	AnniversaryDate string  `json:"anniversaryDate"`
 	AllowOverage    bool    `json:"allowOverage"`
@@ -275,6 +276,38 @@ func (o *BillingPostResponseBody) SetCallCap(v float32) {
 	o.CallCap = &v
 }
 
+// GetBillingVersion returns the BillingVersion field value if set, zero value otherwise.
+func (o *BillingPostResponseBody) GetBillingVersion() float32 {
+	if o == nil || IsNil(o.BillingVersion) {
+		var ret float32
+		return ret
+	}
+	return *o.BillingVersion
+}
+
+// GetBillingVersionOk returns a tuple with the BillingVersion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingPostResponseBody) GetBillingVersionOk() (*float32, bool) {
+	if o == nil || IsNil(o.BillingVersion) {
+		return nil, false
+	}
+	return o.BillingVersion, true
+}
+
+// HasBillingVersion returns a boolean if a field has been set.
+func (o *BillingPostResponseBody) HasBillingVersion() bool {
+	if o != nil && !IsNil(o.BillingVersion) {
+		return true
+	}
+
+	return false
+}
+
+// SetBillingVersion gets a reference to the given float32 and assigns it to the BillingVersion field.
+func (o *BillingPostResponseBody) SetBillingVersion(v float32) {
+	o.BillingVersion = &v
+}
+
 // GetAnniversaryDate returns the AnniversaryDate field value
 func (o *BillingPostResponseBody) GetAnniversaryDate() string {
 	if o == nil {
@@ -456,6 +489,9 @@ func (o BillingPostResponseBody) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.CallCap) {
 		toSerialize["callCap"] = o.CallCap
+	}
+	if !IsNil(o.BillingVersion) {
+		toSerialize["billingVersion"] = o.BillingVersion
 	}
 	toSerialize["anniversaryDate"] = o.AnniversaryDate
 	toSerialize["allowOverage"] = o.AllowOverage

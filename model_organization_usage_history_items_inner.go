@@ -22,19 +22,8 @@ var _ MappedNullable = &OrganizationUsageHistoryItemsInner{}
 // OrganizationUsageHistoryItemsInner Single usage item in historical response
 type OrganizationUsageHistoryItemsInner struct {
 	// Year-month (YYYY-MM) for this usage period
-	YearMonth string `json:"yearMonth"`
-	// Total message usage (EMAIL + INAPP_WEB + WEB_PUSH + PUSH + SLACK)
-	MessageUsage float32 `json:"messageUsage"`
-	// Total budget usage in USD (cost_SMS + cost_CALL + cost_NUMBER)
-	BudgetUsage float32 `json:"budgetUsage"`
-	// SMS cost in USD
-	CostSms float32 `json:"costSms"`
-	// Call cost in USD
-	CostCall float32 `json:"costCall"`
-	// Phone number rent in USD
-	CostNumber float32 `json:"costNumber"`
-	// Per-channel usage breakdown
-	ChannelUsages map[string]float32 `json:"channelUsages"`
+	YearMonth string                                   `json:"yearMonth"`
+	Counts    OrganizationUsageHistoryItemsInnerCounts `json:"counts"`
 }
 
 type _OrganizationUsageHistoryItemsInner OrganizationUsageHistoryItemsInner
@@ -43,15 +32,10 @@ type _OrganizationUsageHistoryItemsInner OrganizationUsageHistoryItemsInner
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOrganizationUsageHistoryItemsInner(yearMonth string, messageUsage float32, budgetUsage float32, costSms float32, costCall float32, costNumber float32, channelUsages map[string]float32) *OrganizationUsageHistoryItemsInner {
+func NewOrganizationUsageHistoryItemsInner(yearMonth string, counts OrganizationUsageHistoryItemsInnerCounts) *OrganizationUsageHistoryItemsInner {
 	this := OrganizationUsageHistoryItemsInner{}
 	this.YearMonth = yearMonth
-	this.MessageUsage = messageUsage
-	this.BudgetUsage = budgetUsage
-	this.CostSms = costSms
-	this.CostCall = costCall
-	this.CostNumber = costNumber
-	this.ChannelUsages = channelUsages
+	this.Counts = counts
 	return &this
 }
 
@@ -87,148 +71,28 @@ func (o *OrganizationUsageHistoryItemsInner) SetYearMonth(v string) {
 	o.YearMonth = v
 }
 
-// GetMessageUsage returns the MessageUsage field value
-func (o *OrganizationUsageHistoryItemsInner) GetMessageUsage() float32 {
+// GetCounts returns the Counts field value
+func (o *OrganizationUsageHistoryItemsInner) GetCounts() OrganizationUsageHistoryItemsInnerCounts {
 	if o == nil {
-		var ret float32
+		var ret OrganizationUsageHistoryItemsInnerCounts
 		return ret
 	}
 
-	return o.MessageUsage
+	return o.Counts
 }
 
-// GetMessageUsageOk returns a tuple with the MessageUsage field value
+// GetCountsOk returns a tuple with the Counts field value
 // and a boolean to check if the value has been set.
-func (o *OrganizationUsageHistoryItemsInner) GetMessageUsageOk() (*float32, bool) {
+func (o *OrganizationUsageHistoryItemsInner) GetCountsOk() (*OrganizationUsageHistoryItemsInnerCounts, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.MessageUsage, true
+	return &o.Counts, true
 }
 
-// SetMessageUsage sets field value
-func (o *OrganizationUsageHistoryItemsInner) SetMessageUsage(v float32) {
-	o.MessageUsage = v
-}
-
-// GetBudgetUsage returns the BudgetUsage field value
-func (o *OrganizationUsageHistoryItemsInner) GetBudgetUsage() float32 {
-	if o == nil {
-		var ret float32
-		return ret
-	}
-
-	return o.BudgetUsage
-}
-
-// GetBudgetUsageOk returns a tuple with the BudgetUsage field value
-// and a boolean to check if the value has been set.
-func (o *OrganizationUsageHistoryItemsInner) GetBudgetUsageOk() (*float32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.BudgetUsage, true
-}
-
-// SetBudgetUsage sets field value
-func (o *OrganizationUsageHistoryItemsInner) SetBudgetUsage(v float32) {
-	o.BudgetUsage = v
-}
-
-// GetCostSms returns the CostSms field value
-func (o *OrganizationUsageHistoryItemsInner) GetCostSms() float32 {
-	if o == nil {
-		var ret float32
-		return ret
-	}
-
-	return o.CostSms
-}
-
-// GetCostSmsOk returns a tuple with the CostSms field value
-// and a boolean to check if the value has been set.
-func (o *OrganizationUsageHistoryItemsInner) GetCostSmsOk() (*float32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CostSms, true
-}
-
-// SetCostSms sets field value
-func (o *OrganizationUsageHistoryItemsInner) SetCostSms(v float32) {
-	o.CostSms = v
-}
-
-// GetCostCall returns the CostCall field value
-func (o *OrganizationUsageHistoryItemsInner) GetCostCall() float32 {
-	if o == nil {
-		var ret float32
-		return ret
-	}
-
-	return o.CostCall
-}
-
-// GetCostCallOk returns a tuple with the CostCall field value
-// and a boolean to check if the value has been set.
-func (o *OrganizationUsageHistoryItemsInner) GetCostCallOk() (*float32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CostCall, true
-}
-
-// SetCostCall sets field value
-func (o *OrganizationUsageHistoryItemsInner) SetCostCall(v float32) {
-	o.CostCall = v
-}
-
-// GetCostNumber returns the CostNumber field value
-func (o *OrganizationUsageHistoryItemsInner) GetCostNumber() float32 {
-	if o == nil {
-		var ret float32
-		return ret
-	}
-
-	return o.CostNumber
-}
-
-// GetCostNumberOk returns a tuple with the CostNumber field value
-// and a boolean to check if the value has been set.
-func (o *OrganizationUsageHistoryItemsInner) GetCostNumberOk() (*float32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CostNumber, true
-}
-
-// SetCostNumber sets field value
-func (o *OrganizationUsageHistoryItemsInner) SetCostNumber(v float32) {
-	o.CostNumber = v
-}
-
-// GetChannelUsages returns the ChannelUsages field value
-func (o *OrganizationUsageHistoryItemsInner) GetChannelUsages() map[string]float32 {
-	if o == nil {
-		var ret map[string]float32
-		return ret
-	}
-
-	return o.ChannelUsages
-}
-
-// GetChannelUsagesOk returns a tuple with the ChannelUsages field value
-// and a boolean to check if the value has been set.
-func (o *OrganizationUsageHistoryItemsInner) GetChannelUsagesOk() (*map[string]float32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ChannelUsages, true
-}
-
-// SetChannelUsages sets field value
-func (o *OrganizationUsageHistoryItemsInner) SetChannelUsages(v map[string]float32) {
-	o.ChannelUsages = v
+// SetCounts sets field value
+func (o *OrganizationUsageHistoryItemsInner) SetCounts(v OrganizationUsageHistoryItemsInnerCounts) {
+	o.Counts = v
 }
 
 func (o OrganizationUsageHistoryItemsInner) MarshalJSON() ([]byte, error) {
@@ -242,12 +106,7 @@ func (o OrganizationUsageHistoryItemsInner) MarshalJSON() ([]byte, error) {
 func (o OrganizationUsageHistoryItemsInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["yearMonth"] = o.YearMonth
-	toSerialize["messageUsage"] = o.MessageUsage
-	toSerialize["budgetUsage"] = o.BudgetUsage
-	toSerialize["costSms"] = o.CostSms
-	toSerialize["costCall"] = o.CostCall
-	toSerialize["costNumber"] = o.CostNumber
-	toSerialize["channelUsages"] = o.ChannelUsages
+	toSerialize["counts"] = o.Counts
 	return toSerialize, nil
 }
 
@@ -257,12 +116,7 @@ func (o *OrganizationUsageHistoryItemsInner) UnmarshalJSON(data []byte) (err err
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"yearMonth",
-		"messageUsage",
-		"budgetUsage",
-		"costSms",
-		"costCall",
-		"costNumber",
-		"channelUsages",
+		"counts",
 	}
 
 	allProperties := make(map[string]interface{})

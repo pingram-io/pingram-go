@@ -14,41 +14,44 @@ import (
 	"encoding/json"
 )
 
-// checks if the A2pRegistrationUpdateRequest type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &A2pRegistrationUpdateRequest{}
+// checks if the TenDlcBrandUpdateRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TenDlcBrandUpdateRequest{}
 
-// A2pRegistrationUpdateRequest Request body for PUT /registrations/a2p
-type A2pRegistrationUpdateRequest struct {
+// TenDlcBrandUpdateRequest Request body for PATCH /registrations/us/10dlc/brand
+type TenDlcBrandUpdateRequest struct {
 	ScenarioId             *string `json:"scenarioId,omitempty"`
 	BusinessType           *string `json:"businessType,omitempty"`
 	LegalName              *string `json:"legalName,omitempty"`
 	TaxId                  *string `json:"taxId,omitempty"`
 	Website                *string `json:"website,omitempty"`
 	Country                *string `json:"country,omitempty"`
-	FullAddress            *string `json:"fullAddress,omitempty"`
+	Street                 *string `json:"street,omitempty"`
+	City                   *string `json:"city,omitempty"`
+	State                  *string `json:"state,omitempty"`
+	PostalCode             *string `json:"postalCode,omitempty"`
 	ComplianceContactEmail *string `json:"complianceContactEmail,omitempty"`
 	ComplianceContactPhone *string `json:"complianceContactPhone,omitempty"`
 }
 
-// NewA2pRegistrationUpdateRequest instantiates a new A2pRegistrationUpdateRequest object
+// NewTenDlcBrandUpdateRequest instantiates a new TenDlcBrandUpdateRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewA2pRegistrationUpdateRequest() *A2pRegistrationUpdateRequest {
-	this := A2pRegistrationUpdateRequest{}
+func NewTenDlcBrandUpdateRequest() *TenDlcBrandUpdateRequest {
+	this := TenDlcBrandUpdateRequest{}
 	return &this
 }
 
-// NewA2pRegistrationUpdateRequestWithDefaults instantiates a new A2pRegistrationUpdateRequest object
+// NewTenDlcBrandUpdateRequestWithDefaults instantiates a new TenDlcBrandUpdateRequest object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewA2pRegistrationUpdateRequestWithDefaults() *A2pRegistrationUpdateRequest {
-	this := A2pRegistrationUpdateRequest{}
+func NewTenDlcBrandUpdateRequestWithDefaults() *TenDlcBrandUpdateRequest {
+	this := TenDlcBrandUpdateRequest{}
 	return &this
 }
 
 // GetScenarioId returns the ScenarioId field value if set, zero value otherwise.
-func (o *A2pRegistrationUpdateRequest) GetScenarioId() string {
+func (o *TenDlcBrandUpdateRequest) GetScenarioId() string {
 	if o == nil || IsNil(o.ScenarioId) {
 		var ret string
 		return ret
@@ -58,7 +61,7 @@ func (o *A2pRegistrationUpdateRequest) GetScenarioId() string {
 
 // GetScenarioIdOk returns a tuple with the ScenarioId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *A2pRegistrationUpdateRequest) GetScenarioIdOk() (*string, bool) {
+func (o *TenDlcBrandUpdateRequest) GetScenarioIdOk() (*string, bool) {
 	if o == nil || IsNil(o.ScenarioId) {
 		return nil, false
 	}
@@ -66,7 +69,7 @@ func (o *A2pRegistrationUpdateRequest) GetScenarioIdOk() (*string, bool) {
 }
 
 // HasScenarioId returns a boolean if a field has been set.
-func (o *A2pRegistrationUpdateRequest) HasScenarioId() bool {
+func (o *TenDlcBrandUpdateRequest) HasScenarioId() bool {
 	if o != nil && !IsNil(o.ScenarioId) {
 		return true
 	}
@@ -75,12 +78,12 @@ func (o *A2pRegistrationUpdateRequest) HasScenarioId() bool {
 }
 
 // SetScenarioId gets a reference to the given string and assigns it to the ScenarioId field.
-func (o *A2pRegistrationUpdateRequest) SetScenarioId(v string) {
+func (o *TenDlcBrandUpdateRequest) SetScenarioId(v string) {
 	o.ScenarioId = &v
 }
 
 // GetBusinessType returns the BusinessType field value if set, zero value otherwise.
-func (o *A2pRegistrationUpdateRequest) GetBusinessType() string {
+func (o *TenDlcBrandUpdateRequest) GetBusinessType() string {
 	if o == nil || IsNil(o.BusinessType) {
 		var ret string
 		return ret
@@ -90,7 +93,7 @@ func (o *A2pRegistrationUpdateRequest) GetBusinessType() string {
 
 // GetBusinessTypeOk returns a tuple with the BusinessType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *A2pRegistrationUpdateRequest) GetBusinessTypeOk() (*string, bool) {
+func (o *TenDlcBrandUpdateRequest) GetBusinessTypeOk() (*string, bool) {
 	if o == nil || IsNil(o.BusinessType) {
 		return nil, false
 	}
@@ -98,7 +101,7 @@ func (o *A2pRegistrationUpdateRequest) GetBusinessTypeOk() (*string, bool) {
 }
 
 // HasBusinessType returns a boolean if a field has been set.
-func (o *A2pRegistrationUpdateRequest) HasBusinessType() bool {
+func (o *TenDlcBrandUpdateRequest) HasBusinessType() bool {
 	if o != nil && !IsNil(o.BusinessType) {
 		return true
 	}
@@ -107,12 +110,12 @@ func (o *A2pRegistrationUpdateRequest) HasBusinessType() bool {
 }
 
 // SetBusinessType gets a reference to the given string and assigns it to the BusinessType field.
-func (o *A2pRegistrationUpdateRequest) SetBusinessType(v string) {
+func (o *TenDlcBrandUpdateRequest) SetBusinessType(v string) {
 	o.BusinessType = &v
 }
 
 // GetLegalName returns the LegalName field value if set, zero value otherwise.
-func (o *A2pRegistrationUpdateRequest) GetLegalName() string {
+func (o *TenDlcBrandUpdateRequest) GetLegalName() string {
 	if o == nil || IsNil(o.LegalName) {
 		var ret string
 		return ret
@@ -122,7 +125,7 @@ func (o *A2pRegistrationUpdateRequest) GetLegalName() string {
 
 // GetLegalNameOk returns a tuple with the LegalName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *A2pRegistrationUpdateRequest) GetLegalNameOk() (*string, bool) {
+func (o *TenDlcBrandUpdateRequest) GetLegalNameOk() (*string, bool) {
 	if o == nil || IsNil(o.LegalName) {
 		return nil, false
 	}
@@ -130,7 +133,7 @@ func (o *A2pRegistrationUpdateRequest) GetLegalNameOk() (*string, bool) {
 }
 
 // HasLegalName returns a boolean if a field has been set.
-func (o *A2pRegistrationUpdateRequest) HasLegalName() bool {
+func (o *TenDlcBrandUpdateRequest) HasLegalName() bool {
 	if o != nil && !IsNil(o.LegalName) {
 		return true
 	}
@@ -139,12 +142,12 @@ func (o *A2pRegistrationUpdateRequest) HasLegalName() bool {
 }
 
 // SetLegalName gets a reference to the given string and assigns it to the LegalName field.
-func (o *A2pRegistrationUpdateRequest) SetLegalName(v string) {
+func (o *TenDlcBrandUpdateRequest) SetLegalName(v string) {
 	o.LegalName = &v
 }
 
 // GetTaxId returns the TaxId field value if set, zero value otherwise.
-func (o *A2pRegistrationUpdateRequest) GetTaxId() string {
+func (o *TenDlcBrandUpdateRequest) GetTaxId() string {
 	if o == nil || IsNil(o.TaxId) {
 		var ret string
 		return ret
@@ -154,7 +157,7 @@ func (o *A2pRegistrationUpdateRequest) GetTaxId() string {
 
 // GetTaxIdOk returns a tuple with the TaxId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *A2pRegistrationUpdateRequest) GetTaxIdOk() (*string, bool) {
+func (o *TenDlcBrandUpdateRequest) GetTaxIdOk() (*string, bool) {
 	if o == nil || IsNil(o.TaxId) {
 		return nil, false
 	}
@@ -162,7 +165,7 @@ func (o *A2pRegistrationUpdateRequest) GetTaxIdOk() (*string, bool) {
 }
 
 // HasTaxId returns a boolean if a field has been set.
-func (o *A2pRegistrationUpdateRequest) HasTaxId() bool {
+func (o *TenDlcBrandUpdateRequest) HasTaxId() bool {
 	if o != nil && !IsNil(o.TaxId) {
 		return true
 	}
@@ -171,12 +174,12 @@ func (o *A2pRegistrationUpdateRequest) HasTaxId() bool {
 }
 
 // SetTaxId gets a reference to the given string and assigns it to the TaxId field.
-func (o *A2pRegistrationUpdateRequest) SetTaxId(v string) {
+func (o *TenDlcBrandUpdateRequest) SetTaxId(v string) {
 	o.TaxId = &v
 }
 
 // GetWebsite returns the Website field value if set, zero value otherwise.
-func (o *A2pRegistrationUpdateRequest) GetWebsite() string {
+func (o *TenDlcBrandUpdateRequest) GetWebsite() string {
 	if o == nil || IsNil(o.Website) {
 		var ret string
 		return ret
@@ -186,7 +189,7 @@ func (o *A2pRegistrationUpdateRequest) GetWebsite() string {
 
 // GetWebsiteOk returns a tuple with the Website field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *A2pRegistrationUpdateRequest) GetWebsiteOk() (*string, bool) {
+func (o *TenDlcBrandUpdateRequest) GetWebsiteOk() (*string, bool) {
 	if o == nil || IsNil(o.Website) {
 		return nil, false
 	}
@@ -194,7 +197,7 @@ func (o *A2pRegistrationUpdateRequest) GetWebsiteOk() (*string, bool) {
 }
 
 // HasWebsite returns a boolean if a field has been set.
-func (o *A2pRegistrationUpdateRequest) HasWebsite() bool {
+func (o *TenDlcBrandUpdateRequest) HasWebsite() bool {
 	if o != nil && !IsNil(o.Website) {
 		return true
 	}
@@ -203,12 +206,12 @@ func (o *A2pRegistrationUpdateRequest) HasWebsite() bool {
 }
 
 // SetWebsite gets a reference to the given string and assigns it to the Website field.
-func (o *A2pRegistrationUpdateRequest) SetWebsite(v string) {
+func (o *TenDlcBrandUpdateRequest) SetWebsite(v string) {
 	o.Website = &v
 }
 
 // GetCountry returns the Country field value if set, zero value otherwise.
-func (o *A2pRegistrationUpdateRequest) GetCountry() string {
+func (o *TenDlcBrandUpdateRequest) GetCountry() string {
 	if o == nil || IsNil(o.Country) {
 		var ret string
 		return ret
@@ -218,7 +221,7 @@ func (o *A2pRegistrationUpdateRequest) GetCountry() string {
 
 // GetCountryOk returns a tuple with the Country field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *A2pRegistrationUpdateRequest) GetCountryOk() (*string, bool) {
+func (o *TenDlcBrandUpdateRequest) GetCountryOk() (*string, bool) {
 	if o == nil || IsNil(o.Country) {
 		return nil, false
 	}
@@ -226,7 +229,7 @@ func (o *A2pRegistrationUpdateRequest) GetCountryOk() (*string, bool) {
 }
 
 // HasCountry returns a boolean if a field has been set.
-func (o *A2pRegistrationUpdateRequest) HasCountry() bool {
+func (o *TenDlcBrandUpdateRequest) HasCountry() bool {
 	if o != nil && !IsNil(o.Country) {
 		return true
 	}
@@ -235,44 +238,140 @@ func (o *A2pRegistrationUpdateRequest) HasCountry() bool {
 }
 
 // SetCountry gets a reference to the given string and assigns it to the Country field.
-func (o *A2pRegistrationUpdateRequest) SetCountry(v string) {
+func (o *TenDlcBrandUpdateRequest) SetCountry(v string) {
 	o.Country = &v
 }
 
-// GetFullAddress returns the FullAddress field value if set, zero value otherwise.
-func (o *A2pRegistrationUpdateRequest) GetFullAddress() string {
-	if o == nil || IsNil(o.FullAddress) {
+// GetStreet returns the Street field value if set, zero value otherwise.
+func (o *TenDlcBrandUpdateRequest) GetStreet() string {
+	if o == nil || IsNil(o.Street) {
 		var ret string
 		return ret
 	}
-	return *o.FullAddress
+	return *o.Street
 }
 
-// GetFullAddressOk returns a tuple with the FullAddress field value if set, nil otherwise
+// GetStreetOk returns a tuple with the Street field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *A2pRegistrationUpdateRequest) GetFullAddressOk() (*string, bool) {
-	if o == nil || IsNil(o.FullAddress) {
+func (o *TenDlcBrandUpdateRequest) GetStreetOk() (*string, bool) {
+	if o == nil || IsNil(o.Street) {
 		return nil, false
 	}
-	return o.FullAddress, true
+	return o.Street, true
 }
 
-// HasFullAddress returns a boolean if a field has been set.
-func (o *A2pRegistrationUpdateRequest) HasFullAddress() bool {
-	if o != nil && !IsNil(o.FullAddress) {
+// HasStreet returns a boolean if a field has been set.
+func (o *TenDlcBrandUpdateRequest) HasStreet() bool {
+	if o != nil && !IsNil(o.Street) {
 		return true
 	}
 
 	return false
 }
 
-// SetFullAddress gets a reference to the given string and assigns it to the FullAddress field.
-func (o *A2pRegistrationUpdateRequest) SetFullAddress(v string) {
-	o.FullAddress = &v
+// SetStreet gets a reference to the given string and assigns it to the Street field.
+func (o *TenDlcBrandUpdateRequest) SetStreet(v string) {
+	o.Street = &v
+}
+
+// GetCity returns the City field value if set, zero value otherwise.
+func (o *TenDlcBrandUpdateRequest) GetCity() string {
+	if o == nil || IsNil(o.City) {
+		var ret string
+		return ret
+	}
+	return *o.City
+}
+
+// GetCityOk returns a tuple with the City field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TenDlcBrandUpdateRequest) GetCityOk() (*string, bool) {
+	if o == nil || IsNil(o.City) {
+		return nil, false
+	}
+	return o.City, true
+}
+
+// HasCity returns a boolean if a field has been set.
+func (o *TenDlcBrandUpdateRequest) HasCity() bool {
+	if o != nil && !IsNil(o.City) {
+		return true
+	}
+
+	return false
+}
+
+// SetCity gets a reference to the given string and assigns it to the City field.
+func (o *TenDlcBrandUpdateRequest) SetCity(v string) {
+	o.City = &v
+}
+
+// GetState returns the State field value if set, zero value otherwise.
+func (o *TenDlcBrandUpdateRequest) GetState() string {
+	if o == nil || IsNil(o.State) {
+		var ret string
+		return ret
+	}
+	return *o.State
+}
+
+// GetStateOk returns a tuple with the State field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TenDlcBrandUpdateRequest) GetStateOk() (*string, bool) {
+	if o == nil || IsNil(o.State) {
+		return nil, false
+	}
+	return o.State, true
+}
+
+// HasState returns a boolean if a field has been set.
+func (o *TenDlcBrandUpdateRequest) HasState() bool {
+	if o != nil && !IsNil(o.State) {
+		return true
+	}
+
+	return false
+}
+
+// SetState gets a reference to the given string and assigns it to the State field.
+func (o *TenDlcBrandUpdateRequest) SetState(v string) {
+	o.State = &v
+}
+
+// GetPostalCode returns the PostalCode field value if set, zero value otherwise.
+func (o *TenDlcBrandUpdateRequest) GetPostalCode() string {
+	if o == nil || IsNil(o.PostalCode) {
+		var ret string
+		return ret
+	}
+	return *o.PostalCode
+}
+
+// GetPostalCodeOk returns a tuple with the PostalCode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TenDlcBrandUpdateRequest) GetPostalCodeOk() (*string, bool) {
+	if o == nil || IsNil(o.PostalCode) {
+		return nil, false
+	}
+	return o.PostalCode, true
+}
+
+// HasPostalCode returns a boolean if a field has been set.
+func (o *TenDlcBrandUpdateRequest) HasPostalCode() bool {
+	if o != nil && !IsNil(o.PostalCode) {
+		return true
+	}
+
+	return false
+}
+
+// SetPostalCode gets a reference to the given string and assigns it to the PostalCode field.
+func (o *TenDlcBrandUpdateRequest) SetPostalCode(v string) {
+	o.PostalCode = &v
 }
 
 // GetComplianceContactEmail returns the ComplianceContactEmail field value if set, zero value otherwise.
-func (o *A2pRegistrationUpdateRequest) GetComplianceContactEmail() string {
+func (o *TenDlcBrandUpdateRequest) GetComplianceContactEmail() string {
 	if o == nil || IsNil(o.ComplianceContactEmail) {
 		var ret string
 		return ret
@@ -282,7 +381,7 @@ func (o *A2pRegistrationUpdateRequest) GetComplianceContactEmail() string {
 
 // GetComplianceContactEmailOk returns a tuple with the ComplianceContactEmail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *A2pRegistrationUpdateRequest) GetComplianceContactEmailOk() (*string, bool) {
+func (o *TenDlcBrandUpdateRequest) GetComplianceContactEmailOk() (*string, bool) {
 	if o == nil || IsNil(o.ComplianceContactEmail) {
 		return nil, false
 	}
@@ -290,7 +389,7 @@ func (o *A2pRegistrationUpdateRequest) GetComplianceContactEmailOk() (*string, b
 }
 
 // HasComplianceContactEmail returns a boolean if a field has been set.
-func (o *A2pRegistrationUpdateRequest) HasComplianceContactEmail() bool {
+func (o *TenDlcBrandUpdateRequest) HasComplianceContactEmail() bool {
 	if o != nil && !IsNil(o.ComplianceContactEmail) {
 		return true
 	}
@@ -299,12 +398,12 @@ func (o *A2pRegistrationUpdateRequest) HasComplianceContactEmail() bool {
 }
 
 // SetComplianceContactEmail gets a reference to the given string and assigns it to the ComplianceContactEmail field.
-func (o *A2pRegistrationUpdateRequest) SetComplianceContactEmail(v string) {
+func (o *TenDlcBrandUpdateRequest) SetComplianceContactEmail(v string) {
 	o.ComplianceContactEmail = &v
 }
 
 // GetComplianceContactPhone returns the ComplianceContactPhone field value if set, zero value otherwise.
-func (o *A2pRegistrationUpdateRequest) GetComplianceContactPhone() string {
+func (o *TenDlcBrandUpdateRequest) GetComplianceContactPhone() string {
 	if o == nil || IsNil(o.ComplianceContactPhone) {
 		var ret string
 		return ret
@@ -314,7 +413,7 @@ func (o *A2pRegistrationUpdateRequest) GetComplianceContactPhone() string {
 
 // GetComplianceContactPhoneOk returns a tuple with the ComplianceContactPhone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *A2pRegistrationUpdateRequest) GetComplianceContactPhoneOk() (*string, bool) {
+func (o *TenDlcBrandUpdateRequest) GetComplianceContactPhoneOk() (*string, bool) {
 	if o == nil || IsNil(o.ComplianceContactPhone) {
 		return nil, false
 	}
@@ -322,7 +421,7 @@ func (o *A2pRegistrationUpdateRequest) GetComplianceContactPhoneOk() (*string, b
 }
 
 // HasComplianceContactPhone returns a boolean if a field has been set.
-func (o *A2pRegistrationUpdateRequest) HasComplianceContactPhone() bool {
+func (o *TenDlcBrandUpdateRequest) HasComplianceContactPhone() bool {
 	if o != nil && !IsNil(o.ComplianceContactPhone) {
 		return true
 	}
@@ -331,11 +430,11 @@ func (o *A2pRegistrationUpdateRequest) HasComplianceContactPhone() bool {
 }
 
 // SetComplianceContactPhone gets a reference to the given string and assigns it to the ComplianceContactPhone field.
-func (o *A2pRegistrationUpdateRequest) SetComplianceContactPhone(v string) {
+func (o *TenDlcBrandUpdateRequest) SetComplianceContactPhone(v string) {
 	o.ComplianceContactPhone = &v
 }
 
-func (o A2pRegistrationUpdateRequest) MarshalJSON() ([]byte, error) {
+func (o TenDlcBrandUpdateRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -343,7 +442,7 @@ func (o A2pRegistrationUpdateRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o A2pRegistrationUpdateRequest) ToMap() (map[string]interface{}, error) {
+func (o TenDlcBrandUpdateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.ScenarioId) {
 		toSerialize["scenarioId"] = o.ScenarioId
@@ -363,8 +462,17 @@ func (o A2pRegistrationUpdateRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Country) {
 		toSerialize["country"] = o.Country
 	}
-	if !IsNil(o.FullAddress) {
-		toSerialize["fullAddress"] = o.FullAddress
+	if !IsNil(o.Street) {
+		toSerialize["street"] = o.Street
+	}
+	if !IsNil(o.City) {
+		toSerialize["city"] = o.City
+	}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
+	if !IsNil(o.PostalCode) {
+		toSerialize["postalCode"] = o.PostalCode
 	}
 	if !IsNil(o.ComplianceContactEmail) {
 		toSerialize["complianceContactEmail"] = o.ComplianceContactEmail
@@ -375,38 +483,38 @@ func (o A2pRegistrationUpdateRequest) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-type NullableA2pRegistrationUpdateRequest struct {
-	value *A2pRegistrationUpdateRequest
+type NullableTenDlcBrandUpdateRequest struct {
+	value *TenDlcBrandUpdateRequest
 	isSet bool
 }
 
-func (v NullableA2pRegistrationUpdateRequest) Get() *A2pRegistrationUpdateRequest {
+func (v NullableTenDlcBrandUpdateRequest) Get() *TenDlcBrandUpdateRequest {
 	return v.value
 }
 
-func (v *NullableA2pRegistrationUpdateRequest) Set(val *A2pRegistrationUpdateRequest) {
+func (v *NullableTenDlcBrandUpdateRequest) Set(val *TenDlcBrandUpdateRequest) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableA2pRegistrationUpdateRequest) IsSet() bool {
+func (v NullableTenDlcBrandUpdateRequest) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableA2pRegistrationUpdateRequest) Unset() {
+func (v *NullableTenDlcBrandUpdateRequest) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableA2pRegistrationUpdateRequest(val *A2pRegistrationUpdateRequest) *NullableA2pRegistrationUpdateRequest {
-	return &NullableA2pRegistrationUpdateRequest{value: val, isSet: true}
+func NewNullableTenDlcBrandUpdateRequest(val *TenDlcBrandUpdateRequest) *NullableTenDlcBrandUpdateRequest {
+	return &NullableTenDlcBrandUpdateRequest{value: val, isSet: true}
 }
 
-func (v NullableA2pRegistrationUpdateRequest) MarshalJSON() ([]byte, error) {
+func (v NullableTenDlcBrandUpdateRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableA2pRegistrationUpdateRequest) UnmarshalJSON(src []byte) error {
+func (v *NullableTenDlcBrandUpdateRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

@@ -21,18 +21,8 @@ var _ MappedNullable = &OrganizationUsage{}
 
 // OrganizationUsage Response for GET /account/organization/usage
 type OrganizationUsage struct {
-	// Total message usage (EMAIL + INAPP_WEB + WEB_PUSH + PUSH + SLACK)
-	MessageUsage float32 `json:"messageUsage"`
-	// Total budget usage in USD (cost_SMS + cost_CALL + cost_NUMBER)
-	BudgetUsage float32 `json:"budgetUsage"`
-	// SMS cost in USD
-	CostSms float32 `json:"costSms"`
-	// Call cost in USD
-	CostCall float32 `json:"costCall"`
-	// Phone number rent in USD
-	CostNumber float32 `json:"costNumber"`
-	// Per-channel usage breakdown
-	ChannelUsages map[string]float32 `json:"channelUsages"`
+	Costs  *OrganizationUsageCosts  `json:"costs,omitempty"`
+	Counts *OrganizationUsageCounts `json:"counts,omitempty"`
 	// Billing cycle start date (ISO string)
 	BillingCycleStart string `json:"billingCycleStart"`
 	// Billing cycle end date (ISO string)
@@ -45,14 +35,8 @@ type _OrganizationUsage OrganizationUsage
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOrganizationUsage(messageUsage float32, budgetUsage float32, costSms float32, costCall float32, costNumber float32, channelUsages map[string]float32, billingCycleStart string, billingCycleEnd string) *OrganizationUsage {
+func NewOrganizationUsage(billingCycleStart string, billingCycleEnd string) *OrganizationUsage {
 	this := OrganizationUsage{}
-	this.MessageUsage = messageUsage
-	this.BudgetUsage = budgetUsage
-	this.CostSms = costSms
-	this.CostCall = costCall
-	this.CostNumber = costNumber
-	this.ChannelUsages = channelUsages
 	this.BillingCycleStart = billingCycleStart
 	this.BillingCycleEnd = billingCycleEnd
 	return &this
@@ -66,148 +50,68 @@ func NewOrganizationUsageWithDefaults() *OrganizationUsage {
 	return &this
 }
 
-// GetMessageUsage returns the MessageUsage field value
-func (o *OrganizationUsage) GetMessageUsage() float32 {
-	if o == nil {
-		var ret float32
+// GetCosts returns the Costs field value if set, zero value otherwise.
+func (o *OrganizationUsage) GetCosts() OrganizationUsageCosts {
+	if o == nil || IsNil(o.Costs) {
+		var ret OrganizationUsageCosts
 		return ret
 	}
-
-	return o.MessageUsage
+	return *o.Costs
 }
 
-// GetMessageUsageOk returns a tuple with the MessageUsage field value
+// GetCostsOk returns a tuple with the Costs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OrganizationUsage) GetMessageUsageOk() (*float32, bool) {
-	if o == nil {
+func (o *OrganizationUsage) GetCostsOk() (*OrganizationUsageCosts, bool) {
+	if o == nil || IsNil(o.Costs) {
 		return nil, false
 	}
-	return &o.MessageUsage, true
+	return o.Costs, true
 }
 
-// SetMessageUsage sets field value
-func (o *OrganizationUsage) SetMessageUsage(v float32) {
-	o.MessageUsage = v
+// HasCosts returns a boolean if a field has been set.
+func (o *OrganizationUsage) HasCosts() bool {
+	if o != nil && !IsNil(o.Costs) {
+		return true
+	}
+
+	return false
 }
 
-// GetBudgetUsage returns the BudgetUsage field value
-func (o *OrganizationUsage) GetBudgetUsage() float32 {
-	if o == nil {
-		var ret float32
+// SetCosts gets a reference to the given OrganizationUsageCosts and assigns it to the Costs field.
+func (o *OrganizationUsage) SetCosts(v OrganizationUsageCosts) {
+	o.Costs = &v
+}
+
+// GetCounts returns the Counts field value if set, zero value otherwise.
+func (o *OrganizationUsage) GetCounts() OrganizationUsageCounts {
+	if o == nil || IsNil(o.Counts) {
+		var ret OrganizationUsageCounts
 		return ret
 	}
-
-	return o.BudgetUsage
+	return *o.Counts
 }
 
-// GetBudgetUsageOk returns a tuple with the BudgetUsage field value
+// GetCountsOk returns a tuple with the Counts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OrganizationUsage) GetBudgetUsageOk() (*float32, bool) {
-	if o == nil {
+func (o *OrganizationUsage) GetCountsOk() (*OrganizationUsageCounts, bool) {
+	if o == nil || IsNil(o.Counts) {
 		return nil, false
 	}
-	return &o.BudgetUsage, true
+	return o.Counts, true
 }
 
-// SetBudgetUsage sets field value
-func (o *OrganizationUsage) SetBudgetUsage(v float32) {
-	o.BudgetUsage = v
-}
-
-// GetCostSms returns the CostSms field value
-func (o *OrganizationUsage) GetCostSms() float32 {
-	if o == nil {
-		var ret float32
-		return ret
+// HasCounts returns a boolean if a field has been set.
+func (o *OrganizationUsage) HasCounts() bool {
+	if o != nil && !IsNil(o.Counts) {
+		return true
 	}
 
-	return o.CostSms
+	return false
 }
 
-// GetCostSmsOk returns a tuple with the CostSms field value
-// and a boolean to check if the value has been set.
-func (o *OrganizationUsage) GetCostSmsOk() (*float32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CostSms, true
-}
-
-// SetCostSms sets field value
-func (o *OrganizationUsage) SetCostSms(v float32) {
-	o.CostSms = v
-}
-
-// GetCostCall returns the CostCall field value
-func (o *OrganizationUsage) GetCostCall() float32 {
-	if o == nil {
-		var ret float32
-		return ret
-	}
-
-	return o.CostCall
-}
-
-// GetCostCallOk returns a tuple with the CostCall field value
-// and a boolean to check if the value has been set.
-func (o *OrganizationUsage) GetCostCallOk() (*float32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CostCall, true
-}
-
-// SetCostCall sets field value
-func (o *OrganizationUsage) SetCostCall(v float32) {
-	o.CostCall = v
-}
-
-// GetCostNumber returns the CostNumber field value
-func (o *OrganizationUsage) GetCostNumber() float32 {
-	if o == nil {
-		var ret float32
-		return ret
-	}
-
-	return o.CostNumber
-}
-
-// GetCostNumberOk returns a tuple with the CostNumber field value
-// and a boolean to check if the value has been set.
-func (o *OrganizationUsage) GetCostNumberOk() (*float32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CostNumber, true
-}
-
-// SetCostNumber sets field value
-func (o *OrganizationUsage) SetCostNumber(v float32) {
-	o.CostNumber = v
-}
-
-// GetChannelUsages returns the ChannelUsages field value
-func (o *OrganizationUsage) GetChannelUsages() map[string]float32 {
-	if o == nil {
-		var ret map[string]float32
-		return ret
-	}
-
-	return o.ChannelUsages
-}
-
-// GetChannelUsagesOk returns a tuple with the ChannelUsages field value
-// and a boolean to check if the value has been set.
-func (o *OrganizationUsage) GetChannelUsagesOk() (*map[string]float32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ChannelUsages, true
-}
-
-// SetChannelUsages sets field value
-func (o *OrganizationUsage) SetChannelUsages(v map[string]float32) {
-	o.ChannelUsages = v
+// SetCounts gets a reference to the given OrganizationUsageCounts and assigns it to the Counts field.
+func (o *OrganizationUsage) SetCounts(v OrganizationUsageCounts) {
+	o.Counts = &v
 }
 
 // GetBillingCycleStart returns the BillingCycleStart field value
@@ -268,12 +172,12 @@ func (o OrganizationUsage) MarshalJSON() ([]byte, error) {
 
 func (o OrganizationUsage) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["messageUsage"] = o.MessageUsage
-	toSerialize["budgetUsage"] = o.BudgetUsage
-	toSerialize["costSms"] = o.CostSms
-	toSerialize["costCall"] = o.CostCall
-	toSerialize["costNumber"] = o.CostNumber
-	toSerialize["channelUsages"] = o.ChannelUsages
+	if !IsNil(o.Costs) {
+		toSerialize["costs"] = o.Costs
+	}
+	if !IsNil(o.Counts) {
+		toSerialize["counts"] = o.Counts
+	}
 	toSerialize["billingCycleStart"] = o.BillingCycleStart
 	toSerialize["billingCycleEnd"] = o.BillingCycleEnd
 	return toSerialize, nil
@@ -284,12 +188,6 @@ func (o *OrganizationUsage) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"messageUsage",
-		"budgetUsage",
-		"costSms",
-		"costCall",
-		"costNumber",
-		"channelUsages",
 		"billingCycleStart",
 		"billingCycleEnd",
 	}

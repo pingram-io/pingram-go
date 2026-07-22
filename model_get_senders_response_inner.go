@@ -22,15 +22,16 @@ var _ MappedNullable = &GetSendersResponseInner{}
 
 // GetSendersResponseInner struct for GetSendersResponseInner
 type GetSendersResponseInner struct {
-	Sender               string    `json:"sender"`
-	Status               string    `json:"status"`
-	LastSync             time.Time `json:"lastSync"`
-	VerificationTokens   []string  `json:"verificationTokens,omitempty"`
-	MailFromDomainStatus *string   `json:"mailFromDomainStatus,omitempty"`
-	CreatedAt            string    `json:"createdAt"`
-	PrivateDKIMKey       *string   `json:"privateDKIMKey,omitempty"`
-	ReminderSentAt       *string   `json:"reminderSentAt,omitempty"`
-	Selector             string    `json:"selector"`
+	Sender               string                                      `json:"sender"`
+	Status               string                                      `json:"status"`
+	LastSync             time.Time                                   `json:"lastSync"`
+	VerificationTokens   []string                                    `json:"verificationTokens,omitempty"`
+	MailFromDomainStatus *string                                     `json:"mailFromDomainStatus,omitempty"`
+	CreatedAt            string                                      `json:"createdAt"`
+	PrivateDKIMKey       *string                                     `json:"privateDKIMKey,omitempty"`
+	ReminderSentAt       *string                                     `json:"reminderSentAt,omitempty"`
+	Selector             string                                      `json:"selector"`
+	VerificationRecords  *GetSendersResponseInnerVerificationRecords `json:"verificationRecords,omitempty"`
 }
 
 type _GetSendersResponseInner GetSendersResponseInner
@@ -305,6 +306,38 @@ func (o *GetSendersResponseInner) SetSelector(v string) {
 	o.Selector = v
 }
 
+// GetVerificationRecords returns the VerificationRecords field value if set, zero value otherwise.
+func (o *GetSendersResponseInner) GetVerificationRecords() GetSendersResponseInnerVerificationRecords {
+	if o == nil || IsNil(o.VerificationRecords) {
+		var ret GetSendersResponseInnerVerificationRecords
+		return ret
+	}
+	return *o.VerificationRecords
+}
+
+// GetVerificationRecordsOk returns a tuple with the VerificationRecords field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetSendersResponseInner) GetVerificationRecordsOk() (*GetSendersResponseInnerVerificationRecords, bool) {
+	if o == nil || IsNil(o.VerificationRecords) {
+		return nil, false
+	}
+	return o.VerificationRecords, true
+}
+
+// HasVerificationRecords returns a boolean if a field has been set.
+func (o *GetSendersResponseInner) HasVerificationRecords() bool {
+	if o != nil && !IsNil(o.VerificationRecords) {
+		return true
+	}
+
+	return false
+}
+
+// SetVerificationRecords gets a reference to the given GetSendersResponseInnerVerificationRecords and assigns it to the VerificationRecords field.
+func (o *GetSendersResponseInner) SetVerificationRecords(v GetSendersResponseInnerVerificationRecords) {
+	o.VerificationRecords = &v
+}
+
 func (o GetSendersResponseInner) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -332,6 +365,9 @@ func (o GetSendersResponseInner) ToMap() (map[string]interface{}, error) {
 		toSerialize["reminderSentAt"] = o.ReminderSentAt
 	}
 	toSerialize["selector"] = o.Selector
+	if !IsNil(o.VerificationRecords) {
+		toSerialize["verificationRecords"] = o.VerificationRecords
+	}
 	return toSerialize, nil
 }
 

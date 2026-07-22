@@ -21,9 +21,7 @@ var _ MappedNullable = &BillingPostRequestBody{}
 
 // BillingPostRequestBody struct for BillingPostRequestBody
 type BillingPostRequestBody struct {
-	// Price ID for the message tier (EMAIL, INAPP_WEB, WEB_PUSH, PUSH, SLACK)
-	MessagePriceId *string `json:"messagePriceId,omitempty"`
-	// Price ID for the budget tier (SMS, CALL)
+	// Price ID for a monthly budget tier (all channels).
 	BudgetPriceId *string `json:"budgetPriceId,omitempty"`
 	SuccessUrl    string  `json:"successUrl"`
 	CancelUrl     string  `json:"cancelUrl"`
@@ -48,38 +46,6 @@ func NewBillingPostRequestBody(successUrl string, cancelUrl string) *BillingPost
 func NewBillingPostRequestBodyWithDefaults() *BillingPostRequestBody {
 	this := BillingPostRequestBody{}
 	return &this
-}
-
-// GetMessagePriceId returns the MessagePriceId field value if set, zero value otherwise.
-func (o *BillingPostRequestBody) GetMessagePriceId() string {
-	if o == nil || IsNil(o.MessagePriceId) {
-		var ret string
-		return ret
-	}
-	return *o.MessagePriceId
-}
-
-// GetMessagePriceIdOk returns a tuple with the MessagePriceId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BillingPostRequestBody) GetMessagePriceIdOk() (*string, bool) {
-	if o == nil || IsNil(o.MessagePriceId) {
-		return nil, false
-	}
-	return o.MessagePriceId, true
-}
-
-// HasMessagePriceId returns a boolean if a field has been set.
-func (o *BillingPostRequestBody) HasMessagePriceId() bool {
-	if o != nil && !IsNil(o.MessagePriceId) {
-		return true
-	}
-
-	return false
-}
-
-// SetMessagePriceId gets a reference to the given string and assigns it to the MessagePriceId field.
-func (o *BillingPostRequestBody) SetMessagePriceId(v string) {
-	o.MessagePriceId = &v
 }
 
 // GetBudgetPriceId returns the BudgetPriceId field value if set, zero value otherwise.
@@ -172,9 +138,6 @@ func (o BillingPostRequestBody) MarshalJSON() ([]byte, error) {
 
 func (o BillingPostRequestBody) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.MessagePriceId) {
-		toSerialize["messagePriceId"] = o.MessagePriceId
-	}
 	if !IsNil(o.BudgetPriceId) {
 		toSerialize["budgetPriceId"] = o.BudgetPriceId
 	}
