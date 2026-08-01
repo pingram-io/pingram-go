@@ -32,7 +32,7 @@ func (r ApiNumbersListRequest) Execute() (*ListPhoneNumbersResponse, *http.Respo
 }
 
 /*
-NumbersList List active phone numbers registered for the account.
+NumbersList List active phone numbers registered for the account, including voice agent binding state.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiNumbersListRequest

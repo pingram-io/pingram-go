@@ -23,6 +23,8 @@ var _ MappedNullable = &PhoneVerifyConfirmRequest{}
 type PhoneVerifyConfirmRequest struct {
 	Code           string `json:"code"`
 	TurnstileToken string `json:"turnstileToken"`
+	// First-touch PostHog props from the client; attached to signup events.
+	Attribution *map[string]string `json:"attribution,omitempty"`
 }
 
 type _PhoneVerifyConfirmRequest PhoneVerifyConfirmRequest
@@ -94,6 +96,38 @@ func (o *PhoneVerifyConfirmRequest) SetTurnstileToken(v string) {
 	o.TurnstileToken = v
 }
 
+// GetAttribution returns the Attribution field value if set, zero value otherwise.
+func (o *PhoneVerifyConfirmRequest) GetAttribution() map[string]string {
+	if o == nil || IsNil(o.Attribution) {
+		var ret map[string]string
+		return ret
+	}
+	return *o.Attribution
+}
+
+// GetAttributionOk returns a tuple with the Attribution field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PhoneVerifyConfirmRequest) GetAttributionOk() (*map[string]string, bool) {
+	if o == nil || IsNil(o.Attribution) {
+		return nil, false
+	}
+	return o.Attribution, true
+}
+
+// HasAttribution returns a boolean if a field has been set.
+func (o *PhoneVerifyConfirmRequest) HasAttribution() bool {
+	if o != nil && !IsNil(o.Attribution) {
+		return true
+	}
+
+	return false
+}
+
+// SetAttribution gets a reference to the given map[string]string and assigns it to the Attribution field.
+func (o *PhoneVerifyConfirmRequest) SetAttribution(v map[string]string) {
+	o.Attribution = &v
+}
+
 func (o PhoneVerifyConfirmRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -106,6 +140,9 @@ func (o PhoneVerifyConfirmRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["code"] = o.Code
 	toSerialize["turnstileToken"] = o.TurnstileToken
+	if !IsNil(o.Attribution) {
+		toSerialize["attribution"] = o.Attribution
+	}
 	return toSerialize, nil
 }
 

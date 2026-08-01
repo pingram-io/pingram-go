@@ -93,6 +93,8 @@ type Client struct {
 
 	UsersAPI *UsersAPIService
 
+	VoiceAPI *VoiceAPIService
+
 	WebhooksAPI *WebhooksAPIService
 }
 
@@ -160,6 +162,8 @@ func NewClient(apiKey string, opts ...ClientOption) *Client {
 	c.UserAPI = (*UserAPIService)(&c.common)
 
 	c.UsersAPI = (*UsersAPIService)(&c.common)
+
+	c.VoiceAPI = (*VoiceAPIService)(&c.common)
 
 	c.WebhooksAPI = (*WebhooksAPIService)(&c.common)
 

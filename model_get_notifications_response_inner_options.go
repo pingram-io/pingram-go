@@ -23,6 +23,7 @@ type GetNotificationsResponseInnerOptions struct {
 	INAPP_WEB *GetInappNotificationsResponseNotificationsInnerDeliveryOptions `json:"INAPP_WEB,omitempty"`
 	SMS       *GetNotificationsResponseInnerOptionsEMAIL                      `json:"SMS,omitempty"`
 	CALL      *GetNotificationsResponseInnerOptionsEMAIL                      `json:"CALL,omitempty"`
+	VOICE     *GetNotificationsResponseInnerOptionsEMAIL                      `json:"VOICE,omitempty"`
 	PUSH      *GetNotificationsResponseInnerOptionsEMAIL                      `json:"PUSH,omitempty"`
 	WEB_PUSH  *GetNotificationsResponseInnerOptionsEMAIL                      `json:"WEB_PUSH,omitempty"`
 	SLACK     *GetNotificationsResponseInnerOptionsEMAIL                      `json:"SLACK,omitempty"`
@@ -173,6 +174,38 @@ func (o *GetNotificationsResponseInnerOptions) SetCALL(v GetNotificationsRespons
 	o.CALL = &v
 }
 
+// GetVOICE returns the VOICE field value if set, zero value otherwise.
+func (o *GetNotificationsResponseInnerOptions) GetVOICE() GetNotificationsResponseInnerOptionsEMAIL {
+	if o == nil || IsNil(o.VOICE) {
+		var ret GetNotificationsResponseInnerOptionsEMAIL
+		return ret
+	}
+	return *o.VOICE
+}
+
+// GetVOICEOk returns a tuple with the VOICE field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetNotificationsResponseInnerOptions) GetVOICEOk() (*GetNotificationsResponseInnerOptionsEMAIL, bool) {
+	if o == nil || IsNil(o.VOICE) {
+		return nil, false
+	}
+	return o.VOICE, true
+}
+
+// HasVOICE returns a boolean if a field has been set.
+func (o *GetNotificationsResponseInnerOptions) HasVOICE() bool {
+	if o != nil && !IsNil(o.VOICE) {
+		return true
+	}
+
+	return false
+}
+
+// SetVOICE gets a reference to the given GetNotificationsResponseInnerOptionsEMAIL and assigns it to the VOICE field.
+func (o *GetNotificationsResponseInnerOptions) SetVOICE(v GetNotificationsResponseInnerOptionsEMAIL) {
+	o.VOICE = &v
+}
+
 // GetPUSH returns the PUSH field value if set, zero value otherwise.
 func (o *GetNotificationsResponseInnerOptions) GetPUSH() GetNotificationsResponseInnerOptionsEMAIL {
 	if o == nil || IsNil(o.PUSH) {
@@ -290,6 +323,9 @@ func (o GetNotificationsResponseInnerOptions) ToMap() (map[string]interface{}, e
 	}
 	if !IsNil(o.CALL) {
 		toSerialize["CALL"] = o.CALL
+	}
+	if !IsNil(o.VOICE) {
+		toSerialize["VOICE"] = o.VOICE
 	}
 	if !IsNil(o.PUSH) {
 		toSerialize["PUSH"] = o.PUSH

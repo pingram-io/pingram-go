@@ -40,6 +40,8 @@ type ListPhoneNumbersResponseNumbersInner struct {
 	A2pStatus *string `json:"a2pStatus,omitempty"`
 	// ISO timestamp when the number was released (released numbers only)
 	ReleasedAt *string `json:"releasedAt,omitempty"`
+	// Voice agent id bound for inbound AI voice, if any
+	BoundAgentId *string `json:"boundAgentId,omitempty"`
 }
 
 type _ListPhoneNumbersResponseNumbersInner ListPhoneNumbersResponseNumbersInner
@@ -332,6 +334,38 @@ func (o *ListPhoneNumbersResponseNumbersInner) SetReleasedAt(v string) {
 	o.ReleasedAt = &v
 }
 
+// GetBoundAgentId returns the BoundAgentId field value if set, zero value otherwise.
+func (o *ListPhoneNumbersResponseNumbersInner) GetBoundAgentId() string {
+	if o == nil || IsNil(o.BoundAgentId) {
+		var ret string
+		return ret
+	}
+	return *o.BoundAgentId
+}
+
+// GetBoundAgentIdOk returns a tuple with the BoundAgentId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ListPhoneNumbersResponseNumbersInner) GetBoundAgentIdOk() (*string, bool) {
+	if o == nil || IsNil(o.BoundAgentId) {
+		return nil, false
+	}
+	return o.BoundAgentId, true
+}
+
+// HasBoundAgentId returns a boolean if a field has been set.
+func (o *ListPhoneNumbersResponseNumbersInner) HasBoundAgentId() bool {
+	if o != nil && !IsNil(o.BoundAgentId) {
+		return true
+	}
+
+	return false
+}
+
+// SetBoundAgentId gets a reference to the given string and assigns it to the BoundAgentId field.
+func (o *ListPhoneNumbersResponseNumbersInner) SetBoundAgentId(v string) {
+	o.BoundAgentId = &v
+}
+
 func (o ListPhoneNumbersResponseNumbersInner) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -357,6 +391,9 @@ func (o ListPhoneNumbersResponseNumbersInner) ToMap() (map[string]interface{}, e
 	}
 	if !IsNil(o.ReleasedAt) {
 		toSerialize["releasedAt"] = o.ReleasedAt
+	}
+	if !IsNil(o.BoundAgentId) {
+		toSerialize["boundAgentId"] = o.BoundAgentId
 	}
 	return toSerialize, nil
 }

@@ -24,6 +24,7 @@ const (
 	INAPP_WEB ChannelsEnum = "INAPP_WEB"
 	SMS       ChannelsEnum = "SMS"
 	CALL      ChannelsEnum = "CALL"
+	VOICE     ChannelsEnum = "VOICE"
 	PUSH      ChannelsEnum = "PUSH"
 	WEB_PUSH  ChannelsEnum = "WEB_PUSH"
 	SLACK     ChannelsEnum = "SLACK"
@@ -35,6 +36,7 @@ var AllowedChannelsEnumEnumValues = []ChannelsEnum{
 	"INAPP_WEB",
 	"SMS",
 	"CALL",
+	"VOICE",
 	"PUSH",
 	"WEB_PUSH",
 	"SLACK",

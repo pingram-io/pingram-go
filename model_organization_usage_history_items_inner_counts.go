@@ -25,6 +25,7 @@ type OrganizationUsageHistoryItemsInnerCounts struct {
 	INAPP_WEB float32 `json:"INAPP_WEB"`
 	SMS       float32 `json:"SMS"`
 	CALL      float32 `json:"CALL"`
+	VOICE     float32 `json:"VOICE"`
 	PUSH      float32 `json:"PUSH"`
 	WEB_PUSH  float32 `json:"WEB_PUSH"`
 	SLACK     float32 `json:"SLACK"`
@@ -36,12 +37,13 @@ type _OrganizationUsageHistoryItemsInnerCounts OrganizationUsageHistoryItemsInne
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOrganizationUsageHistoryItemsInnerCounts(eMAIL float32, iNAPPWEB float32, sMS float32, cALL float32, pUSH float32, wEBPUSH float32, sLACK float32) *OrganizationUsageHistoryItemsInnerCounts {
+func NewOrganizationUsageHistoryItemsInnerCounts(eMAIL float32, iNAPPWEB float32, sMS float32, cALL float32, vOICE float32, pUSH float32, wEBPUSH float32, sLACK float32) *OrganizationUsageHistoryItemsInnerCounts {
 	this := OrganizationUsageHistoryItemsInnerCounts{}
 	this.EMAIL = eMAIL
 	this.INAPP_WEB = iNAPPWEB
 	this.SMS = sMS
 	this.CALL = cALL
+	this.VOICE = vOICE
 	this.PUSH = pUSH
 	this.WEB_PUSH = wEBPUSH
 	this.SLACK = sLACK
@@ -152,6 +154,30 @@ func (o *OrganizationUsageHistoryItemsInnerCounts) SetCALL(v float32) {
 	o.CALL = v
 }
 
+// GetVOICE returns the VOICE field value
+func (o *OrganizationUsageHistoryItemsInnerCounts) GetVOICE() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.VOICE
+}
+
+// GetVOICEOk returns a tuple with the VOICE field value
+// and a boolean to check if the value has been set.
+func (o *OrganizationUsageHistoryItemsInnerCounts) GetVOICEOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.VOICE, true
+}
+
+// SetVOICE sets field value
+func (o *OrganizationUsageHistoryItemsInnerCounts) SetVOICE(v float32) {
+	o.VOICE = v
+}
+
 // GetPUSH returns the PUSH field value
 func (o *OrganizationUsageHistoryItemsInnerCounts) GetPUSH() float32 {
 	if o == nil {
@@ -238,6 +264,7 @@ func (o OrganizationUsageHistoryItemsInnerCounts) ToMap() (map[string]interface{
 	toSerialize["INAPP_WEB"] = o.INAPP_WEB
 	toSerialize["SMS"] = o.SMS
 	toSerialize["CALL"] = o.CALL
+	toSerialize["VOICE"] = o.VOICE
 	toSerialize["PUSH"] = o.PUSH
 	toSerialize["WEB_PUSH"] = o.WEB_PUSH
 	toSerialize["SLACK"] = o.SLACK
@@ -253,6 +280,7 @@ func (o *OrganizationUsageHistoryItemsInnerCounts) UnmarshalJSON(data []byte) (e
 		"INAPP_WEB",
 		"SMS",
 		"CALL",
+		"VOICE",
 		"PUSH",
 		"WEB_PUSH",
 		"SLACK",

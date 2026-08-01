@@ -94,6 +94,8 @@ type APIClient struct {
 
 	UsersAPI *UsersAPIService
 
+	VoiceAPI *VoiceAPIService
+
 	WebhooksAPI *WebhooksAPIService
 }
 
@@ -136,6 +138,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.TypesAPI = (*TypesAPIService)(&c.common)
 	c.UserAPI = (*UserAPIService)(&c.common)
 	c.UsersAPI = (*UsersAPIService)(&c.common)
+	c.VoiceAPI = (*VoiceAPIService)(&c.common)
 	c.WebhooksAPI = (*WebhooksAPIService)(&c.common)
 
 	return c
