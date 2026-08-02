@@ -19,9 +19,18 @@ var _ MappedNullable = &TenDlcBrandUpdateRequest{}
 
 // TenDlcBrandUpdateRequest Request body for PATCH /registrations/us/10dlc/brand
 type TenDlcBrandUpdateRequest struct {
-	ScenarioId             *string `json:"scenarioId,omitempty"`
-	BusinessType           *string `json:"businessType,omitempty"`
-	LegalName              *string `json:"legalName,omitempty"`
+	ScenarioId   *string `json:"scenarioId,omitempty"`
+	BusinessType *string `json:"businessType,omitempty"`
+	LegalName    *string `json:"legalName,omitempty"`
+	// Brand display name (marketing/DBA); defaults to legalName when omitted on legalName-only updates.
+	DisplayName *string `json:"displayName,omitempty"`
+	FirstName   *string `json:"firstName,omitempty"`
+	LastName    *string `json:"lastName,omitempty"`
+	Vertical    *string `json:"vertical,omitempty"`
+	// Admin-only; legacy Other records. Ignored on customer PATCH.
+	EntityType *string `json:"entityType,omitempty"`
+	// Pingram-side brand registration workflow status. - not_started: no customer submission yet - pending_review: customer submitted; Pingram has not submitted to carriers - in_progress: submitted for carrier review - approved | rejected | info_needed: review outcome
+	BrandStatus            *string `json:"brandStatus,omitempty"`
 	TaxId                  *string `json:"taxId,omitempty"`
 	Website                *string `json:"website,omitempty"`
 	Country                *string `json:"country,omitempty"`
@@ -144,6 +153,198 @@ func (o *TenDlcBrandUpdateRequest) HasLegalName() bool {
 // SetLegalName gets a reference to the given string and assigns it to the LegalName field.
 func (o *TenDlcBrandUpdateRequest) SetLegalName(v string) {
 	o.LegalName = &v
+}
+
+// GetDisplayName returns the DisplayName field value if set, zero value otherwise.
+func (o *TenDlcBrandUpdateRequest) GetDisplayName() string {
+	if o == nil || IsNil(o.DisplayName) {
+		var ret string
+		return ret
+	}
+	return *o.DisplayName
+}
+
+// GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TenDlcBrandUpdateRequest) GetDisplayNameOk() (*string, bool) {
+	if o == nil || IsNil(o.DisplayName) {
+		return nil, false
+	}
+	return o.DisplayName, true
+}
+
+// HasDisplayName returns a boolean if a field has been set.
+func (o *TenDlcBrandUpdateRequest) HasDisplayName() bool {
+	if o != nil && !IsNil(o.DisplayName) {
+		return true
+	}
+
+	return false
+}
+
+// SetDisplayName gets a reference to the given string and assigns it to the DisplayName field.
+func (o *TenDlcBrandUpdateRequest) SetDisplayName(v string) {
+	o.DisplayName = &v
+}
+
+// GetFirstName returns the FirstName field value if set, zero value otherwise.
+func (o *TenDlcBrandUpdateRequest) GetFirstName() string {
+	if o == nil || IsNil(o.FirstName) {
+		var ret string
+		return ret
+	}
+	return *o.FirstName
+}
+
+// GetFirstNameOk returns a tuple with the FirstName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TenDlcBrandUpdateRequest) GetFirstNameOk() (*string, bool) {
+	if o == nil || IsNil(o.FirstName) {
+		return nil, false
+	}
+	return o.FirstName, true
+}
+
+// HasFirstName returns a boolean if a field has been set.
+func (o *TenDlcBrandUpdateRequest) HasFirstName() bool {
+	if o != nil && !IsNil(o.FirstName) {
+		return true
+	}
+
+	return false
+}
+
+// SetFirstName gets a reference to the given string and assigns it to the FirstName field.
+func (o *TenDlcBrandUpdateRequest) SetFirstName(v string) {
+	o.FirstName = &v
+}
+
+// GetLastName returns the LastName field value if set, zero value otherwise.
+func (o *TenDlcBrandUpdateRequest) GetLastName() string {
+	if o == nil || IsNil(o.LastName) {
+		var ret string
+		return ret
+	}
+	return *o.LastName
+}
+
+// GetLastNameOk returns a tuple with the LastName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TenDlcBrandUpdateRequest) GetLastNameOk() (*string, bool) {
+	if o == nil || IsNil(o.LastName) {
+		return nil, false
+	}
+	return o.LastName, true
+}
+
+// HasLastName returns a boolean if a field has been set.
+func (o *TenDlcBrandUpdateRequest) HasLastName() bool {
+	if o != nil && !IsNil(o.LastName) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastName gets a reference to the given string and assigns it to the LastName field.
+func (o *TenDlcBrandUpdateRequest) SetLastName(v string) {
+	o.LastName = &v
+}
+
+// GetVertical returns the Vertical field value if set, zero value otherwise.
+func (o *TenDlcBrandUpdateRequest) GetVertical() string {
+	if o == nil || IsNil(o.Vertical) {
+		var ret string
+		return ret
+	}
+	return *o.Vertical
+}
+
+// GetVerticalOk returns a tuple with the Vertical field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TenDlcBrandUpdateRequest) GetVerticalOk() (*string, bool) {
+	if o == nil || IsNil(o.Vertical) {
+		return nil, false
+	}
+	return o.Vertical, true
+}
+
+// HasVertical returns a boolean if a field has been set.
+func (o *TenDlcBrandUpdateRequest) HasVertical() bool {
+	if o != nil && !IsNil(o.Vertical) {
+		return true
+	}
+
+	return false
+}
+
+// SetVertical gets a reference to the given string and assigns it to the Vertical field.
+func (o *TenDlcBrandUpdateRequest) SetVertical(v string) {
+	o.Vertical = &v
+}
+
+// GetEntityType returns the EntityType field value if set, zero value otherwise.
+func (o *TenDlcBrandUpdateRequest) GetEntityType() string {
+	if o == nil || IsNil(o.EntityType) {
+		var ret string
+		return ret
+	}
+	return *o.EntityType
+}
+
+// GetEntityTypeOk returns a tuple with the EntityType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TenDlcBrandUpdateRequest) GetEntityTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.EntityType) {
+		return nil, false
+	}
+	return o.EntityType, true
+}
+
+// HasEntityType returns a boolean if a field has been set.
+func (o *TenDlcBrandUpdateRequest) HasEntityType() bool {
+	if o != nil && !IsNil(o.EntityType) {
+		return true
+	}
+
+	return false
+}
+
+// SetEntityType gets a reference to the given string and assigns it to the EntityType field.
+func (o *TenDlcBrandUpdateRequest) SetEntityType(v string) {
+	o.EntityType = &v
+}
+
+// GetBrandStatus returns the BrandStatus field value if set, zero value otherwise.
+func (o *TenDlcBrandUpdateRequest) GetBrandStatus() string {
+	if o == nil || IsNil(o.BrandStatus) {
+		var ret string
+		return ret
+	}
+	return *o.BrandStatus
+}
+
+// GetBrandStatusOk returns a tuple with the BrandStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TenDlcBrandUpdateRequest) GetBrandStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.BrandStatus) {
+		return nil, false
+	}
+	return o.BrandStatus, true
+}
+
+// HasBrandStatus returns a boolean if a field has been set.
+func (o *TenDlcBrandUpdateRequest) HasBrandStatus() bool {
+	if o != nil && !IsNil(o.BrandStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetBrandStatus gets a reference to the given string and assigns it to the BrandStatus field.
+func (o *TenDlcBrandUpdateRequest) SetBrandStatus(v string) {
+	o.BrandStatus = &v
 }
 
 // GetTaxId returns the TaxId field value if set, zero value otherwise.
@@ -452,6 +653,24 @@ func (o TenDlcBrandUpdateRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.LegalName) {
 		toSerialize["legalName"] = o.LegalName
+	}
+	if !IsNil(o.DisplayName) {
+		toSerialize["displayName"] = o.DisplayName
+	}
+	if !IsNil(o.FirstName) {
+		toSerialize["firstName"] = o.FirstName
+	}
+	if !IsNil(o.LastName) {
+		toSerialize["lastName"] = o.LastName
+	}
+	if !IsNil(o.Vertical) {
+		toSerialize["vertical"] = o.Vertical
+	}
+	if !IsNil(o.EntityType) {
+		toSerialize["entityType"] = o.EntityType
+	}
+	if !IsNil(o.BrandStatus) {
+		toSerialize["brandStatus"] = o.BrandStatus
 	}
 	if !IsNil(o.TaxId) {
 		toSerialize["taxId"] = o.TaxId

@@ -24,6 +24,8 @@ type TenDlcBrandCreateRequest struct {
 	ScenarioId             string  `json:"scenarioId"`
 	BusinessType           string  `json:"businessType"`
 	LegalName              string  `json:"legalName"`
+	FirstName              *string `json:"firstName,omitempty"`
+	LastName               *string `json:"lastName,omitempty"`
 	TaxId                  *string `json:"taxId,omitempty"`
 	Website                string  `json:"website"`
 	Country                string  `json:"country"`
@@ -131,6 +133,70 @@ func (o *TenDlcBrandCreateRequest) GetLegalNameOk() (*string, bool) {
 // SetLegalName sets field value
 func (o *TenDlcBrandCreateRequest) SetLegalName(v string) {
 	o.LegalName = v
+}
+
+// GetFirstName returns the FirstName field value if set, zero value otherwise.
+func (o *TenDlcBrandCreateRequest) GetFirstName() string {
+	if o == nil || IsNil(o.FirstName) {
+		var ret string
+		return ret
+	}
+	return *o.FirstName
+}
+
+// GetFirstNameOk returns a tuple with the FirstName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TenDlcBrandCreateRequest) GetFirstNameOk() (*string, bool) {
+	if o == nil || IsNil(o.FirstName) {
+		return nil, false
+	}
+	return o.FirstName, true
+}
+
+// HasFirstName returns a boolean if a field has been set.
+func (o *TenDlcBrandCreateRequest) HasFirstName() bool {
+	if o != nil && !IsNil(o.FirstName) {
+		return true
+	}
+
+	return false
+}
+
+// SetFirstName gets a reference to the given string and assigns it to the FirstName field.
+func (o *TenDlcBrandCreateRequest) SetFirstName(v string) {
+	o.FirstName = &v
+}
+
+// GetLastName returns the LastName field value if set, zero value otherwise.
+func (o *TenDlcBrandCreateRequest) GetLastName() string {
+	if o == nil || IsNil(o.LastName) {
+		var ret string
+		return ret
+	}
+	return *o.LastName
+}
+
+// GetLastNameOk returns a tuple with the LastName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TenDlcBrandCreateRequest) GetLastNameOk() (*string, bool) {
+	if o == nil || IsNil(o.LastName) {
+		return nil, false
+	}
+	return o.LastName, true
+}
+
+// HasLastName returns a boolean if a field has been set.
+func (o *TenDlcBrandCreateRequest) HasLastName() bool {
+	if o != nil && !IsNil(o.LastName) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastName gets a reference to the given string and assigns it to the LastName field.
+func (o *TenDlcBrandCreateRequest) SetLastName(v string) {
+	o.LastName = &v
 }
 
 // GetTaxId returns the TaxId field value if set, zero value otherwise.
@@ -402,6 +468,12 @@ func (o TenDlcBrandCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["scenarioId"] = o.ScenarioId
 	toSerialize["businessType"] = o.BusinessType
 	toSerialize["legalName"] = o.LegalName
+	if !IsNil(o.FirstName) {
+		toSerialize["firstName"] = o.FirstName
+	}
+	if !IsNil(o.LastName) {
+		toSerialize["lastName"] = o.LastName
+	}
 	if !IsNil(o.TaxId) {
 		toSerialize["taxId"] = o.TaxId
 	}

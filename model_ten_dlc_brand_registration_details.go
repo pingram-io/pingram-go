@@ -16,11 +16,11 @@ import (
 	"fmt"
 )
 
-// checks if the TenDlcBrandRegistration type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &TenDlcBrandRegistration{}
+// checks if the TenDlcBrandRegistrationDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TenDlcBrandRegistrationDetails{}
 
-// TenDlcBrandRegistration Public response type for 10DLC brand registration
-type TenDlcBrandRegistration struct {
+// TenDlcBrandRegistrationDetails System-access GET response; includes internal Telnyx provider IDs and admin-only fields.
+type TenDlcBrandRegistrationDetails struct {
 	AccountId    string `json:"accountId"`
 	ScenarioId   string `json:"scenarioId"`
 	BusinessType string `json:"businessType"`
@@ -43,19 +43,24 @@ type TenDlcBrandRegistration struct {
 	// Pingram-side brand registration workflow status. - not_started: no customer submission yet - pending_review: customer submitted; Pingram has not submitted to carriers - in_progress: submitted for carrier review - approved | rejected | info_needed: review outcome
 	BrandStatus string `json:"brandStatus"`
 	// Pingram-side brand registration workflow status. - not_started: no customer submission yet - pending_review: customer submitted; Pingram has not submitted to carriers - in_progress: submitted for carrier review - approved | rejected | info_needed: review outcome
-	CampaignStatus string `json:"campaignStatus"`
-	CreatedAt      string `json:"createdAt"`
-	UpdatedAt      string `json:"updatedAt"`
+	CampaignStatus string  `json:"campaignStatus"`
+	CreatedAt      string  `json:"createdAt"`
+	UpdatedAt      string  `json:"updatedAt"`
+	Vertical       *string `json:"vertical,omitempty"`
+	// Legacy only when businessType is Other.
+	EntityType      *string `json:"entityType,omitempty"`
+	TelnyxProfileId *string `json:"telnyxProfileId,omitempty"`
+	TelnyxBrandId   *string `json:"telnyxBrandId,omitempty"`
 }
 
-type _TenDlcBrandRegistration TenDlcBrandRegistration
+type _TenDlcBrandRegistrationDetails TenDlcBrandRegistrationDetails
 
-// NewTenDlcBrandRegistration instantiates a new TenDlcBrandRegistration object
+// NewTenDlcBrandRegistrationDetails instantiates a new TenDlcBrandRegistrationDetails object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTenDlcBrandRegistration(accountId string, scenarioId string, businessType string, legalName string, website string, country string, complianceContactEmail string, complianceContactPhone string, brandStatus string, campaignStatus string, createdAt string, updatedAt string) *TenDlcBrandRegistration {
-	this := TenDlcBrandRegistration{}
+func NewTenDlcBrandRegistrationDetails(accountId string, scenarioId string, businessType string, legalName string, website string, country string, complianceContactEmail string, complianceContactPhone string, brandStatus string, campaignStatus string, createdAt string, updatedAt string) *TenDlcBrandRegistrationDetails {
+	this := TenDlcBrandRegistrationDetails{}
 	this.AccountId = accountId
 	this.ScenarioId = scenarioId
 	this.BusinessType = businessType
@@ -71,16 +76,16 @@ func NewTenDlcBrandRegistration(accountId string, scenarioId string, businessTyp
 	return &this
 }
 
-// NewTenDlcBrandRegistrationWithDefaults instantiates a new TenDlcBrandRegistration object
+// NewTenDlcBrandRegistrationDetailsWithDefaults instantiates a new TenDlcBrandRegistrationDetails object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewTenDlcBrandRegistrationWithDefaults() *TenDlcBrandRegistration {
-	this := TenDlcBrandRegistration{}
+func NewTenDlcBrandRegistrationDetailsWithDefaults() *TenDlcBrandRegistrationDetails {
+	this := TenDlcBrandRegistrationDetails{}
 	return &this
 }
 
 // GetAccountId returns the AccountId field value
-func (o *TenDlcBrandRegistration) GetAccountId() string {
+func (o *TenDlcBrandRegistrationDetails) GetAccountId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -91,7 +96,7 @@ func (o *TenDlcBrandRegistration) GetAccountId() string {
 
 // GetAccountIdOk returns a tuple with the AccountId field value
 // and a boolean to check if the value has been set.
-func (o *TenDlcBrandRegistration) GetAccountIdOk() (*string, bool) {
+func (o *TenDlcBrandRegistrationDetails) GetAccountIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -99,12 +104,12 @@ func (o *TenDlcBrandRegistration) GetAccountIdOk() (*string, bool) {
 }
 
 // SetAccountId sets field value
-func (o *TenDlcBrandRegistration) SetAccountId(v string) {
+func (o *TenDlcBrandRegistrationDetails) SetAccountId(v string) {
 	o.AccountId = v
 }
 
 // GetScenarioId returns the ScenarioId field value
-func (o *TenDlcBrandRegistration) GetScenarioId() string {
+func (o *TenDlcBrandRegistrationDetails) GetScenarioId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -115,7 +120,7 @@ func (o *TenDlcBrandRegistration) GetScenarioId() string {
 
 // GetScenarioIdOk returns a tuple with the ScenarioId field value
 // and a boolean to check if the value has been set.
-func (o *TenDlcBrandRegistration) GetScenarioIdOk() (*string, bool) {
+func (o *TenDlcBrandRegistrationDetails) GetScenarioIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -123,12 +128,12 @@ func (o *TenDlcBrandRegistration) GetScenarioIdOk() (*string, bool) {
 }
 
 // SetScenarioId sets field value
-func (o *TenDlcBrandRegistration) SetScenarioId(v string) {
+func (o *TenDlcBrandRegistrationDetails) SetScenarioId(v string) {
 	o.ScenarioId = v
 }
 
 // GetBusinessType returns the BusinessType field value
-func (o *TenDlcBrandRegistration) GetBusinessType() string {
+func (o *TenDlcBrandRegistrationDetails) GetBusinessType() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -139,7 +144,7 @@ func (o *TenDlcBrandRegistration) GetBusinessType() string {
 
 // GetBusinessTypeOk returns a tuple with the BusinessType field value
 // and a boolean to check if the value has been set.
-func (o *TenDlcBrandRegistration) GetBusinessTypeOk() (*string, bool) {
+func (o *TenDlcBrandRegistrationDetails) GetBusinessTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -147,12 +152,12 @@ func (o *TenDlcBrandRegistration) GetBusinessTypeOk() (*string, bool) {
 }
 
 // SetBusinessType sets field value
-func (o *TenDlcBrandRegistration) SetBusinessType(v string) {
+func (o *TenDlcBrandRegistrationDetails) SetBusinessType(v string) {
 	o.BusinessType = v
 }
 
 // GetLegalName returns the LegalName field value
-func (o *TenDlcBrandRegistration) GetLegalName() string {
+func (o *TenDlcBrandRegistrationDetails) GetLegalName() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -163,7 +168,7 @@ func (o *TenDlcBrandRegistration) GetLegalName() string {
 
 // GetLegalNameOk returns a tuple with the LegalName field value
 // and a boolean to check if the value has been set.
-func (o *TenDlcBrandRegistration) GetLegalNameOk() (*string, bool) {
+func (o *TenDlcBrandRegistrationDetails) GetLegalNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -171,12 +176,12 @@ func (o *TenDlcBrandRegistration) GetLegalNameOk() (*string, bool) {
 }
 
 // SetLegalName sets field value
-func (o *TenDlcBrandRegistration) SetLegalName(v string) {
+func (o *TenDlcBrandRegistrationDetails) SetLegalName(v string) {
 	o.LegalName = v
 }
 
 // GetDisplayName returns the DisplayName field value if set, zero value otherwise.
-func (o *TenDlcBrandRegistration) GetDisplayName() string {
+func (o *TenDlcBrandRegistrationDetails) GetDisplayName() string {
 	if o == nil || IsNil(o.DisplayName) {
 		var ret string
 		return ret
@@ -186,7 +191,7 @@ func (o *TenDlcBrandRegistration) GetDisplayName() string {
 
 // GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcBrandRegistration) GetDisplayNameOk() (*string, bool) {
+func (o *TenDlcBrandRegistrationDetails) GetDisplayNameOk() (*string, bool) {
 	if o == nil || IsNil(o.DisplayName) {
 		return nil, false
 	}
@@ -194,7 +199,7 @@ func (o *TenDlcBrandRegistration) GetDisplayNameOk() (*string, bool) {
 }
 
 // HasDisplayName returns a boolean if a field has been set.
-func (o *TenDlcBrandRegistration) HasDisplayName() bool {
+func (o *TenDlcBrandRegistrationDetails) HasDisplayName() bool {
 	if o != nil && !IsNil(o.DisplayName) {
 		return true
 	}
@@ -203,12 +208,12 @@ func (o *TenDlcBrandRegistration) HasDisplayName() bool {
 }
 
 // SetDisplayName gets a reference to the given string and assigns it to the DisplayName field.
-func (o *TenDlcBrandRegistration) SetDisplayName(v string) {
+func (o *TenDlcBrandRegistrationDetails) SetDisplayName(v string) {
 	o.DisplayName = &v
 }
 
 // GetFirstName returns the FirstName field value if set, zero value otherwise.
-func (o *TenDlcBrandRegistration) GetFirstName() string {
+func (o *TenDlcBrandRegistrationDetails) GetFirstName() string {
 	if o == nil || IsNil(o.FirstName) {
 		var ret string
 		return ret
@@ -218,7 +223,7 @@ func (o *TenDlcBrandRegistration) GetFirstName() string {
 
 // GetFirstNameOk returns a tuple with the FirstName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcBrandRegistration) GetFirstNameOk() (*string, bool) {
+func (o *TenDlcBrandRegistrationDetails) GetFirstNameOk() (*string, bool) {
 	if o == nil || IsNil(o.FirstName) {
 		return nil, false
 	}
@@ -226,7 +231,7 @@ func (o *TenDlcBrandRegistration) GetFirstNameOk() (*string, bool) {
 }
 
 // HasFirstName returns a boolean if a field has been set.
-func (o *TenDlcBrandRegistration) HasFirstName() bool {
+func (o *TenDlcBrandRegistrationDetails) HasFirstName() bool {
 	if o != nil && !IsNil(o.FirstName) {
 		return true
 	}
@@ -235,12 +240,12 @@ func (o *TenDlcBrandRegistration) HasFirstName() bool {
 }
 
 // SetFirstName gets a reference to the given string and assigns it to the FirstName field.
-func (o *TenDlcBrandRegistration) SetFirstName(v string) {
+func (o *TenDlcBrandRegistrationDetails) SetFirstName(v string) {
 	o.FirstName = &v
 }
 
 // GetLastName returns the LastName field value if set, zero value otherwise.
-func (o *TenDlcBrandRegistration) GetLastName() string {
+func (o *TenDlcBrandRegistrationDetails) GetLastName() string {
 	if o == nil || IsNil(o.LastName) {
 		var ret string
 		return ret
@@ -250,7 +255,7 @@ func (o *TenDlcBrandRegistration) GetLastName() string {
 
 // GetLastNameOk returns a tuple with the LastName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcBrandRegistration) GetLastNameOk() (*string, bool) {
+func (o *TenDlcBrandRegistrationDetails) GetLastNameOk() (*string, bool) {
 	if o == nil || IsNil(o.LastName) {
 		return nil, false
 	}
@@ -258,7 +263,7 @@ func (o *TenDlcBrandRegistration) GetLastNameOk() (*string, bool) {
 }
 
 // HasLastName returns a boolean if a field has been set.
-func (o *TenDlcBrandRegistration) HasLastName() bool {
+func (o *TenDlcBrandRegistrationDetails) HasLastName() bool {
 	if o != nil && !IsNil(o.LastName) {
 		return true
 	}
@@ -267,12 +272,12 @@ func (o *TenDlcBrandRegistration) HasLastName() bool {
 }
 
 // SetLastName gets a reference to the given string and assigns it to the LastName field.
-func (o *TenDlcBrandRegistration) SetLastName(v string) {
+func (o *TenDlcBrandRegistrationDetails) SetLastName(v string) {
 	o.LastName = &v
 }
 
 // GetTaxId returns the TaxId field value if set, zero value otherwise.
-func (o *TenDlcBrandRegistration) GetTaxId() string {
+func (o *TenDlcBrandRegistrationDetails) GetTaxId() string {
 	if o == nil || IsNil(o.TaxId) {
 		var ret string
 		return ret
@@ -282,7 +287,7 @@ func (o *TenDlcBrandRegistration) GetTaxId() string {
 
 // GetTaxIdOk returns a tuple with the TaxId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcBrandRegistration) GetTaxIdOk() (*string, bool) {
+func (o *TenDlcBrandRegistrationDetails) GetTaxIdOk() (*string, bool) {
 	if o == nil || IsNil(o.TaxId) {
 		return nil, false
 	}
@@ -290,7 +295,7 @@ func (o *TenDlcBrandRegistration) GetTaxIdOk() (*string, bool) {
 }
 
 // HasTaxId returns a boolean if a field has been set.
-func (o *TenDlcBrandRegistration) HasTaxId() bool {
+func (o *TenDlcBrandRegistrationDetails) HasTaxId() bool {
 	if o != nil && !IsNil(o.TaxId) {
 		return true
 	}
@@ -299,12 +304,12 @@ func (o *TenDlcBrandRegistration) HasTaxId() bool {
 }
 
 // SetTaxId gets a reference to the given string and assigns it to the TaxId field.
-func (o *TenDlcBrandRegistration) SetTaxId(v string) {
+func (o *TenDlcBrandRegistrationDetails) SetTaxId(v string) {
 	o.TaxId = &v
 }
 
 // GetWebsite returns the Website field value
-func (o *TenDlcBrandRegistration) GetWebsite() string {
+func (o *TenDlcBrandRegistrationDetails) GetWebsite() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -315,7 +320,7 @@ func (o *TenDlcBrandRegistration) GetWebsite() string {
 
 // GetWebsiteOk returns a tuple with the Website field value
 // and a boolean to check if the value has been set.
-func (o *TenDlcBrandRegistration) GetWebsiteOk() (*string, bool) {
+func (o *TenDlcBrandRegistrationDetails) GetWebsiteOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -323,12 +328,12 @@ func (o *TenDlcBrandRegistration) GetWebsiteOk() (*string, bool) {
 }
 
 // SetWebsite sets field value
-func (o *TenDlcBrandRegistration) SetWebsite(v string) {
+func (o *TenDlcBrandRegistrationDetails) SetWebsite(v string) {
 	o.Website = v
 }
 
 // GetCountry returns the Country field value
-func (o *TenDlcBrandRegistration) GetCountry() string {
+func (o *TenDlcBrandRegistrationDetails) GetCountry() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -339,7 +344,7 @@ func (o *TenDlcBrandRegistration) GetCountry() string {
 
 // GetCountryOk returns a tuple with the Country field value
 // and a boolean to check if the value has been set.
-func (o *TenDlcBrandRegistration) GetCountryOk() (*string, bool) {
+func (o *TenDlcBrandRegistrationDetails) GetCountryOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -347,12 +352,12 @@ func (o *TenDlcBrandRegistration) GetCountryOk() (*string, bool) {
 }
 
 // SetCountry sets field value
-func (o *TenDlcBrandRegistration) SetCountry(v string) {
+func (o *TenDlcBrandRegistrationDetails) SetCountry(v string) {
 	o.Country = v
 }
 
 // GetStreet returns the Street field value if set, zero value otherwise.
-func (o *TenDlcBrandRegistration) GetStreet() string {
+func (o *TenDlcBrandRegistrationDetails) GetStreet() string {
 	if o == nil || IsNil(o.Street) {
 		var ret string
 		return ret
@@ -362,7 +367,7 @@ func (o *TenDlcBrandRegistration) GetStreet() string {
 
 // GetStreetOk returns a tuple with the Street field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcBrandRegistration) GetStreetOk() (*string, bool) {
+func (o *TenDlcBrandRegistrationDetails) GetStreetOk() (*string, bool) {
 	if o == nil || IsNil(o.Street) {
 		return nil, false
 	}
@@ -370,7 +375,7 @@ func (o *TenDlcBrandRegistration) GetStreetOk() (*string, bool) {
 }
 
 // HasStreet returns a boolean if a field has been set.
-func (o *TenDlcBrandRegistration) HasStreet() bool {
+func (o *TenDlcBrandRegistrationDetails) HasStreet() bool {
 	if o != nil && !IsNil(o.Street) {
 		return true
 	}
@@ -379,12 +384,12 @@ func (o *TenDlcBrandRegistration) HasStreet() bool {
 }
 
 // SetStreet gets a reference to the given string and assigns it to the Street field.
-func (o *TenDlcBrandRegistration) SetStreet(v string) {
+func (o *TenDlcBrandRegistrationDetails) SetStreet(v string) {
 	o.Street = &v
 }
 
 // GetCity returns the City field value if set, zero value otherwise.
-func (o *TenDlcBrandRegistration) GetCity() string {
+func (o *TenDlcBrandRegistrationDetails) GetCity() string {
 	if o == nil || IsNil(o.City) {
 		var ret string
 		return ret
@@ -394,7 +399,7 @@ func (o *TenDlcBrandRegistration) GetCity() string {
 
 // GetCityOk returns a tuple with the City field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcBrandRegistration) GetCityOk() (*string, bool) {
+func (o *TenDlcBrandRegistrationDetails) GetCityOk() (*string, bool) {
 	if o == nil || IsNil(o.City) {
 		return nil, false
 	}
@@ -402,7 +407,7 @@ func (o *TenDlcBrandRegistration) GetCityOk() (*string, bool) {
 }
 
 // HasCity returns a boolean if a field has been set.
-func (o *TenDlcBrandRegistration) HasCity() bool {
+func (o *TenDlcBrandRegistrationDetails) HasCity() bool {
 	if o != nil && !IsNil(o.City) {
 		return true
 	}
@@ -411,12 +416,12 @@ func (o *TenDlcBrandRegistration) HasCity() bool {
 }
 
 // SetCity gets a reference to the given string and assigns it to the City field.
-func (o *TenDlcBrandRegistration) SetCity(v string) {
+func (o *TenDlcBrandRegistrationDetails) SetCity(v string) {
 	o.City = &v
 }
 
 // GetState returns the State field value if set, zero value otherwise.
-func (o *TenDlcBrandRegistration) GetState() string {
+func (o *TenDlcBrandRegistrationDetails) GetState() string {
 	if o == nil || IsNil(o.State) {
 		var ret string
 		return ret
@@ -426,7 +431,7 @@ func (o *TenDlcBrandRegistration) GetState() string {
 
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcBrandRegistration) GetStateOk() (*string, bool) {
+func (o *TenDlcBrandRegistrationDetails) GetStateOk() (*string, bool) {
 	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
@@ -434,7 +439,7 @@ func (o *TenDlcBrandRegistration) GetStateOk() (*string, bool) {
 }
 
 // HasState returns a boolean if a field has been set.
-func (o *TenDlcBrandRegistration) HasState() bool {
+func (o *TenDlcBrandRegistrationDetails) HasState() bool {
 	if o != nil && !IsNil(o.State) {
 		return true
 	}
@@ -443,12 +448,12 @@ func (o *TenDlcBrandRegistration) HasState() bool {
 }
 
 // SetState gets a reference to the given string and assigns it to the State field.
-func (o *TenDlcBrandRegistration) SetState(v string) {
+func (o *TenDlcBrandRegistrationDetails) SetState(v string) {
 	o.State = &v
 }
 
 // GetPostalCode returns the PostalCode field value if set, zero value otherwise.
-func (o *TenDlcBrandRegistration) GetPostalCode() string {
+func (o *TenDlcBrandRegistrationDetails) GetPostalCode() string {
 	if o == nil || IsNil(o.PostalCode) {
 		var ret string
 		return ret
@@ -458,7 +463,7 @@ func (o *TenDlcBrandRegistration) GetPostalCode() string {
 
 // GetPostalCodeOk returns a tuple with the PostalCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcBrandRegistration) GetPostalCodeOk() (*string, bool) {
+func (o *TenDlcBrandRegistrationDetails) GetPostalCodeOk() (*string, bool) {
 	if o == nil || IsNil(o.PostalCode) {
 		return nil, false
 	}
@@ -466,7 +471,7 @@ func (o *TenDlcBrandRegistration) GetPostalCodeOk() (*string, bool) {
 }
 
 // HasPostalCode returns a boolean if a field has been set.
-func (o *TenDlcBrandRegistration) HasPostalCode() bool {
+func (o *TenDlcBrandRegistrationDetails) HasPostalCode() bool {
 	if o != nil && !IsNil(o.PostalCode) {
 		return true
 	}
@@ -475,12 +480,12 @@ func (o *TenDlcBrandRegistration) HasPostalCode() bool {
 }
 
 // SetPostalCode gets a reference to the given string and assigns it to the PostalCode field.
-func (o *TenDlcBrandRegistration) SetPostalCode(v string) {
+func (o *TenDlcBrandRegistrationDetails) SetPostalCode(v string) {
 	o.PostalCode = &v
 }
 
 // GetFullAddress returns the FullAddress field value if set, zero value otherwise.
-func (o *TenDlcBrandRegistration) GetFullAddress() string {
+func (o *TenDlcBrandRegistrationDetails) GetFullAddress() string {
 	if o == nil || IsNil(o.FullAddress) {
 		var ret string
 		return ret
@@ -490,7 +495,7 @@ func (o *TenDlcBrandRegistration) GetFullAddress() string {
 
 // GetFullAddressOk returns a tuple with the FullAddress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcBrandRegistration) GetFullAddressOk() (*string, bool) {
+func (o *TenDlcBrandRegistrationDetails) GetFullAddressOk() (*string, bool) {
 	if o == nil || IsNil(o.FullAddress) {
 		return nil, false
 	}
@@ -498,7 +503,7 @@ func (o *TenDlcBrandRegistration) GetFullAddressOk() (*string, bool) {
 }
 
 // HasFullAddress returns a boolean if a field has been set.
-func (o *TenDlcBrandRegistration) HasFullAddress() bool {
+func (o *TenDlcBrandRegistrationDetails) HasFullAddress() bool {
 	if o != nil && !IsNil(o.FullAddress) {
 		return true
 	}
@@ -507,12 +512,12 @@ func (o *TenDlcBrandRegistration) HasFullAddress() bool {
 }
 
 // SetFullAddress gets a reference to the given string and assigns it to the FullAddress field.
-func (o *TenDlcBrandRegistration) SetFullAddress(v string) {
+func (o *TenDlcBrandRegistrationDetails) SetFullAddress(v string) {
 	o.FullAddress = &v
 }
 
 // GetComplianceContactEmail returns the ComplianceContactEmail field value
-func (o *TenDlcBrandRegistration) GetComplianceContactEmail() string {
+func (o *TenDlcBrandRegistrationDetails) GetComplianceContactEmail() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -523,7 +528,7 @@ func (o *TenDlcBrandRegistration) GetComplianceContactEmail() string {
 
 // GetComplianceContactEmailOk returns a tuple with the ComplianceContactEmail field value
 // and a boolean to check if the value has been set.
-func (o *TenDlcBrandRegistration) GetComplianceContactEmailOk() (*string, bool) {
+func (o *TenDlcBrandRegistrationDetails) GetComplianceContactEmailOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -531,12 +536,12 @@ func (o *TenDlcBrandRegistration) GetComplianceContactEmailOk() (*string, bool) 
 }
 
 // SetComplianceContactEmail sets field value
-func (o *TenDlcBrandRegistration) SetComplianceContactEmail(v string) {
+func (o *TenDlcBrandRegistrationDetails) SetComplianceContactEmail(v string) {
 	o.ComplianceContactEmail = v
 }
 
 // GetComplianceContactPhone returns the ComplianceContactPhone field value
-func (o *TenDlcBrandRegistration) GetComplianceContactPhone() string {
+func (o *TenDlcBrandRegistrationDetails) GetComplianceContactPhone() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -547,7 +552,7 @@ func (o *TenDlcBrandRegistration) GetComplianceContactPhone() string {
 
 // GetComplianceContactPhoneOk returns a tuple with the ComplianceContactPhone field value
 // and a boolean to check if the value has been set.
-func (o *TenDlcBrandRegistration) GetComplianceContactPhoneOk() (*string, bool) {
+func (o *TenDlcBrandRegistrationDetails) GetComplianceContactPhoneOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -555,12 +560,12 @@ func (o *TenDlcBrandRegistration) GetComplianceContactPhoneOk() (*string, bool) 
 }
 
 // SetComplianceContactPhone sets field value
-func (o *TenDlcBrandRegistration) SetComplianceContactPhone(v string) {
+func (o *TenDlcBrandRegistrationDetails) SetComplianceContactPhone(v string) {
 	o.ComplianceContactPhone = v
 }
 
 // GetBrandStatus returns the BrandStatus field value
-func (o *TenDlcBrandRegistration) GetBrandStatus() string {
+func (o *TenDlcBrandRegistrationDetails) GetBrandStatus() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -571,7 +576,7 @@ func (o *TenDlcBrandRegistration) GetBrandStatus() string {
 
 // GetBrandStatusOk returns a tuple with the BrandStatus field value
 // and a boolean to check if the value has been set.
-func (o *TenDlcBrandRegistration) GetBrandStatusOk() (*string, bool) {
+func (o *TenDlcBrandRegistrationDetails) GetBrandStatusOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -579,12 +584,12 @@ func (o *TenDlcBrandRegistration) GetBrandStatusOk() (*string, bool) {
 }
 
 // SetBrandStatus sets field value
-func (o *TenDlcBrandRegistration) SetBrandStatus(v string) {
+func (o *TenDlcBrandRegistrationDetails) SetBrandStatus(v string) {
 	o.BrandStatus = v
 }
 
 // GetCampaignStatus returns the CampaignStatus field value
-func (o *TenDlcBrandRegistration) GetCampaignStatus() string {
+func (o *TenDlcBrandRegistrationDetails) GetCampaignStatus() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -595,7 +600,7 @@ func (o *TenDlcBrandRegistration) GetCampaignStatus() string {
 
 // GetCampaignStatusOk returns a tuple with the CampaignStatus field value
 // and a boolean to check if the value has been set.
-func (o *TenDlcBrandRegistration) GetCampaignStatusOk() (*string, bool) {
+func (o *TenDlcBrandRegistrationDetails) GetCampaignStatusOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -603,12 +608,12 @@ func (o *TenDlcBrandRegistration) GetCampaignStatusOk() (*string, bool) {
 }
 
 // SetCampaignStatus sets field value
-func (o *TenDlcBrandRegistration) SetCampaignStatus(v string) {
+func (o *TenDlcBrandRegistrationDetails) SetCampaignStatus(v string) {
 	o.CampaignStatus = v
 }
 
 // GetCreatedAt returns the CreatedAt field value
-func (o *TenDlcBrandRegistration) GetCreatedAt() string {
+func (o *TenDlcBrandRegistrationDetails) GetCreatedAt() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -619,7 +624,7 @@ func (o *TenDlcBrandRegistration) GetCreatedAt() string {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value
 // and a boolean to check if the value has been set.
-func (o *TenDlcBrandRegistration) GetCreatedAtOk() (*string, bool) {
+func (o *TenDlcBrandRegistrationDetails) GetCreatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -627,12 +632,12 @@ func (o *TenDlcBrandRegistration) GetCreatedAtOk() (*string, bool) {
 }
 
 // SetCreatedAt sets field value
-func (o *TenDlcBrandRegistration) SetCreatedAt(v string) {
+func (o *TenDlcBrandRegistrationDetails) SetCreatedAt(v string) {
 	o.CreatedAt = v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value
-func (o *TenDlcBrandRegistration) GetUpdatedAt() string {
+func (o *TenDlcBrandRegistrationDetails) GetUpdatedAt() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -643,7 +648,7 @@ func (o *TenDlcBrandRegistration) GetUpdatedAt() string {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value
 // and a boolean to check if the value has been set.
-func (o *TenDlcBrandRegistration) GetUpdatedAtOk() (*string, bool) {
+func (o *TenDlcBrandRegistrationDetails) GetUpdatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -651,11 +656,139 @@ func (o *TenDlcBrandRegistration) GetUpdatedAtOk() (*string, bool) {
 }
 
 // SetUpdatedAt sets field value
-func (o *TenDlcBrandRegistration) SetUpdatedAt(v string) {
+func (o *TenDlcBrandRegistrationDetails) SetUpdatedAt(v string) {
 	o.UpdatedAt = v
 }
 
-func (o TenDlcBrandRegistration) MarshalJSON() ([]byte, error) {
+// GetVertical returns the Vertical field value if set, zero value otherwise.
+func (o *TenDlcBrandRegistrationDetails) GetVertical() string {
+	if o == nil || IsNil(o.Vertical) {
+		var ret string
+		return ret
+	}
+	return *o.Vertical
+}
+
+// GetVerticalOk returns a tuple with the Vertical field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TenDlcBrandRegistrationDetails) GetVerticalOk() (*string, bool) {
+	if o == nil || IsNil(o.Vertical) {
+		return nil, false
+	}
+	return o.Vertical, true
+}
+
+// HasVertical returns a boolean if a field has been set.
+func (o *TenDlcBrandRegistrationDetails) HasVertical() bool {
+	if o != nil && !IsNil(o.Vertical) {
+		return true
+	}
+
+	return false
+}
+
+// SetVertical gets a reference to the given string and assigns it to the Vertical field.
+func (o *TenDlcBrandRegistrationDetails) SetVertical(v string) {
+	o.Vertical = &v
+}
+
+// GetEntityType returns the EntityType field value if set, zero value otherwise.
+func (o *TenDlcBrandRegistrationDetails) GetEntityType() string {
+	if o == nil || IsNil(o.EntityType) {
+		var ret string
+		return ret
+	}
+	return *o.EntityType
+}
+
+// GetEntityTypeOk returns a tuple with the EntityType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TenDlcBrandRegistrationDetails) GetEntityTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.EntityType) {
+		return nil, false
+	}
+	return o.EntityType, true
+}
+
+// HasEntityType returns a boolean if a field has been set.
+func (o *TenDlcBrandRegistrationDetails) HasEntityType() bool {
+	if o != nil && !IsNil(o.EntityType) {
+		return true
+	}
+
+	return false
+}
+
+// SetEntityType gets a reference to the given string and assigns it to the EntityType field.
+func (o *TenDlcBrandRegistrationDetails) SetEntityType(v string) {
+	o.EntityType = &v
+}
+
+// GetTelnyxProfileId returns the TelnyxProfileId field value if set, zero value otherwise.
+func (o *TenDlcBrandRegistrationDetails) GetTelnyxProfileId() string {
+	if o == nil || IsNil(o.TelnyxProfileId) {
+		var ret string
+		return ret
+	}
+	return *o.TelnyxProfileId
+}
+
+// GetTelnyxProfileIdOk returns a tuple with the TelnyxProfileId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TenDlcBrandRegistrationDetails) GetTelnyxProfileIdOk() (*string, bool) {
+	if o == nil || IsNil(o.TelnyxProfileId) {
+		return nil, false
+	}
+	return o.TelnyxProfileId, true
+}
+
+// HasTelnyxProfileId returns a boolean if a field has been set.
+func (o *TenDlcBrandRegistrationDetails) HasTelnyxProfileId() bool {
+	if o != nil && !IsNil(o.TelnyxProfileId) {
+		return true
+	}
+
+	return false
+}
+
+// SetTelnyxProfileId gets a reference to the given string and assigns it to the TelnyxProfileId field.
+func (o *TenDlcBrandRegistrationDetails) SetTelnyxProfileId(v string) {
+	o.TelnyxProfileId = &v
+}
+
+// GetTelnyxBrandId returns the TelnyxBrandId field value if set, zero value otherwise.
+func (o *TenDlcBrandRegistrationDetails) GetTelnyxBrandId() string {
+	if o == nil || IsNil(o.TelnyxBrandId) {
+		var ret string
+		return ret
+	}
+	return *o.TelnyxBrandId
+}
+
+// GetTelnyxBrandIdOk returns a tuple with the TelnyxBrandId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TenDlcBrandRegistrationDetails) GetTelnyxBrandIdOk() (*string, bool) {
+	if o == nil || IsNil(o.TelnyxBrandId) {
+		return nil, false
+	}
+	return o.TelnyxBrandId, true
+}
+
+// HasTelnyxBrandId returns a boolean if a field has been set.
+func (o *TenDlcBrandRegistrationDetails) HasTelnyxBrandId() bool {
+	if o != nil && !IsNil(o.TelnyxBrandId) {
+		return true
+	}
+
+	return false
+}
+
+// SetTelnyxBrandId gets a reference to the given string and assigns it to the TelnyxBrandId field.
+func (o *TenDlcBrandRegistrationDetails) SetTelnyxBrandId(v string) {
+	o.TelnyxBrandId = &v
+}
+
+func (o TenDlcBrandRegistrationDetails) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -663,7 +796,7 @@ func (o TenDlcBrandRegistration) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o TenDlcBrandRegistration) ToMap() (map[string]interface{}, error) {
+func (o TenDlcBrandRegistrationDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["accountId"] = o.AccountId
 	toSerialize["scenarioId"] = o.ScenarioId
@@ -704,10 +837,22 @@ func (o TenDlcBrandRegistration) ToMap() (map[string]interface{}, error) {
 	toSerialize["campaignStatus"] = o.CampaignStatus
 	toSerialize["createdAt"] = o.CreatedAt
 	toSerialize["updatedAt"] = o.UpdatedAt
+	if !IsNil(o.Vertical) {
+		toSerialize["vertical"] = o.Vertical
+	}
+	if !IsNil(o.EntityType) {
+		toSerialize["entityType"] = o.EntityType
+	}
+	if !IsNil(o.TelnyxProfileId) {
+		toSerialize["telnyxProfileId"] = o.TelnyxProfileId
+	}
+	if !IsNil(o.TelnyxBrandId) {
+		toSerialize["telnyxBrandId"] = o.TelnyxBrandId
+	}
 	return toSerialize, nil
 }
 
-func (o *TenDlcBrandRegistration) UnmarshalJSON(data []byte) (err error) {
+func (o *TenDlcBrandRegistrationDetails) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -740,53 +885,53 @@ func (o *TenDlcBrandRegistration) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varTenDlcBrandRegistration := _TenDlcBrandRegistration{}
+	varTenDlcBrandRegistrationDetails := _TenDlcBrandRegistrationDetails{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varTenDlcBrandRegistration)
+	err = decoder.Decode(&varTenDlcBrandRegistrationDetails)
 
 	if err != nil {
 		return err
 	}
 
-	*o = TenDlcBrandRegistration(varTenDlcBrandRegistration)
+	*o = TenDlcBrandRegistrationDetails(varTenDlcBrandRegistrationDetails)
 
 	return err
 }
 
-type NullableTenDlcBrandRegistration struct {
-	value *TenDlcBrandRegistration
+type NullableTenDlcBrandRegistrationDetails struct {
+	value *TenDlcBrandRegistrationDetails
 	isSet bool
 }
 
-func (v NullableTenDlcBrandRegistration) Get() *TenDlcBrandRegistration {
+func (v NullableTenDlcBrandRegistrationDetails) Get() *TenDlcBrandRegistrationDetails {
 	return v.value
 }
 
-func (v *NullableTenDlcBrandRegistration) Set(val *TenDlcBrandRegistration) {
+func (v *NullableTenDlcBrandRegistrationDetails) Set(val *TenDlcBrandRegistrationDetails) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableTenDlcBrandRegistration) IsSet() bool {
+func (v NullableTenDlcBrandRegistrationDetails) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableTenDlcBrandRegistration) Unset() {
+func (v *NullableTenDlcBrandRegistrationDetails) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableTenDlcBrandRegistration(val *TenDlcBrandRegistration) *NullableTenDlcBrandRegistration {
-	return &NullableTenDlcBrandRegistration{value: val, isSet: true}
+func NewNullableTenDlcBrandRegistrationDetails(val *TenDlcBrandRegistrationDetails) *NullableTenDlcBrandRegistrationDetails {
+	return &NullableTenDlcBrandRegistrationDetails{value: val, isSet: true}
 }
 
-func (v NullableTenDlcBrandRegistration) MarshalJSON() ([]byte, error) {
+func (v NullableTenDlcBrandRegistrationDetails) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableTenDlcBrandRegistration) UnmarshalJSON(src []byte) error {
+func (v *NullableTenDlcBrandRegistrationDetails) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
