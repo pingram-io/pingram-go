@@ -16,39 +16,39 @@ import (
 	"fmt"
 )
 
-// checks if the OrganizationUsageHistory type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &OrganizationUsageHistory{}
+// checks if the GetUsageHistoryResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GetUsageHistoryResponse{}
 
-// OrganizationUsageHistory Response for GET /organization/usage/history
-type OrganizationUsageHistory struct {
+// GetUsageHistoryResponse Response for GET /account/usage/history
+type GetUsageHistoryResponse struct {
 	// Array of usage items, one per month in the requested range
-	Items []OrganizationUsageHistoryItemsInner `json:"items"`
+	Items []GetUsageHistoryResponseItemsInner `json:"items"`
 }
 
-type _OrganizationUsageHistory OrganizationUsageHistory
+type _GetUsageHistoryResponse GetUsageHistoryResponse
 
-// NewOrganizationUsageHistory instantiates a new OrganizationUsageHistory object
+// NewGetUsageHistoryResponse instantiates a new GetUsageHistoryResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOrganizationUsageHistory(items []OrganizationUsageHistoryItemsInner) *OrganizationUsageHistory {
-	this := OrganizationUsageHistory{}
+func NewGetUsageHistoryResponse(items []GetUsageHistoryResponseItemsInner) *GetUsageHistoryResponse {
+	this := GetUsageHistoryResponse{}
 	this.Items = items
 	return &this
 }
 
-// NewOrganizationUsageHistoryWithDefaults instantiates a new OrganizationUsageHistory object
+// NewGetUsageHistoryResponseWithDefaults instantiates a new GetUsageHistoryResponse object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewOrganizationUsageHistoryWithDefaults() *OrganizationUsageHistory {
-	this := OrganizationUsageHistory{}
+func NewGetUsageHistoryResponseWithDefaults() *GetUsageHistoryResponse {
+	this := GetUsageHistoryResponse{}
 	return &this
 }
 
 // GetItems returns the Items field value
-func (o *OrganizationUsageHistory) GetItems() []OrganizationUsageHistoryItemsInner {
+func (o *GetUsageHistoryResponse) GetItems() []GetUsageHistoryResponseItemsInner {
 	if o == nil {
-		var ret []OrganizationUsageHistoryItemsInner
+		var ret []GetUsageHistoryResponseItemsInner
 		return ret
 	}
 
@@ -57,7 +57,7 @@ func (o *OrganizationUsageHistory) GetItems() []OrganizationUsageHistoryItemsInn
 
 // GetItemsOk returns a tuple with the Items field value
 // and a boolean to check if the value has been set.
-func (o *OrganizationUsageHistory) GetItemsOk() ([]OrganizationUsageHistoryItemsInner, bool) {
+func (o *GetUsageHistoryResponse) GetItemsOk() ([]GetUsageHistoryResponseItemsInner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -65,11 +65,11 @@ func (o *OrganizationUsageHistory) GetItemsOk() ([]OrganizationUsageHistoryItems
 }
 
 // SetItems sets field value
-func (o *OrganizationUsageHistory) SetItems(v []OrganizationUsageHistoryItemsInner) {
+func (o *GetUsageHistoryResponse) SetItems(v []GetUsageHistoryResponseItemsInner) {
 	o.Items = v
 }
 
-func (o OrganizationUsageHistory) MarshalJSON() ([]byte, error) {
+func (o GetUsageHistoryResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -77,13 +77,13 @@ func (o OrganizationUsageHistory) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o OrganizationUsageHistory) ToMap() (map[string]interface{}, error) {
+func (o GetUsageHistoryResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["items"] = o.Items
 	return toSerialize, nil
 }
 
-func (o *OrganizationUsageHistory) UnmarshalJSON(data []byte) (err error) {
+func (o *GetUsageHistoryResponse) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -105,53 +105,53 @@ func (o *OrganizationUsageHistory) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varOrganizationUsageHistory := _OrganizationUsageHistory{}
+	varGetUsageHistoryResponse := _GetUsageHistoryResponse{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varOrganizationUsageHistory)
+	err = decoder.Decode(&varGetUsageHistoryResponse)
 
 	if err != nil {
 		return err
 	}
 
-	*o = OrganizationUsageHistory(varOrganizationUsageHistory)
+	*o = GetUsageHistoryResponse(varGetUsageHistoryResponse)
 
 	return err
 }
 
-type NullableOrganizationUsageHistory struct {
-	value *OrganizationUsageHistory
+type NullableGetUsageHistoryResponse struct {
+	value *GetUsageHistoryResponse
 	isSet bool
 }
 
-func (v NullableOrganizationUsageHistory) Get() *OrganizationUsageHistory {
+func (v NullableGetUsageHistoryResponse) Get() *GetUsageHistoryResponse {
 	return v.value
 }
 
-func (v *NullableOrganizationUsageHistory) Set(val *OrganizationUsageHistory) {
+func (v *NullableGetUsageHistoryResponse) Set(val *GetUsageHistoryResponse) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableOrganizationUsageHistory) IsSet() bool {
+func (v NullableGetUsageHistoryResponse) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableOrganizationUsageHistory) Unset() {
+func (v *NullableGetUsageHistoryResponse) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableOrganizationUsageHistory(val *OrganizationUsageHistory) *NullableOrganizationUsageHistory {
-	return &NullableOrganizationUsageHistory{value: val, isSet: true}
+func NewNullableGetUsageHistoryResponse(val *GetUsageHistoryResponse) *NullableGetUsageHistoryResponse {
+	return &NullableGetUsageHistoryResponse{value: val, isSet: true}
 }
 
-func (v NullableOrganizationUsageHistory) MarshalJSON() ([]byte, error) {
+func (v NullableGetUsageHistoryResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableOrganizationUsageHistory) UnmarshalJSON(src []byte) error {
+func (v *NullableGetUsageHistoryResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

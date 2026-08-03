@@ -16,44 +16,44 @@ import (
 	"fmt"
 )
 
-// checks if the OrganizationUsage type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &OrganizationUsage{}
+// checks if the GetUsageResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GetUsageResponse{}
 
-// OrganizationUsage Response for GET /account/organization/usage
-type OrganizationUsage struct {
-	Costs  *OrganizationUsageCosts  `json:"costs,omitempty"`
-	Counts *OrganizationUsageCounts `json:"counts,omitempty"`
+// GetUsageResponse Response for GET /account/usage
+type GetUsageResponse struct {
+	Costs  *GetUsageResponseCosts  `json:"costs,omitempty"`
+	Counts *GetUsageResponseCounts `json:"counts,omitempty"`
 	// Billing cycle start date (ISO string)
 	BillingCycleStart string `json:"billingCycleStart"`
 	// Billing cycle end date (ISO string)
 	BillingCycleEnd string `json:"billingCycleEnd"`
 }
 
-type _OrganizationUsage OrganizationUsage
+type _GetUsageResponse GetUsageResponse
 
-// NewOrganizationUsage instantiates a new OrganizationUsage object
+// NewGetUsageResponse instantiates a new GetUsageResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOrganizationUsage(billingCycleStart string, billingCycleEnd string) *OrganizationUsage {
-	this := OrganizationUsage{}
+func NewGetUsageResponse(billingCycleStart string, billingCycleEnd string) *GetUsageResponse {
+	this := GetUsageResponse{}
 	this.BillingCycleStart = billingCycleStart
 	this.BillingCycleEnd = billingCycleEnd
 	return &this
 }
 
-// NewOrganizationUsageWithDefaults instantiates a new OrganizationUsage object
+// NewGetUsageResponseWithDefaults instantiates a new GetUsageResponse object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewOrganizationUsageWithDefaults() *OrganizationUsage {
-	this := OrganizationUsage{}
+func NewGetUsageResponseWithDefaults() *GetUsageResponse {
+	this := GetUsageResponse{}
 	return &this
 }
 
 // GetCosts returns the Costs field value if set, zero value otherwise.
-func (o *OrganizationUsage) GetCosts() OrganizationUsageCosts {
+func (o *GetUsageResponse) GetCosts() GetUsageResponseCosts {
 	if o == nil || IsNil(o.Costs) {
-		var ret OrganizationUsageCosts
+		var ret GetUsageResponseCosts
 		return ret
 	}
 	return *o.Costs
@@ -61,7 +61,7 @@ func (o *OrganizationUsage) GetCosts() OrganizationUsageCosts {
 
 // GetCostsOk returns a tuple with the Costs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OrganizationUsage) GetCostsOk() (*OrganizationUsageCosts, bool) {
+func (o *GetUsageResponse) GetCostsOk() (*GetUsageResponseCosts, bool) {
 	if o == nil || IsNil(o.Costs) {
 		return nil, false
 	}
@@ -69,7 +69,7 @@ func (o *OrganizationUsage) GetCostsOk() (*OrganizationUsageCosts, bool) {
 }
 
 // HasCosts returns a boolean if a field has been set.
-func (o *OrganizationUsage) HasCosts() bool {
+func (o *GetUsageResponse) HasCosts() bool {
 	if o != nil && !IsNil(o.Costs) {
 		return true
 	}
@@ -77,15 +77,15 @@ func (o *OrganizationUsage) HasCosts() bool {
 	return false
 }
 
-// SetCosts gets a reference to the given OrganizationUsageCosts and assigns it to the Costs field.
-func (o *OrganizationUsage) SetCosts(v OrganizationUsageCosts) {
+// SetCosts gets a reference to the given GetUsageResponseCosts and assigns it to the Costs field.
+func (o *GetUsageResponse) SetCosts(v GetUsageResponseCosts) {
 	o.Costs = &v
 }
 
 // GetCounts returns the Counts field value if set, zero value otherwise.
-func (o *OrganizationUsage) GetCounts() OrganizationUsageCounts {
+func (o *GetUsageResponse) GetCounts() GetUsageResponseCounts {
 	if o == nil || IsNil(o.Counts) {
-		var ret OrganizationUsageCounts
+		var ret GetUsageResponseCounts
 		return ret
 	}
 	return *o.Counts
@@ -93,7 +93,7 @@ func (o *OrganizationUsage) GetCounts() OrganizationUsageCounts {
 
 // GetCountsOk returns a tuple with the Counts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OrganizationUsage) GetCountsOk() (*OrganizationUsageCounts, bool) {
+func (o *GetUsageResponse) GetCountsOk() (*GetUsageResponseCounts, bool) {
 	if o == nil || IsNil(o.Counts) {
 		return nil, false
 	}
@@ -101,7 +101,7 @@ func (o *OrganizationUsage) GetCountsOk() (*OrganizationUsageCounts, bool) {
 }
 
 // HasCounts returns a boolean if a field has been set.
-func (o *OrganizationUsage) HasCounts() bool {
+func (o *GetUsageResponse) HasCounts() bool {
 	if o != nil && !IsNil(o.Counts) {
 		return true
 	}
@@ -109,13 +109,13 @@ func (o *OrganizationUsage) HasCounts() bool {
 	return false
 }
 
-// SetCounts gets a reference to the given OrganizationUsageCounts and assigns it to the Counts field.
-func (o *OrganizationUsage) SetCounts(v OrganizationUsageCounts) {
+// SetCounts gets a reference to the given GetUsageResponseCounts and assigns it to the Counts field.
+func (o *GetUsageResponse) SetCounts(v GetUsageResponseCounts) {
 	o.Counts = &v
 }
 
 // GetBillingCycleStart returns the BillingCycleStart field value
-func (o *OrganizationUsage) GetBillingCycleStart() string {
+func (o *GetUsageResponse) GetBillingCycleStart() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -126,7 +126,7 @@ func (o *OrganizationUsage) GetBillingCycleStart() string {
 
 // GetBillingCycleStartOk returns a tuple with the BillingCycleStart field value
 // and a boolean to check if the value has been set.
-func (o *OrganizationUsage) GetBillingCycleStartOk() (*string, bool) {
+func (o *GetUsageResponse) GetBillingCycleStartOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -134,12 +134,12 @@ func (o *OrganizationUsage) GetBillingCycleStartOk() (*string, bool) {
 }
 
 // SetBillingCycleStart sets field value
-func (o *OrganizationUsage) SetBillingCycleStart(v string) {
+func (o *GetUsageResponse) SetBillingCycleStart(v string) {
 	o.BillingCycleStart = v
 }
 
 // GetBillingCycleEnd returns the BillingCycleEnd field value
-func (o *OrganizationUsage) GetBillingCycleEnd() string {
+func (o *GetUsageResponse) GetBillingCycleEnd() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -150,7 +150,7 @@ func (o *OrganizationUsage) GetBillingCycleEnd() string {
 
 // GetBillingCycleEndOk returns a tuple with the BillingCycleEnd field value
 // and a boolean to check if the value has been set.
-func (o *OrganizationUsage) GetBillingCycleEndOk() (*string, bool) {
+func (o *GetUsageResponse) GetBillingCycleEndOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -158,11 +158,11 @@ func (o *OrganizationUsage) GetBillingCycleEndOk() (*string, bool) {
 }
 
 // SetBillingCycleEnd sets field value
-func (o *OrganizationUsage) SetBillingCycleEnd(v string) {
+func (o *GetUsageResponse) SetBillingCycleEnd(v string) {
 	o.BillingCycleEnd = v
 }
 
-func (o OrganizationUsage) MarshalJSON() ([]byte, error) {
+func (o GetUsageResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -170,7 +170,7 @@ func (o OrganizationUsage) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o OrganizationUsage) ToMap() (map[string]interface{}, error) {
+func (o GetUsageResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Costs) {
 		toSerialize["costs"] = o.Costs
@@ -183,7 +183,7 @@ func (o OrganizationUsage) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *OrganizationUsage) UnmarshalJSON(data []byte) (err error) {
+func (o *GetUsageResponse) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -206,53 +206,53 @@ func (o *OrganizationUsage) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varOrganizationUsage := _OrganizationUsage{}
+	varGetUsageResponse := _GetUsageResponse{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varOrganizationUsage)
+	err = decoder.Decode(&varGetUsageResponse)
 
 	if err != nil {
 		return err
 	}
 
-	*o = OrganizationUsage(varOrganizationUsage)
+	*o = GetUsageResponse(varGetUsageResponse)
 
 	return err
 }
 
-type NullableOrganizationUsage struct {
-	value *OrganizationUsage
+type NullableGetUsageResponse struct {
+	value *GetUsageResponse
 	isSet bool
 }
 
-func (v NullableOrganizationUsage) Get() *OrganizationUsage {
+func (v NullableGetUsageResponse) Get() *GetUsageResponse {
 	return v.value
 }
 
-func (v *NullableOrganizationUsage) Set(val *OrganizationUsage) {
+func (v *NullableGetUsageResponse) Set(val *GetUsageResponse) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableOrganizationUsage) IsSet() bool {
+func (v NullableGetUsageResponse) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableOrganizationUsage) Unset() {
+func (v *NullableGetUsageResponse) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableOrganizationUsage(val *OrganizationUsage) *NullableOrganizationUsage {
-	return &NullableOrganizationUsage{value: val, isSet: true}
+func NewNullableGetUsageResponse(val *GetUsageResponse) *NullableGetUsageResponse {
+	return &NullableGetUsageResponse{value: val, isSet: true}
 }
 
-func (v NullableOrganizationUsage) MarshalJSON() ([]byte, error) {
+func (v NullableGetUsageResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableOrganizationUsage) UnmarshalJSON(src []byte) error {
+func (v *NullableGetUsageResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

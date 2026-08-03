@@ -21,8 +21,8 @@ var _ MappedNullable = &AutoJoinGetResponse{}
 
 // AutoJoinGetResponse struct for AutoJoinGetResponse
 type AutoJoinGetResponse struct {
-	OrganizationId string   `json:"organizationId"`
-	Domains        []string `json:"domains"`
+	AccountId string   `json:"accountId"`
+	Domains   []string `json:"domains"`
 }
 
 type _AutoJoinGetResponse AutoJoinGetResponse
@@ -31,9 +31,9 @@ type _AutoJoinGetResponse AutoJoinGetResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAutoJoinGetResponse(organizationId string, domains []string) *AutoJoinGetResponse {
+func NewAutoJoinGetResponse(accountId string, domains []string) *AutoJoinGetResponse {
 	this := AutoJoinGetResponse{}
-	this.OrganizationId = organizationId
+	this.AccountId = accountId
 	this.Domains = domains
 	return &this
 }
@@ -46,28 +46,28 @@ func NewAutoJoinGetResponseWithDefaults() *AutoJoinGetResponse {
 	return &this
 }
 
-// GetOrganizationId returns the OrganizationId field value
-func (o *AutoJoinGetResponse) GetOrganizationId() string {
+// GetAccountId returns the AccountId field value
+func (o *AutoJoinGetResponse) GetAccountId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.OrganizationId
+	return o.AccountId
 }
 
-// GetOrganizationIdOk returns a tuple with the OrganizationId field value
+// GetAccountIdOk returns a tuple with the AccountId field value
 // and a boolean to check if the value has been set.
-func (o *AutoJoinGetResponse) GetOrganizationIdOk() (*string, bool) {
+func (o *AutoJoinGetResponse) GetAccountIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.OrganizationId, true
+	return &o.AccountId, true
 }
 
-// SetOrganizationId sets field value
-func (o *AutoJoinGetResponse) SetOrganizationId(v string) {
-	o.OrganizationId = v
+// SetAccountId sets field value
+func (o *AutoJoinGetResponse) SetAccountId(v string) {
+	o.AccountId = v
 }
 
 // GetDomains returns the Domains field value
@@ -104,7 +104,7 @@ func (o AutoJoinGetResponse) MarshalJSON() ([]byte, error) {
 
 func (o AutoJoinGetResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["organizationId"] = o.OrganizationId
+	toSerialize["accountId"] = o.AccountId
 	toSerialize["domains"] = o.Domains
 	return toSerialize, nil
 }
@@ -114,7 +114,7 @@ func (o *AutoJoinGetResponse) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"organizationId",
+		"accountId",
 		"domains",
 	}
 

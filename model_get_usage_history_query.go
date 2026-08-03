@@ -19,7 +19,7 @@ import (
 // checks if the GetUsageHistoryQuery type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GetUsageHistoryQuery{}
 
-// GetUsageHistoryQuery Query parameters for GET /organization/usage/history
+// GetUsageHistoryQuery Query parameters for GET /account/usage/history
 type GetUsageHistoryQuery struct {
 	// Start date (YYYY-MM-DD) for the range
 	StartDate string `json:"startDate"`

@@ -19,17 +19,18 @@ import (
 // checks if the BillingPostResponseBody type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &BillingPostResponseBody{}
 
-// BillingPostResponseBody POST /billing response: organization usage limits + optional Checkout session.
+// BillingPostResponseBody POST /billing response: account fields + optional Checkout session.
 type BillingPostResponseBody struct {
-	OrganizationId   string   `json:"organizationId"`
-	OrganizationType string   `json:"organizationType"`
-	Creator          string   `json:"creator"`
-	Name             string   `json:"name"`
-	MessagesCap      float32  `json:"messagesCap"`
-	CostCap          float32  `json:"costCap"`
-	SmsCap           *float32 `json:"smsCap,omitempty"`
-	CallCap          *float32 `json:"callCap,omitempty"`
-	BillingVersion   *float32 `json:"billingVersion,omitempty"`
+	AccountId   string   `json:"accountId"`
+	AccountType string   `json:"accountType"`
+	Creator     *string  `json:"creator,omitempty"`
+	Name        *string  `json:"name,omitempty"`
+	MessagesCap float32  `json:"messagesCap"`
+	CostCap     float32  `json:"costCap"`
+	SmsCap      *float32 `json:"smsCap,omitempty"`
+	CallCap     *float32 `json:"callCap,omitempty"`
+	// When omitted, defaults to LATEST_BILLING_VERSION.
+	BillingVersion *float32 `json:"billingVersion,omitempty"`
 	// ISO date (YYYY-MM-DD) when the billing cycle resets.
 	AnniversaryDate string  `json:"anniversaryDate"`
 	AllowOverage    bool    `json:"allowOverage"`
@@ -45,12 +46,10 @@ type _BillingPostResponseBody BillingPostResponseBody
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBillingPostResponseBody(organizationId string, organizationType string, creator string, name string, messagesCap float32, costCap float32, anniversaryDate string, allowOverage bool, createdAt string, updatedAt string) *BillingPostResponseBody {
+func NewBillingPostResponseBody(accountId string, accountType string, messagesCap float32, costCap float32, anniversaryDate string, allowOverage bool, createdAt string, updatedAt string) *BillingPostResponseBody {
 	this := BillingPostResponseBody{}
-	this.OrganizationId = organizationId
-	this.OrganizationType = organizationType
-	this.Creator = creator
-	this.Name = name
+	this.AccountId = accountId
+	this.AccountType = accountType
 	this.MessagesCap = messagesCap
 	this.CostCap = costCap
 	this.AnniversaryDate = anniversaryDate
@@ -68,100 +67,116 @@ func NewBillingPostResponseBodyWithDefaults() *BillingPostResponseBody {
 	return &this
 }
 
-// GetOrganizationId returns the OrganizationId field value
-func (o *BillingPostResponseBody) GetOrganizationId() string {
+// GetAccountId returns the AccountId field value
+func (o *BillingPostResponseBody) GetAccountId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.OrganizationId
+	return o.AccountId
 }
 
-// GetOrganizationIdOk returns a tuple with the OrganizationId field value
+// GetAccountIdOk returns a tuple with the AccountId field value
 // and a boolean to check if the value has been set.
-func (o *BillingPostResponseBody) GetOrganizationIdOk() (*string, bool) {
+func (o *BillingPostResponseBody) GetAccountIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.OrganizationId, true
+	return &o.AccountId, true
 }
 
-// SetOrganizationId sets field value
-func (o *BillingPostResponseBody) SetOrganizationId(v string) {
-	o.OrganizationId = v
+// SetAccountId sets field value
+func (o *BillingPostResponseBody) SetAccountId(v string) {
+	o.AccountId = v
 }
 
-// GetOrganizationType returns the OrganizationType field value
-func (o *BillingPostResponseBody) GetOrganizationType() string {
+// GetAccountType returns the AccountType field value
+func (o *BillingPostResponseBody) GetAccountType() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.OrganizationType
+	return o.AccountType
 }
 
-// GetOrganizationTypeOk returns a tuple with the OrganizationType field value
+// GetAccountTypeOk returns a tuple with the AccountType field value
 // and a boolean to check if the value has been set.
-func (o *BillingPostResponseBody) GetOrganizationTypeOk() (*string, bool) {
+func (o *BillingPostResponseBody) GetAccountTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.OrganizationType, true
+	return &o.AccountType, true
 }
 
-// SetOrganizationType sets field value
-func (o *BillingPostResponseBody) SetOrganizationType(v string) {
-	o.OrganizationType = v
+// SetAccountType sets field value
+func (o *BillingPostResponseBody) SetAccountType(v string) {
+	o.AccountType = v
 }
 
-// GetCreator returns the Creator field value
+// GetCreator returns the Creator field value if set, zero value otherwise.
 func (o *BillingPostResponseBody) GetCreator() string {
-	if o == nil {
+	if o == nil || IsNil(o.Creator) {
 		var ret string
 		return ret
 	}
-
-	return o.Creator
+	return *o.Creator
 }
 
-// GetCreatorOk returns a tuple with the Creator field value
+// GetCreatorOk returns a tuple with the Creator field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BillingPostResponseBody) GetCreatorOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Creator) {
 		return nil, false
 	}
-	return &o.Creator, true
+	return o.Creator, true
 }
 
-// SetCreator sets field value
+// HasCreator returns a boolean if a field has been set.
+func (o *BillingPostResponseBody) HasCreator() bool {
+	if o != nil && !IsNil(o.Creator) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreator gets a reference to the given string and assigns it to the Creator field.
 func (o *BillingPostResponseBody) SetCreator(v string) {
-	o.Creator = v
+	o.Creator = &v
 }
 
-// GetName returns the Name field value
+// GetName returns the Name field value if set, zero value otherwise.
 func (o *BillingPostResponseBody) GetName() string {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
-
-	return o.Name
+	return *o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BillingPostResponseBody) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Name, true
 }
 
-// SetName sets field value
+// HasName returns a boolean if a field has been set.
+func (o *BillingPostResponseBody) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
 func (o *BillingPostResponseBody) SetName(v string) {
-	o.Name = v
+	o.Name = &v
 }
 
 // GetMessagesCap returns the MessagesCap field value
@@ -478,10 +493,14 @@ func (o BillingPostResponseBody) MarshalJSON() ([]byte, error) {
 
 func (o BillingPostResponseBody) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["organizationId"] = o.OrganizationId
-	toSerialize["organizationType"] = o.OrganizationType
-	toSerialize["creator"] = o.Creator
-	toSerialize["name"] = o.Name
+	toSerialize["accountId"] = o.AccountId
+	toSerialize["accountType"] = o.AccountType
+	if !IsNil(o.Creator) {
+		toSerialize["creator"] = o.Creator
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
 	toSerialize["messagesCap"] = o.MessagesCap
 	toSerialize["costCap"] = o.CostCap
 	if !IsNil(o.SmsCap) {
@@ -511,10 +530,8 @@ func (o *BillingPostResponseBody) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"organizationId",
-		"organizationType",
-		"creator",
-		"name",
+		"accountId",
+		"accountType",
 		"messagesCap",
 		"costCap",
 		"anniversaryDate",

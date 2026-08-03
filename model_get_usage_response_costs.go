@@ -14,36 +14,36 @@ import (
 	"encoding/json"
 )
 
-// checks if the OrganizationUsageCosts type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &OrganizationUsageCosts{}
+// checks if the GetUsageResponseCosts type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GetUsageResponseCosts{}
 
-// OrganizationUsageCosts Total costs for the billing cycle (all channel costs + number rent)
-type OrganizationUsageCosts struct {
+// GetUsageResponseCosts Total costs for the billing cycle (all channel costs + number rent)
+type GetUsageResponseCosts struct {
 	NUMBER               *float32 `json:"NUMBER,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _OrganizationUsageCosts OrganizationUsageCosts
+type _GetUsageResponseCosts GetUsageResponseCosts
 
-// NewOrganizationUsageCosts instantiates a new OrganizationUsageCosts object
+// NewGetUsageResponseCosts instantiates a new GetUsageResponseCosts object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOrganizationUsageCosts() *OrganizationUsageCosts {
-	this := OrganizationUsageCosts{}
+func NewGetUsageResponseCosts() *GetUsageResponseCosts {
+	this := GetUsageResponseCosts{}
 	return &this
 }
 
-// NewOrganizationUsageCostsWithDefaults instantiates a new OrganizationUsageCosts object
+// NewGetUsageResponseCostsWithDefaults instantiates a new GetUsageResponseCosts object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewOrganizationUsageCostsWithDefaults() *OrganizationUsageCosts {
-	this := OrganizationUsageCosts{}
+func NewGetUsageResponseCostsWithDefaults() *GetUsageResponseCosts {
+	this := GetUsageResponseCosts{}
 	return &this
 }
 
 // GetNUMBER returns the NUMBER field value if set, zero value otherwise.
-func (o *OrganizationUsageCosts) GetNUMBER() float32 {
+func (o *GetUsageResponseCosts) GetNUMBER() float32 {
 	if o == nil || IsNil(o.NUMBER) {
 		var ret float32
 		return ret
@@ -53,7 +53,7 @@ func (o *OrganizationUsageCosts) GetNUMBER() float32 {
 
 // GetNUMBEROk returns a tuple with the NUMBER field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OrganizationUsageCosts) GetNUMBEROk() (*float32, bool) {
+func (o *GetUsageResponseCosts) GetNUMBEROk() (*float32, bool) {
 	if o == nil || IsNil(o.NUMBER) {
 		return nil, false
 	}
@@ -61,7 +61,7 @@ func (o *OrganizationUsageCosts) GetNUMBEROk() (*float32, bool) {
 }
 
 // HasNUMBER returns a boolean if a field has been set.
-func (o *OrganizationUsageCosts) HasNUMBER() bool {
+func (o *GetUsageResponseCosts) HasNUMBER() bool {
 	if o != nil && !IsNil(o.NUMBER) {
 		return true
 	}
@@ -70,11 +70,11 @@ func (o *OrganizationUsageCosts) HasNUMBER() bool {
 }
 
 // SetNUMBER gets a reference to the given float32 and assigns it to the NUMBER field.
-func (o *OrganizationUsageCosts) SetNUMBER(v float32) {
+func (o *GetUsageResponseCosts) SetNUMBER(v float32) {
 	o.NUMBER = &v
 }
 
-func (o OrganizationUsageCosts) MarshalJSON() ([]byte, error) {
+func (o GetUsageResponseCosts) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -82,7 +82,7 @@ func (o OrganizationUsageCosts) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o OrganizationUsageCosts) ToMap() (map[string]interface{}, error) {
+func (o GetUsageResponseCosts) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.NUMBER) {
 		toSerialize["NUMBER"] = o.NUMBER
@@ -95,16 +95,16 @@ func (o OrganizationUsageCosts) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *OrganizationUsageCosts) UnmarshalJSON(data []byte) (err error) {
-	varOrganizationUsageCosts := _OrganizationUsageCosts{}
+func (o *GetUsageResponseCosts) UnmarshalJSON(data []byte) (err error) {
+	varGetUsageResponseCosts := _GetUsageResponseCosts{}
 
-	err = json.Unmarshal(data, &varOrganizationUsageCosts)
+	err = json.Unmarshal(data, &varGetUsageResponseCosts)
 
 	if err != nil {
 		return err
 	}
 
-	*o = OrganizationUsageCosts(varOrganizationUsageCosts)
+	*o = GetUsageResponseCosts(varGetUsageResponseCosts)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -116,38 +116,38 @@ func (o *OrganizationUsageCosts) UnmarshalJSON(data []byte) (err error) {
 	return err
 }
 
-type NullableOrganizationUsageCosts struct {
-	value *OrganizationUsageCosts
+type NullableGetUsageResponseCosts struct {
+	value *GetUsageResponseCosts
 	isSet bool
 }
 
-func (v NullableOrganizationUsageCosts) Get() *OrganizationUsageCosts {
+func (v NullableGetUsageResponseCosts) Get() *GetUsageResponseCosts {
 	return v.value
 }
 
-func (v *NullableOrganizationUsageCosts) Set(val *OrganizationUsageCosts) {
+func (v *NullableGetUsageResponseCosts) Set(val *GetUsageResponseCosts) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableOrganizationUsageCosts) IsSet() bool {
+func (v NullableGetUsageResponseCosts) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableOrganizationUsageCosts) Unset() {
+func (v *NullableGetUsageResponseCosts) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableOrganizationUsageCosts(val *OrganizationUsageCosts) *NullableOrganizationUsageCosts {
-	return &NullableOrganizationUsageCosts{value: val, isSet: true}
+func NewNullableGetUsageResponseCosts(val *GetUsageResponseCosts) *NullableGetUsageResponseCosts {
+	return &NullableGetUsageResponseCosts{value: val, isSet: true}
 }
 
-func (v NullableOrganizationUsageCosts) MarshalJSON() ([]byte, error) {
+func (v NullableGetUsageResponseCosts) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableOrganizationUsageCosts) UnmarshalJSON(src []byte) error {
+func (v *NullableGetUsageResponseCosts) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

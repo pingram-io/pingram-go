@@ -21,13 +21,12 @@ var _ MappedNullable = &GetMembersResponseInner{}
 
 // GetMembersResponseInner struct for GetMembersResponseInner
 type GetMembersResponseInner struct {
-	OrganizationId string   `json:"organizationId"`
-	AccountId      string   `json:"accountId"`
-	UserId         string   `json:"userId"`
-	CreatedAt      string   `json:"createdAt"`
-	Email          *string  `json:"email,omitempty"`
-	Groups         []string `json:"groups,omitempty"`
-	EnabledMFAs    []string `json:"enabledMFAs,omitempty"`
+	AccountId   string   `json:"accountId"`
+	UserId      string   `json:"userId"`
+	CreatedAt   string   `json:"createdAt"`
+	Email       *string  `json:"email,omitempty"`
+	Groups      []string `json:"groups,omitempty"`
+	EnabledMFAs []string `json:"enabledMFAs,omitempty"`
 }
 
 type _GetMembersResponseInner GetMembersResponseInner
@@ -36,9 +35,8 @@ type _GetMembersResponseInner GetMembersResponseInner
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetMembersResponseInner(organizationId string, accountId string, userId string, createdAt string) *GetMembersResponseInner {
+func NewGetMembersResponseInner(accountId string, userId string, createdAt string) *GetMembersResponseInner {
 	this := GetMembersResponseInner{}
-	this.OrganizationId = organizationId
 	this.AccountId = accountId
 	this.UserId = userId
 	this.CreatedAt = createdAt
@@ -51,30 +49,6 @@ func NewGetMembersResponseInner(organizationId string, accountId string, userId 
 func NewGetMembersResponseInnerWithDefaults() *GetMembersResponseInner {
 	this := GetMembersResponseInner{}
 	return &this
-}
-
-// GetOrganizationId returns the OrganizationId field value
-func (o *GetMembersResponseInner) GetOrganizationId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.OrganizationId
-}
-
-// GetOrganizationIdOk returns a tuple with the OrganizationId field value
-// and a boolean to check if the value has been set.
-func (o *GetMembersResponseInner) GetOrganizationIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.OrganizationId, true
-}
-
-// SetOrganizationId sets field value
-func (o *GetMembersResponseInner) SetOrganizationId(v string) {
-	o.OrganizationId = v
 }
 
 // GetAccountId returns the AccountId field value
@@ -255,7 +229,6 @@ func (o GetMembersResponseInner) MarshalJSON() ([]byte, error) {
 
 func (o GetMembersResponseInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["organizationId"] = o.OrganizationId
 	toSerialize["accountId"] = o.AccountId
 	toSerialize["userId"] = o.UserId
 	toSerialize["createdAt"] = o.CreatedAt
@@ -276,7 +249,6 @@ func (o *GetMembersResponseInner) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"organizationId",
 		"accountId",
 		"userId",
 		"createdAt",

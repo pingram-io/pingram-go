@@ -31,8 +31,6 @@ type SenderPostBodyOptionsEmail struct {
 	FromName *string `json:"fromName,omitempty"`
 	// File attachments (by URL or inline base64 content). Inline `content`: ~4 MB raw per file (413 if exceeded). URL `url`: up to 20 MB per file.
 	Attachments []SenderPostBodyOptionsEmailAttachmentsInner `json:"attachments,omitempty"`
-	// Conditional expression for when to send (e.g. merge tag logic).
-	Condition *string `json:"condition,omitempty"`
 }
 
 // NewSenderPostBodyOptionsEmail instantiates a new SenderPostBodyOptionsEmail object
@@ -244,38 +242,6 @@ func (o *SenderPostBodyOptionsEmail) SetAttachments(v []SenderPostBodyOptionsEma
 	o.Attachments = v
 }
 
-// GetCondition returns the Condition field value if set, zero value otherwise.
-func (o *SenderPostBodyOptionsEmail) GetCondition() string {
-	if o == nil || IsNil(o.Condition) {
-		var ret string
-		return ret
-	}
-	return *o.Condition
-}
-
-// GetConditionOk returns a tuple with the Condition field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SenderPostBodyOptionsEmail) GetConditionOk() (*string, bool) {
-	if o == nil || IsNil(o.Condition) {
-		return nil, false
-	}
-	return o.Condition, true
-}
-
-// HasCondition returns a boolean if a field has been set.
-func (o *SenderPostBodyOptionsEmail) HasCondition() bool {
-	if o != nil && !IsNil(o.Condition) {
-		return true
-	}
-
-	return false
-}
-
-// SetCondition gets a reference to the given string and assigns it to the Condition field.
-func (o *SenderPostBodyOptionsEmail) SetCondition(v string) {
-	o.Condition = &v
-}
-
 func (o SenderPostBodyOptionsEmail) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -303,9 +269,6 @@ func (o SenderPostBodyOptionsEmail) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Attachments) {
 		toSerialize["attachments"] = o.Attachments
-	}
-	if !IsNil(o.Condition) {
-		toSerialize["condition"] = o.Condition
 	}
 	return toSerialize, nil
 }

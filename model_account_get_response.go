@@ -19,12 +19,23 @@ import (
 // checks if the AccountGetResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AccountGetResponse{}
 
-// AccountGetResponse GET /account response: basic account info (billing fields are on the organization).
+// AccountGetResponse GET /account response: public plan fields for the authenticated account.
 type AccountGetResponse struct {
-	AccountId      string `json:"accountId"`
-	OrganizationId string `json:"organizationId"`
-	Name           string `json:"name"`
-	CreatedAt      string `json:"createdAt"`
+	AccountId   string   `json:"accountId"`
+	AccountType string   `json:"accountType"`
+	Creator     *string  `json:"creator,omitempty"`
+	Name        *string  `json:"name,omitempty"`
+	MessagesCap float32  `json:"messagesCap"`
+	CostCap     float32  `json:"costCap"`
+	SmsCap      *float32 `json:"smsCap,omitempty"`
+	CallCap     *float32 `json:"callCap,omitempty"`
+	// When omitted, defaults to LATEST_BILLING_VERSION.
+	BillingVersion *float32 `json:"billingVersion,omitempty"`
+	// ISO date (YYYY-MM-DD) when the billing cycle resets.
+	AnniversaryDate string `json:"anniversaryDate"`
+	AllowOverage    bool   `json:"allowOverage"`
+	CreatedAt       string `json:"createdAt"`
+	UpdatedAt       string `json:"updatedAt"`
 }
 
 type _AccountGetResponse AccountGetResponse
@@ -33,12 +44,16 @@ type _AccountGetResponse AccountGetResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAccountGetResponse(accountId string, organizationId string, name string, createdAt string) *AccountGetResponse {
+func NewAccountGetResponse(accountId string, accountType string, messagesCap float32, costCap float32, anniversaryDate string, allowOverage bool, createdAt string, updatedAt string) *AccountGetResponse {
 	this := AccountGetResponse{}
 	this.AccountId = accountId
-	this.OrganizationId = organizationId
-	this.Name = name
+	this.AccountType = accountType
+	this.MessagesCap = messagesCap
+	this.CostCap = costCap
+	this.AnniversaryDate = anniversaryDate
+	this.AllowOverage = allowOverage
 	this.CreatedAt = createdAt
+	this.UpdatedAt = updatedAt
 	return &this
 }
 
@@ -74,52 +89,284 @@ func (o *AccountGetResponse) SetAccountId(v string) {
 	o.AccountId = v
 }
 
-// GetOrganizationId returns the OrganizationId field value
-func (o *AccountGetResponse) GetOrganizationId() string {
+// GetAccountType returns the AccountType field value
+func (o *AccountGetResponse) GetAccountType() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.OrganizationId
+	return o.AccountType
 }
 
-// GetOrganizationIdOk returns a tuple with the OrganizationId field value
+// GetAccountTypeOk returns a tuple with the AccountType field value
 // and a boolean to check if the value has been set.
-func (o *AccountGetResponse) GetOrganizationIdOk() (*string, bool) {
+func (o *AccountGetResponse) GetAccountTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.OrganizationId, true
+	return &o.AccountType, true
 }
 
-// SetOrganizationId sets field value
-func (o *AccountGetResponse) SetOrganizationId(v string) {
-	o.OrganizationId = v
+// SetAccountType sets field value
+func (o *AccountGetResponse) SetAccountType(v string) {
+	o.AccountType = v
 }
 
-// GetName returns the Name field value
-func (o *AccountGetResponse) GetName() string {
-	if o == nil {
+// GetCreator returns the Creator field value if set, zero value otherwise.
+func (o *AccountGetResponse) GetCreator() string {
+	if o == nil || IsNil(o.Creator) {
 		var ret string
 		return ret
 	}
-
-	return o.Name
+	return *o.Creator
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetCreatorOk returns a tuple with the Creator field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountGetResponse) GetCreatorOk() (*string, bool) {
+	if o == nil || IsNil(o.Creator) {
+		return nil, false
+	}
+	return o.Creator, true
+}
+
+// HasCreator returns a boolean if a field has been set.
+func (o *AccountGetResponse) HasCreator() bool {
+	if o != nil && !IsNil(o.Creator) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreator gets a reference to the given string and assigns it to the Creator field.
+func (o *AccountGetResponse) SetCreator(v string) {
+	o.Creator = &v
+}
+
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *AccountGetResponse) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccountGetResponse) GetNameOk() (*string, bool) {
+	if o == nil || IsNil(o.Name) {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *AccountGetResponse) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *AccountGetResponse) SetName(v string) {
+	o.Name = &v
+}
+
+// GetMessagesCap returns the MessagesCap field value
+func (o *AccountGetResponse) GetMessagesCap() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.MessagesCap
+}
+
+// GetMessagesCapOk returns a tuple with the MessagesCap field value
+// and a boolean to check if the value has been set.
+func (o *AccountGetResponse) GetMessagesCapOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Name, true
+	return &o.MessagesCap, true
 }
 
-// SetName sets field value
-func (o *AccountGetResponse) SetName(v string) {
-	o.Name = v
+// SetMessagesCap sets field value
+func (o *AccountGetResponse) SetMessagesCap(v float32) {
+	o.MessagesCap = v
+}
+
+// GetCostCap returns the CostCap field value
+func (o *AccountGetResponse) GetCostCap() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.CostCap
+}
+
+// GetCostCapOk returns a tuple with the CostCap field value
+// and a boolean to check if the value has been set.
+func (o *AccountGetResponse) GetCostCapOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CostCap, true
+}
+
+// SetCostCap sets field value
+func (o *AccountGetResponse) SetCostCap(v float32) {
+	o.CostCap = v
+}
+
+// GetSmsCap returns the SmsCap field value if set, zero value otherwise.
+func (o *AccountGetResponse) GetSmsCap() float32 {
+	if o == nil || IsNil(o.SmsCap) {
+		var ret float32
+		return ret
+	}
+	return *o.SmsCap
+}
+
+// GetSmsCapOk returns a tuple with the SmsCap field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountGetResponse) GetSmsCapOk() (*float32, bool) {
+	if o == nil || IsNil(o.SmsCap) {
+		return nil, false
+	}
+	return o.SmsCap, true
+}
+
+// HasSmsCap returns a boolean if a field has been set.
+func (o *AccountGetResponse) HasSmsCap() bool {
+	if o != nil && !IsNil(o.SmsCap) {
+		return true
+	}
+
+	return false
+}
+
+// SetSmsCap gets a reference to the given float32 and assigns it to the SmsCap field.
+func (o *AccountGetResponse) SetSmsCap(v float32) {
+	o.SmsCap = &v
+}
+
+// GetCallCap returns the CallCap field value if set, zero value otherwise.
+func (o *AccountGetResponse) GetCallCap() float32 {
+	if o == nil || IsNil(o.CallCap) {
+		var ret float32
+		return ret
+	}
+	return *o.CallCap
+}
+
+// GetCallCapOk returns a tuple with the CallCap field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountGetResponse) GetCallCapOk() (*float32, bool) {
+	if o == nil || IsNil(o.CallCap) {
+		return nil, false
+	}
+	return o.CallCap, true
+}
+
+// HasCallCap returns a boolean if a field has been set.
+func (o *AccountGetResponse) HasCallCap() bool {
+	if o != nil && !IsNil(o.CallCap) {
+		return true
+	}
+
+	return false
+}
+
+// SetCallCap gets a reference to the given float32 and assigns it to the CallCap field.
+func (o *AccountGetResponse) SetCallCap(v float32) {
+	o.CallCap = &v
+}
+
+// GetBillingVersion returns the BillingVersion field value if set, zero value otherwise.
+func (o *AccountGetResponse) GetBillingVersion() float32 {
+	if o == nil || IsNil(o.BillingVersion) {
+		var ret float32
+		return ret
+	}
+	return *o.BillingVersion
+}
+
+// GetBillingVersionOk returns a tuple with the BillingVersion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountGetResponse) GetBillingVersionOk() (*float32, bool) {
+	if o == nil || IsNil(o.BillingVersion) {
+		return nil, false
+	}
+	return o.BillingVersion, true
+}
+
+// HasBillingVersion returns a boolean if a field has been set.
+func (o *AccountGetResponse) HasBillingVersion() bool {
+	if o != nil && !IsNil(o.BillingVersion) {
+		return true
+	}
+
+	return false
+}
+
+// SetBillingVersion gets a reference to the given float32 and assigns it to the BillingVersion field.
+func (o *AccountGetResponse) SetBillingVersion(v float32) {
+	o.BillingVersion = &v
+}
+
+// GetAnniversaryDate returns the AnniversaryDate field value
+func (o *AccountGetResponse) GetAnniversaryDate() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.AnniversaryDate
+}
+
+// GetAnniversaryDateOk returns a tuple with the AnniversaryDate field value
+// and a boolean to check if the value has been set.
+func (o *AccountGetResponse) GetAnniversaryDateOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AnniversaryDate, true
+}
+
+// SetAnniversaryDate sets field value
+func (o *AccountGetResponse) SetAnniversaryDate(v string) {
+	o.AnniversaryDate = v
+}
+
+// GetAllowOverage returns the AllowOverage field value
+func (o *AccountGetResponse) GetAllowOverage() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.AllowOverage
+}
+
+// GetAllowOverageOk returns a tuple with the AllowOverage field value
+// and a boolean to check if the value has been set.
+func (o *AccountGetResponse) GetAllowOverageOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AllowOverage, true
+}
+
+// SetAllowOverage sets field value
+func (o *AccountGetResponse) SetAllowOverage(v bool) {
+	o.AllowOverage = v
 }
 
 // GetCreatedAt returns the CreatedAt field value
@@ -146,6 +393,30 @@ func (o *AccountGetResponse) SetCreatedAt(v string) {
 	o.CreatedAt = v
 }
 
+// GetUpdatedAt returns the UpdatedAt field value
+func (o *AccountGetResponse) GetUpdatedAt() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.UpdatedAt
+}
+
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
+// and a boolean to check if the value has been set.
+func (o *AccountGetResponse) GetUpdatedAtOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.UpdatedAt, true
+}
+
+// SetUpdatedAt sets field value
+func (o *AccountGetResponse) SetUpdatedAt(v string) {
+	o.UpdatedAt = v
+}
+
 func (o AccountGetResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -157,9 +428,28 @@ func (o AccountGetResponse) MarshalJSON() ([]byte, error) {
 func (o AccountGetResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["accountId"] = o.AccountId
-	toSerialize["organizationId"] = o.OrganizationId
-	toSerialize["name"] = o.Name
+	toSerialize["accountType"] = o.AccountType
+	if !IsNil(o.Creator) {
+		toSerialize["creator"] = o.Creator
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	toSerialize["messagesCap"] = o.MessagesCap
+	toSerialize["costCap"] = o.CostCap
+	if !IsNil(o.SmsCap) {
+		toSerialize["smsCap"] = o.SmsCap
+	}
+	if !IsNil(o.CallCap) {
+		toSerialize["callCap"] = o.CallCap
+	}
+	if !IsNil(o.BillingVersion) {
+		toSerialize["billingVersion"] = o.BillingVersion
+	}
+	toSerialize["anniversaryDate"] = o.AnniversaryDate
+	toSerialize["allowOverage"] = o.AllowOverage
 	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["updatedAt"] = o.UpdatedAt
 	return toSerialize, nil
 }
 
@@ -169,9 +459,13 @@ func (o *AccountGetResponse) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"accountId",
-		"organizationId",
-		"name",
+		"accountType",
+		"messagesCap",
+		"costCap",
+		"anniversaryDate",
+		"allowOverage",
 		"createdAt",
+		"updatedAt",
 	}
 
 	allProperties := make(map[string]interface{})

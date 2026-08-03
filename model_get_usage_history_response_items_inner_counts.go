@@ -16,11 +16,11 @@ import (
 	"fmt"
 )
 
-// checks if the OrganizationUsageCounts type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &OrganizationUsageCounts{}
+// checks if the GetUsageHistoryResponseItemsInnerCounts type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GetUsageHistoryResponseItemsInnerCounts{}
 
-// OrganizationUsageCounts Per-channel usage breakdown
-type OrganizationUsageCounts struct {
+// GetUsageHistoryResponseItemsInnerCounts struct for GetUsageHistoryResponseItemsInnerCounts
+type GetUsageHistoryResponseItemsInnerCounts struct {
 	EMAIL     float32 `json:"EMAIL"`
 	INAPP_WEB float32 `json:"INAPP_WEB"`
 	SMS       float32 `json:"SMS"`
@@ -31,14 +31,14 @@ type OrganizationUsageCounts struct {
 	SLACK     float32 `json:"SLACK"`
 }
 
-type _OrganizationUsageCounts OrganizationUsageCounts
+type _GetUsageHistoryResponseItemsInnerCounts GetUsageHistoryResponseItemsInnerCounts
 
-// NewOrganizationUsageCounts instantiates a new OrganizationUsageCounts object
+// NewGetUsageHistoryResponseItemsInnerCounts instantiates a new GetUsageHistoryResponseItemsInnerCounts object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOrganizationUsageCounts(eMAIL float32, iNAPPWEB float32, sMS float32, cALL float32, vOICE float32, pUSH float32, wEBPUSH float32, sLACK float32) *OrganizationUsageCounts {
-	this := OrganizationUsageCounts{}
+func NewGetUsageHistoryResponseItemsInnerCounts(eMAIL float32, iNAPPWEB float32, sMS float32, cALL float32, vOICE float32, pUSH float32, wEBPUSH float32, sLACK float32) *GetUsageHistoryResponseItemsInnerCounts {
+	this := GetUsageHistoryResponseItemsInnerCounts{}
 	this.EMAIL = eMAIL
 	this.INAPP_WEB = iNAPPWEB
 	this.SMS = sMS
@@ -50,16 +50,16 @@ func NewOrganizationUsageCounts(eMAIL float32, iNAPPWEB float32, sMS float32, cA
 	return &this
 }
 
-// NewOrganizationUsageCountsWithDefaults instantiates a new OrganizationUsageCounts object
+// NewGetUsageHistoryResponseItemsInnerCountsWithDefaults instantiates a new GetUsageHistoryResponseItemsInnerCounts object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewOrganizationUsageCountsWithDefaults() *OrganizationUsageCounts {
-	this := OrganizationUsageCounts{}
+func NewGetUsageHistoryResponseItemsInnerCountsWithDefaults() *GetUsageHistoryResponseItemsInnerCounts {
+	this := GetUsageHistoryResponseItemsInnerCounts{}
 	return &this
 }
 
 // GetEMAIL returns the EMAIL field value
-func (o *OrganizationUsageCounts) GetEMAIL() float32 {
+func (o *GetUsageHistoryResponseItemsInnerCounts) GetEMAIL() float32 {
 	if o == nil {
 		var ret float32
 		return ret
@@ -70,7 +70,7 @@ func (o *OrganizationUsageCounts) GetEMAIL() float32 {
 
 // GetEMAILOk returns a tuple with the EMAIL field value
 // and a boolean to check if the value has been set.
-func (o *OrganizationUsageCounts) GetEMAILOk() (*float32, bool) {
+func (o *GetUsageHistoryResponseItemsInnerCounts) GetEMAILOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -78,12 +78,12 @@ func (o *OrganizationUsageCounts) GetEMAILOk() (*float32, bool) {
 }
 
 // SetEMAIL sets field value
-func (o *OrganizationUsageCounts) SetEMAIL(v float32) {
+func (o *GetUsageHistoryResponseItemsInnerCounts) SetEMAIL(v float32) {
 	o.EMAIL = v
 }
 
 // GetINAPP_WEB returns the INAPP_WEB field value
-func (o *OrganizationUsageCounts) GetINAPP_WEB() float32 {
+func (o *GetUsageHistoryResponseItemsInnerCounts) GetINAPP_WEB() float32 {
 	if o == nil {
 		var ret float32
 		return ret
@@ -94,7 +94,7 @@ func (o *OrganizationUsageCounts) GetINAPP_WEB() float32 {
 
 // GetINAPP_WEBOk returns a tuple with the INAPP_WEB field value
 // and a boolean to check if the value has been set.
-func (o *OrganizationUsageCounts) GetINAPP_WEBOk() (*float32, bool) {
+func (o *GetUsageHistoryResponseItemsInnerCounts) GetINAPP_WEBOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -102,12 +102,12 @@ func (o *OrganizationUsageCounts) GetINAPP_WEBOk() (*float32, bool) {
 }
 
 // SetINAPP_WEB sets field value
-func (o *OrganizationUsageCounts) SetINAPP_WEB(v float32) {
+func (o *GetUsageHistoryResponseItemsInnerCounts) SetINAPP_WEB(v float32) {
 	o.INAPP_WEB = v
 }
 
 // GetSMS returns the SMS field value
-func (o *OrganizationUsageCounts) GetSMS() float32 {
+func (o *GetUsageHistoryResponseItemsInnerCounts) GetSMS() float32 {
 	if o == nil {
 		var ret float32
 		return ret
@@ -118,7 +118,7 @@ func (o *OrganizationUsageCounts) GetSMS() float32 {
 
 // GetSMSOk returns a tuple with the SMS field value
 // and a boolean to check if the value has been set.
-func (o *OrganizationUsageCounts) GetSMSOk() (*float32, bool) {
+func (o *GetUsageHistoryResponseItemsInnerCounts) GetSMSOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -126,12 +126,12 @@ func (o *OrganizationUsageCounts) GetSMSOk() (*float32, bool) {
 }
 
 // SetSMS sets field value
-func (o *OrganizationUsageCounts) SetSMS(v float32) {
+func (o *GetUsageHistoryResponseItemsInnerCounts) SetSMS(v float32) {
 	o.SMS = v
 }
 
 // GetCALL returns the CALL field value
-func (o *OrganizationUsageCounts) GetCALL() float32 {
+func (o *GetUsageHistoryResponseItemsInnerCounts) GetCALL() float32 {
 	if o == nil {
 		var ret float32
 		return ret
@@ -142,7 +142,7 @@ func (o *OrganizationUsageCounts) GetCALL() float32 {
 
 // GetCALLOk returns a tuple with the CALL field value
 // and a boolean to check if the value has been set.
-func (o *OrganizationUsageCounts) GetCALLOk() (*float32, bool) {
+func (o *GetUsageHistoryResponseItemsInnerCounts) GetCALLOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -150,12 +150,12 @@ func (o *OrganizationUsageCounts) GetCALLOk() (*float32, bool) {
 }
 
 // SetCALL sets field value
-func (o *OrganizationUsageCounts) SetCALL(v float32) {
+func (o *GetUsageHistoryResponseItemsInnerCounts) SetCALL(v float32) {
 	o.CALL = v
 }
 
 // GetVOICE returns the VOICE field value
-func (o *OrganizationUsageCounts) GetVOICE() float32 {
+func (o *GetUsageHistoryResponseItemsInnerCounts) GetVOICE() float32 {
 	if o == nil {
 		var ret float32
 		return ret
@@ -166,7 +166,7 @@ func (o *OrganizationUsageCounts) GetVOICE() float32 {
 
 // GetVOICEOk returns a tuple with the VOICE field value
 // and a boolean to check if the value has been set.
-func (o *OrganizationUsageCounts) GetVOICEOk() (*float32, bool) {
+func (o *GetUsageHistoryResponseItemsInnerCounts) GetVOICEOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -174,12 +174,12 @@ func (o *OrganizationUsageCounts) GetVOICEOk() (*float32, bool) {
 }
 
 // SetVOICE sets field value
-func (o *OrganizationUsageCounts) SetVOICE(v float32) {
+func (o *GetUsageHistoryResponseItemsInnerCounts) SetVOICE(v float32) {
 	o.VOICE = v
 }
 
 // GetPUSH returns the PUSH field value
-func (o *OrganizationUsageCounts) GetPUSH() float32 {
+func (o *GetUsageHistoryResponseItemsInnerCounts) GetPUSH() float32 {
 	if o == nil {
 		var ret float32
 		return ret
@@ -190,7 +190,7 @@ func (o *OrganizationUsageCounts) GetPUSH() float32 {
 
 // GetPUSHOk returns a tuple with the PUSH field value
 // and a boolean to check if the value has been set.
-func (o *OrganizationUsageCounts) GetPUSHOk() (*float32, bool) {
+func (o *GetUsageHistoryResponseItemsInnerCounts) GetPUSHOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -198,12 +198,12 @@ func (o *OrganizationUsageCounts) GetPUSHOk() (*float32, bool) {
 }
 
 // SetPUSH sets field value
-func (o *OrganizationUsageCounts) SetPUSH(v float32) {
+func (o *GetUsageHistoryResponseItemsInnerCounts) SetPUSH(v float32) {
 	o.PUSH = v
 }
 
 // GetWEB_PUSH returns the WEB_PUSH field value
-func (o *OrganizationUsageCounts) GetWEB_PUSH() float32 {
+func (o *GetUsageHistoryResponseItemsInnerCounts) GetWEB_PUSH() float32 {
 	if o == nil {
 		var ret float32
 		return ret
@@ -214,7 +214,7 @@ func (o *OrganizationUsageCounts) GetWEB_PUSH() float32 {
 
 // GetWEB_PUSHOk returns a tuple with the WEB_PUSH field value
 // and a boolean to check if the value has been set.
-func (o *OrganizationUsageCounts) GetWEB_PUSHOk() (*float32, bool) {
+func (o *GetUsageHistoryResponseItemsInnerCounts) GetWEB_PUSHOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -222,12 +222,12 @@ func (o *OrganizationUsageCounts) GetWEB_PUSHOk() (*float32, bool) {
 }
 
 // SetWEB_PUSH sets field value
-func (o *OrganizationUsageCounts) SetWEB_PUSH(v float32) {
+func (o *GetUsageHistoryResponseItemsInnerCounts) SetWEB_PUSH(v float32) {
 	o.WEB_PUSH = v
 }
 
 // GetSLACK returns the SLACK field value
-func (o *OrganizationUsageCounts) GetSLACK() float32 {
+func (o *GetUsageHistoryResponseItemsInnerCounts) GetSLACK() float32 {
 	if o == nil {
 		var ret float32
 		return ret
@@ -238,7 +238,7 @@ func (o *OrganizationUsageCounts) GetSLACK() float32 {
 
 // GetSLACKOk returns a tuple with the SLACK field value
 // and a boolean to check if the value has been set.
-func (o *OrganizationUsageCounts) GetSLACKOk() (*float32, bool) {
+func (o *GetUsageHistoryResponseItemsInnerCounts) GetSLACKOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -246,11 +246,11 @@ func (o *OrganizationUsageCounts) GetSLACKOk() (*float32, bool) {
 }
 
 // SetSLACK sets field value
-func (o *OrganizationUsageCounts) SetSLACK(v float32) {
+func (o *GetUsageHistoryResponseItemsInnerCounts) SetSLACK(v float32) {
 	o.SLACK = v
 }
 
-func (o OrganizationUsageCounts) MarshalJSON() ([]byte, error) {
+func (o GetUsageHistoryResponseItemsInnerCounts) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -258,7 +258,7 @@ func (o OrganizationUsageCounts) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o OrganizationUsageCounts) ToMap() (map[string]interface{}, error) {
+func (o GetUsageHistoryResponseItemsInnerCounts) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["EMAIL"] = o.EMAIL
 	toSerialize["INAPP_WEB"] = o.INAPP_WEB
@@ -271,7 +271,7 @@ func (o OrganizationUsageCounts) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *OrganizationUsageCounts) UnmarshalJSON(data []byte) (err error) {
+func (o *GetUsageHistoryResponseItemsInnerCounts) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -300,53 +300,53 @@ func (o *OrganizationUsageCounts) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varOrganizationUsageCounts := _OrganizationUsageCounts{}
+	varGetUsageHistoryResponseItemsInnerCounts := _GetUsageHistoryResponseItemsInnerCounts{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varOrganizationUsageCounts)
+	err = decoder.Decode(&varGetUsageHistoryResponseItemsInnerCounts)
 
 	if err != nil {
 		return err
 	}
 
-	*o = OrganizationUsageCounts(varOrganizationUsageCounts)
+	*o = GetUsageHistoryResponseItemsInnerCounts(varGetUsageHistoryResponseItemsInnerCounts)
 
 	return err
 }
 
-type NullableOrganizationUsageCounts struct {
-	value *OrganizationUsageCounts
+type NullableGetUsageHistoryResponseItemsInnerCounts struct {
+	value *GetUsageHistoryResponseItemsInnerCounts
 	isSet bool
 }
 
-func (v NullableOrganizationUsageCounts) Get() *OrganizationUsageCounts {
+func (v NullableGetUsageHistoryResponseItemsInnerCounts) Get() *GetUsageHistoryResponseItemsInnerCounts {
 	return v.value
 }
 
-func (v *NullableOrganizationUsageCounts) Set(val *OrganizationUsageCounts) {
+func (v *NullableGetUsageHistoryResponseItemsInnerCounts) Set(val *GetUsageHistoryResponseItemsInnerCounts) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableOrganizationUsageCounts) IsSet() bool {
+func (v NullableGetUsageHistoryResponseItemsInnerCounts) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableOrganizationUsageCounts) Unset() {
+func (v *NullableGetUsageHistoryResponseItemsInnerCounts) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableOrganizationUsageCounts(val *OrganizationUsageCounts) *NullableOrganizationUsageCounts {
-	return &NullableOrganizationUsageCounts{value: val, isSet: true}
+func NewNullableGetUsageHistoryResponseItemsInnerCounts(val *GetUsageHistoryResponseItemsInnerCounts) *NullableGetUsageHistoryResponseItemsInnerCounts {
+	return &NullableGetUsageHistoryResponseItemsInnerCounts{value: val, isSet: true}
 }
 
-func (v NullableOrganizationUsageCounts) MarshalJSON() ([]byte, error) {
+func (v NullableGetUsageHistoryResponseItemsInnerCounts) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableOrganizationUsageCounts) UnmarshalJSON(src []byte) error {
+func (v *NullableGetUsageHistoryResponseItemsInnerCounts) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
