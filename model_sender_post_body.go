@@ -26,9 +26,6 @@ type SenderPostBody struct {
 	User *SenderPostBodyUser `json:"user,omitempty"`
 	// Deprecated
 	MergeTags map[string]interface{} `json:"mergeTags,omitempty"`
-	// @deprecated Use parameters instead
-	// Deprecated
-	Replace *map[string]string `json:"replace,omitempty"`
 	// ID of the notification type (e.g. \"welcome_email\"). Creates a new notification if it does not exist.
 	Type *string           `json:"type,omitempty"`
 	To   *SenderPostBodyTo `json:"to,omitempty"`
@@ -173,41 +170,6 @@ func (o *SenderPostBody) HasMergeTags() bool {
 // Deprecated
 func (o *SenderPostBody) SetMergeTags(v map[string]interface{}) {
 	o.MergeTags = v
-}
-
-// GetReplace returns the Replace field value if set, zero value otherwise.
-// Deprecated
-func (o *SenderPostBody) GetReplace() map[string]string {
-	if o == nil || IsNil(o.Replace) {
-		var ret map[string]string
-		return ret
-	}
-	return *o.Replace
-}
-
-// GetReplaceOk returns a tuple with the Replace field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// Deprecated
-func (o *SenderPostBody) GetReplaceOk() (*map[string]string, bool) {
-	if o == nil || IsNil(o.Replace) {
-		return nil, false
-	}
-	return o.Replace, true
-}
-
-// HasReplace returns a boolean if a field has been set.
-func (o *SenderPostBody) HasReplace() bool {
-	if o != nil && !IsNil(o.Replace) {
-		return true
-	}
-
-	return false
-}
-
-// SetReplace gets a reference to the given map[string]string and assigns it to the Replace field.
-// Deprecated
-func (o *SenderPostBody) SetReplace(v map[string]string) {
-	o.Replace = &v
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
@@ -740,9 +702,6 @@ func (o SenderPostBody) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.MergeTags) {
 		toSerialize["mergeTags"] = o.MergeTags
-	}
-	if !IsNil(o.Replace) {
-		toSerialize["replace"] = o.Replace
 	}
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
