@@ -704,6 +704,186 @@ func (a *AccountAPIService) AccountGetUsageHistoryExecute(r ApiAccountGetUsageHi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiAccountListInvoicesRequest struct {
+	ctx           context.Context
+	ApiService    *AccountAPIService
+	limit         *float32
+	startingAfter *string
+	status        *string
+	createdAfter  *string
+	createdBefore *string
+}
+
+// Max invoices to return (1-100, default 10)
+func (r ApiAccountListInvoicesRequest) Limit(limit float32) ApiAccountListInvoicesRequest {
+	r.limit = &limit
+	return r
+}
+
+// Pagination cursor (invoice id from a previous response)
+func (r ApiAccountListInvoicesRequest) StartingAfter(startingAfter string) ApiAccountListInvoicesRequest {
+	r.startingAfter = &startingAfter
+	return r
+}
+
+// Filter by status
+func (r ApiAccountListInvoicesRequest) Status(status string) ApiAccountListInvoicesRequest {
+	r.status = &status
+	return r
+}
+
+// Inclusive lower bound (YYYY-MM-DD or unix seconds)
+func (r ApiAccountListInvoicesRequest) CreatedAfter(createdAfter string) ApiAccountListInvoicesRequest {
+	r.createdAfter = &createdAfter
+	return r
+}
+
+// Inclusive upper bound (YYYY-MM-DD or unix seconds)
+func (r ApiAccountListInvoicesRequest) CreatedBefore(createdBefore string) ApiAccountListInvoicesRequest {
+	r.createdBefore = &createdBefore
+	return r
+}
+
+func (r ApiAccountListInvoicesRequest) Execute() (*ListInvoicesResponse, *http.Response, error) {
+	return r.ApiService.AccountListInvoicesExecute(r)
+}
+
+/*
+AccountListInvoices List Stripe invoices for the authenticated account, newest first.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAccountListInvoicesRequest
+*/
+func (a *AccountAPIService) AccountListInvoices(ctx context.Context) ApiAccountListInvoicesRequest {
+	return ApiAccountListInvoicesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ListInvoicesResponse
+func (a *AccountAPIService) AccountListInvoicesExecute(r ApiAccountListInvoicesRequest) (*ListInvoicesResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ListInvoicesResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAPIService.AccountListInvoices")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/account/invoices"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	if r.startingAfter != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "startingAfter", r.startingAfter, "form", "")
+	}
+	if r.status != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "form", "")
+	}
+	if r.createdAfter != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "createdAfter", r.createdAfter, "form", "")
+	}
+	if r.createdBefore != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "createdBefore", r.createdBefore, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: prefaceHTTPStatusWithApiJSONDetail(localVarHTTPResponse.Status, localVarBody),
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 402 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 502 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiAccountListSupabaseProjectsRequest struct {
 	ctx        context.Context
 	ApiService *AccountAPIService
