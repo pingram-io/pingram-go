@@ -21,8 +21,8 @@ var _ MappedNullable = &CreateAccountResponse{}
 
 // CreateAccountResponse struct for CreateAccountResponse
 type CreateAccountResponse struct {
+	Success   bool   `json:"success"`
 	AccountId string `json:"accountId"`
-	Name      string `json:"name"`
 }
 
 type _CreateAccountResponse CreateAccountResponse
@@ -31,10 +31,10 @@ type _CreateAccountResponse CreateAccountResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateAccountResponse(accountId string, name string) *CreateAccountResponse {
+func NewCreateAccountResponse(success bool, accountId string) *CreateAccountResponse {
 	this := CreateAccountResponse{}
+	this.Success = success
 	this.AccountId = accountId
-	this.Name = name
 	return &this
 }
 
@@ -44,6 +44,30 @@ func NewCreateAccountResponse(accountId string, name string) *CreateAccountRespo
 func NewCreateAccountResponseWithDefaults() *CreateAccountResponse {
 	this := CreateAccountResponse{}
 	return &this
+}
+
+// GetSuccess returns the Success field value
+func (o *CreateAccountResponse) GetSuccess() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Success
+}
+
+// GetSuccessOk returns a tuple with the Success field value
+// and a boolean to check if the value has been set.
+func (o *CreateAccountResponse) GetSuccessOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Success, true
+}
+
+// SetSuccess sets field value
+func (o *CreateAccountResponse) SetSuccess(v bool) {
+	o.Success = v
 }
 
 // GetAccountId returns the AccountId field value
@@ -70,30 +94,6 @@ func (o *CreateAccountResponse) SetAccountId(v string) {
 	o.AccountId = v
 }
 
-// GetName returns the Name field value
-func (o *CreateAccountResponse) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *CreateAccountResponse) GetNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *CreateAccountResponse) SetName(v string) {
-	o.Name = v
-}
-
 func (o CreateAccountResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -104,8 +104,8 @@ func (o CreateAccountResponse) MarshalJSON() ([]byte, error) {
 
 func (o CreateAccountResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["success"] = o.Success
 	toSerialize["accountId"] = o.AccountId
-	toSerialize["name"] = o.Name
 	return toSerialize, nil
 }
 
@@ -114,8 +114,8 @@ func (o *CreateAccountResponse) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"success",
 		"accountId",
-		"name",
 	}
 
 	allProperties := make(map[string]interface{})
