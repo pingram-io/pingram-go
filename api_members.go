@@ -736,7 +736,7 @@ func (r ApiMembersUpdateRequest) Execute() (*SuccessResponse, *http.Response, er
 }
 
 /*
-MembersUpdate Updates a specified member. The role update operation is restricted to administrators only.
+MembersUpdate Updates a member. Account owners can set role to \"owner\" or \"admin\" on other members.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param envId Environment ID

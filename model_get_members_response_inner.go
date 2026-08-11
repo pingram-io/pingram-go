@@ -24,6 +24,7 @@ type GetMembersResponseInner struct {
 	AccountId   string   `json:"accountId"`
 	UserId      string   `json:"userId"`
 	CreatedAt   string   `json:"createdAt"`
+	Role        string   `json:"role"`
 	Email       *string  `json:"email,omitempty"`
 	Groups      []string `json:"groups,omitempty"`
 	EnabledMFAs []string `json:"enabledMFAs,omitempty"`
@@ -35,11 +36,12 @@ type _GetMembersResponseInner GetMembersResponseInner
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetMembersResponseInner(accountId string, userId string, createdAt string) *GetMembersResponseInner {
+func NewGetMembersResponseInner(accountId string, userId string, createdAt string, role string) *GetMembersResponseInner {
 	this := GetMembersResponseInner{}
 	this.AccountId = accountId
 	this.UserId = userId
 	this.CreatedAt = createdAt
+	this.Role = role
 	return &this
 }
 
@@ -121,6 +123,30 @@ func (o *GetMembersResponseInner) GetCreatedAtOk() (*string, bool) {
 // SetCreatedAt sets field value
 func (o *GetMembersResponseInner) SetCreatedAt(v string) {
 	o.CreatedAt = v
+}
+
+// GetRole returns the Role field value
+func (o *GetMembersResponseInner) GetRole() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Role
+}
+
+// GetRoleOk returns a tuple with the Role field value
+// and a boolean to check if the value has been set.
+func (o *GetMembersResponseInner) GetRoleOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Role, true
+}
+
+// SetRole sets field value
+func (o *GetMembersResponseInner) SetRole(v string) {
+	o.Role = v
 }
 
 // GetEmail returns the Email field value if set, zero value otherwise.
@@ -232,6 +258,7 @@ func (o GetMembersResponseInner) ToMap() (map[string]interface{}, error) {
 	toSerialize["accountId"] = o.AccountId
 	toSerialize["userId"] = o.UserId
 	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["role"] = o.Role
 	if !IsNil(o.Email) {
 		toSerialize["email"] = o.Email
 	}
@@ -252,6 +279,7 @@ func (o *GetMembersResponseInner) UnmarshalJSON(data []byte) (err error) {
 		"accountId",
 		"userId",
 		"createdAt",
+		"role",
 	}
 
 	allProperties := make(map[string]interface{})

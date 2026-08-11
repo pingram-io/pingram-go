@@ -27,7 +27,7 @@ type IntercomWebhookDataItemAnyOf struct {
 	UpdatedAt       float32                              `json:"updated_at"`
 	Title           *string                              `json:"title,omitempty"`
 	AdminAssigneeId NullableFloat32                      `json:"admin_assignee_id,omitempty"`
-	TeamAssigneeId  *string                              `json:"team_assignee_id,omitempty"`
+	TeamAssigneeId  NullableString                       `json:"team_assignee_id,omitempty"`
 	Source          IntercomWebhookDataItemAnyOfSource   `json:"source"`
 	Contacts        IntercomWebhookDataItemAnyOfContacts `json:"contacts"`
 	State           string                               `json:"state"`
@@ -236,36 +236,47 @@ func (o *IntercomWebhookDataItemAnyOf) UnsetAdminAssigneeId() {
 	o.AdminAssigneeId.Unset()
 }
 
-// GetTeamAssigneeId returns the TeamAssigneeId field value if set, zero value otherwise.
+// GetTeamAssigneeId returns the TeamAssigneeId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *IntercomWebhookDataItemAnyOf) GetTeamAssigneeId() string {
-	if o == nil || IsNil(o.TeamAssigneeId) {
+	if o == nil || IsNil(o.TeamAssigneeId.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.TeamAssigneeId
+	return *o.TeamAssigneeId.Get()
 }
 
 // GetTeamAssigneeIdOk returns a tuple with the TeamAssigneeId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *IntercomWebhookDataItemAnyOf) GetTeamAssigneeIdOk() (*string, bool) {
-	if o == nil || IsNil(o.TeamAssigneeId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.TeamAssigneeId, true
+	return o.TeamAssigneeId.Get(), o.TeamAssigneeId.IsSet()
 }
 
 // HasTeamAssigneeId returns a boolean if a field has been set.
 func (o *IntercomWebhookDataItemAnyOf) HasTeamAssigneeId() bool {
-	if o != nil && !IsNil(o.TeamAssigneeId) {
+	if o != nil && o.TeamAssigneeId.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetTeamAssigneeId gets a reference to the given string and assigns it to the TeamAssigneeId field.
+// SetTeamAssigneeId gets a reference to the given NullableString and assigns it to the TeamAssigneeId field.
 func (o *IntercomWebhookDataItemAnyOf) SetTeamAssigneeId(v string) {
-	o.TeamAssigneeId = &v
+	o.TeamAssigneeId.Set(&v)
+}
+
+// SetTeamAssigneeIdNil sets the value for TeamAssigneeId to be an explicit nil
+func (o *IntercomWebhookDataItemAnyOf) SetTeamAssigneeIdNil() {
+	o.TeamAssigneeId.Set(nil)
+}
+
+// UnsetTeamAssigneeId ensures that no value is present for TeamAssigneeId, not even an explicit nil
+func (o *IntercomWebhookDataItemAnyOf) UnsetTeamAssigneeId() {
+	o.TeamAssigneeId.Unset()
 }
 
 // GetSource returns the Source field value
@@ -432,8 +443,8 @@ func (o IntercomWebhookDataItemAnyOf) ToMap() (map[string]interface{}, error) {
 	if o.AdminAssigneeId.IsSet() {
 		toSerialize["admin_assignee_id"] = o.AdminAssigneeId.Get()
 	}
-	if !IsNil(o.TeamAssigneeId) {
-		toSerialize["team_assignee_id"] = o.TeamAssigneeId
+	if o.TeamAssigneeId.IsSet() {
+		toSerialize["team_assignee_id"] = o.TeamAssigneeId.Get()
 	}
 	toSerialize["source"] = o.Source
 	toSerialize["contacts"] = o.Contacts

@@ -21,6 +21,7 @@ var _ MappedNullable = &MemberUpdateRequest{}
 
 // MemberUpdateRequest struct for MemberUpdateRequest
 type MemberUpdateRequest struct {
+	// Account role ('owner' or 'admin'), or a Bluedrop Cognito group role.
 	Role string `json:"role"`
 }
 
