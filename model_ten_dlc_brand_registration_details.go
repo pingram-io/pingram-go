@@ -19,7 +19,7 @@ import (
 // checks if the TenDlcBrandRegistrationDetails type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &TenDlcBrandRegistrationDetails{}
 
-// TenDlcBrandRegistrationDetails System-access GET response; includes internal Telnyx provider IDs and admin-only fields.
+// TenDlcBrandRegistrationDetails Admin GET response; includes carrier-assigned IDs and admin-only fields.
 type TenDlcBrandRegistrationDetails struct {
 	AccountId    string `json:"accountId"`
 	ScenarioId   string `json:"scenarioId"`
@@ -48,9 +48,9 @@ type TenDlcBrandRegistrationDetails struct {
 	UpdatedAt      string  `json:"updatedAt"`
 	Vertical       *string `json:"vertical,omitempty"`
 	// Legacy only when businessType is Other.
-	EntityType      *string `json:"entityType,omitempty"`
-	TelnyxProfileId *string `json:"telnyxProfileId,omitempty"`
-	TelnyxBrandId   *string `json:"telnyxBrandId,omitempty"`
+	EntityType *string `json:"entityType,omitempty"`
+	ProfileId  *string `json:"profileId,omitempty"`
+	BrandId    *string `json:"brandId,omitempty"`
 }
 
 type _TenDlcBrandRegistrationDetails TenDlcBrandRegistrationDetails
@@ -724,68 +724,68 @@ func (o *TenDlcBrandRegistrationDetails) SetEntityType(v string) {
 	o.EntityType = &v
 }
 
-// GetTelnyxProfileId returns the TelnyxProfileId field value if set, zero value otherwise.
-func (o *TenDlcBrandRegistrationDetails) GetTelnyxProfileId() string {
-	if o == nil || IsNil(o.TelnyxProfileId) {
+// GetProfileId returns the ProfileId field value if set, zero value otherwise.
+func (o *TenDlcBrandRegistrationDetails) GetProfileId() string {
+	if o == nil || IsNil(o.ProfileId) {
 		var ret string
 		return ret
 	}
-	return *o.TelnyxProfileId
+	return *o.ProfileId
 }
 
-// GetTelnyxProfileIdOk returns a tuple with the TelnyxProfileId field value if set, nil otherwise
+// GetProfileIdOk returns a tuple with the ProfileId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcBrandRegistrationDetails) GetTelnyxProfileIdOk() (*string, bool) {
-	if o == nil || IsNil(o.TelnyxProfileId) {
+func (o *TenDlcBrandRegistrationDetails) GetProfileIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ProfileId) {
 		return nil, false
 	}
-	return o.TelnyxProfileId, true
+	return o.ProfileId, true
 }
 
-// HasTelnyxProfileId returns a boolean if a field has been set.
-func (o *TenDlcBrandRegistrationDetails) HasTelnyxProfileId() bool {
-	if o != nil && !IsNil(o.TelnyxProfileId) {
+// HasProfileId returns a boolean if a field has been set.
+func (o *TenDlcBrandRegistrationDetails) HasProfileId() bool {
+	if o != nil && !IsNil(o.ProfileId) {
 		return true
 	}
 
 	return false
 }
 
-// SetTelnyxProfileId gets a reference to the given string and assigns it to the TelnyxProfileId field.
-func (o *TenDlcBrandRegistrationDetails) SetTelnyxProfileId(v string) {
-	o.TelnyxProfileId = &v
+// SetProfileId gets a reference to the given string and assigns it to the ProfileId field.
+func (o *TenDlcBrandRegistrationDetails) SetProfileId(v string) {
+	o.ProfileId = &v
 }
 
-// GetTelnyxBrandId returns the TelnyxBrandId field value if set, zero value otherwise.
-func (o *TenDlcBrandRegistrationDetails) GetTelnyxBrandId() string {
-	if o == nil || IsNil(o.TelnyxBrandId) {
+// GetBrandId returns the BrandId field value if set, zero value otherwise.
+func (o *TenDlcBrandRegistrationDetails) GetBrandId() string {
+	if o == nil || IsNil(o.BrandId) {
 		var ret string
 		return ret
 	}
-	return *o.TelnyxBrandId
+	return *o.BrandId
 }
 
-// GetTelnyxBrandIdOk returns a tuple with the TelnyxBrandId field value if set, nil otherwise
+// GetBrandIdOk returns a tuple with the BrandId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcBrandRegistrationDetails) GetTelnyxBrandIdOk() (*string, bool) {
-	if o == nil || IsNil(o.TelnyxBrandId) {
+func (o *TenDlcBrandRegistrationDetails) GetBrandIdOk() (*string, bool) {
+	if o == nil || IsNil(o.BrandId) {
 		return nil, false
 	}
-	return o.TelnyxBrandId, true
+	return o.BrandId, true
 }
 
-// HasTelnyxBrandId returns a boolean if a field has been set.
-func (o *TenDlcBrandRegistrationDetails) HasTelnyxBrandId() bool {
-	if o != nil && !IsNil(o.TelnyxBrandId) {
+// HasBrandId returns a boolean if a field has been set.
+func (o *TenDlcBrandRegistrationDetails) HasBrandId() bool {
+	if o != nil && !IsNil(o.BrandId) {
 		return true
 	}
 
 	return false
 }
 
-// SetTelnyxBrandId gets a reference to the given string and assigns it to the TelnyxBrandId field.
-func (o *TenDlcBrandRegistrationDetails) SetTelnyxBrandId(v string) {
-	o.TelnyxBrandId = &v
+// SetBrandId gets a reference to the given string and assigns it to the BrandId field.
+func (o *TenDlcBrandRegistrationDetails) SetBrandId(v string) {
+	o.BrandId = &v
 }
 
 func (o TenDlcBrandRegistrationDetails) MarshalJSON() ([]byte, error) {
@@ -843,11 +843,11 @@ func (o TenDlcBrandRegistrationDetails) ToMap() (map[string]interface{}, error) 
 	if !IsNil(o.EntityType) {
 		toSerialize["entityType"] = o.EntityType
 	}
-	if !IsNil(o.TelnyxProfileId) {
-		toSerialize["telnyxProfileId"] = o.TelnyxProfileId
+	if !IsNil(o.ProfileId) {
+		toSerialize["profileId"] = o.ProfileId
 	}
-	if !IsNil(o.TelnyxBrandId) {
-		toSerialize["telnyxBrandId"] = o.TelnyxBrandId
+	if !IsNil(o.BrandId) {
+		toSerialize["brandId"] = o.BrandId
 	}
 	return toSerialize, nil
 }
