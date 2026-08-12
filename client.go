@@ -78,8 +78,6 @@ type APIClient struct {
 
 	ProfileAPI *ProfileAPIService
 
-	PushSettingsAPI *PushSettingsAPIService
-
 	SenderAPI *SenderAPIService
 
 	SmsAPI *SmsAPIService
@@ -128,7 +126,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.MembersAPI = (*MembersAPIService)(&c.common)
 	c.NumbersAPI = (*NumbersAPIService)(&c.common)
 	c.ProfileAPI = (*ProfileAPIService)(&c.common)
-	c.PushSettingsAPI = (*PushSettingsAPIService)(&c.common)
 	c.SenderAPI = (*SenderAPIService)(&c.common)
 	c.SmsAPI = (*SmsAPIService)(&c.common)
 	c.TemplatesAPI = (*TemplatesAPIService)(&c.common)

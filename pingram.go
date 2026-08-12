@@ -77,8 +77,6 @@ type Client struct {
 
 	ProfileAPI *ProfileAPIService
 
-	PushSettingsAPI *PushSettingsAPIService
-
 	SenderAPI *SenderAPIService
 
 	SmsAPI *SmsAPIService
@@ -144,8 +142,6 @@ func NewClient(apiKey string, opts ...ClientOption) *Client {
 	c.NumbersAPI = (*NumbersAPIService)(&c.common)
 
 	c.ProfileAPI = (*ProfileAPIService)(&c.common)
-
-	c.PushSettingsAPI = (*PushSettingsAPIService)(&c.common)
 
 	c.SenderAPI = (*SenderAPIService)(&c.common)
 
