@@ -33,8 +33,6 @@ type SenderPostBody struct {
 	ForceChannels []ChannelsEnum `json:"forceChannels,omitempty"`
 	// Key-value pairs for template merge tags. Replaces placeholders like {{firstName}} in templates.
 	Parameters map[string]interface{} `json:"parameters,omitempty"`
-	// Optional sub-notification identifier for grouping or tracking.
-	SecondaryId *string `json:"secondaryId,omitempty"`
 	// Specific template ID to use. If omitted, uses the default template for each channel.
 	TemplateId *string `json:"templateId,omitempty"`
 	// Sub-notification identifier (e.g. for grouping related notifications).
@@ -298,38 +296,6 @@ func (o *SenderPostBody) HasParameters() bool {
 // SetParameters gets a reference to the given map[string]interface{} and assigns it to the Parameters field.
 func (o *SenderPostBody) SetParameters(v map[string]interface{}) {
 	o.Parameters = v
-}
-
-// GetSecondaryId returns the SecondaryId field value if set, zero value otherwise.
-func (o *SenderPostBody) GetSecondaryId() string {
-	if o == nil || IsNil(o.SecondaryId) {
-		var ret string
-		return ret
-	}
-	return *o.SecondaryId
-}
-
-// GetSecondaryIdOk returns a tuple with the SecondaryId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SenderPostBody) GetSecondaryIdOk() (*string, bool) {
-	if o == nil || IsNil(o.SecondaryId) {
-		return nil, false
-	}
-	return o.SecondaryId, true
-}
-
-// HasSecondaryId returns a boolean if a field has been set.
-func (o *SenderPostBody) HasSecondaryId() bool {
-	if o != nil && !IsNil(o.SecondaryId) {
-		return true
-	}
-
-	return false
-}
-
-// SetSecondaryId gets a reference to the given string and assigns it to the SecondaryId field.
-func (o *SenderPostBody) SetSecondaryId(v string) {
-	o.SecondaryId = &v
 }
 
 // GetTemplateId returns the TemplateId field value if set, zero value otherwise.
@@ -714,9 +680,6 @@ func (o SenderPostBody) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Parameters) {
 		toSerialize["parameters"] = o.Parameters
-	}
-	if !IsNil(o.SecondaryId) {
-		toSerialize["secondaryId"] = o.SecondaryId
 	}
 	if !IsNil(o.TemplateId) {
 		toSerialize["templateId"] = o.TemplateId
