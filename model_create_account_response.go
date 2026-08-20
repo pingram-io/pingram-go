@@ -19,10 +19,12 @@ import (
 // checks if the CreateAccountResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &CreateAccountResponse{}
 
-// CreateAccountResponse struct for CreateAccountResponse
+// CreateAccountResponse Response for POST /accounts
 type CreateAccountResponse struct {
-	Success   bool   `json:"success"`
-	AccountId string `json:"accountId"`
+	AccountId          string         `json:"accountId"`
+	Name               string         `json:"name"`
+	Status             string         `json:"status"`
+	SubscriptionStatus NullableString `json:"subscriptionStatus,omitempty"`
 }
 
 type _CreateAccountResponse CreateAccountResponse
@@ -31,10 +33,11 @@ type _CreateAccountResponse CreateAccountResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateAccountResponse(success bool, accountId string) *CreateAccountResponse {
+func NewCreateAccountResponse(accountId string, name string, status string) *CreateAccountResponse {
 	this := CreateAccountResponse{}
-	this.Success = success
 	this.AccountId = accountId
+	this.Name = name
+	this.Status = status
 	return &this
 }
 
@@ -44,30 +47,6 @@ func NewCreateAccountResponse(success bool, accountId string) *CreateAccountResp
 func NewCreateAccountResponseWithDefaults() *CreateAccountResponse {
 	this := CreateAccountResponse{}
 	return &this
-}
-
-// GetSuccess returns the Success field value
-func (o *CreateAccountResponse) GetSuccess() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.Success
-}
-
-// GetSuccessOk returns a tuple with the Success field value
-// and a boolean to check if the value has been set.
-func (o *CreateAccountResponse) GetSuccessOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Success, true
-}
-
-// SetSuccess sets field value
-func (o *CreateAccountResponse) SetSuccess(v bool) {
-	o.Success = v
 }
 
 // GetAccountId returns the AccountId field value
@@ -94,6 +73,97 @@ func (o *CreateAccountResponse) SetAccountId(v string) {
 	o.AccountId = v
 }
 
+// GetName returns the Name field value
+func (o *CreateAccountResponse) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *CreateAccountResponse) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *CreateAccountResponse) SetName(v string) {
+	o.Name = v
+}
+
+// GetStatus returns the Status field value
+func (o *CreateAccountResponse) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *CreateAccountResponse) GetStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *CreateAccountResponse) SetStatus(v string) {
+	o.Status = v
+}
+
+// GetSubscriptionStatus returns the SubscriptionStatus field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateAccountResponse) GetSubscriptionStatus() string {
+	if o == nil || IsNil(o.SubscriptionStatus.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.SubscriptionStatus.Get()
+}
+
+// GetSubscriptionStatusOk returns a tuple with the SubscriptionStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateAccountResponse) GetSubscriptionStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.SubscriptionStatus.Get(), o.SubscriptionStatus.IsSet()
+}
+
+// HasSubscriptionStatus returns a boolean if a field has been set.
+func (o *CreateAccountResponse) HasSubscriptionStatus() bool {
+	if o != nil && o.SubscriptionStatus.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetSubscriptionStatus gets a reference to the given NullableString and assigns it to the SubscriptionStatus field.
+func (o *CreateAccountResponse) SetSubscriptionStatus(v string) {
+	o.SubscriptionStatus.Set(&v)
+}
+
+// SetSubscriptionStatusNil sets the value for SubscriptionStatus to be an explicit nil
+func (o *CreateAccountResponse) SetSubscriptionStatusNil() {
+	o.SubscriptionStatus.Set(nil)
+}
+
+// UnsetSubscriptionStatus ensures that no value is present for SubscriptionStatus, not even an explicit nil
+func (o *CreateAccountResponse) UnsetSubscriptionStatus() {
+	o.SubscriptionStatus.Unset()
+}
+
 func (o CreateAccountResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -104,8 +174,12 @@ func (o CreateAccountResponse) MarshalJSON() ([]byte, error) {
 
 func (o CreateAccountResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["success"] = o.Success
 	toSerialize["accountId"] = o.AccountId
+	toSerialize["name"] = o.Name
+	toSerialize["status"] = o.Status
+	if o.SubscriptionStatus.IsSet() {
+		toSerialize["subscriptionStatus"] = o.SubscriptionStatus.Get()
+	}
 	return toSerialize, nil
 }
 
@@ -114,8 +188,9 @@ func (o *CreateAccountResponse) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"success",
 		"accountId",
+		"name",
+		"status",
 	}
 
 	allProperties := make(map[string]interface{})

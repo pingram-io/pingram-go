@@ -36,6 +36,7 @@ type BillingPostResponseBody struct {
 	AllowOverage    bool    `json:"allowOverage"`
 	CreatedAt       string  `json:"createdAt"`
 	UpdatedAt       string  `json:"updatedAt"`
+	Status          *string `json:"status,omitempty"`
 	SessionId       *string `json:"sessionId,omitempty"`
 	Url             *string `json:"url,omitempty"`
 }
@@ -419,6 +420,38 @@ func (o *BillingPostResponseBody) SetUpdatedAt(v string) {
 	o.UpdatedAt = v
 }
 
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *BillingPostResponseBody) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingPostResponseBody) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *BillingPostResponseBody) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *BillingPostResponseBody) SetStatus(v string) {
+	o.Status = &v
+}
+
 // GetSessionId returns the SessionId field value if set, zero value otherwise.
 func (o *BillingPostResponseBody) GetSessionId() string {
 	if o == nil || IsNil(o.SessionId) {
@@ -516,6 +549,9 @@ func (o BillingPostResponseBody) ToMap() (map[string]interface{}, error) {
 	toSerialize["allowOverage"] = o.AllowOverage
 	toSerialize["createdAt"] = o.CreatedAt
 	toSerialize["updatedAt"] = o.UpdatedAt
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
 	if !IsNil(o.SessionId) {
 		toSerialize["sessionId"] = o.SessionId
 	}

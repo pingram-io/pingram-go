@@ -21,7 +21,8 @@ var _ MappedNullable = &PhoneVerifyConfirmResponse{}
 
 // PhoneVerifyConfirmResponse struct for PhoneVerifyConfirmResponse
 type PhoneVerifyConfirmResponse struct {
-	Verified bool `json:"verified"`
+	Verified  bool    `json:"verified"`
+	AccountId *string `json:"accountId,omitempty"`
 }
 
 type _PhoneVerifyConfirmResponse PhoneVerifyConfirmResponse
@@ -68,6 +69,38 @@ func (o *PhoneVerifyConfirmResponse) SetVerified(v bool) {
 	o.Verified = v
 }
 
+// GetAccountId returns the AccountId field value if set, zero value otherwise.
+func (o *PhoneVerifyConfirmResponse) GetAccountId() string {
+	if o == nil || IsNil(o.AccountId) {
+		var ret string
+		return ret
+	}
+	return *o.AccountId
+}
+
+// GetAccountIdOk returns a tuple with the AccountId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PhoneVerifyConfirmResponse) GetAccountIdOk() (*string, bool) {
+	if o == nil || IsNil(o.AccountId) {
+		return nil, false
+	}
+	return o.AccountId, true
+}
+
+// HasAccountId returns a boolean if a field has been set.
+func (o *PhoneVerifyConfirmResponse) HasAccountId() bool {
+	if o != nil && !IsNil(o.AccountId) {
+		return true
+	}
+
+	return false
+}
+
+// SetAccountId gets a reference to the given string and assigns it to the AccountId field.
+func (o *PhoneVerifyConfirmResponse) SetAccountId(v string) {
+	o.AccountId = &v
+}
+
 func (o PhoneVerifyConfirmResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -79,6 +112,9 @@ func (o PhoneVerifyConfirmResponse) MarshalJSON() ([]byte, error) {
 func (o PhoneVerifyConfirmResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["verified"] = o.Verified
+	if !IsNil(o.AccountId) {
+		toSerialize["accountId"] = o.AccountId
+	}
 	return toSerialize, nil
 }
 

@@ -32,10 +32,11 @@ type AccountGetResponse struct {
 	// When omitted, defaults to LATEST_BILLING_VERSION.
 	BillingVersion *float32 `json:"billingVersion,omitempty"`
 	// ISO date (YYYY-MM-DD) when the billing cycle resets.
-	AnniversaryDate string `json:"anniversaryDate"`
-	AllowOverage    bool   `json:"allowOverage"`
-	CreatedAt       string `json:"createdAt"`
-	UpdatedAt       string `json:"updatedAt"`
+	AnniversaryDate string  `json:"anniversaryDate"`
+	AllowOverage    bool    `json:"allowOverage"`
+	CreatedAt       string  `json:"createdAt"`
+	UpdatedAt       string  `json:"updatedAt"`
+	Status          *string `json:"status,omitempty"`
 }
 
 type _AccountGetResponse AccountGetResponse
@@ -417,6 +418,38 @@ func (o *AccountGetResponse) SetUpdatedAt(v string) {
 	o.UpdatedAt = v
 }
 
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *AccountGetResponse) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountGetResponse) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *AccountGetResponse) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *AccountGetResponse) SetStatus(v string) {
+	o.Status = &v
+}
+
 func (o AccountGetResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -450,6 +483,9 @@ func (o AccountGetResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["allowOverage"] = o.AllowOverage
 	toSerialize["createdAt"] = o.CreatedAt
 	toSerialize["updatedAt"] = o.UpdatedAt
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
 	return toSerialize, nil
 }
 

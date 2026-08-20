@@ -11,24 +11,31 @@ API version: 1.0.0
 package pingram
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the CreateAccountRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &CreateAccountRequest{}
 
-// CreateAccountRequest struct for CreateAccountRequest
+// CreateAccountRequest Request body for POST /accounts (create additional account).
 type CreateAccountRequest struct {
-	// First-touch PostHog props from the client; attached to signup events.
-	Attribution *map[string]string `json:"attribution,omitempty"`
+	Name string                    `json:"name"`
+	Plan *CreateAccountRequestPlan `json:"plan,omitempty"`
+	// Emails to add or invite to the new account. Existing members of any account the caller belongs to are added directly; everyone else is invited.
+	MemberEmails []string `json:"memberEmails,omitempty"`
 }
+
+type _CreateAccountRequest CreateAccountRequest
 
 // NewCreateAccountRequest instantiates a new CreateAccountRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateAccountRequest() *CreateAccountRequest {
+func NewCreateAccountRequest(name string) *CreateAccountRequest {
 	this := CreateAccountRequest{}
+	this.Name = name
 	return &this
 }
 
@@ -40,36 +47,92 @@ func NewCreateAccountRequestWithDefaults() *CreateAccountRequest {
 	return &this
 }
 
-// GetAttribution returns the Attribution field value if set, zero value otherwise.
-func (o *CreateAccountRequest) GetAttribution() map[string]string {
-	if o == nil || IsNil(o.Attribution) {
-		var ret map[string]string
+// GetName returns the Name field value
+func (o *CreateAccountRequest) GetName() string {
+	if o == nil {
+		var ret string
 		return ret
 	}
-	return *o.Attribution
+
+	return o.Name
 }
 
-// GetAttributionOk returns a tuple with the Attribution field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-func (o *CreateAccountRequest) GetAttributionOk() (*map[string]string, bool) {
-	if o == nil || IsNil(o.Attribution) {
+func (o *CreateAccountRequest) GetNameOk() (*string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Attribution, true
+	return &o.Name, true
 }
 
-// HasAttribution returns a boolean if a field has been set.
-func (o *CreateAccountRequest) HasAttribution() bool {
-	if o != nil && !IsNil(o.Attribution) {
+// SetName sets field value
+func (o *CreateAccountRequest) SetName(v string) {
+	o.Name = v
+}
+
+// GetPlan returns the Plan field value if set, zero value otherwise.
+func (o *CreateAccountRequest) GetPlan() CreateAccountRequestPlan {
+	if o == nil || IsNil(o.Plan) {
+		var ret CreateAccountRequestPlan
+		return ret
+	}
+	return *o.Plan
+}
+
+// GetPlanOk returns a tuple with the Plan field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateAccountRequest) GetPlanOk() (*CreateAccountRequestPlan, bool) {
+	if o == nil || IsNil(o.Plan) {
+		return nil, false
+	}
+	return o.Plan, true
+}
+
+// HasPlan returns a boolean if a field has been set.
+func (o *CreateAccountRequest) HasPlan() bool {
+	if o != nil && !IsNil(o.Plan) {
 		return true
 	}
 
 	return false
 }
 
-// SetAttribution gets a reference to the given map[string]string and assigns it to the Attribution field.
-func (o *CreateAccountRequest) SetAttribution(v map[string]string) {
-	o.Attribution = &v
+// SetPlan gets a reference to the given CreateAccountRequestPlan and assigns it to the Plan field.
+func (o *CreateAccountRequest) SetPlan(v CreateAccountRequestPlan) {
+	o.Plan = &v
+}
+
+// GetMemberEmails returns the MemberEmails field value if set, zero value otherwise.
+func (o *CreateAccountRequest) GetMemberEmails() []string {
+	if o == nil || IsNil(o.MemberEmails) {
+		var ret []string
+		return ret
+	}
+	return o.MemberEmails
+}
+
+// GetMemberEmailsOk returns a tuple with the MemberEmails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateAccountRequest) GetMemberEmailsOk() ([]string, bool) {
+	if o == nil || IsNil(o.MemberEmails) {
+		return nil, false
+	}
+	return o.MemberEmails, true
+}
+
+// HasMemberEmails returns a boolean if a field has been set.
+func (o *CreateAccountRequest) HasMemberEmails() bool {
+	if o != nil && !IsNil(o.MemberEmails) {
+		return true
+	}
+
+	return false
+}
+
+// SetMemberEmails gets a reference to the given []string and assigns it to the MemberEmails field.
+func (o *CreateAccountRequest) SetMemberEmails(v []string) {
+	o.MemberEmails = v
 }
 
 func (o CreateAccountRequest) MarshalJSON() ([]byte, error) {
@@ -82,10 +145,51 @@ func (o CreateAccountRequest) MarshalJSON() ([]byte, error) {
 
 func (o CreateAccountRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Attribution) {
-		toSerialize["attribution"] = o.Attribution
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Plan) {
+		toSerialize["plan"] = o.Plan
+	}
+	if !IsNil(o.MemberEmails) {
+		toSerialize["memberEmails"] = o.MemberEmails
 	}
 	return toSerialize, nil
+}
+
+func (o *CreateAccountRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCreateAccountRequest := _CreateAccountRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varCreateAccountRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreateAccountRequest(varCreateAccountRequest)
+
+	return err
 }
 
 type NullableCreateAccountRequest struct {
