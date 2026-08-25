@@ -28,12 +28,12 @@ type ApiEmailDeleteSuppressionsRequest struct {
 	reason     string
 }
 
-func (r ApiEmailDeleteSuppressionsRequest) Execute() (*DeleteEmailSuppressionsResponse, *http.Response, error) {
+func (r ApiEmailDeleteSuppressionsRequest) Execute() (*MessageResponse, *http.Response, error) {
 	return r.ApiService.EmailDeleteSuppressionsExecute(r)
 }
 
 /*
-EmailDeleteSuppressions Remove all email suppressions of the given reason for users in the environment
+EmailDeleteSuppressions Start removing all email suppressions of the given reason (`retryable` or `bounces`) for users in the environment. Returns immediately after the job is queued — suppressions are not yet cleared when this response is received. Large removals are processed in the background in batches.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param reason Suppression reason to clear (retryable | bounces)
@@ -49,13 +49,13 @@ func (a *EmailAPIService) EmailDeleteSuppressions(ctx context.Context, reason st
 
 // Execute executes the request
 //
-//	@return DeleteEmailSuppressionsResponse
-func (a *EmailAPIService) EmailDeleteSuppressionsExecute(r ApiEmailDeleteSuppressionsRequest) (*DeleteEmailSuppressionsResponse, *http.Response, error) {
+//	@return MessageResponse
+func (a *EmailAPIService) EmailDeleteSuppressionsExecute(r ApiEmailDeleteSuppressionsRequest) (*MessageResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DeleteEmailSuppressionsResponse
+		localVarReturnValue *MessageResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EmailAPIService.EmailDeleteSuppressions")

@@ -32,13 +32,14 @@ type BillingPostResponseBody struct {
 	// When omitted, defaults to LATEST_BILLING_VERSION.
 	BillingVersion *float32 `json:"billingVersion,omitempty"`
 	// ISO date (YYYY-MM-DD) when the billing cycle resets.
-	AnniversaryDate string  `json:"anniversaryDate"`
-	AllowOverage    bool    `json:"allowOverage"`
-	CreatedAt       string  `json:"createdAt"`
-	UpdatedAt       string  `json:"updatedAt"`
-	Status          *string `json:"status,omitempty"`
-	SessionId       *string `json:"sessionId,omitempty"`
-	Url             *string `json:"url,omitempty"`
+	AnniversaryDate    string         `json:"anniversaryDate"`
+	AllowOverage       bool           `json:"allowOverage"`
+	CreatedAt          string         `json:"createdAt"`
+	UpdatedAt          string         `json:"updatedAt"`
+	Status             *string        `json:"status,omitempty"`
+	SubscriptionStatus NullableString `json:"subscriptionStatus,omitempty"`
+	SessionId          *string        `json:"sessionId,omitempty"`
+	Url                *string        `json:"url,omitempty"`
 }
 
 type _BillingPostResponseBody BillingPostResponseBody
@@ -452,6 +453,49 @@ func (o *BillingPostResponseBody) SetStatus(v string) {
 	o.Status = &v
 }
 
+// GetSubscriptionStatus returns the SubscriptionStatus field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *BillingPostResponseBody) GetSubscriptionStatus() string {
+	if o == nil || IsNil(o.SubscriptionStatus.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.SubscriptionStatus.Get()
+}
+
+// GetSubscriptionStatusOk returns a tuple with the SubscriptionStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *BillingPostResponseBody) GetSubscriptionStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.SubscriptionStatus.Get(), o.SubscriptionStatus.IsSet()
+}
+
+// HasSubscriptionStatus returns a boolean if a field has been set.
+func (o *BillingPostResponseBody) HasSubscriptionStatus() bool {
+	if o != nil && o.SubscriptionStatus.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetSubscriptionStatus gets a reference to the given NullableString and assigns it to the SubscriptionStatus field.
+func (o *BillingPostResponseBody) SetSubscriptionStatus(v string) {
+	o.SubscriptionStatus.Set(&v)
+}
+
+// SetSubscriptionStatusNil sets the value for SubscriptionStatus to be an explicit nil
+func (o *BillingPostResponseBody) SetSubscriptionStatusNil() {
+	o.SubscriptionStatus.Set(nil)
+}
+
+// UnsetSubscriptionStatus ensures that no value is present for SubscriptionStatus, not even an explicit nil
+func (o *BillingPostResponseBody) UnsetSubscriptionStatus() {
+	o.SubscriptionStatus.Unset()
+}
+
 // GetSessionId returns the SessionId field value if set, zero value otherwise.
 func (o *BillingPostResponseBody) GetSessionId() string {
 	if o == nil || IsNil(o.SessionId) {
@@ -551,6 +595,9 @@ func (o BillingPostResponseBody) ToMap() (map[string]interface{}, error) {
 	toSerialize["updatedAt"] = o.UpdatedAt
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
+	}
+	if o.SubscriptionStatus.IsSet() {
+		toSerialize["subscriptionStatus"] = o.SubscriptionStatus.Get()
 	}
 	if !IsNil(o.SessionId) {
 		toSerialize["sessionId"] = o.SessionId

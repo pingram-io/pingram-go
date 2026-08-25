@@ -21,11 +21,16 @@ var _ MappedNullable = &TenDlcBrandCreateRequest{}
 
 // TenDlcBrandCreateRequest Request body for POST /registrations/us/10dlc/brand
 type TenDlcBrandCreateRequest struct {
-	ScenarioId             string  `json:"scenarioId"`
-	BusinessType           string  `json:"businessType"`
-	LegalName              string  `json:"legalName"`
-	FirstName              *string `json:"firstName,omitempty"`
-	LastName               *string `json:"lastName,omitempty"`
+	// Who the 10DLC brand is registered for. - own_brand: personal or company project - client_brand: agency or contractor
+	ScenarioId string `json:"scenarioId"`
+	// Legal entity type for a 10DLC brand. - PRIVATE_PROFIT: private for-profit (LLC, corp, etc.) - SOLE_PROPRIETOR: sole proprietorship - PUBLIC_PROFIT: publicly traded for-profit - NON_PROFIT: non-profit - GOVERNMENT: government
+	BusinessType string `json:"businessType"`
+	LegalName    string `json:"legalName"`
+	// Required when businessType is SOLE_PROPRIETOR.
+	FirstName *string `json:"firstName,omitempty"`
+	// Required when businessType is SOLE_PROPRIETOR.
+	LastName *string `json:"lastName,omitempty"`
+	// For US companies (country US): 9-digit EIN (Employer Identification Number). For Canada (country CA): 9-digit BN (Business Number). For other countries: national business tax identifier. Required except when businessType is SOLE_PROPRIETOR.
 	TaxId                  *string `json:"taxId,omitempty"`
 	Website                string  `json:"website"`
 	Country                string  `json:"country"`

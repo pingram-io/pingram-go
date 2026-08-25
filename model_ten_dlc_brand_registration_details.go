@@ -43,10 +43,11 @@ type TenDlcBrandRegistrationDetails struct {
 	// Pingram-side brand registration workflow status. - not_started: no customer submission yet - pending_review: customer submitted; Pingram has not submitted to carriers - in_progress: submitted for carrier review - approved | rejected | info_needed: review outcome
 	BrandStatus string `json:"brandStatus"`
 	// Pingram-side brand registration workflow status. - not_started: no customer submission yet - pending_review: customer submitted; Pingram has not submitted to carriers - in_progress: submitted for carrier review - approved | rejected | info_needed: review outcome
-	CampaignStatus string  `json:"campaignStatus"`
-	CreatedAt      string  `json:"createdAt"`
-	UpdatedAt      string  `json:"updatedAt"`
-	Vertical       *string `json:"vertical,omitempty"`
+	CampaignStatus string `json:"campaignStatus"`
+	CreatedAt      string `json:"createdAt"`
+	UpdatedAt      string `json:"updatedAt"`
+	// Industry vertical required before Pingram submits the brand to carriers (for example TECHNOLOGY, HEALTHCARE, RETAIL, or FINANCIAL).
+	Vertical *string `json:"vertical,omitempty"`
 	// Legacy only when businessType is Other.
 	EntityType *string `json:"entityType,omitempty"`
 	ProfileId  *string `json:"profileId,omitempty"`
