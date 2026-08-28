@@ -11,14 +11,19 @@ API version: 1.0.0
 package pingram
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
-// checks if the TenDlcCampaignUpdateRequest type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &TenDlcCampaignUpdateRequest{}
+// checks if the TenDlcCampaignRegistration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TenDlcCampaignRegistration{}
 
-// TenDlcCampaignUpdateRequest Request body for PATCH /registrations/us/10dlc/campaign
-type TenDlcCampaignUpdateRequest struct {
+// TenDlcCampaignRegistration Public response type for 10DLC campaign registration
+type TenDlcCampaignRegistration struct {
+	AccountId string `json:"accountId"`
+	// Pingram-side 10DLC registration workflow status (brand or campaign). - not_started: no customer submission yet - pending_review: customer submitted; Pingram has not submitted to carriers - in_progress: submitted for carrier review - approved | rejected | info_needed: review outcome
+	CampaignStatus                 string  `json:"campaignStatus"`
 	CampaignDescription            *string `json:"campaignDescription,omitempty"`
 	CampaignSample1                *string `json:"campaignSample1,omitempty"`
 	CampaignSample2                *string `json:"campaignSample2,omitempty"`
@@ -39,27 +44,83 @@ type TenDlcCampaignUpdateRequest struct {
 	CampaignPrivacyPolicyLink      *string `json:"campaignPrivacyPolicyLink,omitempty"`
 	CampaignTermsAndConditionsLink *string `json:"campaignTermsAndConditionsLink,omitempty"`
 	CampaignUsecase                *string `json:"campaignUsecase,omitempty"`
+	CreatedAt                      string  `json:"createdAt"`
+	UpdatedAt                      string  `json:"updatedAt"`
 }
 
-// NewTenDlcCampaignUpdateRequest instantiates a new TenDlcCampaignUpdateRequest object
+type _TenDlcCampaignRegistration TenDlcCampaignRegistration
+
+// NewTenDlcCampaignRegistration instantiates a new TenDlcCampaignRegistration object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTenDlcCampaignUpdateRequest() *TenDlcCampaignUpdateRequest {
-	this := TenDlcCampaignUpdateRequest{}
+func NewTenDlcCampaignRegistration(accountId string, campaignStatus string, createdAt string, updatedAt string) *TenDlcCampaignRegistration {
+	this := TenDlcCampaignRegistration{}
+	this.AccountId = accountId
+	this.CampaignStatus = campaignStatus
+	this.CreatedAt = createdAt
+	this.UpdatedAt = updatedAt
 	return &this
 }
 
-// NewTenDlcCampaignUpdateRequestWithDefaults instantiates a new TenDlcCampaignUpdateRequest object
+// NewTenDlcCampaignRegistrationWithDefaults instantiates a new TenDlcCampaignRegistration object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewTenDlcCampaignUpdateRequestWithDefaults() *TenDlcCampaignUpdateRequest {
-	this := TenDlcCampaignUpdateRequest{}
+func NewTenDlcCampaignRegistrationWithDefaults() *TenDlcCampaignRegistration {
+	this := TenDlcCampaignRegistration{}
 	return &this
+}
+
+// GetAccountId returns the AccountId field value
+func (o *TenDlcCampaignRegistration) GetAccountId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.AccountId
+}
+
+// GetAccountIdOk returns a tuple with the AccountId field value
+// and a boolean to check if the value has been set.
+func (o *TenDlcCampaignRegistration) GetAccountIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AccountId, true
+}
+
+// SetAccountId sets field value
+func (o *TenDlcCampaignRegistration) SetAccountId(v string) {
+	o.AccountId = v
+}
+
+// GetCampaignStatus returns the CampaignStatus field value
+func (o *TenDlcCampaignRegistration) GetCampaignStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.CampaignStatus
+}
+
+// GetCampaignStatusOk returns a tuple with the CampaignStatus field value
+// and a boolean to check if the value has been set.
+func (o *TenDlcCampaignRegistration) GetCampaignStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CampaignStatus, true
+}
+
+// SetCampaignStatus sets field value
+func (o *TenDlcCampaignRegistration) SetCampaignStatus(v string) {
+	o.CampaignStatus = v
 }
 
 // GetCampaignDescription returns the CampaignDescription field value if set, zero value otherwise.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignDescription() string {
+func (o *TenDlcCampaignRegistration) GetCampaignDescription() string {
 	if o == nil || IsNil(o.CampaignDescription) {
 		var ret string
 		return ret
@@ -69,7 +130,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignDescription() string {
 
 // GetCampaignDescriptionOk returns a tuple with the CampaignDescription field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignDescriptionOk() (*string, bool) {
+func (o *TenDlcCampaignRegistration) GetCampaignDescriptionOk() (*string, bool) {
 	if o == nil || IsNil(o.CampaignDescription) {
 		return nil, false
 	}
@@ -77,7 +138,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignDescriptionOk() (*string, bool)
 }
 
 // HasCampaignDescription returns a boolean if a field has been set.
-func (o *TenDlcCampaignUpdateRequest) HasCampaignDescription() bool {
+func (o *TenDlcCampaignRegistration) HasCampaignDescription() bool {
 	if o != nil && !IsNil(o.CampaignDescription) {
 		return true
 	}
@@ -86,12 +147,12 @@ func (o *TenDlcCampaignUpdateRequest) HasCampaignDescription() bool {
 }
 
 // SetCampaignDescription gets a reference to the given string and assigns it to the CampaignDescription field.
-func (o *TenDlcCampaignUpdateRequest) SetCampaignDescription(v string) {
+func (o *TenDlcCampaignRegistration) SetCampaignDescription(v string) {
 	o.CampaignDescription = &v
 }
 
 // GetCampaignSample1 returns the CampaignSample1 field value if set, zero value otherwise.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignSample1() string {
+func (o *TenDlcCampaignRegistration) GetCampaignSample1() string {
 	if o == nil || IsNil(o.CampaignSample1) {
 		var ret string
 		return ret
@@ -101,7 +162,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignSample1() string {
 
 // GetCampaignSample1Ok returns a tuple with the CampaignSample1 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignSample1Ok() (*string, bool) {
+func (o *TenDlcCampaignRegistration) GetCampaignSample1Ok() (*string, bool) {
 	if o == nil || IsNil(o.CampaignSample1) {
 		return nil, false
 	}
@@ -109,7 +170,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignSample1Ok() (*string, bool) {
 }
 
 // HasCampaignSample1 returns a boolean if a field has been set.
-func (o *TenDlcCampaignUpdateRequest) HasCampaignSample1() bool {
+func (o *TenDlcCampaignRegistration) HasCampaignSample1() bool {
 	if o != nil && !IsNil(o.CampaignSample1) {
 		return true
 	}
@@ -118,12 +179,12 @@ func (o *TenDlcCampaignUpdateRequest) HasCampaignSample1() bool {
 }
 
 // SetCampaignSample1 gets a reference to the given string and assigns it to the CampaignSample1 field.
-func (o *TenDlcCampaignUpdateRequest) SetCampaignSample1(v string) {
+func (o *TenDlcCampaignRegistration) SetCampaignSample1(v string) {
 	o.CampaignSample1 = &v
 }
 
 // GetCampaignSample2 returns the CampaignSample2 field value if set, zero value otherwise.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignSample2() string {
+func (o *TenDlcCampaignRegistration) GetCampaignSample2() string {
 	if o == nil || IsNil(o.CampaignSample2) {
 		var ret string
 		return ret
@@ -133,7 +194,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignSample2() string {
 
 // GetCampaignSample2Ok returns a tuple with the CampaignSample2 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignSample2Ok() (*string, bool) {
+func (o *TenDlcCampaignRegistration) GetCampaignSample2Ok() (*string, bool) {
 	if o == nil || IsNil(o.CampaignSample2) {
 		return nil, false
 	}
@@ -141,7 +202,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignSample2Ok() (*string, bool) {
 }
 
 // HasCampaignSample2 returns a boolean if a field has been set.
-func (o *TenDlcCampaignUpdateRequest) HasCampaignSample2() bool {
+func (o *TenDlcCampaignRegistration) HasCampaignSample2() bool {
 	if o != nil && !IsNil(o.CampaignSample2) {
 		return true
 	}
@@ -150,12 +211,12 @@ func (o *TenDlcCampaignUpdateRequest) HasCampaignSample2() bool {
 }
 
 // SetCampaignSample2 gets a reference to the given string and assigns it to the CampaignSample2 field.
-func (o *TenDlcCampaignUpdateRequest) SetCampaignSample2(v string) {
+func (o *TenDlcCampaignRegistration) SetCampaignSample2(v string) {
 	o.CampaignSample2 = &v
 }
 
 // GetCampaignSample3 returns the CampaignSample3 field value if set, zero value otherwise.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignSample3() string {
+func (o *TenDlcCampaignRegistration) GetCampaignSample3() string {
 	if o == nil || IsNil(o.CampaignSample3) {
 		var ret string
 		return ret
@@ -165,7 +226,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignSample3() string {
 
 // GetCampaignSample3Ok returns a tuple with the CampaignSample3 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignSample3Ok() (*string, bool) {
+func (o *TenDlcCampaignRegistration) GetCampaignSample3Ok() (*string, bool) {
 	if o == nil || IsNil(o.CampaignSample3) {
 		return nil, false
 	}
@@ -173,7 +234,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignSample3Ok() (*string, bool) {
 }
 
 // HasCampaignSample3 returns a boolean if a field has been set.
-func (o *TenDlcCampaignUpdateRequest) HasCampaignSample3() bool {
+func (o *TenDlcCampaignRegistration) HasCampaignSample3() bool {
 	if o != nil && !IsNil(o.CampaignSample3) {
 		return true
 	}
@@ -182,12 +243,12 @@ func (o *TenDlcCampaignUpdateRequest) HasCampaignSample3() bool {
 }
 
 // SetCampaignSample3 gets a reference to the given string and assigns it to the CampaignSample3 field.
-func (o *TenDlcCampaignUpdateRequest) SetCampaignSample3(v string) {
+func (o *TenDlcCampaignRegistration) SetCampaignSample3(v string) {
 	o.CampaignSample3 = &v
 }
 
 // GetCampaignSample4 returns the CampaignSample4 field value if set, zero value otherwise.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignSample4() string {
+func (o *TenDlcCampaignRegistration) GetCampaignSample4() string {
 	if o == nil || IsNil(o.CampaignSample4) {
 		var ret string
 		return ret
@@ -197,7 +258,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignSample4() string {
 
 // GetCampaignSample4Ok returns a tuple with the CampaignSample4 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignSample4Ok() (*string, bool) {
+func (o *TenDlcCampaignRegistration) GetCampaignSample4Ok() (*string, bool) {
 	if o == nil || IsNil(o.CampaignSample4) {
 		return nil, false
 	}
@@ -205,7 +266,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignSample4Ok() (*string, bool) {
 }
 
 // HasCampaignSample4 returns a boolean if a field has been set.
-func (o *TenDlcCampaignUpdateRequest) HasCampaignSample4() bool {
+func (o *TenDlcCampaignRegistration) HasCampaignSample4() bool {
 	if o != nil && !IsNil(o.CampaignSample4) {
 		return true
 	}
@@ -214,12 +275,12 @@ func (o *TenDlcCampaignUpdateRequest) HasCampaignSample4() bool {
 }
 
 // SetCampaignSample4 gets a reference to the given string and assigns it to the CampaignSample4 field.
-func (o *TenDlcCampaignUpdateRequest) SetCampaignSample4(v string) {
+func (o *TenDlcCampaignRegistration) SetCampaignSample4(v string) {
 	o.CampaignSample4 = &v
 }
 
 // GetCampaignMessageFlow returns the CampaignMessageFlow field value if set, zero value otherwise.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignMessageFlow() string {
+func (o *TenDlcCampaignRegistration) GetCampaignMessageFlow() string {
 	if o == nil || IsNil(o.CampaignMessageFlow) {
 		var ret string
 		return ret
@@ -229,7 +290,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignMessageFlow() string {
 
 // GetCampaignMessageFlowOk returns a tuple with the CampaignMessageFlow field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignMessageFlowOk() (*string, bool) {
+func (o *TenDlcCampaignRegistration) GetCampaignMessageFlowOk() (*string, bool) {
 	if o == nil || IsNil(o.CampaignMessageFlow) {
 		return nil, false
 	}
@@ -237,7 +298,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignMessageFlowOk() (*string, bool)
 }
 
 // HasCampaignMessageFlow returns a boolean if a field has been set.
-func (o *TenDlcCampaignUpdateRequest) HasCampaignMessageFlow() bool {
+func (o *TenDlcCampaignRegistration) HasCampaignMessageFlow() bool {
 	if o != nil && !IsNil(o.CampaignMessageFlow) {
 		return true
 	}
@@ -246,12 +307,12 @@ func (o *TenDlcCampaignUpdateRequest) HasCampaignMessageFlow() bool {
 }
 
 // SetCampaignMessageFlow gets a reference to the given string and assigns it to the CampaignMessageFlow field.
-func (o *TenDlcCampaignUpdateRequest) SetCampaignMessageFlow(v string) {
+func (o *TenDlcCampaignRegistration) SetCampaignMessageFlow(v string) {
 	o.CampaignMessageFlow = &v
 }
 
 // GetCampaignOptinKeywords returns the CampaignOptinKeywords field value if set, zero value otherwise.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignOptinKeywords() string {
+func (o *TenDlcCampaignRegistration) GetCampaignOptinKeywords() string {
 	if o == nil || IsNil(o.CampaignOptinKeywords) {
 		var ret string
 		return ret
@@ -261,7 +322,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignOptinKeywords() string {
 
 // GetCampaignOptinKeywordsOk returns a tuple with the CampaignOptinKeywords field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignOptinKeywordsOk() (*string, bool) {
+func (o *TenDlcCampaignRegistration) GetCampaignOptinKeywordsOk() (*string, bool) {
 	if o == nil || IsNil(o.CampaignOptinKeywords) {
 		return nil, false
 	}
@@ -269,7 +330,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignOptinKeywordsOk() (*string, boo
 }
 
 // HasCampaignOptinKeywords returns a boolean if a field has been set.
-func (o *TenDlcCampaignUpdateRequest) HasCampaignOptinKeywords() bool {
+func (o *TenDlcCampaignRegistration) HasCampaignOptinKeywords() bool {
 	if o != nil && !IsNil(o.CampaignOptinKeywords) {
 		return true
 	}
@@ -278,12 +339,12 @@ func (o *TenDlcCampaignUpdateRequest) HasCampaignOptinKeywords() bool {
 }
 
 // SetCampaignOptinKeywords gets a reference to the given string and assigns it to the CampaignOptinKeywords field.
-func (o *TenDlcCampaignUpdateRequest) SetCampaignOptinKeywords(v string) {
+func (o *TenDlcCampaignRegistration) SetCampaignOptinKeywords(v string) {
 	o.CampaignOptinKeywords = &v
 }
 
 // GetCampaignOptinMessage returns the CampaignOptinMessage field value if set, zero value otherwise.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignOptinMessage() string {
+func (o *TenDlcCampaignRegistration) GetCampaignOptinMessage() string {
 	if o == nil || IsNil(o.CampaignOptinMessage) {
 		var ret string
 		return ret
@@ -293,7 +354,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignOptinMessage() string {
 
 // GetCampaignOptinMessageOk returns a tuple with the CampaignOptinMessage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignOptinMessageOk() (*string, bool) {
+func (o *TenDlcCampaignRegistration) GetCampaignOptinMessageOk() (*string, bool) {
 	if o == nil || IsNil(o.CampaignOptinMessage) {
 		return nil, false
 	}
@@ -301,7 +362,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignOptinMessageOk() (*string, bool
 }
 
 // HasCampaignOptinMessage returns a boolean if a field has been set.
-func (o *TenDlcCampaignUpdateRequest) HasCampaignOptinMessage() bool {
+func (o *TenDlcCampaignRegistration) HasCampaignOptinMessage() bool {
 	if o != nil && !IsNil(o.CampaignOptinMessage) {
 		return true
 	}
@@ -310,12 +371,12 @@ func (o *TenDlcCampaignUpdateRequest) HasCampaignOptinMessage() bool {
 }
 
 // SetCampaignOptinMessage gets a reference to the given string and assigns it to the CampaignOptinMessage field.
-func (o *TenDlcCampaignUpdateRequest) SetCampaignOptinMessage(v string) {
+func (o *TenDlcCampaignRegistration) SetCampaignOptinMessage(v string) {
 	o.CampaignOptinMessage = &v
 }
 
 // GetCampaignOptoutKeywords returns the CampaignOptoutKeywords field value if set, zero value otherwise.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignOptoutKeywords() string {
+func (o *TenDlcCampaignRegistration) GetCampaignOptoutKeywords() string {
 	if o == nil || IsNil(o.CampaignOptoutKeywords) {
 		var ret string
 		return ret
@@ -325,7 +386,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignOptoutKeywords() string {
 
 // GetCampaignOptoutKeywordsOk returns a tuple with the CampaignOptoutKeywords field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignOptoutKeywordsOk() (*string, bool) {
+func (o *TenDlcCampaignRegistration) GetCampaignOptoutKeywordsOk() (*string, bool) {
 	if o == nil || IsNil(o.CampaignOptoutKeywords) {
 		return nil, false
 	}
@@ -333,7 +394,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignOptoutKeywordsOk() (*string, bo
 }
 
 // HasCampaignOptoutKeywords returns a boolean if a field has been set.
-func (o *TenDlcCampaignUpdateRequest) HasCampaignOptoutKeywords() bool {
+func (o *TenDlcCampaignRegistration) HasCampaignOptoutKeywords() bool {
 	if o != nil && !IsNil(o.CampaignOptoutKeywords) {
 		return true
 	}
@@ -342,12 +403,12 @@ func (o *TenDlcCampaignUpdateRequest) HasCampaignOptoutKeywords() bool {
 }
 
 // SetCampaignOptoutKeywords gets a reference to the given string and assigns it to the CampaignOptoutKeywords field.
-func (o *TenDlcCampaignUpdateRequest) SetCampaignOptoutKeywords(v string) {
+func (o *TenDlcCampaignRegistration) SetCampaignOptoutKeywords(v string) {
 	o.CampaignOptoutKeywords = &v
 }
 
 // GetCampaignOptoutMessage returns the CampaignOptoutMessage field value if set, zero value otherwise.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignOptoutMessage() string {
+func (o *TenDlcCampaignRegistration) GetCampaignOptoutMessage() string {
 	if o == nil || IsNil(o.CampaignOptoutMessage) {
 		var ret string
 		return ret
@@ -357,7 +418,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignOptoutMessage() string {
 
 // GetCampaignOptoutMessageOk returns a tuple with the CampaignOptoutMessage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignOptoutMessageOk() (*string, bool) {
+func (o *TenDlcCampaignRegistration) GetCampaignOptoutMessageOk() (*string, bool) {
 	if o == nil || IsNil(o.CampaignOptoutMessage) {
 		return nil, false
 	}
@@ -365,7 +426,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignOptoutMessageOk() (*string, boo
 }
 
 // HasCampaignOptoutMessage returns a boolean if a field has been set.
-func (o *TenDlcCampaignUpdateRequest) HasCampaignOptoutMessage() bool {
+func (o *TenDlcCampaignRegistration) HasCampaignOptoutMessage() bool {
 	if o != nil && !IsNil(o.CampaignOptoutMessage) {
 		return true
 	}
@@ -374,12 +435,12 @@ func (o *TenDlcCampaignUpdateRequest) HasCampaignOptoutMessage() bool {
 }
 
 // SetCampaignOptoutMessage gets a reference to the given string and assigns it to the CampaignOptoutMessage field.
-func (o *TenDlcCampaignUpdateRequest) SetCampaignOptoutMessage(v string) {
+func (o *TenDlcCampaignRegistration) SetCampaignOptoutMessage(v string) {
 	o.CampaignOptoutMessage = &v
 }
 
 // GetCampaignHelpKeywords returns the CampaignHelpKeywords field value if set, zero value otherwise.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignHelpKeywords() string {
+func (o *TenDlcCampaignRegistration) GetCampaignHelpKeywords() string {
 	if o == nil || IsNil(o.CampaignHelpKeywords) {
 		var ret string
 		return ret
@@ -389,7 +450,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignHelpKeywords() string {
 
 // GetCampaignHelpKeywordsOk returns a tuple with the CampaignHelpKeywords field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignHelpKeywordsOk() (*string, bool) {
+func (o *TenDlcCampaignRegistration) GetCampaignHelpKeywordsOk() (*string, bool) {
 	if o == nil || IsNil(o.CampaignHelpKeywords) {
 		return nil, false
 	}
@@ -397,7 +458,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignHelpKeywordsOk() (*string, bool
 }
 
 // HasCampaignHelpKeywords returns a boolean if a field has been set.
-func (o *TenDlcCampaignUpdateRequest) HasCampaignHelpKeywords() bool {
+func (o *TenDlcCampaignRegistration) HasCampaignHelpKeywords() bool {
 	if o != nil && !IsNil(o.CampaignHelpKeywords) {
 		return true
 	}
@@ -406,12 +467,12 @@ func (o *TenDlcCampaignUpdateRequest) HasCampaignHelpKeywords() bool {
 }
 
 // SetCampaignHelpKeywords gets a reference to the given string and assigns it to the CampaignHelpKeywords field.
-func (o *TenDlcCampaignUpdateRequest) SetCampaignHelpKeywords(v string) {
+func (o *TenDlcCampaignRegistration) SetCampaignHelpKeywords(v string) {
 	o.CampaignHelpKeywords = &v
 }
 
 // GetCampaignHelpMessage returns the CampaignHelpMessage field value if set, zero value otherwise.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignHelpMessage() string {
+func (o *TenDlcCampaignRegistration) GetCampaignHelpMessage() string {
 	if o == nil || IsNil(o.CampaignHelpMessage) {
 		var ret string
 		return ret
@@ -421,7 +482,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignHelpMessage() string {
 
 // GetCampaignHelpMessageOk returns a tuple with the CampaignHelpMessage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignHelpMessageOk() (*string, bool) {
+func (o *TenDlcCampaignRegistration) GetCampaignHelpMessageOk() (*string, bool) {
 	if o == nil || IsNil(o.CampaignHelpMessage) {
 		return nil, false
 	}
@@ -429,7 +490,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignHelpMessageOk() (*string, bool)
 }
 
 // HasCampaignHelpMessage returns a boolean if a field has been set.
-func (o *TenDlcCampaignUpdateRequest) HasCampaignHelpMessage() bool {
+func (o *TenDlcCampaignRegistration) HasCampaignHelpMessage() bool {
 	if o != nil && !IsNil(o.CampaignHelpMessage) {
 		return true
 	}
@@ -438,12 +499,12 @@ func (o *TenDlcCampaignUpdateRequest) HasCampaignHelpMessage() bool {
 }
 
 // SetCampaignHelpMessage gets a reference to the given string and assigns it to the CampaignHelpMessage field.
-func (o *TenDlcCampaignUpdateRequest) SetCampaignHelpMessage(v string) {
+func (o *TenDlcCampaignRegistration) SetCampaignHelpMessage(v string) {
 	o.CampaignHelpMessage = &v
 }
 
 // GetCampaignEmbeddedLink returns the CampaignEmbeddedLink field value if set, zero value otherwise.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignEmbeddedLink() bool {
+func (o *TenDlcCampaignRegistration) GetCampaignEmbeddedLink() bool {
 	if o == nil || IsNil(o.CampaignEmbeddedLink) {
 		var ret bool
 		return ret
@@ -453,7 +514,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignEmbeddedLink() bool {
 
 // GetCampaignEmbeddedLinkOk returns a tuple with the CampaignEmbeddedLink field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignEmbeddedLinkOk() (*bool, bool) {
+func (o *TenDlcCampaignRegistration) GetCampaignEmbeddedLinkOk() (*bool, bool) {
 	if o == nil || IsNil(o.CampaignEmbeddedLink) {
 		return nil, false
 	}
@@ -461,7 +522,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignEmbeddedLinkOk() (*bool, bool) 
 }
 
 // HasCampaignEmbeddedLink returns a boolean if a field has been set.
-func (o *TenDlcCampaignUpdateRequest) HasCampaignEmbeddedLink() bool {
+func (o *TenDlcCampaignRegistration) HasCampaignEmbeddedLink() bool {
 	if o != nil && !IsNil(o.CampaignEmbeddedLink) {
 		return true
 	}
@@ -470,12 +531,12 @@ func (o *TenDlcCampaignUpdateRequest) HasCampaignEmbeddedLink() bool {
 }
 
 // SetCampaignEmbeddedLink gets a reference to the given bool and assigns it to the CampaignEmbeddedLink field.
-func (o *TenDlcCampaignUpdateRequest) SetCampaignEmbeddedLink(v bool) {
+func (o *TenDlcCampaignRegistration) SetCampaignEmbeddedLink(v bool) {
 	o.CampaignEmbeddedLink = &v
 }
 
 // GetCampaignEmbeddedLinkUrl returns the CampaignEmbeddedLinkUrl field value if set, zero value otherwise.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignEmbeddedLinkUrl() string {
+func (o *TenDlcCampaignRegistration) GetCampaignEmbeddedLinkUrl() string {
 	if o == nil || IsNil(o.CampaignEmbeddedLinkUrl) {
 		var ret string
 		return ret
@@ -485,7 +546,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignEmbeddedLinkUrl() string {
 
 // GetCampaignEmbeddedLinkUrlOk returns a tuple with the CampaignEmbeddedLinkUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignEmbeddedLinkUrlOk() (*string, bool) {
+func (o *TenDlcCampaignRegistration) GetCampaignEmbeddedLinkUrlOk() (*string, bool) {
 	if o == nil || IsNil(o.CampaignEmbeddedLinkUrl) {
 		return nil, false
 	}
@@ -493,7 +554,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignEmbeddedLinkUrlOk() (*string, b
 }
 
 // HasCampaignEmbeddedLinkUrl returns a boolean if a field has been set.
-func (o *TenDlcCampaignUpdateRequest) HasCampaignEmbeddedLinkUrl() bool {
+func (o *TenDlcCampaignRegistration) HasCampaignEmbeddedLinkUrl() bool {
 	if o != nil && !IsNil(o.CampaignEmbeddedLinkUrl) {
 		return true
 	}
@@ -502,12 +563,12 @@ func (o *TenDlcCampaignUpdateRequest) HasCampaignEmbeddedLinkUrl() bool {
 }
 
 // SetCampaignEmbeddedLinkUrl gets a reference to the given string and assigns it to the CampaignEmbeddedLinkUrl field.
-func (o *TenDlcCampaignUpdateRequest) SetCampaignEmbeddedLinkUrl(v string) {
+func (o *TenDlcCampaignRegistration) SetCampaignEmbeddedLinkUrl(v string) {
 	o.CampaignEmbeddedLinkUrl = &v
 }
 
 // GetCampaignEmbeddedPhone returns the CampaignEmbeddedPhone field value if set, zero value otherwise.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignEmbeddedPhone() bool {
+func (o *TenDlcCampaignRegistration) GetCampaignEmbeddedPhone() bool {
 	if o == nil || IsNil(o.CampaignEmbeddedPhone) {
 		var ret bool
 		return ret
@@ -517,7 +578,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignEmbeddedPhone() bool {
 
 // GetCampaignEmbeddedPhoneOk returns a tuple with the CampaignEmbeddedPhone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignEmbeddedPhoneOk() (*bool, bool) {
+func (o *TenDlcCampaignRegistration) GetCampaignEmbeddedPhoneOk() (*bool, bool) {
 	if o == nil || IsNil(o.CampaignEmbeddedPhone) {
 		return nil, false
 	}
@@ -525,7 +586,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignEmbeddedPhoneOk() (*bool, bool)
 }
 
 // HasCampaignEmbeddedPhone returns a boolean if a field has been set.
-func (o *TenDlcCampaignUpdateRequest) HasCampaignEmbeddedPhone() bool {
+func (o *TenDlcCampaignRegistration) HasCampaignEmbeddedPhone() bool {
 	if o != nil && !IsNil(o.CampaignEmbeddedPhone) {
 		return true
 	}
@@ -534,12 +595,12 @@ func (o *TenDlcCampaignUpdateRequest) HasCampaignEmbeddedPhone() bool {
 }
 
 // SetCampaignEmbeddedPhone gets a reference to the given bool and assigns it to the CampaignEmbeddedPhone field.
-func (o *TenDlcCampaignUpdateRequest) SetCampaignEmbeddedPhone(v bool) {
+func (o *TenDlcCampaignRegistration) SetCampaignEmbeddedPhone(v bool) {
 	o.CampaignEmbeddedPhone = &v
 }
 
 // GetCampaignAgeGated returns the CampaignAgeGated field value if set, zero value otherwise.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignAgeGated() bool {
+func (o *TenDlcCampaignRegistration) GetCampaignAgeGated() bool {
 	if o == nil || IsNil(o.CampaignAgeGated) {
 		var ret bool
 		return ret
@@ -549,7 +610,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignAgeGated() bool {
 
 // GetCampaignAgeGatedOk returns a tuple with the CampaignAgeGated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignAgeGatedOk() (*bool, bool) {
+func (o *TenDlcCampaignRegistration) GetCampaignAgeGatedOk() (*bool, bool) {
 	if o == nil || IsNil(o.CampaignAgeGated) {
 		return nil, false
 	}
@@ -557,7 +618,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignAgeGatedOk() (*bool, bool) {
 }
 
 // HasCampaignAgeGated returns a boolean if a field has been set.
-func (o *TenDlcCampaignUpdateRequest) HasCampaignAgeGated() bool {
+func (o *TenDlcCampaignRegistration) HasCampaignAgeGated() bool {
 	if o != nil && !IsNil(o.CampaignAgeGated) {
 		return true
 	}
@@ -566,12 +627,12 @@ func (o *TenDlcCampaignUpdateRequest) HasCampaignAgeGated() bool {
 }
 
 // SetCampaignAgeGated gets a reference to the given bool and assigns it to the CampaignAgeGated field.
-func (o *TenDlcCampaignUpdateRequest) SetCampaignAgeGated(v bool) {
+func (o *TenDlcCampaignRegistration) SetCampaignAgeGated(v bool) {
 	o.CampaignAgeGated = &v
 }
 
 // GetCampaignDirectLending returns the CampaignDirectLending field value if set, zero value otherwise.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignDirectLending() bool {
+func (o *TenDlcCampaignRegistration) GetCampaignDirectLending() bool {
 	if o == nil || IsNil(o.CampaignDirectLending) {
 		var ret bool
 		return ret
@@ -581,7 +642,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignDirectLending() bool {
 
 // GetCampaignDirectLendingOk returns a tuple with the CampaignDirectLending field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignDirectLendingOk() (*bool, bool) {
+func (o *TenDlcCampaignRegistration) GetCampaignDirectLendingOk() (*bool, bool) {
 	if o == nil || IsNil(o.CampaignDirectLending) {
 		return nil, false
 	}
@@ -589,7 +650,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignDirectLendingOk() (*bool, bool)
 }
 
 // HasCampaignDirectLending returns a boolean if a field has been set.
-func (o *TenDlcCampaignUpdateRequest) HasCampaignDirectLending() bool {
+func (o *TenDlcCampaignRegistration) HasCampaignDirectLending() bool {
 	if o != nil && !IsNil(o.CampaignDirectLending) {
 		return true
 	}
@@ -598,12 +659,12 @@ func (o *TenDlcCampaignUpdateRequest) HasCampaignDirectLending() bool {
 }
 
 // SetCampaignDirectLending gets a reference to the given bool and assigns it to the CampaignDirectLending field.
-func (o *TenDlcCampaignUpdateRequest) SetCampaignDirectLending(v bool) {
+func (o *TenDlcCampaignRegistration) SetCampaignDirectLending(v bool) {
 	o.CampaignDirectLending = &v
 }
 
 // GetCampaignPrivacyPolicyLink returns the CampaignPrivacyPolicyLink field value if set, zero value otherwise.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignPrivacyPolicyLink() string {
+func (o *TenDlcCampaignRegistration) GetCampaignPrivacyPolicyLink() string {
 	if o == nil || IsNil(o.CampaignPrivacyPolicyLink) {
 		var ret string
 		return ret
@@ -613,7 +674,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignPrivacyPolicyLink() string {
 
 // GetCampaignPrivacyPolicyLinkOk returns a tuple with the CampaignPrivacyPolicyLink field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignPrivacyPolicyLinkOk() (*string, bool) {
+func (o *TenDlcCampaignRegistration) GetCampaignPrivacyPolicyLinkOk() (*string, bool) {
 	if o == nil || IsNil(o.CampaignPrivacyPolicyLink) {
 		return nil, false
 	}
@@ -621,7 +682,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignPrivacyPolicyLinkOk() (*string,
 }
 
 // HasCampaignPrivacyPolicyLink returns a boolean if a field has been set.
-func (o *TenDlcCampaignUpdateRequest) HasCampaignPrivacyPolicyLink() bool {
+func (o *TenDlcCampaignRegistration) HasCampaignPrivacyPolicyLink() bool {
 	if o != nil && !IsNil(o.CampaignPrivacyPolicyLink) {
 		return true
 	}
@@ -630,12 +691,12 @@ func (o *TenDlcCampaignUpdateRequest) HasCampaignPrivacyPolicyLink() bool {
 }
 
 // SetCampaignPrivacyPolicyLink gets a reference to the given string and assigns it to the CampaignPrivacyPolicyLink field.
-func (o *TenDlcCampaignUpdateRequest) SetCampaignPrivacyPolicyLink(v string) {
+func (o *TenDlcCampaignRegistration) SetCampaignPrivacyPolicyLink(v string) {
 	o.CampaignPrivacyPolicyLink = &v
 }
 
 // GetCampaignTermsAndConditionsLink returns the CampaignTermsAndConditionsLink field value if set, zero value otherwise.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignTermsAndConditionsLink() string {
+func (o *TenDlcCampaignRegistration) GetCampaignTermsAndConditionsLink() string {
 	if o == nil || IsNil(o.CampaignTermsAndConditionsLink) {
 		var ret string
 		return ret
@@ -645,7 +706,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignTermsAndConditionsLink() string
 
 // GetCampaignTermsAndConditionsLinkOk returns a tuple with the CampaignTermsAndConditionsLink field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignTermsAndConditionsLinkOk() (*string, bool) {
+func (o *TenDlcCampaignRegistration) GetCampaignTermsAndConditionsLinkOk() (*string, bool) {
 	if o == nil || IsNil(o.CampaignTermsAndConditionsLink) {
 		return nil, false
 	}
@@ -653,7 +714,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignTermsAndConditionsLinkOk() (*st
 }
 
 // HasCampaignTermsAndConditionsLink returns a boolean if a field has been set.
-func (o *TenDlcCampaignUpdateRequest) HasCampaignTermsAndConditionsLink() bool {
+func (o *TenDlcCampaignRegistration) HasCampaignTermsAndConditionsLink() bool {
 	if o != nil && !IsNil(o.CampaignTermsAndConditionsLink) {
 		return true
 	}
@@ -662,12 +723,12 @@ func (o *TenDlcCampaignUpdateRequest) HasCampaignTermsAndConditionsLink() bool {
 }
 
 // SetCampaignTermsAndConditionsLink gets a reference to the given string and assigns it to the CampaignTermsAndConditionsLink field.
-func (o *TenDlcCampaignUpdateRequest) SetCampaignTermsAndConditionsLink(v string) {
+func (o *TenDlcCampaignRegistration) SetCampaignTermsAndConditionsLink(v string) {
 	o.CampaignTermsAndConditionsLink = &v
 }
 
 // GetCampaignUsecase returns the CampaignUsecase field value if set, zero value otherwise.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignUsecase() string {
+func (o *TenDlcCampaignRegistration) GetCampaignUsecase() string {
 	if o == nil || IsNil(o.CampaignUsecase) {
 		var ret string
 		return ret
@@ -677,7 +738,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignUsecase() string {
 
 // GetCampaignUsecaseOk returns a tuple with the CampaignUsecase field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TenDlcCampaignUpdateRequest) GetCampaignUsecaseOk() (*string, bool) {
+func (o *TenDlcCampaignRegistration) GetCampaignUsecaseOk() (*string, bool) {
 	if o == nil || IsNil(o.CampaignUsecase) {
 		return nil, false
 	}
@@ -685,7 +746,7 @@ func (o *TenDlcCampaignUpdateRequest) GetCampaignUsecaseOk() (*string, bool) {
 }
 
 // HasCampaignUsecase returns a boolean if a field has been set.
-func (o *TenDlcCampaignUpdateRequest) HasCampaignUsecase() bool {
+func (o *TenDlcCampaignRegistration) HasCampaignUsecase() bool {
 	if o != nil && !IsNil(o.CampaignUsecase) {
 		return true
 	}
@@ -694,11 +755,59 @@ func (o *TenDlcCampaignUpdateRequest) HasCampaignUsecase() bool {
 }
 
 // SetCampaignUsecase gets a reference to the given string and assigns it to the CampaignUsecase field.
-func (o *TenDlcCampaignUpdateRequest) SetCampaignUsecase(v string) {
+func (o *TenDlcCampaignRegistration) SetCampaignUsecase(v string) {
 	o.CampaignUsecase = &v
 }
 
-func (o TenDlcCampaignUpdateRequest) MarshalJSON() ([]byte, error) {
+// GetCreatedAt returns the CreatedAt field value
+func (o *TenDlcCampaignRegistration) GetCreatedAt() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.CreatedAt
+}
+
+// GetCreatedAtOk returns a tuple with the CreatedAt field value
+// and a boolean to check if the value has been set.
+func (o *TenDlcCampaignRegistration) GetCreatedAtOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CreatedAt, true
+}
+
+// SetCreatedAt sets field value
+func (o *TenDlcCampaignRegistration) SetCreatedAt(v string) {
+	o.CreatedAt = v
+}
+
+// GetUpdatedAt returns the UpdatedAt field value
+func (o *TenDlcCampaignRegistration) GetUpdatedAt() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.UpdatedAt
+}
+
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
+// and a boolean to check if the value has been set.
+func (o *TenDlcCampaignRegistration) GetUpdatedAtOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.UpdatedAt, true
+}
+
+// SetUpdatedAt sets field value
+func (o *TenDlcCampaignRegistration) SetUpdatedAt(v string) {
+	o.UpdatedAt = v
+}
+
+func (o TenDlcCampaignRegistration) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -706,8 +815,10 @@ func (o TenDlcCampaignUpdateRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o TenDlcCampaignUpdateRequest) ToMap() (map[string]interface{}, error) {
+func (o TenDlcCampaignRegistration) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["accountId"] = o.AccountId
+	toSerialize["campaignStatus"] = o.CampaignStatus
 	if !IsNil(o.CampaignDescription) {
 		toSerialize["campaignDescription"] = o.CampaignDescription
 	}
@@ -768,41 +879,83 @@ func (o TenDlcCampaignUpdateRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CampaignUsecase) {
 		toSerialize["campaignUsecase"] = o.CampaignUsecase
 	}
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["updatedAt"] = o.UpdatedAt
 	return toSerialize, nil
 }
 
-type NullableTenDlcCampaignUpdateRequest struct {
-	value *TenDlcCampaignUpdateRequest
+func (o *TenDlcCampaignRegistration) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"accountId",
+		"campaignStatus",
+		"createdAt",
+		"updatedAt",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varTenDlcCampaignRegistration := _TenDlcCampaignRegistration{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varTenDlcCampaignRegistration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TenDlcCampaignRegistration(varTenDlcCampaignRegistration)
+
+	return err
+}
+
+type NullableTenDlcCampaignRegistration struct {
+	value *TenDlcCampaignRegistration
 	isSet bool
 }
 
-func (v NullableTenDlcCampaignUpdateRequest) Get() *TenDlcCampaignUpdateRequest {
+func (v NullableTenDlcCampaignRegistration) Get() *TenDlcCampaignRegistration {
 	return v.value
 }
 
-func (v *NullableTenDlcCampaignUpdateRequest) Set(val *TenDlcCampaignUpdateRequest) {
+func (v *NullableTenDlcCampaignRegistration) Set(val *TenDlcCampaignRegistration) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableTenDlcCampaignUpdateRequest) IsSet() bool {
+func (v NullableTenDlcCampaignRegistration) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableTenDlcCampaignUpdateRequest) Unset() {
+func (v *NullableTenDlcCampaignRegistration) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableTenDlcCampaignUpdateRequest(val *TenDlcCampaignUpdateRequest) *NullableTenDlcCampaignUpdateRequest {
-	return &NullableTenDlcCampaignUpdateRequest{value: val, isSet: true}
+func NewNullableTenDlcCampaignRegistration(val *TenDlcCampaignRegistration) *NullableTenDlcCampaignRegistration {
+	return &NullableTenDlcCampaignRegistration{value: val, isSet: true}
 }
 
-func (v NullableTenDlcCampaignUpdateRequest) MarshalJSON() ([]byte, error) {
+func (v NullableTenDlcCampaignRegistration) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableTenDlcCampaignUpdateRequest) UnmarshalJSON(src []byte) error {
+func (v *NullableTenDlcCampaignRegistration) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

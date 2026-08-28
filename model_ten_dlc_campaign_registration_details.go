@@ -22,7 +22,7 @@ var _ MappedNullable = &TenDlcCampaignRegistrationDetails{}
 // TenDlcCampaignRegistrationDetails Admin GET/PATCH response for 10DLC campaign registration
 type TenDlcCampaignRegistrationDetails struct {
 	AccountId string `json:"accountId"`
-	// Pingram-side brand registration workflow status. - not_started: no customer submission yet - pending_review: customer submitted; Pingram has not submitted to carriers - in_progress: submitted for carrier review - approved | rejected | info_needed: review outcome
+	// Pingram-side 10DLC registration workflow status (brand or campaign). - not_started: no customer submission yet - pending_review: customer submitted; Pingram has not submitted to carriers - in_progress: submitted for carrier review - approved | rejected | info_needed: review outcome
 	CampaignStatus                 string  `json:"campaignStatus"`
 	CampaignDescription            *string `json:"campaignDescription,omitempty"`
 	CampaignSample1                *string `json:"campaignSample1,omitempty"`
@@ -44,9 +44,9 @@ type TenDlcCampaignRegistrationDetails struct {
 	CampaignPrivacyPolicyLink      *string `json:"campaignPrivacyPolicyLink,omitempty"`
 	CampaignTermsAndConditionsLink *string `json:"campaignTermsAndConditionsLink,omitempty"`
 	CampaignUsecase                *string `json:"campaignUsecase,omitempty"`
-	CampaignId                     *string `json:"campaignId,omitempty"`
 	CreatedAt                      string  `json:"createdAt"`
 	UpdatedAt                      string  `json:"updatedAt"`
+	CampaignId                     *string `json:"campaignId,omitempty"`
 }
 
 type _TenDlcCampaignRegistrationDetails TenDlcCampaignRegistrationDetails
@@ -760,38 +760,6 @@ func (o *TenDlcCampaignRegistrationDetails) SetCampaignUsecase(v string) {
 	o.CampaignUsecase = &v
 }
 
-// GetCampaignId returns the CampaignId field value if set, zero value otherwise.
-func (o *TenDlcCampaignRegistrationDetails) GetCampaignId() string {
-	if o == nil || IsNil(o.CampaignId) {
-		var ret string
-		return ret
-	}
-	return *o.CampaignId
-}
-
-// GetCampaignIdOk returns a tuple with the CampaignId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *TenDlcCampaignRegistrationDetails) GetCampaignIdOk() (*string, bool) {
-	if o == nil || IsNil(o.CampaignId) {
-		return nil, false
-	}
-	return o.CampaignId, true
-}
-
-// HasCampaignId returns a boolean if a field has been set.
-func (o *TenDlcCampaignRegistrationDetails) HasCampaignId() bool {
-	if o != nil && !IsNil(o.CampaignId) {
-		return true
-	}
-
-	return false
-}
-
-// SetCampaignId gets a reference to the given string and assigns it to the CampaignId field.
-func (o *TenDlcCampaignRegistrationDetails) SetCampaignId(v string) {
-	o.CampaignId = &v
-}
-
 // GetCreatedAt returns the CreatedAt field value
 func (o *TenDlcCampaignRegistrationDetails) GetCreatedAt() string {
 	if o == nil {
@@ -838,6 +806,38 @@ func (o *TenDlcCampaignRegistrationDetails) GetUpdatedAtOk() (*string, bool) {
 // SetUpdatedAt sets field value
 func (o *TenDlcCampaignRegistrationDetails) SetUpdatedAt(v string) {
 	o.UpdatedAt = v
+}
+
+// GetCampaignId returns the CampaignId field value if set, zero value otherwise.
+func (o *TenDlcCampaignRegistrationDetails) GetCampaignId() string {
+	if o == nil || IsNil(o.CampaignId) {
+		var ret string
+		return ret
+	}
+	return *o.CampaignId
+}
+
+// GetCampaignIdOk returns a tuple with the CampaignId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TenDlcCampaignRegistrationDetails) GetCampaignIdOk() (*string, bool) {
+	if o == nil || IsNil(o.CampaignId) {
+		return nil, false
+	}
+	return o.CampaignId, true
+}
+
+// HasCampaignId returns a boolean if a field has been set.
+func (o *TenDlcCampaignRegistrationDetails) HasCampaignId() bool {
+	if o != nil && !IsNil(o.CampaignId) {
+		return true
+	}
+
+	return false
+}
+
+// SetCampaignId gets a reference to the given string and assigns it to the CampaignId field.
+func (o *TenDlcCampaignRegistrationDetails) SetCampaignId(v string) {
+	o.CampaignId = &v
 }
 
 func (o TenDlcCampaignRegistrationDetails) MarshalJSON() ([]byte, error) {
@@ -912,11 +912,11 @@ func (o TenDlcCampaignRegistrationDetails) ToMap() (map[string]interface{}, erro
 	if !IsNil(o.CampaignUsecase) {
 		toSerialize["campaignUsecase"] = o.CampaignUsecase
 	}
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["updatedAt"] = o.UpdatedAt
 	if !IsNil(o.CampaignId) {
 		toSerialize["campaignId"] = o.CampaignId
 	}
-	toSerialize["createdAt"] = o.CreatedAt
-	toSerialize["updatedAt"] = o.UpdatedAt
 	return toSerialize, nil
 }
 
