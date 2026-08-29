@@ -25,6 +25,8 @@ type CreateAccountResponse struct {
 	Name               string         `json:"name"`
 	Status             string         `json:"status"`
 	SubscriptionStatus NullableString `json:"subscriptionStatus,omitempty"`
+	// Default secret API key for the new account (`pingram_sk_…`).
+	ApiKey string `json:"apiKey"`
 }
 
 type _CreateAccountResponse CreateAccountResponse
@@ -33,11 +35,12 @@ type _CreateAccountResponse CreateAccountResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateAccountResponse(accountId string, name string, status string) *CreateAccountResponse {
+func NewCreateAccountResponse(accountId string, name string, status string, apiKey string) *CreateAccountResponse {
 	this := CreateAccountResponse{}
 	this.AccountId = accountId
 	this.Name = name
 	this.Status = status
+	this.ApiKey = apiKey
 	return &this
 }
 
@@ -164,6 +167,30 @@ func (o *CreateAccountResponse) UnsetSubscriptionStatus() {
 	o.SubscriptionStatus.Unset()
 }
 
+// GetApiKey returns the ApiKey field value
+func (o *CreateAccountResponse) GetApiKey() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ApiKey
+}
+
+// GetApiKeyOk returns a tuple with the ApiKey field value
+// and a boolean to check if the value has been set.
+func (o *CreateAccountResponse) GetApiKeyOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ApiKey, true
+}
+
+// SetApiKey sets field value
+func (o *CreateAccountResponse) SetApiKey(v string) {
+	o.ApiKey = v
+}
+
 func (o CreateAccountResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -180,6 +207,7 @@ func (o CreateAccountResponse) ToMap() (map[string]interface{}, error) {
 	if o.SubscriptionStatus.IsSet() {
 		toSerialize["subscriptionStatus"] = o.SubscriptionStatus.Get()
 	}
+	toSerialize["apiKey"] = o.ApiKey
 	return toSerialize, nil
 }
 
@@ -191,6 +219,7 @@ func (o *CreateAccountResponse) UnmarshalJSON(data []byte) (err error) {
 		"accountId",
 		"name",
 		"status",
+		"apiKey",
 	}
 
 	allProperties := make(map[string]interface{})
