@@ -32,14 +32,16 @@ type BillingPostResponseBody struct {
 	// When omitted, defaults to LATEST_BILLING_VERSION.
 	BillingVersion *float32 `json:"billingVersion,omitempty"`
 	// ISO date (YYYY-MM-DD) when the billing cycle resets.
-	AnniversaryDate    string         `json:"anniversaryDate"`
-	AllowOverage       bool           `json:"allowOverage"`
-	CreatedAt          string         `json:"createdAt"`
-	UpdatedAt          string         `json:"updatedAt"`
-	Status             *string        `json:"status,omitempty"`
-	SubscriptionStatus NullableString `json:"subscriptionStatus,omitempty"`
-	SessionId          *string        `json:"sessionId,omitempty"`
-	Url                *string        `json:"url,omitempty"`
+	AnniversaryDate               string         `json:"anniversaryDate"`
+	CreatedAt                     string         `json:"createdAt"`
+	UpdatedAt                     string         `json:"updatedAt"`
+	Status                        *string        `json:"status,omitempty"`
+	SubscriptionStatus            NullableString `json:"subscriptionStatus,omitempty"`
+	PendingDowngradeEffectiveDate *string        `json:"pendingDowngradeEffectiveDate,omitempty"`
+	PendingDowngradeCostCap       *float32       `json:"pendingDowngradeCostCap,omitempty"`
+	PendingDowngradeAccountType   *string        `json:"pendingDowngradeAccountType,omitempty"`
+	SessionId                     *string        `json:"sessionId,omitempty"`
+	Url                           *string        `json:"url,omitempty"`
 }
 
 type _BillingPostResponseBody BillingPostResponseBody
@@ -48,14 +50,13 @@ type _BillingPostResponseBody BillingPostResponseBody
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBillingPostResponseBody(accountId string, accountType string, messagesCap float32, costCap float32, anniversaryDate string, allowOverage bool, createdAt string, updatedAt string) *BillingPostResponseBody {
+func NewBillingPostResponseBody(accountId string, accountType string, messagesCap float32, costCap float32, anniversaryDate string, createdAt string, updatedAt string) *BillingPostResponseBody {
 	this := BillingPostResponseBody{}
 	this.AccountId = accountId
 	this.AccountType = accountType
 	this.MessagesCap = messagesCap
 	this.CostCap = costCap
 	this.AnniversaryDate = anniversaryDate
-	this.AllowOverage = allowOverage
 	this.CreatedAt = createdAt
 	this.UpdatedAt = updatedAt
 	return &this
@@ -349,30 +350,6 @@ func (o *BillingPostResponseBody) SetAnniversaryDate(v string) {
 	o.AnniversaryDate = v
 }
 
-// GetAllowOverage returns the AllowOverage field value
-func (o *BillingPostResponseBody) GetAllowOverage() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.AllowOverage
-}
-
-// GetAllowOverageOk returns a tuple with the AllowOverage field value
-// and a boolean to check if the value has been set.
-func (o *BillingPostResponseBody) GetAllowOverageOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.AllowOverage, true
-}
-
-// SetAllowOverage sets field value
-func (o *BillingPostResponseBody) SetAllowOverage(v bool) {
-	o.AllowOverage = v
-}
-
 // GetCreatedAt returns the CreatedAt field value
 func (o *BillingPostResponseBody) GetCreatedAt() string {
 	if o == nil {
@@ -496,6 +473,102 @@ func (o *BillingPostResponseBody) UnsetSubscriptionStatus() {
 	o.SubscriptionStatus.Unset()
 }
 
+// GetPendingDowngradeEffectiveDate returns the PendingDowngradeEffectiveDate field value if set, zero value otherwise.
+func (o *BillingPostResponseBody) GetPendingDowngradeEffectiveDate() string {
+	if o == nil || IsNil(o.PendingDowngradeEffectiveDate) {
+		var ret string
+		return ret
+	}
+	return *o.PendingDowngradeEffectiveDate
+}
+
+// GetPendingDowngradeEffectiveDateOk returns a tuple with the PendingDowngradeEffectiveDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingPostResponseBody) GetPendingDowngradeEffectiveDateOk() (*string, bool) {
+	if o == nil || IsNil(o.PendingDowngradeEffectiveDate) {
+		return nil, false
+	}
+	return o.PendingDowngradeEffectiveDate, true
+}
+
+// HasPendingDowngradeEffectiveDate returns a boolean if a field has been set.
+func (o *BillingPostResponseBody) HasPendingDowngradeEffectiveDate() bool {
+	if o != nil && !IsNil(o.PendingDowngradeEffectiveDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetPendingDowngradeEffectiveDate gets a reference to the given string and assigns it to the PendingDowngradeEffectiveDate field.
+func (o *BillingPostResponseBody) SetPendingDowngradeEffectiveDate(v string) {
+	o.PendingDowngradeEffectiveDate = &v
+}
+
+// GetPendingDowngradeCostCap returns the PendingDowngradeCostCap field value if set, zero value otherwise.
+func (o *BillingPostResponseBody) GetPendingDowngradeCostCap() float32 {
+	if o == nil || IsNil(o.PendingDowngradeCostCap) {
+		var ret float32
+		return ret
+	}
+	return *o.PendingDowngradeCostCap
+}
+
+// GetPendingDowngradeCostCapOk returns a tuple with the PendingDowngradeCostCap field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingPostResponseBody) GetPendingDowngradeCostCapOk() (*float32, bool) {
+	if o == nil || IsNil(o.PendingDowngradeCostCap) {
+		return nil, false
+	}
+	return o.PendingDowngradeCostCap, true
+}
+
+// HasPendingDowngradeCostCap returns a boolean if a field has been set.
+func (o *BillingPostResponseBody) HasPendingDowngradeCostCap() bool {
+	if o != nil && !IsNil(o.PendingDowngradeCostCap) {
+		return true
+	}
+
+	return false
+}
+
+// SetPendingDowngradeCostCap gets a reference to the given float32 and assigns it to the PendingDowngradeCostCap field.
+func (o *BillingPostResponseBody) SetPendingDowngradeCostCap(v float32) {
+	o.PendingDowngradeCostCap = &v
+}
+
+// GetPendingDowngradeAccountType returns the PendingDowngradeAccountType field value if set, zero value otherwise.
+func (o *BillingPostResponseBody) GetPendingDowngradeAccountType() string {
+	if o == nil || IsNil(o.PendingDowngradeAccountType) {
+		var ret string
+		return ret
+	}
+	return *o.PendingDowngradeAccountType
+}
+
+// GetPendingDowngradeAccountTypeOk returns a tuple with the PendingDowngradeAccountType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingPostResponseBody) GetPendingDowngradeAccountTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.PendingDowngradeAccountType) {
+		return nil, false
+	}
+	return o.PendingDowngradeAccountType, true
+}
+
+// HasPendingDowngradeAccountType returns a boolean if a field has been set.
+func (o *BillingPostResponseBody) HasPendingDowngradeAccountType() bool {
+	if o != nil && !IsNil(o.PendingDowngradeAccountType) {
+		return true
+	}
+
+	return false
+}
+
+// SetPendingDowngradeAccountType gets a reference to the given string and assigns it to the PendingDowngradeAccountType field.
+func (o *BillingPostResponseBody) SetPendingDowngradeAccountType(v string) {
+	o.PendingDowngradeAccountType = &v
+}
+
 // GetSessionId returns the SessionId field value if set, zero value otherwise.
 func (o *BillingPostResponseBody) GetSessionId() string {
 	if o == nil || IsNil(o.SessionId) {
@@ -590,7 +663,6 @@ func (o BillingPostResponseBody) ToMap() (map[string]interface{}, error) {
 		toSerialize["billingVersion"] = o.BillingVersion
 	}
 	toSerialize["anniversaryDate"] = o.AnniversaryDate
-	toSerialize["allowOverage"] = o.AllowOverage
 	toSerialize["createdAt"] = o.CreatedAt
 	toSerialize["updatedAt"] = o.UpdatedAt
 	if !IsNil(o.Status) {
@@ -598,6 +670,15 @@ func (o BillingPostResponseBody) ToMap() (map[string]interface{}, error) {
 	}
 	if o.SubscriptionStatus.IsSet() {
 		toSerialize["subscriptionStatus"] = o.SubscriptionStatus.Get()
+	}
+	if !IsNil(o.PendingDowngradeEffectiveDate) {
+		toSerialize["pendingDowngradeEffectiveDate"] = o.PendingDowngradeEffectiveDate
+	}
+	if !IsNil(o.PendingDowngradeCostCap) {
+		toSerialize["pendingDowngradeCostCap"] = o.PendingDowngradeCostCap
+	}
+	if !IsNil(o.PendingDowngradeAccountType) {
+		toSerialize["pendingDowngradeAccountType"] = o.PendingDowngradeAccountType
 	}
 	if !IsNil(o.SessionId) {
 		toSerialize["sessionId"] = o.SessionId
@@ -618,7 +699,6 @@ func (o *BillingPostResponseBody) UnmarshalJSON(data []byte) (err error) {
 		"messagesCap",
 		"costCap",
 		"anniversaryDate",
-		"allowOverage",
 		"createdAt",
 		"updatedAt",
 	}

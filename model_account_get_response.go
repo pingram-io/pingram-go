@@ -32,12 +32,14 @@ type AccountGetResponse struct {
 	// When omitted, defaults to LATEST_BILLING_VERSION.
 	BillingVersion *float32 `json:"billingVersion,omitempty"`
 	// ISO date (YYYY-MM-DD) when the billing cycle resets.
-	AnniversaryDate    string         `json:"anniversaryDate"`
-	AllowOverage       bool           `json:"allowOverage"`
-	CreatedAt          string         `json:"createdAt"`
-	UpdatedAt          string         `json:"updatedAt"`
-	Status             *string        `json:"status,omitempty"`
-	SubscriptionStatus NullableString `json:"subscriptionStatus,omitempty"`
+	AnniversaryDate               string         `json:"anniversaryDate"`
+	CreatedAt                     string         `json:"createdAt"`
+	UpdatedAt                     string         `json:"updatedAt"`
+	Status                        *string        `json:"status,omitempty"`
+	SubscriptionStatus            NullableString `json:"subscriptionStatus,omitempty"`
+	PendingDowngradeEffectiveDate *string        `json:"pendingDowngradeEffectiveDate,omitempty"`
+	PendingDowngradeCostCap       *float32       `json:"pendingDowngradeCostCap,omitempty"`
+	PendingDowngradeAccountType   *string        `json:"pendingDowngradeAccountType,omitempty"`
 }
 
 type _AccountGetResponse AccountGetResponse
@@ -46,14 +48,13 @@ type _AccountGetResponse AccountGetResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAccountGetResponse(accountId string, accountType string, messagesCap float32, costCap float32, anniversaryDate string, allowOverage bool, createdAt string, updatedAt string) *AccountGetResponse {
+func NewAccountGetResponse(accountId string, accountType string, messagesCap float32, costCap float32, anniversaryDate string, createdAt string, updatedAt string) *AccountGetResponse {
 	this := AccountGetResponse{}
 	this.AccountId = accountId
 	this.AccountType = accountType
 	this.MessagesCap = messagesCap
 	this.CostCap = costCap
 	this.AnniversaryDate = anniversaryDate
-	this.AllowOverage = allowOverage
 	this.CreatedAt = createdAt
 	this.UpdatedAt = updatedAt
 	return &this
@@ -347,30 +348,6 @@ func (o *AccountGetResponse) SetAnniversaryDate(v string) {
 	o.AnniversaryDate = v
 }
 
-// GetAllowOverage returns the AllowOverage field value
-func (o *AccountGetResponse) GetAllowOverage() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.AllowOverage
-}
-
-// GetAllowOverageOk returns a tuple with the AllowOverage field value
-// and a boolean to check if the value has been set.
-func (o *AccountGetResponse) GetAllowOverageOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.AllowOverage, true
-}
-
-// SetAllowOverage sets field value
-func (o *AccountGetResponse) SetAllowOverage(v bool) {
-	o.AllowOverage = v
-}
-
 // GetCreatedAt returns the CreatedAt field value
 func (o *AccountGetResponse) GetCreatedAt() string {
 	if o == nil {
@@ -494,6 +471,102 @@ func (o *AccountGetResponse) UnsetSubscriptionStatus() {
 	o.SubscriptionStatus.Unset()
 }
 
+// GetPendingDowngradeEffectiveDate returns the PendingDowngradeEffectiveDate field value if set, zero value otherwise.
+func (o *AccountGetResponse) GetPendingDowngradeEffectiveDate() string {
+	if o == nil || IsNil(o.PendingDowngradeEffectiveDate) {
+		var ret string
+		return ret
+	}
+	return *o.PendingDowngradeEffectiveDate
+}
+
+// GetPendingDowngradeEffectiveDateOk returns a tuple with the PendingDowngradeEffectiveDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountGetResponse) GetPendingDowngradeEffectiveDateOk() (*string, bool) {
+	if o == nil || IsNil(o.PendingDowngradeEffectiveDate) {
+		return nil, false
+	}
+	return o.PendingDowngradeEffectiveDate, true
+}
+
+// HasPendingDowngradeEffectiveDate returns a boolean if a field has been set.
+func (o *AccountGetResponse) HasPendingDowngradeEffectiveDate() bool {
+	if o != nil && !IsNil(o.PendingDowngradeEffectiveDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetPendingDowngradeEffectiveDate gets a reference to the given string and assigns it to the PendingDowngradeEffectiveDate field.
+func (o *AccountGetResponse) SetPendingDowngradeEffectiveDate(v string) {
+	o.PendingDowngradeEffectiveDate = &v
+}
+
+// GetPendingDowngradeCostCap returns the PendingDowngradeCostCap field value if set, zero value otherwise.
+func (o *AccountGetResponse) GetPendingDowngradeCostCap() float32 {
+	if o == nil || IsNil(o.PendingDowngradeCostCap) {
+		var ret float32
+		return ret
+	}
+	return *o.PendingDowngradeCostCap
+}
+
+// GetPendingDowngradeCostCapOk returns a tuple with the PendingDowngradeCostCap field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountGetResponse) GetPendingDowngradeCostCapOk() (*float32, bool) {
+	if o == nil || IsNil(o.PendingDowngradeCostCap) {
+		return nil, false
+	}
+	return o.PendingDowngradeCostCap, true
+}
+
+// HasPendingDowngradeCostCap returns a boolean if a field has been set.
+func (o *AccountGetResponse) HasPendingDowngradeCostCap() bool {
+	if o != nil && !IsNil(o.PendingDowngradeCostCap) {
+		return true
+	}
+
+	return false
+}
+
+// SetPendingDowngradeCostCap gets a reference to the given float32 and assigns it to the PendingDowngradeCostCap field.
+func (o *AccountGetResponse) SetPendingDowngradeCostCap(v float32) {
+	o.PendingDowngradeCostCap = &v
+}
+
+// GetPendingDowngradeAccountType returns the PendingDowngradeAccountType field value if set, zero value otherwise.
+func (o *AccountGetResponse) GetPendingDowngradeAccountType() string {
+	if o == nil || IsNil(o.PendingDowngradeAccountType) {
+		var ret string
+		return ret
+	}
+	return *o.PendingDowngradeAccountType
+}
+
+// GetPendingDowngradeAccountTypeOk returns a tuple with the PendingDowngradeAccountType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountGetResponse) GetPendingDowngradeAccountTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.PendingDowngradeAccountType) {
+		return nil, false
+	}
+	return o.PendingDowngradeAccountType, true
+}
+
+// HasPendingDowngradeAccountType returns a boolean if a field has been set.
+func (o *AccountGetResponse) HasPendingDowngradeAccountType() bool {
+	if o != nil && !IsNil(o.PendingDowngradeAccountType) {
+		return true
+	}
+
+	return false
+}
+
+// SetPendingDowngradeAccountType gets a reference to the given string and assigns it to the PendingDowngradeAccountType field.
+func (o *AccountGetResponse) SetPendingDowngradeAccountType(v string) {
+	o.PendingDowngradeAccountType = &v
+}
+
 func (o AccountGetResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -524,7 +597,6 @@ func (o AccountGetResponse) ToMap() (map[string]interface{}, error) {
 		toSerialize["billingVersion"] = o.BillingVersion
 	}
 	toSerialize["anniversaryDate"] = o.AnniversaryDate
-	toSerialize["allowOverage"] = o.AllowOverage
 	toSerialize["createdAt"] = o.CreatedAt
 	toSerialize["updatedAt"] = o.UpdatedAt
 	if !IsNil(o.Status) {
@@ -532,6 +604,15 @@ func (o AccountGetResponse) ToMap() (map[string]interface{}, error) {
 	}
 	if o.SubscriptionStatus.IsSet() {
 		toSerialize["subscriptionStatus"] = o.SubscriptionStatus.Get()
+	}
+	if !IsNil(o.PendingDowngradeEffectiveDate) {
+		toSerialize["pendingDowngradeEffectiveDate"] = o.PendingDowngradeEffectiveDate
+	}
+	if !IsNil(o.PendingDowngradeCostCap) {
+		toSerialize["pendingDowngradeCostCap"] = o.PendingDowngradeCostCap
+	}
+	if !IsNil(o.PendingDowngradeAccountType) {
+		toSerialize["pendingDowngradeAccountType"] = o.PendingDowngradeAccountType
 	}
 	return toSerialize, nil
 }
@@ -546,7 +627,6 @@ func (o *AccountGetResponse) UnmarshalJSON(data []byte) (err error) {
 		"messagesCap",
 		"costCap",
 		"anniversaryDate",
-		"allowOverage",
 		"createdAt",
 		"updatedAt",
 	}
