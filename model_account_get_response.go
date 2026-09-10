@@ -40,6 +40,8 @@ type AccountGetResponse struct {
 	PendingDowngradeEffectiveDate *string        `json:"pendingDowngradeEffectiveDate,omitempty"`
 	PendingDowngradeCostCap       *float32       `json:"pendingDowngradeCostCap,omitempty"`
 	PendingDowngradeAccountType   *string        `json:"pendingDowngradeAccountType,omitempty"`
+	// When true, paid accounts move up one budget tier at 90% of the monthly budget.
+	AutoUpgrade *bool `json:"autoUpgrade,omitempty"`
 }
 
 type _AccountGetResponse AccountGetResponse
@@ -567,6 +569,38 @@ func (o *AccountGetResponse) SetPendingDowngradeAccountType(v string) {
 	o.PendingDowngradeAccountType = &v
 }
 
+// GetAutoUpgrade returns the AutoUpgrade field value if set, zero value otherwise.
+func (o *AccountGetResponse) GetAutoUpgrade() bool {
+	if o == nil || IsNil(o.AutoUpgrade) {
+		var ret bool
+		return ret
+	}
+	return *o.AutoUpgrade
+}
+
+// GetAutoUpgradeOk returns a tuple with the AutoUpgrade field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountGetResponse) GetAutoUpgradeOk() (*bool, bool) {
+	if o == nil || IsNil(o.AutoUpgrade) {
+		return nil, false
+	}
+	return o.AutoUpgrade, true
+}
+
+// HasAutoUpgrade returns a boolean if a field has been set.
+func (o *AccountGetResponse) HasAutoUpgrade() bool {
+	if o != nil && !IsNil(o.AutoUpgrade) {
+		return true
+	}
+
+	return false
+}
+
+// SetAutoUpgrade gets a reference to the given bool and assigns it to the AutoUpgrade field.
+func (o *AccountGetResponse) SetAutoUpgrade(v bool) {
+	o.AutoUpgrade = &v
+}
+
 func (o AccountGetResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -613,6 +647,9 @@ func (o AccountGetResponse) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.PendingDowngradeAccountType) {
 		toSerialize["pendingDowngradeAccountType"] = o.PendingDowngradeAccountType
+	}
+	if !IsNil(o.AutoUpgrade) {
+		toSerialize["autoUpgrade"] = o.AutoUpgrade
 	}
 	return toSerialize, nil
 }
