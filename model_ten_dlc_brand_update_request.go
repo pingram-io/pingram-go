@@ -23,20 +23,31 @@ type TenDlcBrandUpdateRequest struct {
 	ScenarioId *string `json:"scenarioId,omitempty"`
 	// Legal entity type for a 10DLC brand. - PRIVATE_PROFIT: private for-profit (LLC, corp, etc.) - SOLE_PROPRIETOR: sole proprietorship - PUBLIC_PROFIT: publicly traded for-profit - NON_PROFIT: non-profit - GOVERNMENT: government
 	BusinessType *string `json:"businessType,omitempty"`
-	LegalName    *string `json:"legalName,omitempty"`
-	// Brand display name (marketing/DBA); defaults to legalName when omitted on legalName-only updates.
+	// Official registered legal business name. For SOLE_PROPRIETOR, optional DBA or trade name (defaults to firstName and lastName).
+	LegalName *string `json:"legalName,omitempty"`
+	// Public brand name shown to recipients and carriers. Use the name customers recognize (your DBA or trade name). For SOLE_PROPRIETOR, this is the brand you send as — not the individual's legal name. Omit to keep the existing value. If you change legalName and omit displayName, displayName is reset to the new legalName.
 	DisplayName *string `json:"displayName,omitempty"`
-	FirstName   *string `json:"firstName,omitempty"`
-	LastName    *string `json:"lastName,omitempty"`
-	// For US companies (country US): 9-digit EIN (Employer Identification Number). For Canada (country CA): 9-digit BN (Business Number). For other countries: national business tax identifier.
-	TaxId                  *string `json:"taxId,omitempty"`
-	Website                *string `json:"website,omitempty"`
-	Country                *string `json:"country,omitempty"`
-	Street                 *string `json:"street,omitempty"`
-	City                   *string `json:"city,omitempty"`
-	State                  *string `json:"state,omitempty"`
-	PostalCode             *string `json:"postalCode,omitempty"`
+	// Legal first name of the sole proprietor. Required when businessType is SOLE_PROPRIETOR.
+	FirstName *string `json:"firstName,omitempty"`
+	// Legal last name of the sole proprietor. Required when businessType is SOLE_PROPRIETOR.
+	LastName *string `json:"lastName,omitempty"`
+	// For US companies (country US): 9-digit EIN (Employer Identification Number). For Canada (country CA): 9-digit BN (Business Number). For other countries: national business tax identifier. Required except when businessType is SOLE_PROPRIETOR.
+	TaxId *string `json:"taxId,omitempty"`
+	// Public website for the brand. Include a scheme (https://) or a domain; https:// is prepended when omitted. Carriers expect a working site with privacy policy and terms.
+	Website *string `json:"website,omitempty"`
+	// ISO 3166-1 alpha-2 country of incorporation (for example US or CA).
+	Country *string `json:"country,omitempty"`
+	// Street address that matches official tax registration.
+	Street *string `json:"street,omitempty"`
+	// City that matches official tax registration.
+	City *string `json:"city,omitempty"`
+	// State (US) or province (CA) that matches official tax registration.
+	State *string `json:"state,omitempty"`
+	// ZIP code (US) or postal code (CA) that matches official tax registration.
+	PostalCode *string `json:"postalCode,omitempty"`
+	// Email for the 10DLC compliance contact. Used for carrier and registration follow-up.
 	ComplianceContactEmail *string `json:"complianceContactEmail,omitempty"`
+	// Phone number for the 10DLC compliance contact. E.164 preferred; national numbers are normalized using country.
 	ComplianceContactPhone *string `json:"complianceContactPhone,omitempty"`
 }
 

@@ -25,21 +25,32 @@ type TenDlcBrandCreateRequest struct {
 	ScenarioId string `json:"scenarioId"`
 	// Legal entity type for a 10DLC brand. - PRIVATE_PROFIT: private for-profit (LLC, corp, etc.) - SOLE_PROPRIETOR: sole proprietorship - PUBLIC_PROFIT: publicly traded for-profit - NON_PROFIT: non-profit - GOVERNMENT: government
 	BusinessType string `json:"businessType"`
-	LegalName    string `json:"legalName"`
-	// Required when businessType is SOLE_PROPRIETOR.
+	// Official registered legal business name. For SOLE_PROPRIETOR, optional DBA or trade name (defaults to firstName and lastName).
+	LegalName *string `json:"legalName,omitempty"`
+	// Public brand name shown to recipients and carriers. Use the name customers recognize (your DBA or trade name). For companies with no DBA, use the same value as legalName. For SOLE_PROPRIETOR, this is the brand you send as — not the individual's legal name (set firstName and lastName for that). If the sole proprietor has no DBA, use first and last name.
+	DisplayName string `json:"displayName"`
+	// Legal first name of the sole proprietor. Required when businessType is SOLE_PROPRIETOR.
 	FirstName *string `json:"firstName,omitempty"`
-	// Required when businessType is SOLE_PROPRIETOR.
+	// Legal last name of the sole proprietor. Required when businessType is SOLE_PROPRIETOR.
 	LastName *string `json:"lastName,omitempty"`
 	// For US companies (country US): 9-digit EIN (Employer Identification Number). For Canada (country CA): 9-digit BN (Business Number). For other countries: national business tax identifier. Required except when businessType is SOLE_PROPRIETOR.
-	TaxId                  *string `json:"taxId,omitempty"`
-	Website                string  `json:"website"`
-	Country                string  `json:"country"`
-	Street                 *string `json:"street,omitempty"`
-	City                   *string `json:"city,omitempty"`
-	State                  *string `json:"state,omitempty"`
-	PostalCode             *string `json:"postalCode,omitempty"`
-	ComplianceContactEmail string  `json:"complianceContactEmail"`
-	ComplianceContactPhone string  `json:"complianceContactPhone"`
+	TaxId *string `json:"taxId,omitempty"`
+	// Public website for the brand. Include a scheme (https://) or a domain; https:// is prepended when omitted. Carriers expect a working site with privacy policy and terms.
+	Website string `json:"website"`
+	// ISO 3166-1 alpha-2 country of incorporation (for example US or CA).
+	Country string `json:"country"`
+	// Street address that matches official tax registration.
+	Street string `json:"street"`
+	// City that matches official tax registration.
+	City string `json:"city"`
+	// State (US) or province (CA) that matches official tax registration.
+	State string `json:"state"`
+	// ZIP code (US) or postal code (CA) that matches official tax registration.
+	PostalCode string `json:"postalCode"`
+	// Email for the 10DLC compliance contact. Used for carrier and registration follow-up.
+	ComplianceContactEmail string `json:"complianceContactEmail"`
+	// Phone number for the 10DLC compliance contact. E.164 preferred; national numbers are normalized using country.
+	ComplianceContactPhone string `json:"complianceContactPhone"`
 }
 
 type _TenDlcBrandCreateRequest TenDlcBrandCreateRequest
@@ -48,13 +59,17 @@ type _TenDlcBrandCreateRequest TenDlcBrandCreateRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTenDlcBrandCreateRequest(scenarioId string, businessType string, legalName string, website string, country string, complianceContactEmail string, complianceContactPhone string) *TenDlcBrandCreateRequest {
+func NewTenDlcBrandCreateRequest(scenarioId string, businessType string, displayName string, website string, country string, street string, city string, state string, postalCode string, complianceContactEmail string, complianceContactPhone string) *TenDlcBrandCreateRequest {
 	this := TenDlcBrandCreateRequest{}
 	this.ScenarioId = scenarioId
 	this.BusinessType = businessType
-	this.LegalName = legalName
+	this.DisplayName = displayName
 	this.Website = website
 	this.Country = country
+	this.Street = street
+	this.City = city
+	this.State = state
+	this.PostalCode = postalCode
 	this.ComplianceContactEmail = complianceContactEmail
 	this.ComplianceContactPhone = complianceContactPhone
 	return &this
@@ -116,28 +131,60 @@ func (o *TenDlcBrandCreateRequest) SetBusinessType(v string) {
 	o.BusinessType = v
 }
 
-// GetLegalName returns the LegalName field value
+// GetLegalName returns the LegalName field value if set, zero value otherwise.
 func (o *TenDlcBrandCreateRequest) GetLegalName() string {
+	if o == nil || IsNil(o.LegalName) {
+		var ret string
+		return ret
+	}
+	return *o.LegalName
+}
+
+// GetLegalNameOk returns a tuple with the LegalName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TenDlcBrandCreateRequest) GetLegalNameOk() (*string, bool) {
+	if o == nil || IsNil(o.LegalName) {
+		return nil, false
+	}
+	return o.LegalName, true
+}
+
+// HasLegalName returns a boolean if a field has been set.
+func (o *TenDlcBrandCreateRequest) HasLegalName() bool {
+	if o != nil && !IsNil(o.LegalName) {
+		return true
+	}
+
+	return false
+}
+
+// SetLegalName gets a reference to the given string and assigns it to the LegalName field.
+func (o *TenDlcBrandCreateRequest) SetLegalName(v string) {
+	o.LegalName = &v
+}
+
+// GetDisplayName returns the DisplayName field value
+func (o *TenDlcBrandCreateRequest) GetDisplayName() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.LegalName
+	return o.DisplayName
 }
 
-// GetLegalNameOk returns a tuple with the LegalName field value
+// GetDisplayNameOk returns a tuple with the DisplayName field value
 // and a boolean to check if the value has been set.
-func (o *TenDlcBrandCreateRequest) GetLegalNameOk() (*string, bool) {
+func (o *TenDlcBrandCreateRequest) GetDisplayNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.LegalName, true
+	return &o.DisplayName, true
 }
 
-// SetLegalName sets field value
-func (o *TenDlcBrandCreateRequest) SetLegalName(v string) {
-	o.LegalName = v
+// SetDisplayName sets field value
+func (o *TenDlcBrandCreateRequest) SetDisplayName(v string) {
+	o.DisplayName = v
 }
 
 // GetFirstName returns the FirstName field value if set, zero value otherwise.
@@ -284,132 +331,100 @@ func (o *TenDlcBrandCreateRequest) SetCountry(v string) {
 	o.Country = v
 }
 
-// GetStreet returns the Street field value if set, zero value otherwise.
+// GetStreet returns the Street field value
 func (o *TenDlcBrandCreateRequest) GetStreet() string {
-	if o == nil || IsNil(o.Street) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Street
+
+	return o.Street
 }
 
-// GetStreetOk returns a tuple with the Street field value if set, nil otherwise
+// GetStreetOk returns a tuple with the Street field value
 // and a boolean to check if the value has been set.
 func (o *TenDlcBrandCreateRequest) GetStreetOk() (*string, bool) {
-	if o == nil || IsNil(o.Street) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Street, true
+	return &o.Street, true
 }
 
-// HasStreet returns a boolean if a field has been set.
-func (o *TenDlcBrandCreateRequest) HasStreet() bool {
-	if o != nil && !IsNil(o.Street) {
-		return true
-	}
-
-	return false
-}
-
-// SetStreet gets a reference to the given string and assigns it to the Street field.
+// SetStreet sets field value
 func (o *TenDlcBrandCreateRequest) SetStreet(v string) {
-	o.Street = &v
+	o.Street = v
 }
 
-// GetCity returns the City field value if set, zero value otherwise.
+// GetCity returns the City field value
 func (o *TenDlcBrandCreateRequest) GetCity() string {
-	if o == nil || IsNil(o.City) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.City
+
+	return o.City
 }
 
-// GetCityOk returns a tuple with the City field value if set, nil otherwise
+// GetCityOk returns a tuple with the City field value
 // and a boolean to check if the value has been set.
 func (o *TenDlcBrandCreateRequest) GetCityOk() (*string, bool) {
-	if o == nil || IsNil(o.City) {
+	if o == nil {
 		return nil, false
 	}
-	return o.City, true
+	return &o.City, true
 }
 
-// HasCity returns a boolean if a field has been set.
-func (o *TenDlcBrandCreateRequest) HasCity() bool {
-	if o != nil && !IsNil(o.City) {
-		return true
-	}
-
-	return false
-}
-
-// SetCity gets a reference to the given string and assigns it to the City field.
+// SetCity sets field value
 func (o *TenDlcBrandCreateRequest) SetCity(v string) {
-	o.City = &v
+	o.City = v
 }
 
-// GetState returns the State field value if set, zero value otherwise.
+// GetState returns the State field value
 func (o *TenDlcBrandCreateRequest) GetState() string {
-	if o == nil || IsNil(o.State) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.State
+
+	return o.State
 }
 
-// GetStateOk returns a tuple with the State field value if set, nil otherwise
+// GetStateOk returns a tuple with the State field value
 // and a boolean to check if the value has been set.
 func (o *TenDlcBrandCreateRequest) GetStateOk() (*string, bool) {
-	if o == nil || IsNil(o.State) {
+	if o == nil {
 		return nil, false
 	}
-	return o.State, true
+	return &o.State, true
 }
 
-// HasState returns a boolean if a field has been set.
-func (o *TenDlcBrandCreateRequest) HasState() bool {
-	if o != nil && !IsNil(o.State) {
-		return true
-	}
-
-	return false
-}
-
-// SetState gets a reference to the given string and assigns it to the State field.
+// SetState sets field value
 func (o *TenDlcBrandCreateRequest) SetState(v string) {
-	o.State = &v
+	o.State = v
 }
 
-// GetPostalCode returns the PostalCode field value if set, zero value otherwise.
+// GetPostalCode returns the PostalCode field value
 func (o *TenDlcBrandCreateRequest) GetPostalCode() string {
-	if o == nil || IsNil(o.PostalCode) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.PostalCode
+
+	return o.PostalCode
 }
 
-// GetPostalCodeOk returns a tuple with the PostalCode field value if set, nil otherwise
+// GetPostalCodeOk returns a tuple with the PostalCode field value
 // and a boolean to check if the value has been set.
 func (o *TenDlcBrandCreateRequest) GetPostalCodeOk() (*string, bool) {
-	if o == nil || IsNil(o.PostalCode) {
+	if o == nil {
 		return nil, false
 	}
-	return o.PostalCode, true
+	return &o.PostalCode, true
 }
 
-// HasPostalCode returns a boolean if a field has been set.
-func (o *TenDlcBrandCreateRequest) HasPostalCode() bool {
-	if o != nil && !IsNil(o.PostalCode) {
-		return true
-	}
-
-	return false
-}
-
-// SetPostalCode gets a reference to the given string and assigns it to the PostalCode field.
+// SetPostalCode sets field value
 func (o *TenDlcBrandCreateRequest) SetPostalCode(v string) {
-	o.PostalCode = &v
+	o.PostalCode = v
 }
 
 // GetComplianceContactEmail returns the ComplianceContactEmail field value
@@ -472,7 +487,10 @@ func (o TenDlcBrandCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["scenarioId"] = o.ScenarioId
 	toSerialize["businessType"] = o.BusinessType
-	toSerialize["legalName"] = o.LegalName
+	if !IsNil(o.LegalName) {
+		toSerialize["legalName"] = o.LegalName
+	}
+	toSerialize["displayName"] = o.DisplayName
 	if !IsNil(o.FirstName) {
 		toSerialize["firstName"] = o.FirstName
 	}
@@ -484,18 +502,10 @@ func (o TenDlcBrandCreateRequest) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["website"] = o.Website
 	toSerialize["country"] = o.Country
-	if !IsNil(o.Street) {
-		toSerialize["street"] = o.Street
-	}
-	if !IsNil(o.City) {
-		toSerialize["city"] = o.City
-	}
-	if !IsNil(o.State) {
-		toSerialize["state"] = o.State
-	}
-	if !IsNil(o.PostalCode) {
-		toSerialize["postalCode"] = o.PostalCode
-	}
+	toSerialize["street"] = o.Street
+	toSerialize["city"] = o.City
+	toSerialize["state"] = o.State
+	toSerialize["postalCode"] = o.PostalCode
 	toSerialize["complianceContactEmail"] = o.ComplianceContactEmail
 	toSerialize["complianceContactPhone"] = o.ComplianceContactPhone
 	return toSerialize, nil
@@ -508,9 +518,13 @@ func (o *TenDlcBrandCreateRequest) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"scenarioId",
 		"businessType",
-		"legalName",
+		"displayName",
 		"website",
 		"country",
+		"street",
+		"city",
+		"state",
+		"postalCode",
 		"complianceContactEmail",
 		"complianceContactPhone",
 	}

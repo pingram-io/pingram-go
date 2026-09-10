@@ -19,26 +19,46 @@ var _ MappedNullable = &TenDlcCampaignUpdateRequest{}
 
 // TenDlcCampaignUpdateRequest Request body for PATCH /registrations/us/10dlc/campaign
 type TenDlcCampaignUpdateRequest struct {
-	CampaignDescription            *string `json:"campaignDescription,omitempty"`
-	CampaignSample1                *string `json:"campaignSample1,omitempty"`
-	CampaignSample2                *string `json:"campaignSample2,omitempty"`
-	CampaignSample3                *string `json:"campaignSample3,omitempty"`
-	CampaignSample4                *string `json:"campaignSample4,omitempty"`
-	CampaignMessageFlow            *string `json:"campaignMessageFlow,omitempty"`
-	CampaignOptinKeywords          *string `json:"campaignOptinKeywords,omitempty"`
-	CampaignOptinMessage           *string `json:"campaignOptinMessage,omitempty"`
-	CampaignOptoutKeywords         *string `json:"campaignOptoutKeywords,omitempty"`
-	CampaignOptoutMessage          *string `json:"campaignOptoutMessage,omitempty"`
-	CampaignHelpKeywords           *string `json:"campaignHelpKeywords,omitempty"`
-	CampaignHelpMessage            *string `json:"campaignHelpMessage,omitempty"`
-	CampaignEmbeddedLink           *bool   `json:"campaignEmbeddedLink,omitempty"`
-	CampaignEmbeddedLinkUrl        *string `json:"campaignEmbeddedLinkUrl,omitempty"`
-	CampaignEmbeddedPhone          *bool   `json:"campaignEmbeddedPhone,omitempty"`
-	CampaignAgeGated               *bool   `json:"campaignAgeGated,omitempty"`
-	CampaignDirectLending          *bool   `json:"campaignDirectLending,omitempty"`
-	CampaignPrivacyPolicyLink      *string `json:"campaignPrivacyPolicyLink,omitempty"`
+	// Summary of what this campaign sends and why, including audience and typical message content. Required before carrier submission.
+	CampaignDescription *string `json:"campaignDescription,omitempty"`
+	// Example SMS that represents actual campaign traffic. Required before carrier submission. Should match the use case and typically identify the brand and include STOP/HELP language.
+	CampaignSample1 *string `json:"campaignSample1,omitempty"`
+	// Second example SMS. Required before carrier submission. Required for MARKETING and MIXED use cases.
+	CampaignSample2 *string `json:"campaignSample2,omitempty"`
+	// Optional third example SMS.
+	CampaignSample3 *string `json:"campaignSample3,omitempty"`
+	// Optional fourth example SMS.
+	CampaignSample4 *string `json:"campaignSample4,omitempty"`
+	// How recipients opt in (for example website form, checkout, or keyword). Describe the call-to-action and where consent is collected. Required before carrier submission.
+	CampaignMessageFlow *string `json:"campaignMessageFlow,omitempty"`
+	// Extra opt-in keywords as a comma-separated list. START is always included.
+	CampaignOptinKeywords *string `json:"campaignOptinKeywords,omitempty"`
+	// Auto-reply sent when a recipient opts in. Required before carrier submission. Should confirm the subscription, mention message frequency, and include STOP and HELP instructions.
+	CampaignOptinMessage *string `json:"campaignOptinMessage,omitempty"`
+	// Extra opt-out keywords as a comma-separated list. STOP is always included.
+	CampaignOptoutKeywords *string `json:"campaignOptoutKeywords,omitempty"`
+	// Auto-reply sent when a recipient opts out. Required before carrier submission. Should confirm they will receive no further messages.
+	CampaignOptoutMessage *string `json:"campaignOptoutMessage,omitempty"`
+	// Extra help keywords as a comma-separated list. HELP is always included.
+	CampaignHelpKeywords *string `json:"campaignHelpKeywords,omitempty"`
+	// Auto-reply sent when a recipient texts a help keyword. Required before carrier submission. Should include a support contact (email and/or phone).
+	CampaignHelpMessage *string `json:"campaignHelpMessage,omitempty"`
+	// Whether campaign messages include URLs.
+	CampaignEmbeddedLink *bool `json:"campaignEmbeddedLink,omitempty"`
+	// Sample URL that appears in messages. Provide when campaignEmbeddedLink is true.
+	CampaignEmbeddedLinkUrl *string `json:"campaignEmbeddedLinkUrl,omitempty"`
+	// Whether campaign messages include phone numbers.
+	CampaignEmbeddedPhone *bool `json:"campaignEmbeddedPhone,omitempty"`
+	// Whether campaign content is age-restricted (18+).
+	CampaignAgeGated *bool `json:"campaignAgeGated,omitempty"`
+	// Whether the campaign relates to direct lending or loan products.
+	CampaignDirectLending *bool `json:"campaignDirectLending,omitempty"`
+	// Public URL of the privacy policy that covers this SMS program.
+	CampaignPrivacyPolicyLink *string `json:"campaignPrivacyPolicyLink,omitempty"`
+	// Public URL of the terms and conditions that cover this SMS program.
 	CampaignTermsAndConditionsLink *string `json:"campaignTermsAndConditionsLink,omitempty"`
-	CampaignUsecase                *string `json:"campaignUsecase,omitempty"`
+	// 10DLC campaign use case submitted to carriers. Required before carrier submission. One of 2FA, ACCOUNT_NOTIFICATION, CUSTOMER_CARE, DELIVERY_NOTIFICATION, FRAUD_ALERT, MARKETING, MIXED, POLLING_VOTING, PUBLIC_SERVICE_ANNOUNCEMENT, or SECURITY_ALERT. For MIXED, append comma-separated sub-use cases after MIXED (sub-use cases cannot include MIXED), for example MIXED,2FA,ACCOUNT_NOTIFICATION.
+	CampaignUsecase *string `json:"campaignUsecase,omitempty"`
 }
 
 // NewTenDlcCampaignUpdateRequest instantiates a new TenDlcCampaignUpdateRequest object

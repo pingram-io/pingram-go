@@ -24,22 +24,34 @@ type TenDlcBrandRegistration struct {
 	AccountId    string `json:"accountId"`
 	ScenarioId   string `json:"scenarioId"`
 	BusinessType string `json:"businessType"`
-	LegalName    string `json:"legalName"`
-	// Brand display name (marketing/DBA); defaults to legalName on customer submit.
+	// Official registered legal business name. For SOLE_PROPRIETOR, may be a DBA or trade name.
+	LegalName string `json:"legalName"`
+	// Public brand name shown to recipients and carriers.
 	DisplayName *string `json:"displayName,omitempty"`
-	FirstName   *string `json:"firstName,omitempty"`
-	LastName    *string `json:"lastName,omitempty"`
-	TaxId       *string `json:"taxId,omitempty"`
-	Website     string  `json:"website"`
-	Country     string  `json:"country"`
-	Street      *string `json:"street,omitempty"`
-	City        *string `json:"city,omitempty"`
-	State       *string `json:"state,omitempty"`
-	PostalCode  *string `json:"postalCode,omitempty"`
+	// Legal first name of the sole proprietor. Present when businessType is SOLE_PROPRIETOR.
+	FirstName *string `json:"firstName,omitempty"`
+	// Legal last name of the sole proprietor. Present when businessType is SOLE_PROPRIETOR.
+	LastName *string `json:"lastName,omitempty"`
+	// For US companies (country US): 9-digit EIN (Employer Identification Number). For Canada (country CA): 9-digit BN (Business Number). For other countries: national business tax identifier. Omitted when businessType is SOLE_PROPRIETOR.
+	TaxId *string `json:"taxId,omitempty"`
+	// Public website for the brand.
+	Website string `json:"website"`
+	// ISO 3166-1 alpha-2 country of incorporation (for example US or CA).
+	Country string `json:"country"`
+	// Street address that matches official tax registration.
+	Street *string `json:"street,omitempty"`
+	// City that matches official tax registration.
+	City *string `json:"city,omitempty"`
+	// State (US) or province (CA) that matches official tax registration.
+	State *string `json:"state,omitempty"`
+	// ZIP code (US) or postal code (CA) that matches official tax registration.
+	PostalCode *string `json:"postalCode,omitempty"`
 	// Legacy records only; new submissions use structured address fields.
-	FullAddress            *string `json:"fullAddress,omitempty"`
-	ComplianceContactEmail string  `json:"complianceContactEmail"`
-	ComplianceContactPhone string  `json:"complianceContactPhone"`
+	FullAddress *string `json:"fullAddress,omitempty"`
+	// Email for the 10DLC compliance contact.
+	ComplianceContactEmail string `json:"complianceContactEmail"`
+	// Phone number for the 10DLC compliance contact.
+	ComplianceContactPhone string `json:"complianceContactPhone"`
 	// Pingram-side 10DLC registration workflow status (brand or campaign). - not_started: no customer submission yet - pending_review: customer submitted; Pingram has not submitted to carriers - in_progress: submitted for carrier review - approved | rejected | info_needed: review outcome
 	BrandStatus string `json:"brandStatus"`
 	// Pingram-side 10DLC registration workflow status (brand or campaign). - not_started: no customer submission yet - pending_review: customer submitted; Pingram has not submitted to carriers - in_progress: submitted for carrier review - approved | rejected | info_needed: review outcome
