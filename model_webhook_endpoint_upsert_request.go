@@ -16,40 +16,40 @@ import (
 	"fmt"
 )
 
-// checks if the EventsWebhookUpsertRequest type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &EventsWebhookUpsertRequest{}
+// checks if the WebhookEndpointUpsertRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WebhookEndpointUpsertRequest{}
 
-// EventsWebhookUpsertRequest Request body for creating or updating the events webhook configuration.
-type EventsWebhookUpsertRequest struct {
+// WebhookEndpointUpsertRequest Request body for creating or updating an events webhook endpoint.
+type WebhookEndpointUpsertRequest struct {
 	// Destination URL that receives webhook event payloads. Must be a valid http(s) URL.
 	Webhook string `json:"webhook"`
 	// List of event types that should be forwarded to the webhook URL.
 	Events []string `json:"events"`
 }
 
-type _EventsWebhookUpsertRequest EventsWebhookUpsertRequest
+type _WebhookEndpointUpsertRequest WebhookEndpointUpsertRequest
 
-// NewEventsWebhookUpsertRequest instantiates a new EventsWebhookUpsertRequest object
+// NewWebhookEndpointUpsertRequest instantiates a new WebhookEndpointUpsertRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEventsWebhookUpsertRequest(webhook string, events []string) *EventsWebhookUpsertRequest {
-	this := EventsWebhookUpsertRequest{}
+func NewWebhookEndpointUpsertRequest(webhook string, events []string) *WebhookEndpointUpsertRequest {
+	this := WebhookEndpointUpsertRequest{}
 	this.Webhook = webhook
 	this.Events = events
 	return &this
 }
 
-// NewEventsWebhookUpsertRequestWithDefaults instantiates a new EventsWebhookUpsertRequest object
+// NewWebhookEndpointUpsertRequestWithDefaults instantiates a new WebhookEndpointUpsertRequest object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewEventsWebhookUpsertRequestWithDefaults() *EventsWebhookUpsertRequest {
-	this := EventsWebhookUpsertRequest{}
+func NewWebhookEndpointUpsertRequestWithDefaults() *WebhookEndpointUpsertRequest {
+	this := WebhookEndpointUpsertRequest{}
 	return &this
 }
 
 // GetWebhook returns the Webhook field value
-func (o *EventsWebhookUpsertRequest) GetWebhook() string {
+func (o *WebhookEndpointUpsertRequest) GetWebhook() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -60,7 +60,7 @@ func (o *EventsWebhookUpsertRequest) GetWebhook() string {
 
 // GetWebhookOk returns a tuple with the Webhook field value
 // and a boolean to check if the value has been set.
-func (o *EventsWebhookUpsertRequest) GetWebhookOk() (*string, bool) {
+func (o *WebhookEndpointUpsertRequest) GetWebhookOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -68,12 +68,12 @@ func (o *EventsWebhookUpsertRequest) GetWebhookOk() (*string, bool) {
 }
 
 // SetWebhook sets field value
-func (o *EventsWebhookUpsertRequest) SetWebhook(v string) {
+func (o *WebhookEndpointUpsertRequest) SetWebhook(v string) {
 	o.Webhook = v
 }
 
 // GetEvents returns the Events field value
-func (o *EventsWebhookUpsertRequest) GetEvents() []string {
+func (o *WebhookEndpointUpsertRequest) GetEvents() []string {
 	if o == nil {
 		var ret []string
 		return ret
@@ -84,7 +84,7 @@ func (o *EventsWebhookUpsertRequest) GetEvents() []string {
 
 // GetEventsOk returns a tuple with the Events field value
 // and a boolean to check if the value has been set.
-func (o *EventsWebhookUpsertRequest) GetEventsOk() ([]string, bool) {
+func (o *WebhookEndpointUpsertRequest) GetEventsOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -92,11 +92,11 @@ func (o *EventsWebhookUpsertRequest) GetEventsOk() ([]string, bool) {
 }
 
 // SetEvents sets field value
-func (o *EventsWebhookUpsertRequest) SetEvents(v []string) {
+func (o *WebhookEndpointUpsertRequest) SetEvents(v []string) {
 	o.Events = v
 }
 
-func (o EventsWebhookUpsertRequest) MarshalJSON() ([]byte, error) {
+func (o WebhookEndpointUpsertRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -104,14 +104,14 @@ func (o EventsWebhookUpsertRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o EventsWebhookUpsertRequest) ToMap() (map[string]interface{}, error) {
+func (o WebhookEndpointUpsertRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["webhook"] = o.Webhook
 	toSerialize["events"] = o.Events
 	return toSerialize, nil
 }
 
-func (o *EventsWebhookUpsertRequest) UnmarshalJSON(data []byte) (err error) {
+func (o *WebhookEndpointUpsertRequest) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -134,53 +134,53 @@ func (o *EventsWebhookUpsertRequest) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varEventsWebhookUpsertRequest := _EventsWebhookUpsertRequest{}
+	varWebhookEndpointUpsertRequest := _WebhookEndpointUpsertRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varEventsWebhookUpsertRequest)
+	err = decoder.Decode(&varWebhookEndpointUpsertRequest)
 
 	if err != nil {
 		return err
 	}
 
-	*o = EventsWebhookUpsertRequest(varEventsWebhookUpsertRequest)
+	*o = WebhookEndpointUpsertRequest(varWebhookEndpointUpsertRequest)
 
 	return err
 }
 
-type NullableEventsWebhookUpsertRequest struct {
-	value *EventsWebhookUpsertRequest
+type NullableWebhookEndpointUpsertRequest struct {
+	value *WebhookEndpointUpsertRequest
 	isSet bool
 }
 
-func (v NullableEventsWebhookUpsertRequest) Get() *EventsWebhookUpsertRequest {
+func (v NullableWebhookEndpointUpsertRequest) Get() *WebhookEndpointUpsertRequest {
 	return v.value
 }
 
-func (v *NullableEventsWebhookUpsertRequest) Set(val *EventsWebhookUpsertRequest) {
+func (v *NullableWebhookEndpointUpsertRequest) Set(val *WebhookEndpointUpsertRequest) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableEventsWebhookUpsertRequest) IsSet() bool {
+func (v NullableWebhookEndpointUpsertRequest) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableEventsWebhookUpsertRequest) Unset() {
+func (v *NullableWebhookEndpointUpsertRequest) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableEventsWebhookUpsertRequest(val *EventsWebhookUpsertRequest) *NullableEventsWebhookUpsertRequest {
-	return &NullableEventsWebhookUpsertRequest{value: val, isSet: true}
+func NewNullableWebhookEndpointUpsertRequest(val *WebhookEndpointUpsertRequest) *NullableWebhookEndpointUpsertRequest {
+	return &NullableWebhookEndpointUpsertRequest{value: val, isSet: true}
 }
 
-func (v NullableEventsWebhookUpsertRequest) MarshalJSON() ([]byte, error) {
+func (v NullableWebhookEndpointUpsertRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableEventsWebhookUpsertRequest) UnmarshalJSON(src []byte) error {
+func (v *NullableWebhookEndpointUpsertRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

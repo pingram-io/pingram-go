@@ -16,47 +16,193 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 // WebhooksAPIService WebhooksAPI service
 type WebhooksAPIService service
 
-type ApiWebhooksDeleteEventsWebhookRequest struct {
-	ctx        context.Context
-	ApiService *WebhooksAPIService
+type ApiWebhooksCreateWebhookRequest struct {
+	ctx                          context.Context
+	ApiService                   *WebhooksAPIService
+	webhookEndpointUpsertRequest *WebhookEndpointUpsertRequest
 }
 
-func (r ApiWebhooksDeleteEventsWebhookRequest) Execute() (*http.Response, error) {
-	return r.ApiService.WebhooksDeleteEventsWebhookExecute(r)
+func (r ApiWebhooksCreateWebhookRequest) WebhookEndpointUpsertRequest(webhookEndpointUpsertRequest WebhookEndpointUpsertRequest) ApiWebhooksCreateWebhookRequest {
+	r.webhookEndpointUpsertRequest = &webhookEndpointUpsertRequest
+	return r
+}
+
+func (r ApiWebhooksCreateWebhookRequest) Execute() (*WebhookEndpoint, *http.Response, error) {
+	return r.ApiService.WebhooksCreateWebhookExecute(r)
 }
 
 /*
-WebhooksDeleteEventsWebhook Delete the events webhook configuration for the current account/environment.
+WebhooksCreateWebhook Create a webhook.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiWebhooksDeleteEventsWebhookRequest
+	@return ApiWebhooksCreateWebhookRequest
 */
-func (a *WebhooksAPIService) WebhooksDeleteEventsWebhook(ctx context.Context) ApiWebhooksDeleteEventsWebhookRequest {
-	return ApiWebhooksDeleteEventsWebhookRequest{
+func (a *WebhooksAPIService) WebhooksCreateWebhook(ctx context.Context) ApiWebhooksCreateWebhookRequest {
+	return ApiWebhooksCreateWebhookRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *WebhooksAPIService) WebhooksDeleteEventsWebhookExecute(r ApiWebhooksDeleteEventsWebhookRequest) (*http.Response, error) {
+//
+//	@return WebhookEndpoint
+func (a *WebhooksAPIService) WebhooksCreateWebhookExecute(r ApiWebhooksCreateWebhookRequest) (*WebhookEndpoint, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *WebhookEndpoint
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhooksAPIService.WebhooksCreateWebhook")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/webhooks"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.webhookEndpointUpsertRequest == nil {
+		return localVarReturnValue, nil, reportError("webhookEndpointUpsertRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.webhookEndpointUpsertRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: prefaceHTTPStatusWithApiJSONDetail(localVarHTTPResponse.Status, localVarBody),
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 402 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 502 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiWebhooksDeleteWebhookRequest struct {
+	ctx        context.Context
+	ApiService *WebhooksAPIService
+	endpointId string
+}
+
+func (r ApiWebhooksDeleteWebhookRequest) Execute() (*http.Response, error) {
+	return r.ApiService.WebhooksDeleteWebhookExecute(r)
+}
+
+/*
+WebhooksDeleteWebhook Delete a webhook.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param endpointId Webhook endpoint id
+	@return ApiWebhooksDeleteWebhookRequest
+*/
+func (a *WebhooksAPIService) WebhooksDeleteWebhook(ctx context.Context, endpointId string) ApiWebhooksDeleteWebhookRequest {
+	return ApiWebhooksDeleteWebhookRequest{
+		ApiService: a,
+		ctx:        ctx,
+		endpointId: endpointId,
+	}
+}
+
+// Execute executes the request
+func (a *WebhooksAPIService) WebhooksDeleteWebhookExecute(r ApiWebhooksDeleteWebhookRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhooksAPIService.WebhooksDeleteEventsWebhook")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhooksAPIService.WebhooksDeleteWebhook")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/webhooks/events"
+	localVarPath := localBasePath + "/webhooks/{endpointId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"endpointId"+"}", url.PathEscape(parameterValueToString(r.endpointId, "endpointId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -139,23 +285,23 @@ func (a *WebhooksAPIService) WebhooksDeleteEventsWebhookExecute(r ApiWebhooksDel
 	return localVarHTTPResponse, nil
 }
 
-type ApiWebhooksGetEventsWebhookRequest struct {
+type ApiWebhooksListWebhooksRequest struct {
 	ctx        context.Context
 	ApiService *WebhooksAPIService
 }
 
-func (r ApiWebhooksGetEventsWebhookRequest) Execute() (*EventsWebhookResponse, *http.Response, error) {
-	return r.ApiService.WebhooksGetEventsWebhookExecute(r)
+func (r ApiWebhooksListWebhooksRequest) Execute() (*WebhookEndpointsResponse, *http.Response, error) {
+	return r.ApiService.WebhooksListWebhooksExecute(r)
 }
 
 /*
-WebhooksGetEventsWebhook Get the events webhook configuration for the current account/environment.
+WebhooksListWebhooks List webhooks for the current account.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiWebhooksGetEventsWebhookRequest
+	@return ApiWebhooksListWebhooksRequest
 */
-func (a *WebhooksAPIService) WebhooksGetEventsWebhook(ctx context.Context) ApiWebhooksGetEventsWebhookRequest {
-	return ApiWebhooksGetEventsWebhookRequest{
+func (a *WebhooksAPIService) WebhooksListWebhooks(ctx context.Context) ApiWebhooksListWebhooksRequest {
+	return ApiWebhooksListWebhooksRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -163,21 +309,21 @@ func (a *WebhooksAPIService) WebhooksGetEventsWebhook(ctx context.Context) ApiWe
 
 // Execute executes the request
 //
-//	@return EventsWebhookResponse
-func (a *WebhooksAPIService) WebhooksGetEventsWebhookExecute(r ApiWebhooksGetEventsWebhookRequest) (*EventsWebhookResponse, *http.Response, error) {
+//	@return WebhookEndpointsResponse
+func (a *WebhooksAPIService) WebhooksListWebhooksExecute(r ApiWebhooksListWebhooksRequest) (*WebhookEndpointsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EventsWebhookResponse
+		localVarReturnValue *WebhookEndpointsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhooksAPIService.WebhooksGetEventsWebhook")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhooksAPIService.WebhooksListWebhooks")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/webhooks/events"
+	localVarPath := localBasePath + "/webhooks"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -269,57 +415,61 @@ func (a *WebhooksAPIService) WebhooksGetEventsWebhookExecute(r ApiWebhooksGetEve
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiWebhooksUpsertEventsWebhookRequest struct {
-	ctx                        context.Context
-	ApiService                 *WebhooksAPIService
-	eventsWebhookUpsertRequest *EventsWebhookUpsertRequest
+type ApiWebhooksUpdateWebhookRequest struct {
+	ctx                          context.Context
+	ApiService                   *WebhooksAPIService
+	endpointId                   string
+	webhookEndpointUpsertRequest *WebhookEndpointUpsertRequest
 }
 
-func (r ApiWebhooksUpsertEventsWebhookRequest) EventsWebhookUpsertRequest(eventsWebhookUpsertRequest EventsWebhookUpsertRequest) ApiWebhooksUpsertEventsWebhookRequest {
-	r.eventsWebhookUpsertRequest = &eventsWebhookUpsertRequest
+func (r ApiWebhooksUpdateWebhookRequest) WebhookEndpointUpsertRequest(webhookEndpointUpsertRequest WebhookEndpointUpsertRequest) ApiWebhooksUpdateWebhookRequest {
+	r.webhookEndpointUpsertRequest = &webhookEndpointUpsertRequest
 	return r
 }
 
-func (r ApiWebhooksUpsertEventsWebhookRequest) Execute() (*EventsWebhookResponse, *http.Response, error) {
-	return r.ApiService.WebhooksUpsertEventsWebhookExecute(r)
+func (r ApiWebhooksUpdateWebhookRequest) Execute() (*WebhookEndpoint, *http.Response, error) {
+	return r.ApiService.WebhooksUpdateWebhookExecute(r)
 }
 
 /*
-WebhooksUpsertEventsWebhook Create or update the events webhook configuration for the current account/environment.
+WebhooksUpdateWebhook Update a webhook. The signing secret is preserved.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiWebhooksUpsertEventsWebhookRequest
+	@param endpointId Webhook endpoint id
+	@return ApiWebhooksUpdateWebhookRequest
 */
-func (a *WebhooksAPIService) WebhooksUpsertEventsWebhook(ctx context.Context) ApiWebhooksUpsertEventsWebhookRequest {
-	return ApiWebhooksUpsertEventsWebhookRequest{
+func (a *WebhooksAPIService) WebhooksUpdateWebhook(ctx context.Context, endpointId string) ApiWebhooksUpdateWebhookRequest {
+	return ApiWebhooksUpdateWebhookRequest{
 		ApiService: a,
 		ctx:        ctx,
+		endpointId: endpointId,
 	}
 }
 
 // Execute executes the request
 //
-//	@return EventsWebhookResponse
-func (a *WebhooksAPIService) WebhooksUpsertEventsWebhookExecute(r ApiWebhooksUpsertEventsWebhookRequest) (*EventsWebhookResponse, *http.Response, error) {
+//	@return WebhookEndpoint
+func (a *WebhooksAPIService) WebhooksUpdateWebhookExecute(r ApiWebhooksUpdateWebhookRequest) (*WebhookEndpoint, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *EventsWebhookResponse
+		localVarReturnValue *WebhookEndpoint
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhooksAPIService.WebhooksUpsertEventsWebhook")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhooksAPIService.WebhooksUpdateWebhook")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/webhooks/events"
+	localVarPath := localBasePath + "/webhooks/{endpointId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"endpointId"+"}", url.PathEscape(parameterValueToString(r.endpointId, "endpointId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.eventsWebhookUpsertRequest == nil {
-		return localVarReturnValue, nil, reportError("eventsWebhookUpsertRequest is required and must be specified")
+	if r.webhookEndpointUpsertRequest == nil {
+		return localVarReturnValue, nil, reportError("webhookEndpointUpsertRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -340,7 +490,7 @@ func (a *WebhooksAPIService) WebhooksUpsertEventsWebhookExecute(r ApiWebhooksUps
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.eventsWebhookUpsertRequest
+	localVarPostBody = r.webhookEndpointUpsertRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

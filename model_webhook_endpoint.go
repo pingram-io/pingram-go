@@ -16,70 +16,70 @@ import (
 	"fmt"
 )
 
-// checks if the EventsWebhookResponse type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &EventsWebhookResponse{}
+// checks if the WebhookEndpoint type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WebhookEndpoint{}
 
-// EventsWebhookResponse Events webhook configuration returned by the API.
-type EventsWebhookResponse struct {
-	// Storage key in the format accountId:envId (currently accountId:accountId for account-scoped usage).
-	WebhookId string `json:"webhookId"`
+// WebhookEndpoint Destination URL that receives signed event payloads for a set of subscribed events.
+type WebhookEndpoint struct {
+	// Unique identifier for this endpoint within the account.
+	Id string `json:"id"`
 	// Destination URL that receives webhook event payloads.
 	Webhook string `json:"webhook"`
-	// List of subscribed event types for this webhook configuration.
+	// List of subscribed event types for this endpoint.
 	Events []string `json:"events"`
 	// HMAC secret for verifying webhook signatures. Use this with your X-Pingram-Signature verification.
 	Secret string `json:"secret"`
 }
 
-type _EventsWebhookResponse EventsWebhookResponse
+type _WebhookEndpoint WebhookEndpoint
 
-// NewEventsWebhookResponse instantiates a new EventsWebhookResponse object
+// NewWebhookEndpoint instantiates a new WebhookEndpoint object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEventsWebhookResponse(webhookId string, webhook string, events []string, secret string) *EventsWebhookResponse {
-	this := EventsWebhookResponse{}
-	this.WebhookId = webhookId
+func NewWebhookEndpoint(id string, webhook string, events []string, secret string) *WebhookEndpoint {
+	this := WebhookEndpoint{}
+	this.Id = id
 	this.Webhook = webhook
 	this.Events = events
 	this.Secret = secret
 	return &this
 }
 
-// NewEventsWebhookResponseWithDefaults instantiates a new EventsWebhookResponse object
+// NewWebhookEndpointWithDefaults instantiates a new WebhookEndpoint object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewEventsWebhookResponseWithDefaults() *EventsWebhookResponse {
-	this := EventsWebhookResponse{}
+func NewWebhookEndpointWithDefaults() *WebhookEndpoint {
+	this := WebhookEndpoint{}
 	return &this
 }
 
-// GetWebhookId returns the WebhookId field value
-func (o *EventsWebhookResponse) GetWebhookId() string {
+// GetId returns the Id field value
+func (o *WebhookEndpoint) GetId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.WebhookId
+	return o.Id
 }
 
-// GetWebhookIdOk returns a tuple with the WebhookId field value
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *EventsWebhookResponse) GetWebhookIdOk() (*string, bool) {
+func (o *WebhookEndpoint) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.WebhookId, true
+	return &o.Id, true
 }
 
-// SetWebhookId sets field value
-func (o *EventsWebhookResponse) SetWebhookId(v string) {
-	o.WebhookId = v
+// SetId sets field value
+func (o *WebhookEndpoint) SetId(v string) {
+	o.Id = v
 }
 
 // GetWebhook returns the Webhook field value
-func (o *EventsWebhookResponse) GetWebhook() string {
+func (o *WebhookEndpoint) GetWebhook() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -90,7 +90,7 @@ func (o *EventsWebhookResponse) GetWebhook() string {
 
 // GetWebhookOk returns a tuple with the Webhook field value
 // and a boolean to check if the value has been set.
-func (o *EventsWebhookResponse) GetWebhookOk() (*string, bool) {
+func (o *WebhookEndpoint) GetWebhookOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -98,12 +98,12 @@ func (o *EventsWebhookResponse) GetWebhookOk() (*string, bool) {
 }
 
 // SetWebhook sets field value
-func (o *EventsWebhookResponse) SetWebhook(v string) {
+func (o *WebhookEndpoint) SetWebhook(v string) {
 	o.Webhook = v
 }
 
 // GetEvents returns the Events field value
-func (o *EventsWebhookResponse) GetEvents() []string {
+func (o *WebhookEndpoint) GetEvents() []string {
 	if o == nil {
 		var ret []string
 		return ret
@@ -114,7 +114,7 @@ func (o *EventsWebhookResponse) GetEvents() []string {
 
 // GetEventsOk returns a tuple with the Events field value
 // and a boolean to check if the value has been set.
-func (o *EventsWebhookResponse) GetEventsOk() ([]string, bool) {
+func (o *WebhookEndpoint) GetEventsOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -122,12 +122,12 @@ func (o *EventsWebhookResponse) GetEventsOk() ([]string, bool) {
 }
 
 // SetEvents sets field value
-func (o *EventsWebhookResponse) SetEvents(v []string) {
+func (o *WebhookEndpoint) SetEvents(v []string) {
 	o.Events = v
 }
 
 // GetSecret returns the Secret field value
-func (o *EventsWebhookResponse) GetSecret() string {
+func (o *WebhookEndpoint) GetSecret() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -138,7 +138,7 @@ func (o *EventsWebhookResponse) GetSecret() string {
 
 // GetSecretOk returns a tuple with the Secret field value
 // and a boolean to check if the value has been set.
-func (o *EventsWebhookResponse) GetSecretOk() (*string, bool) {
+func (o *WebhookEndpoint) GetSecretOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -146,11 +146,11 @@ func (o *EventsWebhookResponse) GetSecretOk() (*string, bool) {
 }
 
 // SetSecret sets field value
-func (o *EventsWebhookResponse) SetSecret(v string) {
+func (o *WebhookEndpoint) SetSecret(v string) {
 	o.Secret = v
 }
 
-func (o EventsWebhookResponse) MarshalJSON() ([]byte, error) {
+func (o WebhookEndpoint) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -158,21 +158,21 @@ func (o EventsWebhookResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o EventsWebhookResponse) ToMap() (map[string]interface{}, error) {
+func (o WebhookEndpoint) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["webhookId"] = o.WebhookId
+	toSerialize["id"] = o.Id
 	toSerialize["webhook"] = o.Webhook
 	toSerialize["events"] = o.Events
 	toSerialize["secret"] = o.Secret
 	return toSerialize, nil
 }
 
-func (o *EventsWebhookResponse) UnmarshalJSON(data []byte) (err error) {
+func (o *WebhookEndpoint) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"webhookId",
+		"id",
 		"webhook",
 		"events",
 		"secret",
@@ -192,53 +192,53 @@ func (o *EventsWebhookResponse) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varEventsWebhookResponse := _EventsWebhookResponse{}
+	varWebhookEndpoint := _WebhookEndpoint{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varEventsWebhookResponse)
+	err = decoder.Decode(&varWebhookEndpoint)
 
 	if err != nil {
 		return err
 	}
 
-	*o = EventsWebhookResponse(varEventsWebhookResponse)
+	*o = WebhookEndpoint(varWebhookEndpoint)
 
 	return err
 }
 
-type NullableEventsWebhookResponse struct {
-	value *EventsWebhookResponse
+type NullableWebhookEndpoint struct {
+	value *WebhookEndpoint
 	isSet bool
 }
 
-func (v NullableEventsWebhookResponse) Get() *EventsWebhookResponse {
+func (v NullableWebhookEndpoint) Get() *WebhookEndpoint {
 	return v.value
 }
 
-func (v *NullableEventsWebhookResponse) Set(val *EventsWebhookResponse) {
+func (v *NullableWebhookEndpoint) Set(val *WebhookEndpoint) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableEventsWebhookResponse) IsSet() bool {
+func (v NullableWebhookEndpoint) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableEventsWebhookResponse) Unset() {
+func (v *NullableWebhookEndpoint) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableEventsWebhookResponse(val *EventsWebhookResponse) *NullableEventsWebhookResponse {
-	return &NullableEventsWebhookResponse{value: val, isSet: true}
+func NewNullableWebhookEndpoint(val *WebhookEndpoint) *NullableWebhookEndpoint {
+	return &NullableWebhookEndpoint{value: val, isSet: true}
 }
 
-func (v NullableEventsWebhookResponse) MarshalJSON() ([]byte, error) {
+func (v NullableWebhookEndpoint) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableEventsWebhookResponse) UnmarshalJSON(src []byte) error {
+func (v *NullableWebhookEndpoint) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
