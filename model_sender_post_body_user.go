@@ -36,6 +36,8 @@ type SenderPostBodyUser struct {
 	// The destination channel of slack notifications sent to this user. Can be either of the following: - Channel name, e.g. \"test\" - Channel name with # prefix, e.g. \"#test\" - Channel ID, e.g. \"C1234567890\" - User ID for DM, e.g. \"U1234567890\" - Username with @ prefix, e.g. \"@test\"
 	SlackChannel *string                               `json:"slackChannel,omitempty"`
 	SlackToken   *GetUsersResponseUsersInnerSlackToken `json:"slackToken,omitempty"`
+	// Custom key-value properties synced by the developer, used for audience segmentation (e.g. broadcast filters on user.properties.plan). Incremental identify calls shallow-merge keys (unset keys are preserved). Limits: max 25 keys, key length <= 64, string values <= 256 chars, serialized size <= 1KB.
+	Properties map[string]GetUsersResponseUsersInnerPropertiesValue `json:"properties,omitempty"`
 	// Last activity timestamp. Updated automatically. Read-only.
 	LastSeenTime *string `json:"lastSeenTime,omitempty"`
 	// Last update timestamp. Read-only.
@@ -313,6 +315,38 @@ func (o *SenderPostBodyUser) SetSlackToken(v GetUsersResponseUsersInnerSlackToke
 	o.SlackToken = &v
 }
 
+// GetProperties returns the Properties field value if set, zero value otherwise.
+func (o *SenderPostBodyUser) GetProperties() map[string]GetUsersResponseUsersInnerPropertiesValue {
+	if o == nil || IsNil(o.Properties) {
+		var ret map[string]GetUsersResponseUsersInnerPropertiesValue
+		return ret
+	}
+	return o.Properties
+}
+
+// GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SenderPostBodyUser) GetPropertiesOk() (map[string]GetUsersResponseUsersInnerPropertiesValue, bool) {
+	if o == nil || IsNil(o.Properties) {
+		return map[string]GetUsersResponseUsersInnerPropertiesValue{}, false
+	}
+	return o.Properties, true
+}
+
+// HasProperties returns a boolean if a field has been set.
+func (o *SenderPostBodyUser) HasProperties() bool {
+	if o != nil && !IsNil(o.Properties) {
+		return true
+	}
+
+	return false
+}
+
+// SetProperties gets a reference to the given map[string]GetUsersResponseUsersInnerPropertiesValue and assigns it to the Properties field.
+func (o *SenderPostBodyUser) SetProperties(v map[string]GetUsersResponseUsersInnerPropertiesValue) {
+	o.Properties = v
+}
+
 // GetLastSeenTime returns the LastSeenTime field value if set, zero value otherwise.
 func (o *SenderPostBodyUser) GetLastSeenTime() string {
 	if o == nil || IsNil(o.LastSeenTime) {
@@ -472,6 +506,9 @@ func (o SenderPostBodyUser) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.SlackToken) {
 		toSerialize["slackToken"] = o.SlackToken
+	}
+	if !IsNil(o.Properties) {
+		toSerialize["properties"] = o.Properties
 	}
 	if !IsNil(o.LastSeenTime) {
 		toSerialize["lastSeenTime"] = o.LastSeenTime

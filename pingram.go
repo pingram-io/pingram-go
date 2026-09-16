@@ -53,6 +53,8 @@ type Client struct {
 
 	AddressesAPI *AddressesAPIService
 
+	BroadcastsAPI *BroadcastsAPIService
+
 	ComponentsAPI *ComponentsAPIService
 
 	DefaultAPI *DefaultAPIService
@@ -70,6 +72,8 @@ type Client struct {
 	InsightsAPI *InsightsAPIService
 
 	KeysAPI *KeysAPIService
+
+	LibraryAPI *LibraryAPIService
 
 	LogsAPI *LogsAPIService
 
@@ -123,6 +127,8 @@ func NewClient(apiKey string, opts ...ClientOption) *Client {
 
 	c.AddressesAPI = (*AddressesAPIService)(&c.common)
 
+	c.BroadcastsAPI = (*BroadcastsAPIService)(&c.common)
+
 	c.ComponentsAPI = (*ComponentsAPIService)(&c.common)
 
 	c.DefaultAPI = (*DefaultAPIService)(&c.common)
@@ -140,6 +146,8 @@ func NewClient(apiKey string, opts ...ClientOption) *Client {
 	c.InsightsAPI = (*InsightsAPIService)(&c.common)
 
 	c.KeysAPI = (*KeysAPIService)(&c.common)
+
+	c.LibraryAPI = (*LibraryAPIService)(&c.common)
 
 	c.LogsAPI = (*LogsAPIService)(&c.common)
 
