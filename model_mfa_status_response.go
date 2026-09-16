@@ -24,7 +24,7 @@ type MFAStatusResponse struct {
 	Enabled bool `json:"enabled"`
 	// MFA methods supported by the profile MFA API.
 	PreferredMfa *string `json:"preferredMfa,omitempty"`
-	// Whether the org has the Enterprise add-on required to enable MFA.
+	// Whether the account is on a paid plan required to enable MFA.
 	Available bool `json:"available"`
 }
 
