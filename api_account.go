@@ -1442,7 +1442,7 @@ func (r ApiAccountUpdateAccountSettingsRequest) Execute() (*AccountGetResponse, 
 }
 
 /*
-AccountUpdateAccountSettings Update account billing preferences. Only account owners can change these settings.
+AccountUpdateAccountSettings Update account billing preferences such as auto upgrade.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiAccountUpdateAccountSettingsRequest

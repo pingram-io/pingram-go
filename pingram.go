@@ -89,6 +89,8 @@ type Client struct {
 
 	SmsAPI *SmsAPIService
 
+	SubNotificationsAPI *SubNotificationsAPIService
+
 	TemplatesAPI *TemplatesAPIService
 
 	TypesAPI *TypesAPIService
@@ -162,6 +164,8 @@ func NewClient(apiKey string, opts ...ClientOption) *Client {
 	c.SenderAPI = (*SenderAPIService)(&c.common)
 
 	c.SmsAPI = (*SmsAPIService)(&c.common)
+
+	c.SubNotificationsAPI = (*SubNotificationsAPIService)(&c.common)
 
 	c.TemplatesAPI = (*TemplatesAPIService)(&c.common)
 

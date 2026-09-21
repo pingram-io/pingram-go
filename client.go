@@ -90,6 +90,8 @@ type APIClient struct {
 
 	SmsAPI *SmsAPIService
 
+	SubNotificationsAPI *SubNotificationsAPIService
+
 	TemplatesAPI *TemplatesAPIService
 
 	TypesAPI *TypesAPIService
@@ -140,6 +142,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.RegistrationsAPI = (*RegistrationsAPIService)(&c.common)
 	c.SenderAPI = (*SenderAPIService)(&c.common)
 	c.SmsAPI = (*SmsAPIService)(&c.common)
+	c.SubNotificationsAPI = (*SubNotificationsAPIService)(&c.common)
 	c.TemplatesAPI = (*TemplatesAPIService)(&c.common)
 	c.TypesAPI = (*TypesAPIService)(&c.common)
 	c.UserAPI = (*UserAPIService)(&c.common)
