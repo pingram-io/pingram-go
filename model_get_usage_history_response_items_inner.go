@@ -21,7 +21,7 @@ var _ MappedNullable = &GetUsageHistoryResponseItemsInner{}
 
 // GetUsageHistoryResponseItemsInner Single usage item in historical response
 type GetUsageHistoryResponseItemsInner struct {
-	// Year-month (YYYY-MM) for this usage period
+	// YYYY-MM for calendar months, or YYYY-MM-DD billing-period start.
 	YearMonth string                                  `json:"yearMonth"`
 	Counts    GetUsageHistoryResponseItemsInnerCounts `json:"counts"`
 }

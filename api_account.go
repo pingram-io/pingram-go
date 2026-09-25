@@ -557,6 +557,7 @@ type ApiAccountGetUsageHistoryRequest struct {
 	ApiService *AccountAPIService
 	startDate  *string
 	endDate    *string
+	groupBy    *string
 }
 
 // Start date (YYYY-MM-DD) for the range
@@ -571,12 +572,18 @@ func (r ApiAccountGetUsageHistoryRequest) EndDate(endDate string) ApiAccountGetU
 	return r
 }
 
+// calendar (UTC months, default) or billing (account billing cycles)
+func (r ApiAccountGetUsageHistoryRequest) GroupBy(groupBy string) ApiAccountGetUsageHistoryRequest {
+	r.groupBy = &groupBy
+	return r
+}
+
 func (r ApiAccountGetUsageHistoryRequest) Execute() (*GetUsageHistoryResponse, *http.Response, error) {
 	return r.ApiService.AccountGetUsageHistoryExecute(r)
 }
 
 /*
-AccountGetUsageHistory Get historical usage for the authenticated account over a date range.
+AccountGetUsageHistory Get historical usage for the authenticated account over a date range, summed by UTC calendar month or billing cycle from daily counts.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiAccountGetUsageHistoryRequest
@@ -618,6 +625,9 @@ func (a *AccountAPIService) AccountGetUsageHistoryExecute(r ApiAccountGetUsageHi
 
 	parameterAddToHeaderOrQuery(localVarQueryParams, "startDate", r.startDate, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "endDate", r.endDate, "form", "")
+	if r.groupBy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

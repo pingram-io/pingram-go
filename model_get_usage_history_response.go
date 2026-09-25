@@ -21,7 +21,7 @@ var _ MappedNullable = &GetUsageHistoryResponse{}
 
 // GetUsageHistoryResponse Response for GET /account/usage/history
 type GetUsageHistoryResponse struct {
-	// Array of usage items, one per month in the requested range
+	// Array of usage items, one per calendar month or billing cycle in the range
 	Items []GetUsageHistoryResponseItemsInner `json:"items"`
 }
 

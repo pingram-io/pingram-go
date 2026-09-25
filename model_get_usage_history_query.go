@@ -25,6 +25,8 @@ type GetUsageHistoryQuery struct {
 	StartDate string `json:"startDate"`
 	// End date (YYYY-MM-DD) for the range
 	EndDate string `json:"endDate"`
+	// calendar = UTC calendar months (YYYY-MM). billing = account billing cycles (YYYY-MM-DD period start). Defaults to calendar.
+	GroupBy *string `json:"groupBy,omitempty"`
 }
 
 type _GetUsageHistoryQuery GetUsageHistoryQuery
@@ -96,6 +98,38 @@ func (o *GetUsageHistoryQuery) SetEndDate(v string) {
 	o.EndDate = v
 }
 
+// GetGroupBy returns the GroupBy field value if set, zero value otherwise.
+func (o *GetUsageHistoryQuery) GetGroupBy() string {
+	if o == nil || IsNil(o.GroupBy) {
+		var ret string
+		return ret
+	}
+	return *o.GroupBy
+}
+
+// GetGroupByOk returns a tuple with the GroupBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetUsageHistoryQuery) GetGroupByOk() (*string, bool) {
+	if o == nil || IsNil(o.GroupBy) {
+		return nil, false
+	}
+	return o.GroupBy, true
+}
+
+// HasGroupBy returns a boolean if a field has been set.
+func (o *GetUsageHistoryQuery) HasGroupBy() bool {
+	if o != nil && !IsNil(o.GroupBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetGroupBy gets a reference to the given string and assigns it to the GroupBy field.
+func (o *GetUsageHistoryQuery) SetGroupBy(v string) {
+	o.GroupBy = &v
+}
+
 func (o GetUsageHistoryQuery) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -108,6 +142,9 @@ func (o GetUsageHistoryQuery) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["startDate"] = o.StartDate
 	toSerialize["endDate"] = o.EndDate
+	if !IsNil(o.GroupBy) {
+		toSerialize["groupBy"] = o.GroupBy
+	}
 	return toSerialize, nil
 }
 
