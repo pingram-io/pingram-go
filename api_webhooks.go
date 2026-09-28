@@ -38,7 +38,7 @@ func (r ApiWebhooksCreateWebhookRequest) Execute() (*WebhookEndpoint, *http.Resp
 }
 
 /*
-WebhooksCreateWebhook Create a webhook.
+WebhooksCreateWebhook Create a webhook endpoint. Pingram POSTs signed JSON to the URL when one of the subscribed events happens. The response includes id and a signing secret starting with pingram_whsecret_. Save it and verify the X-Pingram-Signature header. Updates keep this secret. At most 10 endpoints per account. The URL must be http or https and should return 2xx.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiWebhooksCreateWebhookRequest
@@ -174,10 +174,10 @@ func (r ApiWebhooksDeleteWebhookRequest) Execute() (*http.Response, error) {
 }
 
 /*
-WebhooksDeleteWebhook Delete a webhook.
+WebhooksDeleteWebhook Delete one webhook endpoint by id from list or create. That URL stops receiving its events. Other endpoints on the account are left as they are.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param endpointId Webhook endpoint id
+	@param endpointId Id of the webhook endpoint, from list or create.
 	@return ApiWebhooksDeleteWebhookRequest
 */
 func (a *WebhooksAPIService) WebhooksDeleteWebhook(ctx context.Context, endpointId string) ApiWebhooksDeleteWebhookRequest {
@@ -295,7 +295,7 @@ func (r ApiWebhooksListWebhooksRequest) Execute() (*WebhookEndpointsResponse, *h
 }
 
 /*
-WebhooksListWebhooks List webhooks for the current account.
+WebhooksListWebhooks List webhook endpoints on the current account, including each id, URL, subscribed events, and signing secret. Use the id with update or delete.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiWebhooksListWebhooksRequest
@@ -432,10 +432,10 @@ func (r ApiWebhooksUpdateWebhookRequest) Execute() (*WebhookEndpoint, *http.Resp
 }
 
 /*
-WebhooksUpdateWebhook Update a webhook. The signing secret is preserved.
+WebhooksUpdateWebhook Replace one webhook endpoint's URL and its full event subscription. endpointId comes from list or create. The signing secret stays the same. events is the complete set; omitting an event unsubscribes it. The URL must be http or https.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param endpointId Webhook endpoint id
+	@param endpointId Id of the webhook endpoint, from list or create.
 	@return ApiWebhooksUpdateWebhookRequest
 */
 func (a *WebhooksAPIService) WebhooksUpdateWebhook(ctx context.Context, endpointId string) ApiWebhooksUpdateWebhookRequest {

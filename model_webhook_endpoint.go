@@ -23,11 +23,11 @@ var _ MappedNullable = &WebhookEndpoint{}
 type WebhookEndpoint struct {
 	// Unique identifier for this endpoint within the account.
 	Id string `json:"id"`
-	// Destination URL that receives webhook event payloads.
+	// Destination URL that receives signed JSON event payloads.
 	Webhook string `json:"webhook"`
-	// List of subscribed event types for this endpoint.
+	// Subscribed event types for this endpoint.
 	Events []string `json:"events"`
-	// HMAC secret for verifying webhook signatures. Use this with your X-Pingram-Signature verification.
+	// HMAC secret for verifying X-Pingram-Signature. Returned on create and list; updates keep the same secret. Format: pingram_whsecret_...
 	Secret string `json:"secret"`
 }
 
