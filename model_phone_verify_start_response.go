@@ -22,6 +22,8 @@ var _ MappedNullable = &PhoneVerifyStartResponse{}
 // PhoneVerifyStartResponse struct for PhoneVerifyStartResponse
 type PhoneVerifyStartResponse struct {
 	Started bool `json:"started"`
+	// Seconds until this signup can request another code for the same number.
+	ResendAfterSeconds *float32 `json:"resendAfterSeconds,omitempty"`
 }
 
 type _PhoneVerifyStartResponse PhoneVerifyStartResponse
@@ -68,6 +70,38 @@ func (o *PhoneVerifyStartResponse) SetStarted(v bool) {
 	o.Started = v
 }
 
+// GetResendAfterSeconds returns the ResendAfterSeconds field value if set, zero value otherwise.
+func (o *PhoneVerifyStartResponse) GetResendAfterSeconds() float32 {
+	if o == nil || IsNil(o.ResendAfterSeconds) {
+		var ret float32
+		return ret
+	}
+	return *o.ResendAfterSeconds
+}
+
+// GetResendAfterSecondsOk returns a tuple with the ResendAfterSeconds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PhoneVerifyStartResponse) GetResendAfterSecondsOk() (*float32, bool) {
+	if o == nil || IsNil(o.ResendAfterSeconds) {
+		return nil, false
+	}
+	return o.ResendAfterSeconds, true
+}
+
+// HasResendAfterSeconds returns a boolean if a field has been set.
+func (o *PhoneVerifyStartResponse) HasResendAfterSeconds() bool {
+	if o != nil && !IsNil(o.ResendAfterSeconds) {
+		return true
+	}
+
+	return false
+}
+
+// SetResendAfterSeconds gets a reference to the given float32 and assigns it to the ResendAfterSeconds field.
+func (o *PhoneVerifyStartResponse) SetResendAfterSeconds(v float32) {
+	o.ResendAfterSeconds = &v
+}
+
 func (o PhoneVerifyStartResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -79,6 +113,9 @@ func (o PhoneVerifyStartResponse) MarshalJSON() ([]byte, error) {
 func (o PhoneVerifyStartResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["started"] = o.Started
+	if !IsNil(o.ResendAfterSeconds) {
+		toSerialize["resendAfterSeconds"] = o.ResendAfterSeconds
+	}
 	return toSerialize, nil
 }
 
