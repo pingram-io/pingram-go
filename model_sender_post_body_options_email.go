@@ -29,6 +29,10 @@ type SenderPostBodyOptionsEmail struct {
 	FromAddress *string `json:"fromAddress,omitempty"`
 	// Override sender display name.
 	FromName *string `json:"fromName,omitempty"`
+	// When false, this send does not record opens and no open pixel is added. Delivery, bounce, and complaint events are unchanged. Defaults to true.
+	OpenTracking *bool `json:"openTracking,omitempty"`
+	// When false, links are left as written and clicks are not recorded. Delivery, bounce, and complaint events are unchanged. Defaults to true.
+	ClickTracking *bool `json:"clickTracking,omitempty"`
 	// File attachments (by URL or inline base64 content). Inline `content`: ~4 MB raw per file (413 if exceeded). URL `url`: up to 20 MB per file.
 	Attachments []SenderPostBodyOptionsEmailAttachmentsInner `json:"attachments,omitempty"`
 }
@@ -210,6 +214,70 @@ func (o *SenderPostBodyOptionsEmail) SetFromName(v string) {
 	o.FromName = &v
 }
 
+// GetOpenTracking returns the OpenTracking field value if set, zero value otherwise.
+func (o *SenderPostBodyOptionsEmail) GetOpenTracking() bool {
+	if o == nil || IsNil(o.OpenTracking) {
+		var ret bool
+		return ret
+	}
+	return *o.OpenTracking
+}
+
+// GetOpenTrackingOk returns a tuple with the OpenTracking field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SenderPostBodyOptionsEmail) GetOpenTrackingOk() (*bool, bool) {
+	if o == nil || IsNil(o.OpenTracking) {
+		return nil, false
+	}
+	return o.OpenTracking, true
+}
+
+// HasOpenTracking returns a boolean if a field has been set.
+func (o *SenderPostBodyOptionsEmail) HasOpenTracking() bool {
+	if o != nil && !IsNil(o.OpenTracking) {
+		return true
+	}
+
+	return false
+}
+
+// SetOpenTracking gets a reference to the given bool and assigns it to the OpenTracking field.
+func (o *SenderPostBodyOptionsEmail) SetOpenTracking(v bool) {
+	o.OpenTracking = &v
+}
+
+// GetClickTracking returns the ClickTracking field value if set, zero value otherwise.
+func (o *SenderPostBodyOptionsEmail) GetClickTracking() bool {
+	if o == nil || IsNil(o.ClickTracking) {
+		var ret bool
+		return ret
+	}
+	return *o.ClickTracking
+}
+
+// GetClickTrackingOk returns a tuple with the ClickTracking field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SenderPostBodyOptionsEmail) GetClickTrackingOk() (*bool, bool) {
+	if o == nil || IsNil(o.ClickTracking) {
+		return nil, false
+	}
+	return o.ClickTracking, true
+}
+
+// HasClickTracking returns a boolean if a field has been set.
+func (o *SenderPostBodyOptionsEmail) HasClickTracking() bool {
+	if o != nil && !IsNil(o.ClickTracking) {
+		return true
+	}
+
+	return false
+}
+
+// SetClickTracking gets a reference to the given bool and assigns it to the ClickTracking field.
+func (o *SenderPostBodyOptionsEmail) SetClickTracking(v bool) {
+	o.ClickTracking = &v
+}
+
 // GetAttachments returns the Attachments field value if set, zero value otherwise.
 func (o *SenderPostBodyOptionsEmail) GetAttachments() []SenderPostBodyOptionsEmailAttachmentsInner {
 	if o == nil || IsNil(o.Attachments) {
@@ -266,6 +334,12 @@ func (o SenderPostBodyOptionsEmail) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.FromName) {
 		toSerialize["fromName"] = o.FromName
+	}
+	if !IsNil(o.OpenTracking) {
+		toSerialize["openTracking"] = o.OpenTracking
+	}
+	if !IsNil(o.ClickTracking) {
+		toSerialize["clickTracking"] = o.ClickTracking
 	}
 	if !IsNil(o.Attachments) {
 		toSerialize["attachments"] = o.Attachments

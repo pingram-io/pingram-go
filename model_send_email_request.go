@@ -41,6 +41,10 @@ type SendEmailRequest struct {
 	CcAddresses []string `json:"ccAddresses,omitempty"`
 	// The BCC addresses of the email.
 	BccAddresses []string `json:"bccAddresses,omitempty"`
+	// When false, this send does not record opens and no open pixel is added. Delivery, bounce, and complaint events are unchanged. Defaults to true.
+	OpenTracking *bool `json:"openTracking,omitempty"`
+	// When false, links are left as written and clicks are not recorded. Delivery, bounce, and complaint events are unchanged. Defaults to true.
+	ClickTracking *bool `json:"clickTracking,omitempty"`
 	// URL-based file attachments. Up to 20 MB per file.
 	Attachments []SendEmailRequestAttachmentsInner `json:"attachments,omitempty"`
 	// The ISO 8601 datetime to schedule the email.
@@ -358,6 +362,70 @@ func (o *SendEmailRequest) SetBccAddresses(v []string) {
 	o.BccAddresses = v
 }
 
+// GetOpenTracking returns the OpenTracking field value if set, zero value otherwise.
+func (o *SendEmailRequest) GetOpenTracking() bool {
+	if o == nil || IsNil(o.OpenTracking) {
+		var ret bool
+		return ret
+	}
+	return *o.OpenTracking
+}
+
+// GetOpenTrackingOk returns a tuple with the OpenTracking field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SendEmailRequest) GetOpenTrackingOk() (*bool, bool) {
+	if o == nil || IsNil(o.OpenTracking) {
+		return nil, false
+	}
+	return o.OpenTracking, true
+}
+
+// HasOpenTracking returns a boolean if a field has been set.
+func (o *SendEmailRequest) HasOpenTracking() bool {
+	if o != nil && !IsNil(o.OpenTracking) {
+		return true
+	}
+
+	return false
+}
+
+// SetOpenTracking gets a reference to the given bool and assigns it to the OpenTracking field.
+func (o *SendEmailRequest) SetOpenTracking(v bool) {
+	o.OpenTracking = &v
+}
+
+// GetClickTracking returns the ClickTracking field value if set, zero value otherwise.
+func (o *SendEmailRequest) GetClickTracking() bool {
+	if o == nil || IsNil(o.ClickTracking) {
+		var ret bool
+		return ret
+	}
+	return *o.ClickTracking
+}
+
+// GetClickTrackingOk returns a tuple with the ClickTracking field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SendEmailRequest) GetClickTrackingOk() (*bool, bool) {
+	if o == nil || IsNil(o.ClickTracking) {
+		return nil, false
+	}
+	return o.ClickTracking, true
+}
+
+// HasClickTracking returns a boolean if a field has been set.
+func (o *SendEmailRequest) HasClickTracking() bool {
+	if o != nil && !IsNil(o.ClickTracking) {
+		return true
+	}
+
+	return false
+}
+
+// SetClickTracking gets a reference to the given bool and assigns it to the ClickTracking field.
+func (o *SendEmailRequest) SetClickTracking(v bool) {
+	o.ClickTracking = &v
+}
+
 // GetAttachments returns the Attachments field value if set, zero value otherwise.
 func (o *SendEmailRequest) GetAttachments() []SendEmailRequestAttachmentsInner {
 	if o == nil || IsNil(o.Attachments) {
@@ -453,6 +521,12 @@ func (o SendEmailRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.BccAddresses) {
 		toSerialize["bccAddresses"] = o.BccAddresses
+	}
+	if !IsNil(o.OpenTracking) {
+		toSerialize["openTracking"] = o.OpenTracking
+	}
+	if !IsNil(o.ClickTracking) {
+		toSerialize["clickTracking"] = o.ClickTracking
 	}
 	if !IsNil(o.Attachments) {
 		toSerialize["attachments"] = o.Attachments
