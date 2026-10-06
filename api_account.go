@@ -1853,7 +1853,7 @@ func (r ApiAccountUpdateAccountSettingsRequest) Execute() (*AccountGetResponse, 
 }
 
 /*
-AccountUpdateAccountSettings Update account billing preferences such as auto upgrade.
+AccountUpdateAccountSettings Update account billing preferences such as auto upgrade and usage email alerts.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiAccountUpdateAccountSettingsRequest

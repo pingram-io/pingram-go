@@ -20,7 +20,8 @@ var _ MappedNullable = &AccountPatchRequest{}
 // AccountPatchRequest PATCH /account request: billing preferences.
 type AccountPatchRequest struct {
 	// When true, automatically move up one budget tier at 90% of the monthly budget.
-	AutoUpgrade *bool `json:"autoUpgrade,omitempty"`
+	AutoUpgrade   *bool                            `json:"autoUpgrade,omitempty"`
+	BillingAlerts *AccountGetResponseBillingAlerts `json:"billingAlerts,omitempty"`
 }
 
 // NewAccountPatchRequest instantiates a new AccountPatchRequest object
@@ -72,6 +73,38 @@ func (o *AccountPatchRequest) SetAutoUpgrade(v bool) {
 	o.AutoUpgrade = &v
 }
 
+// GetBillingAlerts returns the BillingAlerts field value if set, zero value otherwise.
+func (o *AccountPatchRequest) GetBillingAlerts() AccountGetResponseBillingAlerts {
+	if o == nil || IsNil(o.BillingAlerts) {
+		var ret AccountGetResponseBillingAlerts
+		return ret
+	}
+	return *o.BillingAlerts
+}
+
+// GetBillingAlertsOk returns a tuple with the BillingAlerts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountPatchRequest) GetBillingAlertsOk() (*AccountGetResponseBillingAlerts, bool) {
+	if o == nil || IsNil(o.BillingAlerts) {
+		return nil, false
+	}
+	return o.BillingAlerts, true
+}
+
+// HasBillingAlerts returns a boolean if a field has been set.
+func (o *AccountPatchRequest) HasBillingAlerts() bool {
+	if o != nil && !IsNil(o.BillingAlerts) {
+		return true
+	}
+
+	return false
+}
+
+// SetBillingAlerts gets a reference to the given AccountGetResponseBillingAlerts and assigns it to the BillingAlerts field.
+func (o *AccountPatchRequest) SetBillingAlerts(v AccountGetResponseBillingAlerts) {
+	o.BillingAlerts = &v
+}
+
 func (o AccountPatchRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -84,6 +117,9 @@ func (o AccountPatchRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.AutoUpgrade) {
 		toSerialize["autoUpgrade"] = o.AutoUpgrade
+	}
+	if !IsNil(o.BillingAlerts) {
+		toSerialize["billingAlerts"] = o.BillingAlerts
 	}
 	return toSerialize, nil
 }

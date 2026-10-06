@@ -17,12 +17,13 @@ import (
 // checks if the SenderPostBodySms type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SenderPostBodySms{}
 
-// SenderPostBodySms Inline SMS content (message, autoReply, from, mediaUrls).
+// SenderPostBodySms Inline SMS content (message, from, mediaUrls).
 type SenderPostBodySms struct {
 	// SMS/MMS body text.
 	Message *string `json:"message,omitempty"`
 	// Public HTTPS URLs of media to attach (MMS). Carriers fetch these via GET. Total size limits apply per provider.
-	MediaUrls []string                    `json:"mediaUrls,omitempty"`
+	MediaUrls []string `json:"mediaUrls,omitempty"`
+	// Deprecated
 	AutoReply *SenderPostBodySmsAutoReply `json:"autoReply,omitempty"`
 	// Override the sender phone number. Must be a verified number on your account.
 	From *string `json:"from,omitempty"`
@@ -110,6 +111,7 @@ func (o *SenderPostBodySms) SetMediaUrls(v []string) {
 }
 
 // GetAutoReply returns the AutoReply field value if set, zero value otherwise.
+// Deprecated
 func (o *SenderPostBodySms) GetAutoReply() SenderPostBodySmsAutoReply {
 	if o == nil || IsNil(o.AutoReply) {
 		var ret SenderPostBodySmsAutoReply
@@ -120,6 +122,7 @@ func (o *SenderPostBodySms) GetAutoReply() SenderPostBodySmsAutoReply {
 
 // GetAutoReplyOk returns a tuple with the AutoReply field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *SenderPostBodySms) GetAutoReplyOk() (*SenderPostBodySmsAutoReply, bool) {
 	if o == nil || IsNil(o.AutoReply) {
 		return nil, false
@@ -137,6 +140,7 @@ func (o *SenderPostBodySms) HasAutoReply() bool {
 }
 
 // SetAutoReply gets a reference to the given SenderPostBodySmsAutoReply and assigns it to the AutoReply field.
+// Deprecated
 func (o *SenderPostBodySms) SetAutoReply(v SenderPostBodySmsAutoReply) {
 	o.AutoReply = &v
 }

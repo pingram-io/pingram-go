@@ -19,9 +19,10 @@ import (
 // checks if the SenderPostBodySmsAutoReply type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SenderPostBodySmsAutoReply{}
 
-// SenderPostBodySmsAutoReply struct for SenderPostBodySmsAutoReply
+// SenderPostBodySmsAutoReply @deprecated Ignored. SMS auto-reply is no longer available. Replacing with SMS_INBOUND: handle that webhook and send your own reply.
 type SenderPostBodySmsAutoReply struct {
-	// Auto-reply message to send when user texts in.
+	// @deprecated Ignored. SMS auto-reply is no longer available. Replacing with SMS_INBOUND: handle that webhook and send your own reply.
+	// Deprecated
 	Message string `json:"message"`
 }
 
@@ -46,6 +47,7 @@ func NewSenderPostBodySmsAutoReplyWithDefaults() *SenderPostBodySmsAutoReply {
 }
 
 // GetMessage returns the Message field value
+// Deprecated
 func (o *SenderPostBodySmsAutoReply) GetMessage() string {
 	if o == nil {
 		var ret string
@@ -57,6 +59,7 @@ func (o *SenderPostBodySmsAutoReply) GetMessage() string {
 
 // GetMessageOk returns a tuple with the Message field value
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *SenderPostBodySmsAutoReply) GetMessageOk() (*string, bool) {
 	if o == nil {
 		return nil, false
@@ -65,6 +68,7 @@ func (o *SenderPostBodySmsAutoReply) GetMessageOk() (*string, bool) {
 }
 
 // SetMessage sets field value
+// Deprecated
 func (o *SenderPostBodySmsAutoReply) SetMessage(v string) {
 	o.Message = v
 }

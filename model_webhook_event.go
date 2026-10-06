@@ -35,6 +35,22 @@ type WebhookEvent struct {
 	ClickedLink *string `json:"clickedLink,omitempty"`
 	// Link tags for EMAIL_CLICK events.
 	ClickedLinkTags *map[string][]string `json:"clickedLinkTags,omitempty"`
+	// Account id, for ACCOUNT_USAGE.
+	AccountId *string `json:"accountId,omitempty"`
+	// Billing period start (YYYY-MM-DD), for ACCOUNT_USAGE.
+	YearMonthDay *string `json:"yearMonthDay,omitempty"`
+	// Date the monthly budget resets (YYYY-MM-DD), for ACCOUNT_USAGE.
+	ResetsOn *string `json:"resetsOn,omitempty"`
+	// Whole percent of the monthly budget used, for ACCOUNT_USAGE.
+	Percent *float32 `json:"percent,omitempty"`
+	// Amount spent against the monthly budget, for ACCOUNT_USAGE.
+	Spent *float32 `json:"spent,omitempty"`
+	// Monthly budget the percent was measured against, for ACCOUNT_USAGE.
+	CostCap *float32 `json:"costCap,omitempty"`
+	// Whether the account raises its budget automatically, for ACCOUNT_USAGE.
+	AutoUpgrade *bool `json:"autoUpgrade,omitempty"`
+	// Per-channel volume and cost for the current period, for ACCOUNT_USAGE.
+	Usage *map[string]WebhookEventUsageValue `json:"usage,omitempty"`
 }
 
 type _WebhookEvent WebhookEvent
@@ -277,6 +293,262 @@ func (o *WebhookEvent) SetClickedLinkTags(v map[string][]string) {
 	o.ClickedLinkTags = &v
 }
 
+// GetAccountId returns the AccountId field value if set, zero value otherwise.
+func (o *WebhookEvent) GetAccountId() string {
+	if o == nil || IsNil(o.AccountId) {
+		var ret string
+		return ret
+	}
+	return *o.AccountId
+}
+
+// GetAccountIdOk returns a tuple with the AccountId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WebhookEvent) GetAccountIdOk() (*string, bool) {
+	if o == nil || IsNil(o.AccountId) {
+		return nil, false
+	}
+	return o.AccountId, true
+}
+
+// HasAccountId returns a boolean if a field has been set.
+func (o *WebhookEvent) HasAccountId() bool {
+	if o != nil && !IsNil(o.AccountId) {
+		return true
+	}
+
+	return false
+}
+
+// SetAccountId gets a reference to the given string and assigns it to the AccountId field.
+func (o *WebhookEvent) SetAccountId(v string) {
+	o.AccountId = &v
+}
+
+// GetYearMonthDay returns the YearMonthDay field value if set, zero value otherwise.
+func (o *WebhookEvent) GetYearMonthDay() string {
+	if o == nil || IsNil(o.YearMonthDay) {
+		var ret string
+		return ret
+	}
+	return *o.YearMonthDay
+}
+
+// GetYearMonthDayOk returns a tuple with the YearMonthDay field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WebhookEvent) GetYearMonthDayOk() (*string, bool) {
+	if o == nil || IsNil(o.YearMonthDay) {
+		return nil, false
+	}
+	return o.YearMonthDay, true
+}
+
+// HasYearMonthDay returns a boolean if a field has been set.
+func (o *WebhookEvent) HasYearMonthDay() bool {
+	if o != nil && !IsNil(o.YearMonthDay) {
+		return true
+	}
+
+	return false
+}
+
+// SetYearMonthDay gets a reference to the given string and assigns it to the YearMonthDay field.
+func (o *WebhookEvent) SetYearMonthDay(v string) {
+	o.YearMonthDay = &v
+}
+
+// GetResetsOn returns the ResetsOn field value if set, zero value otherwise.
+func (o *WebhookEvent) GetResetsOn() string {
+	if o == nil || IsNil(o.ResetsOn) {
+		var ret string
+		return ret
+	}
+	return *o.ResetsOn
+}
+
+// GetResetsOnOk returns a tuple with the ResetsOn field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WebhookEvent) GetResetsOnOk() (*string, bool) {
+	if o == nil || IsNil(o.ResetsOn) {
+		return nil, false
+	}
+	return o.ResetsOn, true
+}
+
+// HasResetsOn returns a boolean if a field has been set.
+func (o *WebhookEvent) HasResetsOn() bool {
+	if o != nil && !IsNil(o.ResetsOn) {
+		return true
+	}
+
+	return false
+}
+
+// SetResetsOn gets a reference to the given string and assigns it to the ResetsOn field.
+func (o *WebhookEvent) SetResetsOn(v string) {
+	o.ResetsOn = &v
+}
+
+// GetPercent returns the Percent field value if set, zero value otherwise.
+func (o *WebhookEvent) GetPercent() float32 {
+	if o == nil || IsNil(o.Percent) {
+		var ret float32
+		return ret
+	}
+	return *o.Percent
+}
+
+// GetPercentOk returns a tuple with the Percent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WebhookEvent) GetPercentOk() (*float32, bool) {
+	if o == nil || IsNil(o.Percent) {
+		return nil, false
+	}
+	return o.Percent, true
+}
+
+// HasPercent returns a boolean if a field has been set.
+func (o *WebhookEvent) HasPercent() bool {
+	if o != nil && !IsNil(o.Percent) {
+		return true
+	}
+
+	return false
+}
+
+// SetPercent gets a reference to the given float32 and assigns it to the Percent field.
+func (o *WebhookEvent) SetPercent(v float32) {
+	o.Percent = &v
+}
+
+// GetSpent returns the Spent field value if set, zero value otherwise.
+func (o *WebhookEvent) GetSpent() float32 {
+	if o == nil || IsNil(o.Spent) {
+		var ret float32
+		return ret
+	}
+	return *o.Spent
+}
+
+// GetSpentOk returns a tuple with the Spent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WebhookEvent) GetSpentOk() (*float32, bool) {
+	if o == nil || IsNil(o.Spent) {
+		return nil, false
+	}
+	return o.Spent, true
+}
+
+// HasSpent returns a boolean if a field has been set.
+func (o *WebhookEvent) HasSpent() bool {
+	if o != nil && !IsNil(o.Spent) {
+		return true
+	}
+
+	return false
+}
+
+// SetSpent gets a reference to the given float32 and assigns it to the Spent field.
+func (o *WebhookEvent) SetSpent(v float32) {
+	o.Spent = &v
+}
+
+// GetCostCap returns the CostCap field value if set, zero value otherwise.
+func (o *WebhookEvent) GetCostCap() float32 {
+	if o == nil || IsNil(o.CostCap) {
+		var ret float32
+		return ret
+	}
+	return *o.CostCap
+}
+
+// GetCostCapOk returns a tuple with the CostCap field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WebhookEvent) GetCostCapOk() (*float32, bool) {
+	if o == nil || IsNil(o.CostCap) {
+		return nil, false
+	}
+	return o.CostCap, true
+}
+
+// HasCostCap returns a boolean if a field has been set.
+func (o *WebhookEvent) HasCostCap() bool {
+	if o != nil && !IsNil(o.CostCap) {
+		return true
+	}
+
+	return false
+}
+
+// SetCostCap gets a reference to the given float32 and assigns it to the CostCap field.
+func (o *WebhookEvent) SetCostCap(v float32) {
+	o.CostCap = &v
+}
+
+// GetAutoUpgrade returns the AutoUpgrade field value if set, zero value otherwise.
+func (o *WebhookEvent) GetAutoUpgrade() bool {
+	if o == nil || IsNil(o.AutoUpgrade) {
+		var ret bool
+		return ret
+	}
+	return *o.AutoUpgrade
+}
+
+// GetAutoUpgradeOk returns a tuple with the AutoUpgrade field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WebhookEvent) GetAutoUpgradeOk() (*bool, bool) {
+	if o == nil || IsNil(o.AutoUpgrade) {
+		return nil, false
+	}
+	return o.AutoUpgrade, true
+}
+
+// HasAutoUpgrade returns a boolean if a field has been set.
+func (o *WebhookEvent) HasAutoUpgrade() bool {
+	if o != nil && !IsNil(o.AutoUpgrade) {
+		return true
+	}
+
+	return false
+}
+
+// SetAutoUpgrade gets a reference to the given bool and assigns it to the AutoUpgrade field.
+func (o *WebhookEvent) SetAutoUpgrade(v bool) {
+	o.AutoUpgrade = &v
+}
+
+// GetUsage returns the Usage field value if set, zero value otherwise.
+func (o *WebhookEvent) GetUsage() map[string]WebhookEventUsageValue {
+	if o == nil || IsNil(o.Usage) {
+		var ret map[string]WebhookEventUsageValue
+		return ret
+	}
+	return *o.Usage
+}
+
+// GetUsageOk returns a tuple with the Usage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WebhookEvent) GetUsageOk() (*map[string]WebhookEventUsageValue, bool) {
+	if o == nil || IsNil(o.Usage) {
+		return nil, false
+	}
+	return o.Usage, true
+}
+
+// HasUsage returns a boolean if a field has been set.
+func (o *WebhookEvent) HasUsage() bool {
+	if o != nil && !IsNil(o.Usage) {
+		return true
+	}
+
+	return false
+}
+
+// SetUsage gets a reference to the given map[string]WebhookEventUsageValue and assigns it to the Usage field.
+func (o *WebhookEvent) SetUsage(v map[string]WebhookEventUsageValue) {
+	o.Usage = &v
+}
+
 func (o WebhookEvent) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -300,6 +572,30 @@ func (o WebhookEvent) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.ClickedLinkTags) {
 		toSerialize["clickedLinkTags"] = o.ClickedLinkTags
+	}
+	if !IsNil(o.AccountId) {
+		toSerialize["accountId"] = o.AccountId
+	}
+	if !IsNil(o.YearMonthDay) {
+		toSerialize["yearMonthDay"] = o.YearMonthDay
+	}
+	if !IsNil(o.ResetsOn) {
+		toSerialize["resetsOn"] = o.ResetsOn
+	}
+	if !IsNil(o.Percent) {
+		toSerialize["percent"] = o.Percent
+	}
+	if !IsNil(o.Spent) {
+		toSerialize["spent"] = o.Spent
+	}
+	if !IsNil(o.CostCap) {
+		toSerialize["costCap"] = o.CostCap
+	}
+	if !IsNil(o.AutoUpgrade) {
+		toSerialize["autoUpgrade"] = o.AutoUpgrade
+	}
+	if !IsNil(o.Usage) {
+		toSerialize["usage"] = o.Usage
 	}
 	return toSerialize, nil
 }

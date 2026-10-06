@@ -41,9 +41,10 @@ type BillingPostResponseBody struct {
 	PendingDowngradeCostCap       *float32       `json:"pendingDowngradeCostCap,omitempty"`
 	PendingDowngradeAccountType   *string        `json:"pendingDowngradeAccountType,omitempty"`
 	// When true, paid accounts move up one budget tier at 90% of the monthly budget.
-	AutoUpgrade *bool   `json:"autoUpgrade,omitempty"`
-	SessionId   *string `json:"sessionId,omitempty"`
-	Url         *string `json:"url,omitempty"`
+	AutoUpgrade   *bool                            `json:"autoUpgrade,omitempty"`
+	BillingAlerts *AccountGetResponseBillingAlerts `json:"billingAlerts,omitempty"`
+	SessionId     *string                          `json:"sessionId,omitempty"`
+	Url           *string                          `json:"url,omitempty"`
 }
 
 type _BillingPostResponseBody BillingPostResponseBody
@@ -603,6 +604,38 @@ func (o *BillingPostResponseBody) SetAutoUpgrade(v bool) {
 	o.AutoUpgrade = &v
 }
 
+// GetBillingAlerts returns the BillingAlerts field value if set, zero value otherwise.
+func (o *BillingPostResponseBody) GetBillingAlerts() AccountGetResponseBillingAlerts {
+	if o == nil || IsNil(o.BillingAlerts) {
+		var ret AccountGetResponseBillingAlerts
+		return ret
+	}
+	return *o.BillingAlerts
+}
+
+// GetBillingAlertsOk returns a tuple with the BillingAlerts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BillingPostResponseBody) GetBillingAlertsOk() (*AccountGetResponseBillingAlerts, bool) {
+	if o == nil || IsNil(o.BillingAlerts) {
+		return nil, false
+	}
+	return o.BillingAlerts, true
+}
+
+// HasBillingAlerts returns a boolean if a field has been set.
+func (o *BillingPostResponseBody) HasBillingAlerts() bool {
+	if o != nil && !IsNil(o.BillingAlerts) {
+		return true
+	}
+
+	return false
+}
+
+// SetBillingAlerts gets a reference to the given AccountGetResponseBillingAlerts and assigns it to the BillingAlerts field.
+func (o *BillingPostResponseBody) SetBillingAlerts(v AccountGetResponseBillingAlerts) {
+	o.BillingAlerts = &v
+}
+
 // GetSessionId returns the SessionId field value if set, zero value otherwise.
 func (o *BillingPostResponseBody) GetSessionId() string {
 	if o == nil || IsNil(o.SessionId) {
@@ -716,6 +749,9 @@ func (o BillingPostResponseBody) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.AutoUpgrade) {
 		toSerialize["autoUpgrade"] = o.AutoUpgrade
+	}
+	if !IsNil(o.BillingAlerts) {
+		toSerialize["billingAlerts"] = o.BillingAlerts
 	}
 	if !IsNil(o.SessionId) {
 		toSerialize["sessionId"] = o.SessionId
