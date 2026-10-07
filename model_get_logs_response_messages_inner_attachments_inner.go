@@ -21,10 +21,16 @@ var _ MappedNullable = &GetLogsResponseMessagesInnerAttachmentsInner{}
 
 // GetLogsResponseMessagesInnerAttachmentsInner struct for GetLogsResponseMessagesInnerAttachmentsInner
 type GetLogsResponseMessagesInnerAttachmentsInner struct {
-	Filename    string  `json:"filename"`
-	ContentType string  `json:"contentType"`
-	Size        float32 `json:"size"`
-	ContentId   *string `json:"contentId,omitempty"`
+	// Original filename from the message.
+	Filename string `json:"filename"`
+	// MIME type of the file.
+	ContentType string `json:"contentType"`
+	// Size in bytes. This response does not include the file bytes.
+	Size float32 `json:"size"`
+	// Content-ID with angle brackets removed, so it matches `cid:` references in `bodyHtml`. Omitted when the part has no Content-ID.
+	ContentId *string `json:"contentId,omitempty"`
+	// `inline` when the HTML body references this file; `attachment` when it is a separate file. Omitted when the message does not say which.
+	ContentDisposition *string `json:"contentDisposition,omitempty"`
 }
 
 type _GetLogsResponseMessagesInnerAttachmentsInner GetLogsResponseMessagesInnerAttachmentsInner
@@ -153,6 +159,38 @@ func (o *GetLogsResponseMessagesInnerAttachmentsInner) SetContentId(v string) {
 	o.ContentId = &v
 }
 
+// GetContentDisposition returns the ContentDisposition field value if set, zero value otherwise.
+func (o *GetLogsResponseMessagesInnerAttachmentsInner) GetContentDisposition() string {
+	if o == nil || IsNil(o.ContentDisposition) {
+		var ret string
+		return ret
+	}
+	return *o.ContentDisposition
+}
+
+// GetContentDispositionOk returns a tuple with the ContentDisposition field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetLogsResponseMessagesInnerAttachmentsInner) GetContentDispositionOk() (*string, bool) {
+	if o == nil || IsNil(o.ContentDisposition) {
+		return nil, false
+	}
+	return o.ContentDisposition, true
+}
+
+// HasContentDisposition returns a boolean if a field has been set.
+func (o *GetLogsResponseMessagesInnerAttachmentsInner) HasContentDisposition() bool {
+	if o != nil && !IsNil(o.ContentDisposition) {
+		return true
+	}
+
+	return false
+}
+
+// SetContentDisposition gets a reference to the given string and assigns it to the ContentDisposition field.
+func (o *GetLogsResponseMessagesInnerAttachmentsInner) SetContentDisposition(v string) {
+	o.ContentDisposition = &v
+}
+
 func (o GetLogsResponseMessagesInnerAttachmentsInner) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -168,6 +206,9 @@ func (o GetLogsResponseMessagesInnerAttachmentsInner) ToMap() (map[string]interf
 	toSerialize["size"] = o.Size
 	if !IsNil(o.ContentId) {
 		toSerialize["contentId"] = o.ContentId
+	}
+	if !IsNil(o.ContentDisposition) {
+		toSerialize["contentDisposition"] = o.ContentDisposition
 	}
 	return toSerialize, nil
 }

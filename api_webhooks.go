@@ -38,7 +38,7 @@ func (r ApiWebhooksCreateWebhookRequest) Execute() (*WebhookEndpoint, *http.Resp
 }
 
 /*
-WebhooksCreateWebhook Create a webhook endpoint. Pingram POSTs signed JSON to the URL when one of the subscribed events happens. The response includes id and a signing secret starting with pingram_whsecret_. Save it and verify the X-Pingram-Signature header. Updates keep this secret. At most 10 endpoints per account. The URL must be http or https and should return 2xx.
+WebhooksCreateWebhook Create a webhook endpoint. Pingram POSTs signed JSON to the URL when one of the subscribed events happens. The response includes id and a signing secret starting with pingram_whsecret_. Save it and verify the X-Pingram-Signature header. Updates keep this secret. At most 10 endpoints per account. The URL must be a public HTTPS URL and should return 2xx.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiWebhooksCreateWebhookRequest
@@ -432,7 +432,7 @@ func (r ApiWebhooksUpdateWebhookRequest) Execute() (*WebhookEndpoint, *http.Resp
 }
 
 /*
-WebhooksUpdateWebhook Replace one webhook endpoint's URL and its full event subscription. endpointId comes from list or create. The signing secret stays the same. events is the complete set; omitting an event unsubscribes it. The URL must be http or https.
+WebhooksUpdateWebhook Replace one webhook endpoint's URL and its full event subscription. endpointId comes from list or create. The signing secret stays the same. events is the complete set; omitting an event unsubscribes it. The URL must be a public HTTPS URL.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param endpointId Id of the webhook endpoint, from list or create.

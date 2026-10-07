@@ -21,16 +21,20 @@ var _ MappedNullable = &GetLogsResponseMessagesInner{}
 
 // GetLogsResponseMessagesInner struct for GetLogsResponseMessagesInner
 type GetLogsResponseMessagesInner struct {
-	TrackingId  string                                         `json:"trackingId"`
-	EventType   string                                         `json:"eventType"`
-	Timestamp   string                                         `json:"timestamp"`
-	EpochMs     float32                                        `json:"epochMs"`
-	Inbox       *string                                        `json:"inbox,omitempty"`
-	From        *string                                        `json:"from,omitempty"`
-	FromName    *string                                        `json:"fromName,omitempty"`
-	Subject     *string                                        `json:"subject,omitempty"`
-	To          []string                                       `json:"to,omitempty"`
-	Cc          []string                                       `json:"cc,omitempty"`
+	TrackingId string  `json:"trackingId"`
+	EventType  string  `json:"eventType"`
+	Timestamp  string  `json:"timestamp"`
+	EpochMs    float32 `json:"epochMs"`
+	// Address that received the mail. Same value as `matched.email` on the EMAIL_INBOUND webhook, including when that address was only in Cc or Bcc.
+	Inbox    *string `json:"inbox,omitempty"`
+	From     *string `json:"from,omitempty"`
+	FromName *string `json:"fromName,omitempty"`
+	Subject  *string `json:"subject,omitempty"`
+	// Original To header addresses. Not the address that received the mail.
+	To []string `json:"to,omitempty"`
+	// Original Cc header addresses.
+	Cc []string `json:"cc,omitempty"`
+	// Bcc header addresses still on the delivered message. Usually omitted, because the Bcc header is removed before delivery.
 	Bcc         []string                                       `json:"bcc,omitempty"`
 	ReplyTo     *string                                        `json:"replyTo,omitempty"`
 	BodyText    *string                                        `json:"bodyText,omitempty"`

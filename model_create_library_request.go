@@ -23,7 +23,7 @@ var _ MappedNullable = &CreateLibraryRequest{}
 type CreateLibraryRequest struct {
 	// Original filename, including extension (e.g. hero.png).
 	Filename string `json:"filename"`
-	// MIME type of the file that will be uploaded to the returned URL.
+	// Image MIME type. One of image/png, image/jpeg, image/gif, or image/webp.
 	ContentType string `json:"contentType"`
 }
 

@@ -54,48 +54,75 @@ type LogsGetResponseLogsInner struct {
 	EmailSentMessageId       *string  `json:"email_sent_message_id,omitempty"`
 	EmailSentAfter           *float32 `json:"email_sent_after,omitempty"`
 	// Bare `POST /email` may set this on the `email_sent` row so Logs Insights `latest(email_preview)` still resolves after delivered/opened rows. Sender / SQS consumer paths omit this field (unchanged behavior).
-	EmailPreview                 *string  `json:"email_preview,omitempty"`
-	EmailDeliveredAt             *string  `json:"email_delivered_at,omitempty"`
-	EmailDeliveredRecipients     *string  `json:"email_delivered_recipients,omitempty"`
-	EmailDeliveredAfter          *float32 `json:"email_delivered_after,omitempty"`
-	EmailDeliveredWebhookRes     *string  `json:"email_delivered_webhook_res,omitempty"`
-	EmailFailedAt                *string  `json:"email_failed_at,omitempty"`
-	EmailFailedCode              *string  `json:"email_failed_code,omitempty"`
-	EmailFailedRecipient         *string  `json:"email_failed_recipient,omitempty"`
-	EmailFailedDiagnosticCode    *string  `json:"email_failed_diagnostic_code,omitempty"`
-	EmailFailedInternal          *string  `json:"email_failed_internal,omitempty"`
-	EmailFailedWebhookRes        *string  `json:"email_failed_webhook_res,omitempty"`
-	EmailOpenedAt                *string  `json:"email_opened_at,omitempty"`
-	EmailOpenedUserAgent         *string  `json:"email_opened_user_agent,omitempty"`
-	EmailOpenedIp                *string  `json:"email_opened_ip,omitempty"`
-	EmailOpenedWebhookRes        *string  `json:"email_opened_webhook_res,omitempty"`
-	EmailClickedAt               *string  `json:"email_clicked_at,omitempty"`
-	EmailClickedUserAgent        *string  `json:"email_clicked_user_agent,omitempty"`
-	EmailClickedIp               *string  `json:"email_clicked_ip,omitempty"`
-	EmailClickedLink             *string  `json:"email_clicked_link,omitempty"`
-	EmailClickedLinkTags         *string  `json:"email_clicked_link_tags,omitempty"`
-	EmailClickedWebhookRes       *string  `json:"email_clicked_webhook_res,omitempty"`
-	EmailInboundAt               *string  `json:"email_inbound_at,omitempty"`
-	EmailInboundFrom             *string  `json:"email_inbound_from,omitempty"`
-	EmailInboundFromName         *string  `json:"email_inbound_from_name,omitempty"`
-	EmailInboundTo               *string  `json:"email_inbound_to,omitempty"`
-	EmailInboundCc               *string  `json:"email_inbound_cc,omitempty"`
-	EmailInboundBcc              *string  `json:"email_inbound_bcc,omitempty"`
-	EmailInboundReplyTo          *string  `json:"email_inbound_reply_to,omitempty"`
-	EmailInboundInbox            *string  `json:"email_inbound_inbox,omitempty"`
-	EmailInboundSubject          *string  `json:"email_inbound_subject,omitempty"`
-	EmailInboundBodyText         *string  `json:"email_inbound_body_text,omitempty"`
-	EmailInboundBodyHtml         *string  `json:"email_inbound_body_html,omitempty"`
-	EmailInboundHasAttachments   *bool    `json:"email_inbound_has_attachments,omitempty"`
-	EmailInboundAttachmentCount  *float32 `json:"email_inbound_attachment_count,omitempty"`
-	EmailInboundMessageId        *string  `json:"email_inbound_message_id,omitempty"`
-	EmailInboundInReplyTo        *string  `json:"email_inbound_in_reply_to,omitempty"`
-	EmailInboundReferences       *string  `json:"email_inbound_references,omitempty"`
-	EmailInboundWebhookDelivered *bool    `json:"email_inbound_webhook_delivered,omitempty"`
-	EmailInboundWebhookRes       *string  `json:"email_inbound_webhook_res,omitempty"`
-	EmailInboundResolutionType   *string  `json:"email_inbound_resolution_type,omitempty"`
-	SmsInboundAt                 *string  `json:"sms_inbound_at,omitempty"`
-	SmsInboundFrom               *string  `json:"sms_inbound_from,omitempty"`
+	EmailPreview              *string  `json:"email_preview,omitempty"`
+	EmailDeliveredAt          *string  `json:"email_delivered_at,omitempty"`
+	EmailDeliveredRecipients  *string  `json:"email_delivered_recipients,omitempty"`
+	EmailDeliveredAfter       *float32 `json:"email_delivered_after,omitempty"`
+	EmailDeliveredWebhookRes  *string  `json:"email_delivered_webhook_res,omitempty"`
+	EmailFailedAt             *string  `json:"email_failed_at,omitempty"`
+	EmailFailedCode           *string  `json:"email_failed_code,omitempty"`
+	EmailFailedRecipient      *string  `json:"email_failed_recipient,omitempty"`
+	EmailFailedDiagnosticCode *string  `json:"email_failed_diagnostic_code,omitempty"`
+	EmailFailedInternal       *string  `json:"email_failed_internal,omitempty"`
+	EmailFailedWebhookRes     *string  `json:"email_failed_webhook_res,omitempty"`
+	EmailOpenedAt             *string  `json:"email_opened_at,omitempty"`
+	EmailOpenedUserAgent      *string  `json:"email_opened_user_agent,omitempty"`
+	EmailOpenedIp             *string  `json:"email_opened_ip,omitempty"`
+	EmailOpenedWebhookRes     *string  `json:"email_opened_webhook_res,omitempty"`
+	EmailClickedAt            *string  `json:"email_clicked_at,omitempty"`
+	EmailClickedUserAgent     *string  `json:"email_clicked_user_agent,omitempty"`
+	EmailClickedIp            *string  `json:"email_clicked_ip,omitempty"`
+	EmailClickedLink          *string  `json:"email_clicked_link,omitempty"`
+	EmailClickedLinkTags      *string  `json:"email_clicked_link_tags,omitempty"`
+	EmailClickedWebhookRes    *string  `json:"email_clicked_webhook_res,omitempty"`
+	// When the message was accepted, ISO 8601. Log order and the 30-day resend window use this time.
+	EmailInboundAt *string `json:"email_inbound_at,omitempty"`
+	// Sender email address.
+	EmailInboundFrom *string `json:"email_inbound_from,omitempty"`
+	// Sender display name, when the From header includes one.
+	EmailInboundFromName *string `json:"email_inbound_from_name,omitempty"`
+	// Comma-separated To header addresses. This is the header, not necessarily the Pingram inbox.
+	EmailInboundTo *string `json:"email_inbound_to,omitempty"`
+	// Comma-separated CC header addresses.
+	EmailInboundCc *string `json:"email_inbound_cc,omitempty"`
+	// Comma-separated BCC header addresses. Often empty because that header is stripped before delivery.
+	EmailInboundBcc *string `json:"email_inbound_bcc,omitempty"`
+	// Reply-To header address.
+	EmailInboundReplyTo *string `json:"email_inbound_reply_to,omitempty"`
+	// Address that received the mail. Same value as `matched.email` on the EMAIL_INBOUND webhook, including when that address was only in Cc or Bcc.
+	EmailInboundInbox *string `json:"email_inbound_inbox,omitempty"`
+	// Display name of `email_inbound_inbox` when the headers include one. Same value as `matched.name`. Omitted when that address has no display name.
+	EmailInboundToName *string `json:"email_inbound_to_name,omitempty"`
+	// Sender Date header, ISO 8601. Omitted when that header is missing or invalid.
+	EmailInboundSentAt *string `json:"email_inbound_sent_at,omitempty"`
+	// Key used to resend this inbound email for 30 days.
+	EmailInboundRetryKey *string `json:"email_inbound_retry_key,omitempty"`
+	// User id from the original notification when this mail is a reply to one.
+	EmailInboundUserId *string `json:"email_inbound_user_id,omitempty"`
+	// Subject line.
+	EmailInboundSubject *string `json:"email_inbound_subject,omitempty"`
+	// Plain-text body.
+	EmailInboundBodyText *string `json:"email_inbound_body_text,omitempty"`
+	// HTML body. Inline images use `cid:` values that match attachment content IDs on the webhook payload.
+	EmailInboundBodyHtml *string `json:"email_inbound_body_html,omitempty"`
+	// True when the message includes at least one attachment.
+	EmailInboundHasAttachments *bool `json:"email_inbound_has_attachments,omitempty"`
+	// Number of attachments. File bytes are not stored on this log.
+	EmailInboundAttachmentCount *float32 `json:"email_inbound_attachment_count,omitempty"`
+	// Message-ID header. Use it to thread later replies.
+	EmailInboundMessageId *string `json:"email_inbound_message_id,omitempty"`
+	// In-Reply-To header: the Message-ID this mail replies to.
+	EmailInboundInReplyTo *string `json:"email_inbound_in_reply_to,omitempty"`
+	// References header: the chain of Message-IDs in the thread.
+	EmailInboundReferences *string `json:"email_inbound_references,omitempty"`
+	// True when an EMAIL_INBOUND webhook endpoint returned a 2xx response.
+	EmailInboundWebhookDelivered *bool `json:"email_inbound_webhook_delivered,omitempty"`
+	// JSON delivery result for each EMAIL_INBOUND endpoint.
+	EmailInboundWebhookRes *string `json:"email_inbound_webhook_res,omitempty"`
+	// How the inbox was matched: `reply` for a reply to a sent notification, `builtin` for a Pingram inbox, or `custom` for a custom domain.
+	EmailInboundResolutionType *string `json:"email_inbound_resolution_type,omitempty"`
+	SmsInboundAt               *string `json:"sms_inbound_at,omitempty"`
+	SmsInboundFrom             *string `json:"sms_inbound_from,omitempty"`
 	// Pingram number that received the inbound message.
 	SmsInboundTo               *string `json:"sms_inbound_to,omitempty"`
 	SmsInboundText             *string `json:"sms_inbound_text,omitempty"`
@@ -2160,6 +2187,134 @@ func (o *LogsGetResponseLogsInner) HasEmailInboundInbox() bool {
 // SetEmailInboundInbox gets a reference to the given string and assigns it to the EmailInboundInbox field.
 func (o *LogsGetResponseLogsInner) SetEmailInboundInbox(v string) {
 	o.EmailInboundInbox = &v
+}
+
+// GetEmailInboundToName returns the EmailInboundToName field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetEmailInboundToName() string {
+	if o == nil || IsNil(o.EmailInboundToName) {
+		var ret string
+		return ret
+	}
+	return *o.EmailInboundToName
+}
+
+// GetEmailInboundToNameOk returns a tuple with the EmailInboundToName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetEmailInboundToNameOk() (*string, bool) {
+	if o == nil || IsNil(o.EmailInboundToName) {
+		return nil, false
+	}
+	return o.EmailInboundToName, true
+}
+
+// HasEmailInboundToName returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasEmailInboundToName() bool {
+	if o != nil && !IsNil(o.EmailInboundToName) {
+		return true
+	}
+
+	return false
+}
+
+// SetEmailInboundToName gets a reference to the given string and assigns it to the EmailInboundToName field.
+func (o *LogsGetResponseLogsInner) SetEmailInboundToName(v string) {
+	o.EmailInboundToName = &v
+}
+
+// GetEmailInboundSentAt returns the EmailInboundSentAt field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetEmailInboundSentAt() string {
+	if o == nil || IsNil(o.EmailInboundSentAt) {
+		var ret string
+		return ret
+	}
+	return *o.EmailInboundSentAt
+}
+
+// GetEmailInboundSentAtOk returns a tuple with the EmailInboundSentAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetEmailInboundSentAtOk() (*string, bool) {
+	if o == nil || IsNil(o.EmailInboundSentAt) {
+		return nil, false
+	}
+	return o.EmailInboundSentAt, true
+}
+
+// HasEmailInboundSentAt returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasEmailInboundSentAt() bool {
+	if o != nil && !IsNil(o.EmailInboundSentAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetEmailInboundSentAt gets a reference to the given string and assigns it to the EmailInboundSentAt field.
+func (o *LogsGetResponseLogsInner) SetEmailInboundSentAt(v string) {
+	o.EmailInboundSentAt = &v
+}
+
+// GetEmailInboundRetryKey returns the EmailInboundRetryKey field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetEmailInboundRetryKey() string {
+	if o == nil || IsNil(o.EmailInboundRetryKey) {
+		var ret string
+		return ret
+	}
+	return *o.EmailInboundRetryKey
+}
+
+// GetEmailInboundRetryKeyOk returns a tuple with the EmailInboundRetryKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetEmailInboundRetryKeyOk() (*string, bool) {
+	if o == nil || IsNil(o.EmailInboundRetryKey) {
+		return nil, false
+	}
+	return o.EmailInboundRetryKey, true
+}
+
+// HasEmailInboundRetryKey returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasEmailInboundRetryKey() bool {
+	if o != nil && !IsNil(o.EmailInboundRetryKey) {
+		return true
+	}
+
+	return false
+}
+
+// SetEmailInboundRetryKey gets a reference to the given string and assigns it to the EmailInboundRetryKey field.
+func (o *LogsGetResponseLogsInner) SetEmailInboundRetryKey(v string) {
+	o.EmailInboundRetryKey = &v
+}
+
+// GetEmailInboundUserId returns the EmailInboundUserId field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetEmailInboundUserId() string {
+	if o == nil || IsNil(o.EmailInboundUserId) {
+		var ret string
+		return ret
+	}
+	return *o.EmailInboundUserId
+}
+
+// GetEmailInboundUserIdOk returns a tuple with the EmailInboundUserId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetEmailInboundUserIdOk() (*string, bool) {
+	if o == nil || IsNil(o.EmailInboundUserId) {
+		return nil, false
+	}
+	return o.EmailInboundUserId, true
+}
+
+// HasEmailInboundUserId returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasEmailInboundUserId() bool {
+	if o != nil && !IsNil(o.EmailInboundUserId) {
+		return true
+	}
+
+	return false
+}
+
+// SetEmailInboundUserId gets a reference to the given string and assigns it to the EmailInboundUserId field.
+func (o *LogsGetResponseLogsInner) SetEmailInboundUserId(v string) {
+	o.EmailInboundUserId = &v
 }
 
 // GetEmailInboundSubject returns the EmailInboundSubject field value if set, zero value otherwise.
@@ -5966,6 +6121,18 @@ func (o LogsGetResponseLogsInner) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.EmailInboundInbox) {
 		toSerialize["email_inbound_inbox"] = o.EmailInboundInbox
+	}
+	if !IsNil(o.EmailInboundToName) {
+		toSerialize["email_inbound_to_name"] = o.EmailInboundToName
+	}
+	if !IsNil(o.EmailInboundSentAt) {
+		toSerialize["email_inbound_sent_at"] = o.EmailInboundSentAt
+	}
+	if !IsNil(o.EmailInboundRetryKey) {
+		toSerialize["email_inbound_retry_key"] = o.EmailInboundRetryKey
+	}
+	if !IsNil(o.EmailInboundUserId) {
+		toSerialize["email_inbound_user_id"] = o.EmailInboundUserId
 	}
 	if !IsNil(o.EmailInboundSubject) {
 		toSerialize["email_inbound_subject"] = o.EmailInboundSubject
