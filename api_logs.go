@@ -22,6 +22,140 @@ import (
 // LogsAPIService LogsAPI service
 type LogsAPIService service
 
+type ApiLogsGetDeliveryStatusRequest struct {
+	ctx         context.Context
+	ApiService  *LogsAPIService
+	trackingIds string
+}
+
+func (r ApiLogsGetDeliveryStatusRequest) Execute() (*LogsDeliveryStatusResponse, *http.Response, error) {
+	return r.ApiService.LogsGetDeliveryStatusExecute(r)
+}
+
+/*
+LogsGetDeliveryStatus Look up email and SMS delivery status for up to 25 tracking IDs. Each entry is the tracking id, channel (EMAIL or SMS), status, and the time that status was recorded. The result does not include recipients, phone numbers, user ids, request bodies, IP addresses, account ids, or user-agent data. Unknown tracking ids are omitted. Other channels are not included.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param trackingIds Comma-separated tracking IDs (URL encoded, max 25)
+	@return ApiLogsGetDeliveryStatusRequest
+*/
+func (a *LogsAPIService) LogsGetDeliveryStatus(ctx context.Context, trackingIds string) ApiLogsGetDeliveryStatusRequest {
+	return ApiLogsGetDeliveryStatusRequest{
+		ApiService:  a,
+		ctx:         ctx,
+		trackingIds: trackingIds,
+	}
+}
+
+// Execute executes the request
+//
+//	@return LogsDeliveryStatusResponse
+func (a *LogsAPIService) LogsGetDeliveryStatusExecute(r ApiLogsGetDeliveryStatusRequest) (*LogsDeliveryStatusResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *LogsDeliveryStatusResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogsAPIService.LogsGetDeliveryStatus")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/logs/status/{trackingIds}"
+	localVarPath = strings.Replace(localVarPath, "{"+"trackingIds"+"}", url.PathEscape(parameterValueToString(r.trackingIds, "trackingIds")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: prefaceHTTPStatusWithApiJSONDetail(localVarHTTPResponse.Status, localVarBody),
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 402 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 502 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiLogsGetLogRetentionRequest struct {
 	ctx        context.Context
 	ApiService *LogsAPIService
@@ -313,7 +447,7 @@ func (r ApiLogsGetLogsByTrackingIdsRequest) Execute() (*LogsGetResponse, *http.R
 }
 
 /*
-LogsGetLogsByTrackingIds Get logs by tracking IDs (comma-separated, max 25 IDs). Use after sending email or SMS to look up delivery status.
+LogsGetLogsByTrackingIds Get logs by tracking IDs (comma-separated, max 25 IDs). Returns full log objects with personally identifiable information (recipients, user ids, phone numbers, and request details). For a simple delivery check, use Get Delivery Status.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param trackingIds Comma-separated tracking IDs (URL encoded)
