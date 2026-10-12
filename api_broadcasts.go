@@ -857,7 +857,7 @@ func (r ApiBroadcastsListRequest) Execute() (*ListBroadcastsResponse, *http.Resp
 }
 
 /*
-BroadcastsList List email broadcasts for the account, newest first. Returns metadata and counters without html or internalTemplate bodies. Paginate with limit (default 50, max 100) and nextToken.
+BroadcastsList List email broadcasts for the account, newest first. Returns metadata without html or internalTemplate bodies. A live-filter audience includes the filter. A raw email audience includes emailCount and omits the addresses. Paginate with limit (default 50, max 100) and nextToken.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiBroadcastsListRequest

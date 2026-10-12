@@ -21,6 +21,7 @@ var _ MappedNullable = &ListBroadcastsResponseBroadcastsInner{}
 
 // ListBroadcastsResponseBroadcastsInner struct for ListBroadcastsResponseBroadcastsInner
 type ListBroadcastsResponseBroadcastsInner struct {
+	Audience ListBroadcastsResponseBroadcastsInnerAudience `json:"audience"`
 	// UUIDv7 (time-ordered).
 	BroadcastId string `json:"broadcastId"`
 	Name        string `json:"name"`
@@ -30,12 +31,11 @@ type ListBroadcastsResponseBroadcastsInner struct {
 	// Notification type id. Required before send or schedule.
 	Type *string `json:"type,omitempty"`
 	// Email-only in v1; forward-compatible field.
-	Channel        string                    `json:"channel"`
-	Audience       BroadcastResponseAudience `json:"audience"`
-	FromName       string                    `json:"fromName"`
-	FromAddress    string                    `json:"fromAddress"`
-	ReplyToAddress *string                   `json:"replyToAddress,omitempty"`
-	Subject        string                    `json:"subject"`
+	Channel        string  `json:"channel"`
+	FromName       string  `json:"fromName"`
+	FromAddress    string  `json:"fromAddress"`
+	ReplyToAddress *string `json:"replyToAddress,omitempty"`
+	Subject        string  `json:"subject"`
 	// ISO datetime for scheduled broadcasts.
 	ScheduleAt *string `json:"scheduleAt,omitempty"`
 	// Set when the user archives the broadcast; hidden from the default list.
@@ -50,13 +50,13 @@ type _ListBroadcastsResponseBroadcastsInner ListBroadcastsResponseBroadcastsInne
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListBroadcastsResponseBroadcastsInner(broadcastId string, name string, status string, channel string, audience BroadcastResponseAudience, fromName string, fromAddress string, subject string, createdAt string, updatedAt string) *ListBroadcastsResponseBroadcastsInner {
+func NewListBroadcastsResponseBroadcastsInner(audience ListBroadcastsResponseBroadcastsInnerAudience, broadcastId string, name string, status string, channel string, fromName string, fromAddress string, subject string, createdAt string, updatedAt string) *ListBroadcastsResponseBroadcastsInner {
 	this := ListBroadcastsResponseBroadcastsInner{}
+	this.Audience = audience
 	this.BroadcastId = broadcastId
 	this.Name = name
 	this.Status = status
 	this.Channel = channel
-	this.Audience = audience
 	this.FromName = fromName
 	this.FromAddress = fromAddress
 	this.Subject = subject
@@ -71,6 +71,30 @@ func NewListBroadcastsResponseBroadcastsInner(broadcastId string, name string, s
 func NewListBroadcastsResponseBroadcastsInnerWithDefaults() *ListBroadcastsResponseBroadcastsInner {
 	this := ListBroadcastsResponseBroadcastsInner{}
 	return &this
+}
+
+// GetAudience returns the Audience field value
+func (o *ListBroadcastsResponseBroadcastsInner) GetAudience() ListBroadcastsResponseBroadcastsInnerAudience {
+	if o == nil {
+		var ret ListBroadcastsResponseBroadcastsInnerAudience
+		return ret
+	}
+
+	return o.Audience
+}
+
+// GetAudienceOk returns a tuple with the Audience field value
+// and a boolean to check if the value has been set.
+func (o *ListBroadcastsResponseBroadcastsInner) GetAudienceOk() (*ListBroadcastsResponseBroadcastsInnerAudience, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Audience, true
+}
+
+// SetAudience sets field value
+func (o *ListBroadcastsResponseBroadcastsInner) SetAudience(v ListBroadcastsResponseBroadcastsInnerAudience) {
+	o.Audience = v
 }
 
 // GetBroadcastId returns the BroadcastId field value
@@ -231,30 +255,6 @@ func (o *ListBroadcastsResponseBroadcastsInner) GetChannelOk() (*string, bool) {
 // SetChannel sets field value
 func (o *ListBroadcastsResponseBroadcastsInner) SetChannel(v string) {
 	o.Channel = v
-}
-
-// GetAudience returns the Audience field value
-func (o *ListBroadcastsResponseBroadcastsInner) GetAudience() BroadcastResponseAudience {
-	if o == nil {
-		var ret BroadcastResponseAudience
-		return ret
-	}
-
-	return o.Audience
-}
-
-// GetAudienceOk returns a tuple with the Audience field value
-// and a boolean to check if the value has been set.
-func (o *ListBroadcastsResponseBroadcastsInner) GetAudienceOk() (*BroadcastResponseAudience, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Audience, true
-}
-
-// SetAudience sets field value
-func (o *ListBroadcastsResponseBroadcastsInner) SetAudience(v BroadcastResponseAudience) {
-	o.Audience = v
 }
 
 // GetFromName returns the FromName field value
@@ -483,6 +483,7 @@ func (o ListBroadcastsResponseBroadcastsInner) MarshalJSON() ([]byte, error) {
 
 func (o ListBroadcastsResponseBroadcastsInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["audience"] = o.Audience
 	toSerialize["broadcastId"] = o.BroadcastId
 	toSerialize["name"] = o.Name
 	toSerialize["status"] = o.Status
@@ -493,7 +494,6 @@ func (o ListBroadcastsResponseBroadcastsInner) ToMap() (map[string]interface{}, 
 		toSerialize["type"] = o.Type
 	}
 	toSerialize["channel"] = o.Channel
-	toSerialize["audience"] = o.Audience
 	toSerialize["fromName"] = o.FromName
 	toSerialize["fromAddress"] = o.FromAddress
 	if !IsNil(o.ReplyToAddress) {
@@ -516,11 +516,11 @@ func (o *ListBroadcastsResponseBroadcastsInner) UnmarshalJSON(data []byte) (err 
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"audience",
 		"broadcastId",
 		"name",
 		"status",
 		"channel",
-		"audience",
 		"fromName",
 		"fromAddress",
 		"subject",
