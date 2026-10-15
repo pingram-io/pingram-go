@@ -38,7 +38,7 @@ func (r ApiDomainsAddDomainRequest) Execute() ([]GetSendersResponseInner, *http.
 }
 
 /*
-DomainsAddDomain Add and start verification for a new sender domain. Pass the domain only (not a full email address).
+DomainsAddDomain Start verification for a domain you already own so Pingram can use it for email. Pass a bare domain (example.com) or subdomain (mail.example.com). This does not purchase, transfer, renew, or control the domain, does not edit DNS, and does not disable sending or receiving on other platforms. It saves the domain on this Pingram account and returns DNS records for you to publish. Required DKIM lets Pingram send email from addresses on this domain once verification completes. Optional inbound MX, once you publish it, routes that domain's inbound email to Pingram. This call only begins verification. Publish the records, then start verification in the dashboard or with the start-verification API. Adding a domain that is already on the account returns the existing records.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiDomainsAddDomainRequest
@@ -307,7 +307,7 @@ func (r ApiDomainsListDomainsRequest) Execute() ([]GetSendersResponseInner, *htt
 }
 
 /*
-DomainsListDomains List sender domains configured for the account (for outbound email).
+DomainsListDomains List domains already added to this Pingram account for email. Each entry includes verification status and the DNS records Pingram expects you to publish. Does not search a registrar, purchase or transfer a domain, change DNS, or include domains that have not been added to this account.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiDomainsListDomainsRequest

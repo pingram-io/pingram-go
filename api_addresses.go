@@ -443,7 +443,7 @@ func (r ApiAddressesUpdateAddressRequest) Execute() (*AddressResponse, *http.Res
 }
 
 /*
-AddressesUpdateAddress Update an inbox prefix or display name.
+AddressesUpdateAddress Update one inbox on this account. A new prefix deletes the old address, so mail to the previous address stops, and that address is not kept. displayName only relabels a custom inbox and does not change where mail is delivered. Does not create an inbox or change its domain.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiAddressesUpdateAddressRequest

@@ -167,7 +167,7 @@ func (r ApiBroadcastsCancelRequest) Execute() (*BroadcastResponse, *http.Respons
 }
 
 /*
-BroadcastsCancel Cancel an email broadcast. Scheduled broadcasts revert to draft and drop their schedule. Sending or paused broadcasts become canceled; remaining pending recipients are skipped.
+BroadcastsCancel Cancel an email broadcast. Scheduled broadcasts revert to draft and drop their schedule (they can be scheduled again). Sending or paused broadcasts become canceled; recipients already processed stay as they are, and remaining pending recipients are skipped and will not be sent. That skip cannot be undone.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param broadcastId Broadcast ID
@@ -1845,7 +1845,7 @@ func (r ApiBroadcastsUpdateRequest) Execute() (*BroadcastResponse, *http.Respons
 }
 
 /*
-BroadcastsUpdate Update a draft email broadcast (name, type, audience, sender, subject, html). html is the send-ready body. Send an empty replyToAddress to clear Reply-To. internalTemplate can be updated only when the broadcast was created with it; it cannot be added to an html-only broadcast or removed. Only drafts can be edited; scheduled or active broadcasts are locked.
+BroadcastsUpdate Update a draft email broadcast. Fields you send replace the stored values (name, type, audience, sender, subject, html) and the previous values are not kept; omitted fields stay. html is the send-ready body. Send an empty replyToAddress to clear Reply-To. internalTemplate can be updated only when the broadcast was created with it; it cannot be added to an html-only broadcast or removed. Only drafts can be edited; scheduled or active broadcasts are locked. This does not send the broadcast.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param broadcastId Broadcast ID

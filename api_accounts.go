@@ -37,7 +37,7 @@ func (r ApiAccountsCreateAccountRequest) Execute() (*CreateAccountResponse, *htt
 }
 
 /*
-AccountsCreateAccount Create an additional account for the authenticated user
+AccountsCreateAccount Create one additional Pingram account (a separate workspace) for the signed-in user. The caller must already belong to an account. Requires a user session or personal access token; an account API key cannot call this. Does not create a login, and does not change, delete, or grant access to existing accounts. Omit plan and nothing is charged. The new account is ready for billing to be added later, and it cannot send until then. Setting plan charges immediately. It starts a paid subscription on the payment method already saved on sourceBillingAccountId, an account the caller must own. Optional memberEmails adds people who already share an account with the caller and invites everyone else.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiAccountsCreateAccountRequest
