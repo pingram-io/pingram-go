@@ -19,12 +19,12 @@ import (
 // checks if the Transfer type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Transfer{}
 
-// Transfer struct for Transfer
+// Transfer Transfer the caller to a phone number.
 type Transfer struct {
-	Type         string  `json:"type"`
-	TransferMode string  `json:"transferMode"`
-	Destination  string  `json:"destination"`
-	Briefing     *string `json:"briefing,omitempty"`
+	// Transfer the live call to one of destinations.
+	Type string `json:"type"`
+	// Numbers the agent can transfer to. Set a condition on each when there is more than one.
+	Destinations []TransferDestinationsInner `json:"destinations"`
 }
 
 type _Transfer Transfer
@@ -33,11 +33,10 @@ type _Transfer Transfer
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTransfer(type_ string, transferMode string, destination string) *Transfer {
+func NewTransfer(type_ string, destinations []TransferDestinationsInner) *Transfer {
 	this := Transfer{}
 	this.Type = type_
-	this.TransferMode = transferMode
-	this.Destination = destination
+	this.Destinations = destinations
 	return &this
 }
 
@@ -73,84 +72,28 @@ func (o *Transfer) SetType(v string) {
 	o.Type = v
 }
 
-// GetTransferMode returns the TransferMode field value
-func (o *Transfer) GetTransferMode() string {
+// GetDestinations returns the Destinations field value
+func (o *Transfer) GetDestinations() []TransferDestinationsInner {
 	if o == nil {
-		var ret string
+		var ret []TransferDestinationsInner
 		return ret
 	}
 
-	return o.TransferMode
+	return o.Destinations
 }
 
-// GetTransferModeOk returns a tuple with the TransferMode field value
+// GetDestinationsOk returns a tuple with the Destinations field value
 // and a boolean to check if the value has been set.
-func (o *Transfer) GetTransferModeOk() (*string, bool) {
+func (o *Transfer) GetDestinationsOk() ([]TransferDestinationsInner, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.TransferMode, true
+	return o.Destinations, true
 }
 
-// SetTransferMode sets field value
-func (o *Transfer) SetTransferMode(v string) {
-	o.TransferMode = v
-}
-
-// GetDestination returns the Destination field value
-func (o *Transfer) GetDestination() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Destination
-}
-
-// GetDestinationOk returns a tuple with the Destination field value
-// and a boolean to check if the value has been set.
-func (o *Transfer) GetDestinationOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Destination, true
-}
-
-// SetDestination sets field value
-func (o *Transfer) SetDestination(v string) {
-	o.Destination = v
-}
-
-// GetBriefing returns the Briefing field value if set, zero value otherwise.
-func (o *Transfer) GetBriefing() string {
-	if o == nil || IsNil(o.Briefing) {
-		var ret string
-		return ret
-	}
-	return *o.Briefing
-}
-
-// GetBriefingOk returns a tuple with the Briefing field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Transfer) GetBriefingOk() (*string, bool) {
-	if o == nil || IsNil(o.Briefing) {
-		return nil, false
-	}
-	return o.Briefing, true
-}
-
-// HasBriefing returns a boolean if a field has been set.
-func (o *Transfer) HasBriefing() bool {
-	if o != nil && !IsNil(o.Briefing) {
-		return true
-	}
-
-	return false
-}
-
-// SetBriefing gets a reference to the given string and assigns it to the Briefing field.
-func (o *Transfer) SetBriefing(v string) {
-	o.Briefing = &v
+// SetDestinations sets field value
+func (o *Transfer) SetDestinations(v []TransferDestinationsInner) {
+	o.Destinations = v
 }
 
 func (o Transfer) MarshalJSON() ([]byte, error) {
@@ -164,11 +107,7 @@ func (o Transfer) MarshalJSON() ([]byte, error) {
 func (o Transfer) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["type"] = o.Type
-	toSerialize["transferMode"] = o.TransferMode
-	toSerialize["destination"] = o.Destination
-	if !IsNil(o.Briefing) {
-		toSerialize["briefing"] = o.Briefing
-	}
+	toSerialize["destinations"] = o.Destinations
 	return toSerialize, nil
 }
 
@@ -178,8 +117,7 @@ func (o *Transfer) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"type",
-		"transferMode",
-		"destination",
+		"destinations",
 	}
 
 	allProperties := make(map[string]interface{})

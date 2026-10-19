@@ -306,7 +306,7 @@ func (r ApiBroadcastsCreateRequest) Execute() (*BroadcastResponse, *http.Respons
 }
 
 /*
-BroadcastsCreate Create a draft email broadcast. html is the send-ready body. Optional internalTemplate is visual-editor source; if set it must be paired with html and cannot be added later. Set audience to either a Mongo-style user filter (sync users via Users API first; for large lists) or a raw email list (max 10,000). Include name, from fields, subject, and HTML. Notification type is optional on create and required before send or schedule; it is created automatically if missing.
+BroadcastsCreate Create a draft email broadcast. html is the send-ready body. Optional internalTemplate is visual-editor source; if set it must be paired with html. A later update can add it to a draft by sending it with html. Set audience to either a Mongo-style user filter (sync users via Users API first; for large lists) or a raw email list (max 10,000). Include name, from fields, subject, and HTML. Notification type is optional on create and required before send or schedule; it is created automatically if missing.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiBroadcastsCreateRequest
@@ -1845,7 +1845,7 @@ func (r ApiBroadcastsUpdateRequest) Execute() (*BroadcastResponse, *http.Respons
 }
 
 /*
-BroadcastsUpdate Update a draft email broadcast. Fields you send replace the stored values (name, type, audience, sender, subject, html) and the previous values are not kept; omitted fields stay. html is the send-ready body. Send an empty replyToAddress to clear Reply-To. internalTemplate can be updated only when the broadcast was created with it; it cannot be added to an html-only broadcast or removed. Only drafts can be edited; scheduled or active broadcasts are locked. This does not send the broadcast.
+BroadcastsUpdate Update a draft email broadcast. Fields you send replace the stored values (name, type, audience, sender, subject, html) and the previous values are not kept; omitted fields stay. html is the send-ready body. Send an empty replyToAddress to clear Reply-To. internalTemplate is visual-editor source: send it with html to add it to an html-only draft or to update it. It cannot be removed. Only drafts can be edited; scheduled or active broadcasts are locked. This does not send the broadcast.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param broadcastId Broadcast ID

@@ -19,9 +19,11 @@ import (
 // checks if the Knowledge type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Knowledge{}
 
-// Knowledge struct for Knowledge
+// Knowledge Answer from uploaded documents.
 type Knowledge struct {
-	Type      string                    `json:"type"`
+	// Search uploaded documents during the call.
+	Type string `json:"type"`
+	// Files the agent can search.
 	Documents []KnowledgeDocumentsInner `json:"documents"`
 }
 

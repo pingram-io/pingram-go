@@ -21,11 +21,11 @@ var _ MappedNullable = &VoiceBrowserCallRequest{}
 
 // VoiceBrowserCallRequest struct for VoiceBrowserCallRequest
 type VoiceBrowserCallRequest struct {
-	Spec BindNumberResponseAgentSpec `json:"spec"`
+	Config VoiceBrowserCallRequestConfig `json:"config"`
 	// Optional per-call {{variable}} overrides for browser playground.
 	Variables *map[string]string `json:"variables,omitempty"`
-	// Saved agent id when testing from the dashboard playground.
-	AgentId *string `json:"agentId,omitempty"`
+	// inbound speaks the greeting. outbound speaks the opener. Omitted means outbound.
+	Direction *string `json:"direction,omitempty"`
 }
 
 type _VoiceBrowserCallRequest VoiceBrowserCallRequest
@@ -34,9 +34,9 @@ type _VoiceBrowserCallRequest VoiceBrowserCallRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVoiceBrowserCallRequest(spec BindNumberResponseAgentSpec) *VoiceBrowserCallRequest {
+func NewVoiceBrowserCallRequest(config VoiceBrowserCallRequestConfig) *VoiceBrowserCallRequest {
 	this := VoiceBrowserCallRequest{}
-	this.Spec = spec
+	this.Config = config
 	return &this
 }
 
@@ -48,28 +48,28 @@ func NewVoiceBrowserCallRequestWithDefaults() *VoiceBrowserCallRequest {
 	return &this
 }
 
-// GetSpec returns the Spec field value
-func (o *VoiceBrowserCallRequest) GetSpec() BindNumberResponseAgentSpec {
+// GetConfig returns the Config field value
+func (o *VoiceBrowserCallRequest) GetConfig() VoiceBrowserCallRequestConfig {
 	if o == nil {
-		var ret BindNumberResponseAgentSpec
+		var ret VoiceBrowserCallRequestConfig
 		return ret
 	}
 
-	return o.Spec
+	return o.Config
 }
 
-// GetSpecOk returns a tuple with the Spec field value
+// GetConfigOk returns a tuple with the Config field value
 // and a boolean to check if the value has been set.
-func (o *VoiceBrowserCallRequest) GetSpecOk() (*BindNumberResponseAgentSpec, bool) {
+func (o *VoiceBrowserCallRequest) GetConfigOk() (*VoiceBrowserCallRequestConfig, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Spec, true
+	return &o.Config, true
 }
 
-// SetSpec sets field value
-func (o *VoiceBrowserCallRequest) SetSpec(v BindNumberResponseAgentSpec) {
-	o.Spec = v
+// SetConfig sets field value
+func (o *VoiceBrowserCallRequest) SetConfig(v VoiceBrowserCallRequestConfig) {
+	o.Config = v
 }
 
 // GetVariables returns the Variables field value if set, zero value otherwise.
@@ -104,36 +104,36 @@ func (o *VoiceBrowserCallRequest) SetVariables(v map[string]string) {
 	o.Variables = &v
 }
 
-// GetAgentId returns the AgentId field value if set, zero value otherwise.
-func (o *VoiceBrowserCallRequest) GetAgentId() string {
-	if o == nil || IsNil(o.AgentId) {
+// GetDirection returns the Direction field value if set, zero value otherwise.
+func (o *VoiceBrowserCallRequest) GetDirection() string {
+	if o == nil || IsNil(o.Direction) {
 		var ret string
 		return ret
 	}
-	return *o.AgentId
+	return *o.Direction
 }
 
-// GetAgentIdOk returns a tuple with the AgentId field value if set, nil otherwise
+// GetDirectionOk returns a tuple with the Direction field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VoiceBrowserCallRequest) GetAgentIdOk() (*string, bool) {
-	if o == nil || IsNil(o.AgentId) {
+func (o *VoiceBrowserCallRequest) GetDirectionOk() (*string, bool) {
+	if o == nil || IsNil(o.Direction) {
 		return nil, false
 	}
-	return o.AgentId, true
+	return o.Direction, true
 }
 
-// HasAgentId returns a boolean if a field has been set.
-func (o *VoiceBrowserCallRequest) HasAgentId() bool {
-	if o != nil && !IsNil(o.AgentId) {
+// HasDirection returns a boolean if a field has been set.
+func (o *VoiceBrowserCallRequest) HasDirection() bool {
+	if o != nil && !IsNil(o.Direction) {
 		return true
 	}
 
 	return false
 }
 
-// SetAgentId gets a reference to the given string and assigns it to the AgentId field.
-func (o *VoiceBrowserCallRequest) SetAgentId(v string) {
-	o.AgentId = &v
+// SetDirection gets a reference to the given string and assigns it to the Direction field.
+func (o *VoiceBrowserCallRequest) SetDirection(v string) {
+	o.Direction = &v
 }
 
 func (o VoiceBrowserCallRequest) MarshalJSON() ([]byte, error) {
@@ -146,12 +146,12 @@ func (o VoiceBrowserCallRequest) MarshalJSON() ([]byte, error) {
 
 func (o VoiceBrowserCallRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["spec"] = o.Spec
+	toSerialize["config"] = o.Config
 	if !IsNil(o.Variables) {
 		toSerialize["variables"] = o.Variables
 	}
-	if !IsNil(o.AgentId) {
-		toSerialize["agentId"] = o.AgentId
+	if !IsNil(o.Direction) {
+		toSerialize["direction"] = o.Direction
 	}
 	return toSerialize, nil
 }
@@ -161,7 +161,7 @@ func (o *VoiceBrowserCallRequest) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"spec",
+		"config",
 	}
 
 	allProperties := make(map[string]interface{})

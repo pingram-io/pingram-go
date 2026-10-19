@@ -29,7 +29,7 @@ type UpdateBroadcastRequest struct {
 	ReplyToAddress *string `json:"replyToAddress,omitempty"`
 	Subject        *string `json:"subject,omitempty"`
 	Html           *string `json:"html,omitempty"`
-	// Optional visual-editor source. Can be updated only when the broadcast was created with it; cannot be added to an html-only broadcast. Pair with html.
+	// Visual-editor source. Send with html to add it to an html-only draft or to update it. Cannot be removed.
 	InternalTemplate *string `json:"internalTemplate,omitempty"`
 }
 

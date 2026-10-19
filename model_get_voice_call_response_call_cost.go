@@ -19,7 +19,7 @@ import (
 // checks if the GetVoiceCallResponseCallCost type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GetVoiceCallResponseCallCost{}
 
-// GetVoiceCallResponseCallCost Customer-facing call cost on GET /voice/calls/{trackingId} (SDK: GetVoiceCallResponseCallCost).
+// GetVoiceCallResponseCallCost Customer-facing cost for this call.
 type GetVoiceCallResponseCallCost struct {
 	TotalUsd float32                                  `json:"totalUsd"`
 	Lines    []GetVoiceCallResponseCallCostLinesInner `json:"lines"`

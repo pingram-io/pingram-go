@@ -19,8 +19,9 @@ import (
 // checks if the Dtmf type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Dtmf{}
 
-// Dtmf struct for Dtmf
+// Dtmf Let the agent send keypad tones.
 type Dtmf struct {
+	// Send DTMF keypad tones during the call.
 	Type string `json:"type"`
 }
 

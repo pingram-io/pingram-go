@@ -31,7 +31,7 @@ type CreateBroadcastRequest struct {
 	ReplyToAddress *string                   `json:"replyToAddress,omitempty"`
 	Subject        string                    `json:"subject"`
 	Html           string                    `json:"html"`
-	// Optional visual-editor source. Can only be set at create time and must stay paired with html.
+	// Optional visual-editor source. Pair with html. A later update can add it to a draft by sending it with html.
 	InternalTemplate *string `json:"internalTemplate,omitempty"`
 }
 

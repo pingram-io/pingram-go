@@ -19,10 +19,13 @@ import (
 // checks if the Mcp type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Mcp{}
 
-// Mcp struct for Mcp
+// Mcp Load tools from a remote MCP server.
 type Mcp struct {
-	Type  string  `json:"type"`
-	Url   string  `json:"url"`
+	// Connect a remote MCP server and use its tools.
+	Type string `json:"type"`
+	// MCP server URL.
+	Url string `json:"url"`
+	// Optional name shown in the dashboard.
 	Label *string `json:"label,omitempty"`
 }
 

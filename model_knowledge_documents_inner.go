@@ -22,8 +22,10 @@ var _ MappedNullable = &KnowledgeDocumentsInner{}
 // KnowledgeDocumentsInner struct for KnowledgeDocumentsInner
 type KnowledgeDocumentsInner struct {
 	// Opaque identifier for an uploaded knowledge document.
-	DocId     string  `json:"docId"`
-	Name      string  `json:"name"`
+	DocId string `json:"docId"`
+	// File name shown to the agent and in the dashboard.
+	Name string `json:"name"`
+	// File size in bytes.
 	SizeBytes float32 `json:"sizeBytes"`
 }
 

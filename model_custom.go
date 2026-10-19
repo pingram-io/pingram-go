@@ -19,14 +19,24 @@ import (
 // checks if the Custom type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Custom{}
 
-// Custom struct for Custom
+// Custom Call an HTTPS webhook from the conversation.
 type Custom struct {
-	Type        string                 `json:"type"`
-	Name        string                 `json:"name"`
-	Description string                 `json:"description"`
-	Parameters  map[string]interface{} `json:"parameters"`
+	// Invoke an HTTPS webhook when the model calls this tool.
+	Type string `json:"type"`
+	// Function name the model calls.
+	Name string `json:"name"`
+	// When the model should use this tool.
+	Description string `json:"description"`
+	// JSON Schema for the arguments the model passes.
+	Parameters map[string]interface{} `json:"parameters"`
 	// HTTPS webhook invoked when the model calls this tool during a call.
 	Url *string `json:"url,omitempty"`
+	// Spoken before the webhook when this turn has not spoken yet.
+	BeforeSpeech *string `json:"beforeSpeech,omitempty"`
+	// Wait this many seconds, then speak slowSpeech if the webhook is still running.
+	SlowSpeechAfterSeconds *float32 `json:"slowSpeechAfterSeconds,omitempty"`
+	// Spoken once when the webhook is still running after slowSpeechAfterSeconds.
+	SlowSpeech *string `json:"slowSpeech,omitempty"`
 }
 
 type _Custom Custom
@@ -180,6 +190,102 @@ func (o *Custom) SetUrl(v string) {
 	o.Url = &v
 }
 
+// GetBeforeSpeech returns the BeforeSpeech field value if set, zero value otherwise.
+func (o *Custom) GetBeforeSpeech() string {
+	if o == nil || IsNil(o.BeforeSpeech) {
+		var ret string
+		return ret
+	}
+	return *o.BeforeSpeech
+}
+
+// GetBeforeSpeechOk returns a tuple with the BeforeSpeech field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Custom) GetBeforeSpeechOk() (*string, bool) {
+	if o == nil || IsNil(o.BeforeSpeech) {
+		return nil, false
+	}
+	return o.BeforeSpeech, true
+}
+
+// HasBeforeSpeech returns a boolean if a field has been set.
+func (o *Custom) HasBeforeSpeech() bool {
+	if o != nil && !IsNil(o.BeforeSpeech) {
+		return true
+	}
+
+	return false
+}
+
+// SetBeforeSpeech gets a reference to the given string and assigns it to the BeforeSpeech field.
+func (o *Custom) SetBeforeSpeech(v string) {
+	o.BeforeSpeech = &v
+}
+
+// GetSlowSpeechAfterSeconds returns the SlowSpeechAfterSeconds field value if set, zero value otherwise.
+func (o *Custom) GetSlowSpeechAfterSeconds() float32 {
+	if o == nil || IsNil(o.SlowSpeechAfterSeconds) {
+		var ret float32
+		return ret
+	}
+	return *o.SlowSpeechAfterSeconds
+}
+
+// GetSlowSpeechAfterSecondsOk returns a tuple with the SlowSpeechAfterSeconds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Custom) GetSlowSpeechAfterSecondsOk() (*float32, bool) {
+	if o == nil || IsNil(o.SlowSpeechAfterSeconds) {
+		return nil, false
+	}
+	return o.SlowSpeechAfterSeconds, true
+}
+
+// HasSlowSpeechAfterSeconds returns a boolean if a field has been set.
+func (o *Custom) HasSlowSpeechAfterSeconds() bool {
+	if o != nil && !IsNil(o.SlowSpeechAfterSeconds) {
+		return true
+	}
+
+	return false
+}
+
+// SetSlowSpeechAfterSeconds gets a reference to the given float32 and assigns it to the SlowSpeechAfterSeconds field.
+func (o *Custom) SetSlowSpeechAfterSeconds(v float32) {
+	o.SlowSpeechAfterSeconds = &v
+}
+
+// GetSlowSpeech returns the SlowSpeech field value if set, zero value otherwise.
+func (o *Custom) GetSlowSpeech() string {
+	if o == nil || IsNil(o.SlowSpeech) {
+		var ret string
+		return ret
+	}
+	return *o.SlowSpeech
+}
+
+// GetSlowSpeechOk returns a tuple with the SlowSpeech field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Custom) GetSlowSpeechOk() (*string, bool) {
+	if o == nil || IsNil(o.SlowSpeech) {
+		return nil, false
+	}
+	return o.SlowSpeech, true
+}
+
+// HasSlowSpeech returns a boolean if a field has been set.
+func (o *Custom) HasSlowSpeech() bool {
+	if o != nil && !IsNil(o.SlowSpeech) {
+		return true
+	}
+
+	return false
+}
+
+// SetSlowSpeech gets a reference to the given string and assigns it to the SlowSpeech field.
+func (o *Custom) SetSlowSpeech(v string) {
+	o.SlowSpeech = &v
+}
+
 func (o Custom) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -196,6 +302,15 @@ func (o Custom) ToMap() (map[string]interface{}, error) {
 	toSerialize["parameters"] = o.Parameters
 	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
+	}
+	if !IsNil(o.BeforeSpeech) {
+		toSerialize["beforeSpeech"] = o.BeforeSpeech
+	}
+	if !IsNil(o.SlowSpeechAfterSeconds) {
+		toSerialize["slowSpeechAfterSeconds"] = o.SlowSpeechAfterSeconds
+	}
+	if !IsNil(o.SlowSpeech) {
+		toSerialize["slowSpeech"] = o.SlowSpeech
 	}
 	return toSerialize, nil
 }

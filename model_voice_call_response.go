@@ -22,9 +22,9 @@ var _ MappedNullable = &VoiceCallResponse{}
 // VoiceCallResponse struct for VoiceCallResponse
 type VoiceCallResponse struct {
 	// Stable tracking id — use with GET /voice/calls/{trackingId}.
-	TrackingId    string `json:"trackingId"`
-	CallControlId string `json:"callControlId"`
-	Websocket     string `json:"websocket"`
+	TrackingId string `json:"trackingId"`
+	// Live transcript socket. The path id is the trackingId.
+	Websocket string `json:"websocket"`
 }
 
 type _VoiceCallResponse VoiceCallResponse
@@ -33,10 +33,9 @@ type _VoiceCallResponse VoiceCallResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVoiceCallResponse(trackingId string, callControlId string, websocket string) *VoiceCallResponse {
+func NewVoiceCallResponse(trackingId string, websocket string) *VoiceCallResponse {
 	this := VoiceCallResponse{}
 	this.TrackingId = trackingId
-	this.CallControlId = callControlId
 	this.Websocket = websocket
 	return &this
 }
@@ -71,30 +70,6 @@ func (o *VoiceCallResponse) GetTrackingIdOk() (*string, bool) {
 // SetTrackingId sets field value
 func (o *VoiceCallResponse) SetTrackingId(v string) {
 	o.TrackingId = v
-}
-
-// GetCallControlId returns the CallControlId field value
-func (o *VoiceCallResponse) GetCallControlId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.CallControlId
-}
-
-// GetCallControlIdOk returns a tuple with the CallControlId field value
-// and a boolean to check if the value has been set.
-func (o *VoiceCallResponse) GetCallControlIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CallControlId, true
-}
-
-// SetCallControlId sets field value
-func (o *VoiceCallResponse) SetCallControlId(v string) {
-	o.CallControlId = v
 }
 
 // GetWebsocket returns the Websocket field value
@@ -132,7 +107,6 @@ func (o VoiceCallResponse) MarshalJSON() ([]byte, error) {
 func (o VoiceCallResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["trackingId"] = o.TrackingId
-	toSerialize["callControlId"] = o.CallControlId
 	toSerialize["websocket"] = o.Websocket
 	return toSerialize, nil
 }
@@ -143,7 +117,6 @@ func (o *VoiceCallResponse) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"trackingId",
-		"callControlId",
 		"websocket",
 	}
 

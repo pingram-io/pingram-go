@@ -22,61 +22,57 @@ import (
 // VoiceAPIService VoiceAPI service
 type VoiceAPIService service
 
-type ApiVoiceBindNumberRequest struct {
-	ctx               context.Context
-	ApiService        *VoiceAPIService
-	agentId           string
-	bindNumberRequest *BindNumberRequest
+type ApiVoiceArmInboundClaimRequest struct {
+	ctx                         context.Context
+	ApiService                  *VoiceAPIService
+	armVoiceInboundClaimRequest *ArmVoiceInboundClaimRequest
 }
 
-func (r ApiVoiceBindNumberRequest) BindNumberRequest(bindNumberRequest BindNumberRequest) ApiVoiceBindNumberRequest {
-	r.bindNumberRequest = &bindNumberRequest
+func (r ApiVoiceArmInboundClaimRequest) ArmVoiceInboundClaimRequest(armVoiceInboundClaimRequest ArmVoiceInboundClaimRequest) ApiVoiceArmInboundClaimRequest {
+	r.armVoiceInboundClaimRequest = &armVoiceInboundClaimRequest
 	return r
 }
 
-func (r ApiVoiceBindNumberRequest) Execute() (*BindNumberResponse, *http.Response, error) {
-	return r.ApiService.VoiceBindNumberExecute(r)
+func (r ApiVoiceArmInboundClaimRequest) Execute() (*ArmVoiceInboundClaimResponse, *http.Response, error) {
+	return r.ApiService.VoiceArmInboundClaimExecute(r)
 }
 
 /*
-VoiceBindNumber Bind a phone number to a deployed agent for inbound routing
+VoiceArmInboundClaim Arm the shared test number so the next call from this user's phone uses this inbound behavior
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param agentId Agent id
-	@return ApiVoiceBindNumberRequest
+	@return ApiVoiceArmInboundClaimRequest
 */
-func (a *VoiceAPIService) VoiceBindNumber(ctx context.Context, agentId string) ApiVoiceBindNumberRequest {
-	return ApiVoiceBindNumberRequest{
+func (a *VoiceAPIService) VoiceArmInboundClaim(ctx context.Context) ApiVoiceArmInboundClaimRequest {
+	return ApiVoiceArmInboundClaimRequest{
 		ApiService: a,
 		ctx:        ctx,
-		agentId:    agentId,
 	}
 }
 
 // Execute executes the request
 //
-//	@return BindNumberResponse
-func (a *VoiceAPIService) VoiceBindNumberExecute(r ApiVoiceBindNumberRequest) (*BindNumberResponse, *http.Response, error) {
+//	@return ArmVoiceInboundClaimResponse
+func (a *VoiceAPIService) VoiceArmInboundClaimExecute(r ApiVoiceArmInboundClaimRequest) (*ArmVoiceInboundClaimResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *BindNumberResponse
+		localVarReturnValue *ArmVoiceInboundClaimResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VoiceAPIService.VoiceBindNumber")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VoiceAPIService.VoiceArmInboundClaim")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/voice/agents/{agentId}/numbers"
-	localVarPath = strings.Replace(localVarPath, "{"+"agentId"+"}", url.PathEscape(parameterValueToString(r.agentId, "agentId")), -1)
+	localVarPath := localBasePath + "/voice/inbound-claims"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.bindNumberRequest == nil {
-		return localVarReturnValue, nil, reportError("bindNumberRequest is required and must be specified")
+	if r.armVoiceInboundClaimRequest == nil {
+		return localVarReturnValue, nil, reportError("armVoiceInboundClaimRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -97,7 +93,7 @@ func (a *VoiceAPIService) VoiceBindNumberExecute(r ApiVoiceBindNumberRequest) (*
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.bindNumberRequest
+	localVarPostBody = r.armVoiceInboundClaimRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -183,7 +179,7 @@ func (r ApiVoiceCallRequest) Execute() (*VoiceCallResponse, *http.Response, erro
 }
 
 /*
-VoiceCall Place an outbound call with an inline agent spec (ephemeral)
+VoiceCall Place an outbound call. The config is not saved.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiVoiceCallRequest
@@ -308,61 +304,56 @@ func (a *VoiceAPIService) VoiceCallExecute(r ApiVoiceCallRequest) (*VoiceCallRes
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiVoiceCreateAgentRequest struct {
-	ctx                     context.Context
-	ApiService              *VoiceAPIService
-	createVoiceAgentRequest *CreateVoiceAgentRequest
+type ApiVoiceClearNumberInboundRequest struct {
+	ctx         context.Context
+	ApiService  *VoiceAPIService
+	phoneNumber string
 }
 
-func (r ApiVoiceCreateAgentRequest) CreateVoiceAgentRequest(createVoiceAgentRequest CreateVoiceAgentRequest) ApiVoiceCreateAgentRequest {
-	r.createVoiceAgentRequest = &createVoiceAgentRequest
-	return r
-}
-
-func (r ApiVoiceCreateAgentRequest) Execute() (*CreateVoiceAgentResponse, *http.Response, error) {
-	return r.ApiService.VoiceCreateAgentExecute(r)
+func (r ApiVoiceClearNumberInboundRequest) Execute() (*MessageResponse, *http.Response, error) {
+	return r.ApiService.VoiceClearNumberInboundExecute(r)
 }
 
 /*
-VoiceCreateAgent Deploy a voice agent (persist spec for production routing)
+VoiceClearNumberInbound Remove inbound call behavior from a number this account owns
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiVoiceCreateAgentRequest
+	@param phoneNumber E.164 phone number
+	@return ApiVoiceClearNumberInboundRequest
 */
-func (a *VoiceAPIService) VoiceCreateAgent(ctx context.Context) ApiVoiceCreateAgentRequest {
-	return ApiVoiceCreateAgentRequest{
-		ApiService: a,
-		ctx:        ctx,
+func (a *VoiceAPIService) VoiceClearNumberInbound(ctx context.Context, phoneNumber string) ApiVoiceClearNumberInboundRequest {
+	return ApiVoiceClearNumberInboundRequest{
+		ApiService:  a,
+		ctx:         ctx,
+		phoneNumber: phoneNumber,
 	}
 }
 
 // Execute executes the request
 //
-//	@return CreateVoiceAgentResponse
-func (a *VoiceAPIService) VoiceCreateAgentExecute(r ApiVoiceCreateAgentRequest) (*CreateVoiceAgentResponse, *http.Response, error) {
+//	@return MessageResponse
+func (a *VoiceAPIService) VoiceClearNumberInboundExecute(r ApiVoiceClearNumberInboundRequest) (*MessageResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
+		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CreateVoiceAgentResponse
+		localVarReturnValue *MessageResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VoiceAPIService.VoiceCreateAgent")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VoiceAPIService.VoiceClearNumberInbound")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/voice/agents"
+	localVarPath := localBasePath + "/voice/numbers/{phoneNumber}/inbound"
+	localVarPath = strings.Replace(localVarPath, "{"+"phoneNumber"+"}", url.PathEscape(parameterValueToString(r.phoneNumber, "phoneNumber")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.createVoiceAgentRequest == nil {
-		return localVarReturnValue, nil, reportError("createVoiceAgentRequest is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -378,8 +369,6 @@ func (a *VoiceAPIService) VoiceCreateAgentExecute(r ApiVoiceCreateAgentRequest) 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.createVoiceAgentRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -465,7 +454,7 @@ func (r ApiVoiceCreateBrowserCallRequest) Execute() (*VoiceBrowserCallResponse, 
 }
 
 /*
-VoiceCreateBrowserCall Place an ephemeral browser playground call with an inline agent spec
+VoiceCreateBrowserCall Place a browser playground call. Script calls use POST /voice/call.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiVoiceCreateBrowserCallRequest
@@ -521,274 +510,6 @@ func (a *VoiceAPIService) VoiceCreateBrowserCallExecute(r ApiVoiceCreateBrowserC
 	}
 	// body params
 	localVarPostBody = r.voiceBrowserCallRequest
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: prefaceHTTPStatusWithApiJSONDetail(localVarHTTPResponse.Status, localVarBody),
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 402 {
-			var v ApiErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 502 {
-			var v ApiErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
-			newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiVoiceDeleteAgentRequest struct {
-	ctx        context.Context
-	ApiService *VoiceAPIService
-	agentId    string
-}
-
-func (r ApiVoiceDeleteAgentRequest) Execute() (*DeleteVoiceAgentResponse, *http.Response, error) {
-	return r.ApiService.VoiceDeleteAgentExecute(r)
-}
-
-/*
-VoiceDeleteAgent Remove a deployed voice agent and unbind its numbers
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param agentId Agent id
-	@return ApiVoiceDeleteAgentRequest
-*/
-func (a *VoiceAPIService) VoiceDeleteAgent(ctx context.Context, agentId string) ApiVoiceDeleteAgentRequest {
-	return ApiVoiceDeleteAgentRequest{
-		ApiService: a,
-		ctx:        ctx,
-		agentId:    agentId,
-	}
-}
-
-// Execute executes the request
-//
-//	@return DeleteVoiceAgentResponse
-func (a *VoiceAPIService) VoiceDeleteAgentExecute(r ApiVoiceDeleteAgentRequest) (*DeleteVoiceAgentResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *DeleteVoiceAgentResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VoiceAPIService.VoiceDeleteAgent")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/voice/agents/{agentId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"agentId"+"}", url.PathEscape(parameterValueToString(r.agentId, "agentId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: prefaceHTTPStatusWithApiJSONDetail(localVarHTTPResponse.Status, localVarBody),
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 402 {
-			var v ApiErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 502 {
-			var v ApiErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
-			newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiVoiceGetAgentRequest struct {
-	ctx        context.Context
-	ApiService *VoiceAPIService
-	agentId    string
-}
-
-func (r ApiVoiceGetAgentRequest) Execute() (*GetVoiceAgentResponse, *http.Response, error) {
-	return r.ApiService.VoiceGetAgentExecute(r)
-}
-
-/*
-VoiceGetAgent Get a deployed voice agent
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param agentId Agent id
-	@return ApiVoiceGetAgentRequest
-*/
-func (a *VoiceAPIService) VoiceGetAgent(ctx context.Context, agentId string) ApiVoiceGetAgentRequest {
-	return ApiVoiceGetAgentRequest{
-		ApiService: a,
-		ctx:        ctx,
-		agentId:    agentId,
-	}
-}
-
-// Execute executes the request
-//
-//	@return GetVoiceAgentResponse
-func (a *VoiceAPIService) VoiceGetAgentExecute(r ApiVoiceGetAgentRequest) (*GetVoiceAgentResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetVoiceAgentResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VoiceAPIService.VoiceGetAgent")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/voice/agents/{agentId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"agentId"+"}", url.PathEscape(parameterValueToString(r.agentId, "agentId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -992,148 +713,11 @@ func (a *VoiceAPIService) VoiceGetCallExecute(r ApiVoiceGetCallRequest) (*GetVoi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiVoiceListAgentsRequest struct {
-	ctx        context.Context
-	ApiService *VoiceAPIService
-}
-
-func (r ApiVoiceListAgentsRequest) Execute() (*ListVoiceAgentsResponse, *http.Response, error) {
-	return r.ApiService.VoiceListAgentsExecute(r)
-}
-
-/*
-VoiceListAgents List deployed voice agents for the account
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiVoiceListAgentsRequest
-*/
-func (a *VoiceAPIService) VoiceListAgents(ctx context.Context) ApiVoiceListAgentsRequest {
-	return ApiVoiceListAgentsRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ListVoiceAgentsResponse
-func (a *VoiceAPIService) VoiceListAgentsExecute(r ApiVoiceListAgentsRequest) (*ListVoiceAgentsResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ListVoiceAgentsResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VoiceAPIService.VoiceListAgents")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/voice/agents"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: prefaceHTTPStatusWithApiJSONDetail(localVarHTTPResponse.Status, localVarBody),
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 402 {
-			var v ApiErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 502 {
-			var v ApiErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
-			newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiVoiceListCallsRequest struct {
 	ctx        context.Context
 	ApiService *VoiceAPIService
-	agentId    *string
 	limit      *float32
 	cursor     *string
-}
-
-// Only calls handled by this agent
-func (r ApiVoiceListCallsRequest) AgentId(agentId string) ApiVoiceListCallsRequest {
-	r.agentId = &agentId
-	return r
 }
 
 // Page size (default 25, max 100)
@@ -1187,9 +771,6 @@ func (a *VoiceAPIService) VoiceListCallsExecute(r ApiVoiceListCallsRequest) (*Li
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.agentId != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "agentId", r.agentId, "form", "")
-	}
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
@@ -1282,199 +863,61 @@ func (a *VoiceAPIService) VoiceListCallsExecute(r ApiVoiceListCallsRequest) (*Li
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiVoiceUnbindNumberRequest struct {
-	ctx         context.Context
-	ApiService  *VoiceAPIService
-	agentId     string
-	phoneNumber string
+type ApiVoicePutNumberInboundRequest struct {
+	ctx           context.Context
+	ApiService    *VoiceAPIService
+	phoneNumber   string
+	inboundConfig *InboundConfig
 }
 
-func (r ApiVoiceUnbindNumberRequest) Execute() (*UnbindNumberResponse, *http.Response, error) {
-	return r.ApiService.VoiceUnbindNumberExecute(r)
+func (r ApiVoicePutNumberInboundRequest) InboundConfig(inboundConfig InboundConfig) ApiVoicePutNumberInboundRequest {
+	r.inboundConfig = &inboundConfig
+	return r
+}
+
+func (r ApiVoicePutNumberInboundRequest) Execute() (*MessageResponse, *http.Response, error) {
+	return r.ApiService.VoicePutNumberInboundExecute(r)
 }
 
 /*
-VoiceUnbindNumber Unbind a phone number from a deployed agent
+VoicePutNumberInbound Store inbound call behavior on a number this account owns
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param agentId Agent id
 	@param phoneNumber E.164 phone number
-	@return ApiVoiceUnbindNumberRequest
+	@return ApiVoicePutNumberInboundRequest
 */
-func (a *VoiceAPIService) VoiceUnbindNumber(ctx context.Context, agentId string, phoneNumber string) ApiVoiceUnbindNumberRequest {
-	return ApiVoiceUnbindNumberRequest{
+func (a *VoiceAPIService) VoicePutNumberInbound(ctx context.Context, phoneNumber string) ApiVoicePutNumberInboundRequest {
+	return ApiVoicePutNumberInboundRequest{
 		ApiService:  a,
 		ctx:         ctx,
-		agentId:     agentId,
 		phoneNumber: phoneNumber,
 	}
 }
 
 // Execute executes the request
 //
-//	@return UnbindNumberResponse
-func (a *VoiceAPIService) VoiceUnbindNumberExecute(r ApiVoiceUnbindNumberRequest) (*UnbindNumberResponse, *http.Response, error) {
+//	@return MessageResponse
+func (a *VoiceAPIService) VoicePutNumberInboundExecute(r ApiVoicePutNumberInboundRequest) (*MessageResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
+		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *UnbindNumberResponse
+		localVarReturnValue *MessageResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VoiceAPIService.VoiceUnbindNumber")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VoiceAPIService.VoicePutNumberInbound")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/voice/agents/{agentId}/numbers/{phoneNumber}"
-	localVarPath = strings.Replace(localVarPath, "{"+"agentId"+"}", url.PathEscape(parameterValueToString(r.agentId, "agentId")), -1)
+	localVarPath := localBasePath + "/voice/numbers/{phoneNumber}/inbound"
 	localVarPath = strings.Replace(localVarPath, "{"+"phoneNumber"+"}", url.PathEscape(parameterValueToString(r.phoneNumber, "phoneNumber")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: prefaceHTTPStatusWithApiJSONDetail(localVarHTTPResponse.Status, localVarBody),
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 402 {
-			var v ApiErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 502 {
-			var v ApiErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
-			newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiVoiceUpdateAgentRequest struct {
-	ctx                     context.Context
-	ApiService              *VoiceAPIService
-	agentId                 string
-	updateVoiceAgentRequest *UpdateVoiceAgentRequest
-}
-
-func (r ApiVoiceUpdateAgentRequest) UpdateVoiceAgentRequest(updateVoiceAgentRequest UpdateVoiceAgentRequest) ApiVoiceUpdateAgentRequest {
-	r.updateVoiceAgentRequest = &updateVoiceAgentRequest
-	return r
-}
-
-func (r ApiVoiceUpdateAgentRequest) Execute() (*UpdateVoiceAgentResponse, *http.Response, error) {
-	return r.ApiService.VoiceUpdateAgentExecute(r)
-}
-
-/*
-VoiceUpdateAgent Publish changes to a deployed voice agent
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param agentId Agent id
-	@return ApiVoiceUpdateAgentRequest
-*/
-func (a *VoiceAPIService) VoiceUpdateAgent(ctx context.Context, agentId string) ApiVoiceUpdateAgentRequest {
-	return ApiVoiceUpdateAgentRequest{
-		ApiService: a,
-		ctx:        ctx,
-		agentId:    agentId,
-	}
-}
-
-// Execute executes the request
-//
-//	@return UpdateVoiceAgentResponse
-func (a *VoiceAPIService) VoiceUpdateAgentExecute(r ApiVoiceUpdateAgentRequest) (*UpdateVoiceAgentResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *UpdateVoiceAgentResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VoiceAPIService.VoiceUpdateAgent")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/voice/agents/{agentId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"agentId"+"}", url.PathEscape(parameterValueToString(r.agentId, "agentId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.updateVoiceAgentRequest == nil {
-		return localVarReturnValue, nil, reportError("updateVoiceAgentRequest is required and must be specified")
+	if r.inboundConfig == nil {
+		return localVarReturnValue, nil, reportError("inboundConfig is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1495,7 +938,7 @@ func (a *VoiceAPIService) VoiceUpdateAgentExecute(r ApiVoiceUpdateAgentRequest) 
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.updateVoiceAgentRequest
+	localVarPostBody = r.inboundConfig
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

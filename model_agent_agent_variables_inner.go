@@ -16,38 +16,41 @@ import (
 	"fmt"
 )
 
-// checks if the BindNumberResponseAgentSpecVariablesInner type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &BindNumberResponseAgentSpecVariablesInner{}
+// checks if the AgentAgentVariablesInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AgentAgentVariablesInner{}
 
-// BindNumberResponseAgentSpecVariablesInner struct for BindNumberResponseAgentSpecVariablesInner
-type BindNumberResponseAgentSpecVariablesInner struct {
-	Name         string  `json:"name"`
-	Description  *string `json:"description,omitempty"`
+// AgentAgentVariablesInner struct for AgentAgentVariablesInner
+type AgentAgentVariablesInner struct {
+	// Placeholder name used inside {{name}} tags.
+	Name string `json:"name"`
+	// What the value means. Passed to the model with the filled value.
+	Description *string `json:"description,omitempty"`
+	// Used when the call does not pass this variable.
 	DefaultValue *string `json:"defaultValue,omitempty"`
 }
 
-type _BindNumberResponseAgentSpecVariablesInner BindNumberResponseAgentSpecVariablesInner
+type _AgentAgentVariablesInner AgentAgentVariablesInner
 
-// NewBindNumberResponseAgentSpecVariablesInner instantiates a new BindNumberResponseAgentSpecVariablesInner object
+// NewAgentAgentVariablesInner instantiates a new AgentAgentVariablesInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBindNumberResponseAgentSpecVariablesInner(name string) *BindNumberResponseAgentSpecVariablesInner {
-	this := BindNumberResponseAgentSpecVariablesInner{}
+func NewAgentAgentVariablesInner(name string) *AgentAgentVariablesInner {
+	this := AgentAgentVariablesInner{}
 	this.Name = name
 	return &this
 }
 
-// NewBindNumberResponseAgentSpecVariablesInnerWithDefaults instantiates a new BindNumberResponseAgentSpecVariablesInner object
+// NewAgentAgentVariablesInnerWithDefaults instantiates a new AgentAgentVariablesInner object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewBindNumberResponseAgentSpecVariablesInnerWithDefaults() *BindNumberResponseAgentSpecVariablesInner {
-	this := BindNumberResponseAgentSpecVariablesInner{}
+func NewAgentAgentVariablesInnerWithDefaults() *AgentAgentVariablesInner {
+	this := AgentAgentVariablesInner{}
 	return &this
 }
 
 // GetName returns the Name field value
-func (o *BindNumberResponseAgentSpecVariablesInner) GetName() string {
+func (o *AgentAgentVariablesInner) GetName() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -58,7 +61,7 @@ func (o *BindNumberResponseAgentSpecVariablesInner) GetName() string {
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-func (o *BindNumberResponseAgentSpecVariablesInner) GetNameOk() (*string, bool) {
+func (o *AgentAgentVariablesInner) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -66,12 +69,12 @@ func (o *BindNumberResponseAgentSpecVariablesInner) GetNameOk() (*string, bool) 
 }
 
 // SetName sets field value
-func (o *BindNumberResponseAgentSpecVariablesInner) SetName(v string) {
+func (o *AgentAgentVariablesInner) SetName(v string) {
 	o.Name = v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
-func (o *BindNumberResponseAgentSpecVariablesInner) GetDescription() string {
+func (o *AgentAgentVariablesInner) GetDescription() string {
 	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
@@ -81,7 +84,7 @@ func (o *BindNumberResponseAgentSpecVariablesInner) GetDescription() string {
 
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BindNumberResponseAgentSpecVariablesInner) GetDescriptionOk() (*string, bool) {
+func (o *AgentAgentVariablesInner) GetDescriptionOk() (*string, bool) {
 	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
@@ -89,7 +92,7 @@ func (o *BindNumberResponseAgentSpecVariablesInner) GetDescriptionOk() (*string,
 }
 
 // HasDescription returns a boolean if a field has been set.
-func (o *BindNumberResponseAgentSpecVariablesInner) HasDescription() bool {
+func (o *AgentAgentVariablesInner) HasDescription() bool {
 	if o != nil && !IsNil(o.Description) {
 		return true
 	}
@@ -98,12 +101,12 @@ func (o *BindNumberResponseAgentSpecVariablesInner) HasDescription() bool {
 }
 
 // SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *BindNumberResponseAgentSpecVariablesInner) SetDescription(v string) {
+func (o *AgentAgentVariablesInner) SetDescription(v string) {
 	o.Description = &v
 }
 
 // GetDefaultValue returns the DefaultValue field value if set, zero value otherwise.
-func (o *BindNumberResponseAgentSpecVariablesInner) GetDefaultValue() string {
+func (o *AgentAgentVariablesInner) GetDefaultValue() string {
 	if o == nil || IsNil(o.DefaultValue) {
 		var ret string
 		return ret
@@ -113,7 +116,7 @@ func (o *BindNumberResponseAgentSpecVariablesInner) GetDefaultValue() string {
 
 // GetDefaultValueOk returns a tuple with the DefaultValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BindNumberResponseAgentSpecVariablesInner) GetDefaultValueOk() (*string, bool) {
+func (o *AgentAgentVariablesInner) GetDefaultValueOk() (*string, bool) {
 	if o == nil || IsNil(o.DefaultValue) {
 		return nil, false
 	}
@@ -121,7 +124,7 @@ func (o *BindNumberResponseAgentSpecVariablesInner) GetDefaultValueOk() (*string
 }
 
 // HasDefaultValue returns a boolean if a field has been set.
-func (o *BindNumberResponseAgentSpecVariablesInner) HasDefaultValue() bool {
+func (o *AgentAgentVariablesInner) HasDefaultValue() bool {
 	if o != nil && !IsNil(o.DefaultValue) {
 		return true
 	}
@@ -130,11 +133,11 @@ func (o *BindNumberResponseAgentSpecVariablesInner) HasDefaultValue() bool {
 }
 
 // SetDefaultValue gets a reference to the given string and assigns it to the DefaultValue field.
-func (o *BindNumberResponseAgentSpecVariablesInner) SetDefaultValue(v string) {
+func (o *AgentAgentVariablesInner) SetDefaultValue(v string) {
 	o.DefaultValue = &v
 }
 
-func (o BindNumberResponseAgentSpecVariablesInner) MarshalJSON() ([]byte, error) {
+func (o AgentAgentVariablesInner) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -142,7 +145,7 @@ func (o BindNumberResponseAgentSpecVariablesInner) MarshalJSON() ([]byte, error)
 	return json.Marshal(toSerialize)
 }
 
-func (o BindNumberResponseAgentSpecVariablesInner) ToMap() (map[string]interface{}, error) {
+func (o AgentAgentVariablesInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name
 	if !IsNil(o.Description) {
@@ -154,7 +157,7 @@ func (o BindNumberResponseAgentSpecVariablesInner) ToMap() (map[string]interface
 	return toSerialize, nil
 }
 
-func (o *BindNumberResponseAgentSpecVariablesInner) UnmarshalJSON(data []byte) (err error) {
+func (o *AgentAgentVariablesInner) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -176,53 +179,53 @@ func (o *BindNumberResponseAgentSpecVariablesInner) UnmarshalJSON(data []byte) (
 		}
 	}
 
-	varBindNumberResponseAgentSpecVariablesInner := _BindNumberResponseAgentSpecVariablesInner{}
+	varAgentAgentVariablesInner := _AgentAgentVariablesInner{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varBindNumberResponseAgentSpecVariablesInner)
+	err = decoder.Decode(&varAgentAgentVariablesInner)
 
 	if err != nil {
 		return err
 	}
 
-	*o = BindNumberResponseAgentSpecVariablesInner(varBindNumberResponseAgentSpecVariablesInner)
+	*o = AgentAgentVariablesInner(varAgentAgentVariablesInner)
 
 	return err
 }
 
-type NullableBindNumberResponseAgentSpecVariablesInner struct {
-	value *BindNumberResponseAgentSpecVariablesInner
+type NullableAgentAgentVariablesInner struct {
+	value *AgentAgentVariablesInner
 	isSet bool
 }
 
-func (v NullableBindNumberResponseAgentSpecVariablesInner) Get() *BindNumberResponseAgentSpecVariablesInner {
+func (v NullableAgentAgentVariablesInner) Get() *AgentAgentVariablesInner {
 	return v.value
 }
 
-func (v *NullableBindNumberResponseAgentSpecVariablesInner) Set(val *BindNumberResponseAgentSpecVariablesInner) {
+func (v *NullableAgentAgentVariablesInner) Set(val *AgentAgentVariablesInner) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableBindNumberResponseAgentSpecVariablesInner) IsSet() bool {
+func (v NullableAgentAgentVariablesInner) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableBindNumberResponseAgentSpecVariablesInner) Unset() {
+func (v *NullableAgentAgentVariablesInner) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableBindNumberResponseAgentSpecVariablesInner(val *BindNumberResponseAgentSpecVariablesInner) *NullableBindNumberResponseAgentSpecVariablesInner {
-	return &NullableBindNumberResponseAgentSpecVariablesInner{value: val, isSet: true}
+func NewNullableAgentAgentVariablesInner(val *AgentAgentVariablesInner) *NullableAgentAgentVariablesInner {
+	return &NullableAgentAgentVariablesInner{value: val, isSet: true}
 }
 
-func (v NullableBindNumberResponseAgentSpecVariablesInner) MarshalJSON() ([]byte, error) {
+func (v NullableAgentAgentVariablesInner) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableBindNumberResponseAgentSpecVariablesInner) UnmarshalJSON(src []byte) error {
+func (v *NullableAgentAgentVariablesInner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

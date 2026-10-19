@@ -39,9 +39,8 @@ type ListPhoneNumbersResponseNumbersInner struct {
 	// US 10DLC readiness derived from stored campaign assignment
 	A2pStatus *string `json:"a2pStatus,omitempty"`
 	// ISO timestamp when the number was released (released numbers only)
-	ReleasedAt *string `json:"releasedAt,omitempty"`
-	// Voice agent id bound for inbound AI voice, if any
-	BoundAgentId *string `json:"boundAgentId,omitempty"`
+	ReleasedAt *string                             `json:"releasedAt,omitempty"`
+	Inbound    *ArmVoiceInboundClaimRequestInbound `json:"inbound,omitempty"`
 }
 
 type _ListPhoneNumbersResponseNumbersInner ListPhoneNumbersResponseNumbersInner
@@ -334,36 +333,36 @@ func (o *ListPhoneNumbersResponseNumbersInner) SetReleasedAt(v string) {
 	o.ReleasedAt = &v
 }
 
-// GetBoundAgentId returns the BoundAgentId field value if set, zero value otherwise.
-func (o *ListPhoneNumbersResponseNumbersInner) GetBoundAgentId() string {
-	if o == nil || IsNil(o.BoundAgentId) {
-		var ret string
+// GetInbound returns the Inbound field value if set, zero value otherwise.
+func (o *ListPhoneNumbersResponseNumbersInner) GetInbound() ArmVoiceInboundClaimRequestInbound {
+	if o == nil || IsNil(o.Inbound) {
+		var ret ArmVoiceInboundClaimRequestInbound
 		return ret
 	}
-	return *o.BoundAgentId
+	return *o.Inbound
 }
 
-// GetBoundAgentIdOk returns a tuple with the BoundAgentId field value if set, nil otherwise
+// GetInboundOk returns a tuple with the Inbound field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ListPhoneNumbersResponseNumbersInner) GetBoundAgentIdOk() (*string, bool) {
-	if o == nil || IsNil(o.BoundAgentId) {
+func (o *ListPhoneNumbersResponseNumbersInner) GetInboundOk() (*ArmVoiceInboundClaimRequestInbound, bool) {
+	if o == nil || IsNil(o.Inbound) {
 		return nil, false
 	}
-	return o.BoundAgentId, true
+	return o.Inbound, true
 }
 
-// HasBoundAgentId returns a boolean if a field has been set.
-func (o *ListPhoneNumbersResponseNumbersInner) HasBoundAgentId() bool {
-	if o != nil && !IsNil(o.BoundAgentId) {
+// HasInbound returns a boolean if a field has been set.
+func (o *ListPhoneNumbersResponseNumbersInner) HasInbound() bool {
+	if o != nil && !IsNil(o.Inbound) {
 		return true
 	}
 
 	return false
 }
 
-// SetBoundAgentId gets a reference to the given string and assigns it to the BoundAgentId field.
-func (o *ListPhoneNumbersResponseNumbersInner) SetBoundAgentId(v string) {
-	o.BoundAgentId = &v
+// SetInbound gets a reference to the given ArmVoiceInboundClaimRequestInbound and assigns it to the Inbound field.
+func (o *ListPhoneNumbersResponseNumbersInner) SetInbound(v ArmVoiceInboundClaimRequestInbound) {
+	o.Inbound = &v
 }
 
 func (o ListPhoneNumbersResponseNumbersInner) MarshalJSON() ([]byte, error) {
@@ -392,8 +391,8 @@ func (o ListPhoneNumbersResponseNumbersInner) ToMap() (map[string]interface{}, e
 	if !IsNil(o.ReleasedAt) {
 		toSerialize["releasedAt"] = o.ReleasedAt
 	}
-	if !IsNil(o.BoundAgentId) {
-		toSerialize["boundAgentId"] = o.BoundAgentId
+	if !IsNil(o.Inbound) {
+		toSerialize["inbound"] = o.Inbound
 	}
 	return toSerialize, nil
 }

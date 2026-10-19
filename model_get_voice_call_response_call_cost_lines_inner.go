@@ -19,7 +19,7 @@ import (
 // checks if the GetVoiceCallResponseCallCostLinesInner type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GetVoiceCallResponseCallCostLinesInner{}
 
-// GetVoiceCallResponseCallCostLinesInner One line item in a call cost breakdown (API / SDK).
+// GetVoiceCallResponseCallCostLinesInner One line in the call cost breakdown.
 type GetVoiceCallResponseCallCostLinesInner struct {
 	Role  string `json:"role"`
 	Label string `json:"label"`

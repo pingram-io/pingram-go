@@ -21,12 +21,11 @@ var _ MappedNullable = &VoiceCallRequest{}
 
 // VoiceCallRequest struct for VoiceCallRequest
 type VoiceCallRequest struct {
-	PhoneNumber string                      `json:"phoneNumber"`
-	Spec        BindNumberResponseAgentSpec `json:"spec"`
+	// E.164 number to dial.
+	To     string                             `json:"to"`
+	Config VoiceBrowserCallRequestConfigAnyOf `json:"config"`
 	// Optional per-call {{variable}} overrides.
 	Variables *map[string]string `json:"variables,omitempty"`
-	// Saved agent id when testing from the dashboard playground.
-	AgentId *string `json:"agentId,omitempty"`
 }
 
 type _VoiceCallRequest VoiceCallRequest
@@ -35,10 +34,10 @@ type _VoiceCallRequest VoiceCallRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVoiceCallRequest(phoneNumber string, spec BindNumberResponseAgentSpec) *VoiceCallRequest {
+func NewVoiceCallRequest(to string, config VoiceBrowserCallRequestConfigAnyOf) *VoiceCallRequest {
 	this := VoiceCallRequest{}
-	this.PhoneNumber = phoneNumber
-	this.Spec = spec
+	this.To = to
+	this.Config = config
 	return &this
 }
 
@@ -50,52 +49,52 @@ func NewVoiceCallRequestWithDefaults() *VoiceCallRequest {
 	return &this
 }
 
-// GetPhoneNumber returns the PhoneNumber field value
-func (o *VoiceCallRequest) GetPhoneNumber() string {
+// GetTo returns the To field value
+func (o *VoiceCallRequest) GetTo() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.PhoneNumber
+	return o.To
 }
 
-// GetPhoneNumberOk returns a tuple with the PhoneNumber field value
+// GetToOk returns a tuple with the To field value
 // and a boolean to check if the value has been set.
-func (o *VoiceCallRequest) GetPhoneNumberOk() (*string, bool) {
+func (o *VoiceCallRequest) GetToOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.PhoneNumber, true
+	return &o.To, true
 }
 
-// SetPhoneNumber sets field value
-func (o *VoiceCallRequest) SetPhoneNumber(v string) {
-	o.PhoneNumber = v
+// SetTo sets field value
+func (o *VoiceCallRequest) SetTo(v string) {
+	o.To = v
 }
 
-// GetSpec returns the Spec field value
-func (o *VoiceCallRequest) GetSpec() BindNumberResponseAgentSpec {
+// GetConfig returns the Config field value
+func (o *VoiceCallRequest) GetConfig() VoiceBrowserCallRequestConfigAnyOf {
 	if o == nil {
-		var ret BindNumberResponseAgentSpec
+		var ret VoiceBrowserCallRequestConfigAnyOf
 		return ret
 	}
 
-	return o.Spec
+	return o.Config
 }
 
-// GetSpecOk returns a tuple with the Spec field value
+// GetConfigOk returns a tuple with the Config field value
 // and a boolean to check if the value has been set.
-func (o *VoiceCallRequest) GetSpecOk() (*BindNumberResponseAgentSpec, bool) {
+func (o *VoiceCallRequest) GetConfigOk() (*VoiceBrowserCallRequestConfigAnyOf, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Spec, true
+	return &o.Config, true
 }
 
-// SetSpec sets field value
-func (o *VoiceCallRequest) SetSpec(v BindNumberResponseAgentSpec) {
-	o.Spec = v
+// SetConfig sets field value
+func (o *VoiceCallRequest) SetConfig(v VoiceBrowserCallRequestConfigAnyOf) {
+	o.Config = v
 }
 
 // GetVariables returns the Variables field value if set, zero value otherwise.
@@ -130,38 +129,6 @@ func (o *VoiceCallRequest) SetVariables(v map[string]string) {
 	o.Variables = &v
 }
 
-// GetAgentId returns the AgentId field value if set, zero value otherwise.
-func (o *VoiceCallRequest) GetAgentId() string {
-	if o == nil || IsNil(o.AgentId) {
-		var ret string
-		return ret
-	}
-	return *o.AgentId
-}
-
-// GetAgentIdOk returns a tuple with the AgentId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *VoiceCallRequest) GetAgentIdOk() (*string, bool) {
-	if o == nil || IsNil(o.AgentId) {
-		return nil, false
-	}
-	return o.AgentId, true
-}
-
-// HasAgentId returns a boolean if a field has been set.
-func (o *VoiceCallRequest) HasAgentId() bool {
-	if o != nil && !IsNil(o.AgentId) {
-		return true
-	}
-
-	return false
-}
-
-// SetAgentId gets a reference to the given string and assigns it to the AgentId field.
-func (o *VoiceCallRequest) SetAgentId(v string) {
-	o.AgentId = &v
-}
-
 func (o VoiceCallRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -172,13 +139,10 @@ func (o VoiceCallRequest) MarshalJSON() ([]byte, error) {
 
 func (o VoiceCallRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["phoneNumber"] = o.PhoneNumber
-	toSerialize["spec"] = o.Spec
+	toSerialize["to"] = o.To
+	toSerialize["config"] = o.Config
 	if !IsNil(o.Variables) {
 		toSerialize["variables"] = o.Variables
-	}
-	if !IsNil(o.AgentId) {
-		toSerialize["agentId"] = o.AgentId
 	}
 	return toSerialize, nil
 }
@@ -188,8 +152,8 @@ func (o *VoiceCallRequest) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"phoneNumber",
-		"spec",
+		"to",
+		"config",
 	}
 
 	allProperties := make(map[string]interface{})

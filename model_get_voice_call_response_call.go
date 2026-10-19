@@ -23,19 +23,19 @@ var _ MappedNullable = &GetVoiceCallResponseCall{}
 type GetVoiceCallResponseCall struct {
 	TrackingId string `json:"trackingId"`
 	Status     string `json:"status"`
-	// Omitted for playground calls made before the agent was saved.
-	AgentId         *string `json:"agentId,omitempty"`
-	AgentName       string  `json:"agentName"`
-	Direction       string  `json:"direction"`
-	Source          string  `json:"source"`
-	From            string  `json:"from"`
-	To              string  `json:"to"`
-	StartedAt       string  `json:"startedAt"`
+	ConfigName string `json:"configName"`
+	Direction  string `json:"direction"`
+	Source     string `json:"source"`
+	From       string `json:"from"`
+	To         string `json:"to"`
+	StartedAt  string `json:"startedAt"`
+	// Set when the callee answers. Absent while the phone is still ringing.
+	AnsweredAt      *string `json:"answeredAt,omitempty"`
 	DurationSeconds float32 `json:"durationSeconds"`
 	Outcome         *string `json:"outcome,omitempty"`
 	// Machine-readable reason the call ended — persisted on every call record.
 	EndReason *string `json:"endReason,omitempty"`
-	// Short human-readable detail (e.g. provider error message).
+	// Short human-readable detail, such as why the call failed.
 	EndDetail *string `json:"endDetail,omitempty"`
 	// Full chronological timeline (transcript + ops events).
 	Timeline     []GetVoiceCallResponseCallTimelineInner `json:"timeline"`
@@ -50,11 +50,11 @@ type _GetVoiceCallResponseCall GetVoiceCallResponseCall
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetVoiceCallResponseCall(trackingId string, status string, agentName string, direction string, source string, from string, to string, startedAt string, durationSeconds float32, timeline []GetVoiceCallResponseCallTimelineInner) *GetVoiceCallResponseCall {
+func NewGetVoiceCallResponseCall(trackingId string, status string, configName string, direction string, source string, from string, to string, startedAt string, durationSeconds float32, timeline []GetVoiceCallResponseCallTimelineInner) *GetVoiceCallResponseCall {
 	this := GetVoiceCallResponseCall{}
 	this.TrackingId = trackingId
 	this.Status = status
-	this.AgentName = agentName
+	this.ConfigName = configName
 	this.Direction = direction
 	this.Source = source
 	this.From = from
@@ -121,60 +121,28 @@ func (o *GetVoiceCallResponseCall) SetStatus(v string) {
 	o.Status = v
 }
 
-// GetAgentId returns the AgentId field value if set, zero value otherwise.
-func (o *GetVoiceCallResponseCall) GetAgentId() string {
-	if o == nil || IsNil(o.AgentId) {
-		var ret string
-		return ret
-	}
-	return *o.AgentId
-}
-
-// GetAgentIdOk returns a tuple with the AgentId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GetVoiceCallResponseCall) GetAgentIdOk() (*string, bool) {
-	if o == nil || IsNil(o.AgentId) {
-		return nil, false
-	}
-	return o.AgentId, true
-}
-
-// HasAgentId returns a boolean if a field has been set.
-func (o *GetVoiceCallResponseCall) HasAgentId() bool {
-	if o != nil && !IsNil(o.AgentId) {
-		return true
-	}
-
-	return false
-}
-
-// SetAgentId gets a reference to the given string and assigns it to the AgentId field.
-func (o *GetVoiceCallResponseCall) SetAgentId(v string) {
-	o.AgentId = &v
-}
-
-// GetAgentName returns the AgentName field value
-func (o *GetVoiceCallResponseCall) GetAgentName() string {
+// GetConfigName returns the ConfigName field value
+func (o *GetVoiceCallResponseCall) GetConfigName() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.AgentName
+	return o.ConfigName
 }
 
-// GetAgentNameOk returns a tuple with the AgentName field value
+// GetConfigNameOk returns a tuple with the ConfigName field value
 // and a boolean to check if the value has been set.
-func (o *GetVoiceCallResponseCall) GetAgentNameOk() (*string, bool) {
+func (o *GetVoiceCallResponseCall) GetConfigNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AgentName, true
+	return &o.ConfigName, true
 }
 
-// SetAgentName sets field value
-func (o *GetVoiceCallResponseCall) SetAgentName(v string) {
-	o.AgentName = v
+// SetConfigName sets field value
+func (o *GetVoiceCallResponseCall) SetConfigName(v string) {
+	o.ConfigName = v
 }
 
 // GetDirection returns the Direction field value
@@ -295,6 +263,38 @@ func (o *GetVoiceCallResponseCall) GetStartedAtOk() (*string, bool) {
 // SetStartedAt sets field value
 func (o *GetVoiceCallResponseCall) SetStartedAt(v string) {
 	o.StartedAt = v
+}
+
+// GetAnsweredAt returns the AnsweredAt field value if set, zero value otherwise.
+func (o *GetVoiceCallResponseCall) GetAnsweredAt() string {
+	if o == nil || IsNil(o.AnsweredAt) {
+		var ret string
+		return ret
+	}
+	return *o.AnsweredAt
+}
+
+// GetAnsweredAtOk returns a tuple with the AnsweredAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetVoiceCallResponseCall) GetAnsweredAtOk() (*string, bool) {
+	if o == nil || IsNil(o.AnsweredAt) {
+		return nil, false
+	}
+	return o.AnsweredAt, true
+}
+
+// HasAnsweredAt returns a boolean if a field has been set.
+func (o *GetVoiceCallResponseCall) HasAnsweredAt() bool {
+	if o != nil && !IsNil(o.AnsweredAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetAnsweredAt gets a reference to the given string and assigns it to the AnsweredAt field.
+func (o *GetVoiceCallResponseCall) SetAnsweredAt(v string) {
+	o.AnsweredAt = &v
 }
 
 // GetDurationSeconds returns the DurationSeconds field value
@@ -549,15 +549,15 @@ func (o GetVoiceCallResponseCall) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["trackingId"] = o.TrackingId
 	toSerialize["status"] = o.Status
-	if !IsNil(o.AgentId) {
-		toSerialize["agentId"] = o.AgentId
-	}
-	toSerialize["agentName"] = o.AgentName
+	toSerialize["configName"] = o.ConfigName
 	toSerialize["direction"] = o.Direction
 	toSerialize["source"] = o.Source
 	toSerialize["from"] = o.From
 	toSerialize["to"] = o.To
 	toSerialize["startedAt"] = o.StartedAt
+	if !IsNil(o.AnsweredAt) {
+		toSerialize["answeredAt"] = o.AnsweredAt
+	}
 	toSerialize["durationSeconds"] = o.DurationSeconds
 	if !IsNil(o.Outcome) {
 		toSerialize["outcome"] = o.Outcome
@@ -588,7 +588,7 @@ func (o *GetVoiceCallResponseCall) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"trackingId",
 		"status",
-		"agentName",
+		"configName",
 		"direction",
 		"source",
 		"from",
