@@ -172,7 +172,7 @@ func (r ApiEmailSendRequest) Execute() (*SendEmailApiResponse, *http.Response, e
 }
 
 /*
-EmailSend Send an email. Requires `type`, `to`, `subject`, and `html`. Optional: `fromAddress`, `fromName`, `schedule`, attachments. The fromAddress must be a verified domain; otherwise our built-in address will be used which is fine for testing purposes.
+EmailSend Send an email. Requires `type`, `to`, `subject`, and `html`. Optional: `fromAddress`, `fromName`, `schedule`, attachments. To reach people outside your account, use an address on a verified domain. The shared Pingram address can only email the account itself and always sends as noreply.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiEmailSendRequest

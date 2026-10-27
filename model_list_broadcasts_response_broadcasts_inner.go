@@ -31,8 +31,9 @@ type ListBroadcastsResponseBroadcastsInner struct {
 	// Notification type id. Required before send or schedule.
 	Type *string `json:"type,omitempty"`
 	// Email-only in v1; forward-compatible field.
-	Channel        string  `json:"channel"`
-	FromName       string  `json:"fromName"`
+	Channel  string `json:"channel"`
+	FromName string `json:"fromName"`
+	// From address. Use an address on a domain verified for this account to email other people. The shared address `noreply@pingram.io` can send a test broadcast only to your own account email as the sole recipient. Verify a domain to send to a wider audience.
 	FromAddress    string  `json:"fromAddress"`
 	ReplyToAddress *string `json:"replyToAddress,omitempty"`
 	Subject        string  `json:"subject"`

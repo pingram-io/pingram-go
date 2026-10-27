@@ -1432,7 +1432,7 @@ func (r ApiBroadcastsScheduleRequest) Execute() (*BroadcastResponse, *http.Respo
 }
 
 /*
-BroadcastsSchedule Schedule a draft email broadcast for a future ISO datetime (sendAt). Requires a non-empty subject. fromAddress must be the platform default sender or a domain verified for this account (Settings → Domain Verification). The platform default sender is for testing only (at most 10 recipients, heavily throttled). Cancels any existing schedule when the broadcast is returned to draft via cancel.
+BroadcastsSchedule Schedule a draft email broadcast for a future ISO datetime (sendAt). Requires a non-empty subject. Cancels any existing schedule when the broadcast is returned to draft via cancel.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param broadcastId Broadcast ID
@@ -1571,7 +1571,7 @@ func (r ApiBroadcastsSendRequest) Execute() (*BroadcastResponse, *http.Response,
 }
 
 /*
-BroadcastsSend Send a draft email broadcast immediately. Requires a non-empty subject. fromAddress must be the platform default sender or a domain verified for this account (Settings → Domain Verification). The platform default sender is for testing only (at most 10 recipients, heavily throttled). Transitions status to sending and starts delivery.
+BroadcastsSend Send a draft email broadcast immediately. Requires a non-empty subject. Transitions status to sending and starts delivery.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param broadcastId Broadcast ID

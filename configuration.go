@@ -92,7 +92,7 @@ type Configuration struct {
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		DefaultHeader: make(map[string]string),
-		UserAgent:     "pingram-go/1.0.39",
+		UserAgent:     "pingram-go/1.0.40",
 		Debug:         false,
 		Servers: ServerConfigurations{
 			{
