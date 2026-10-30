@@ -59,6 +59,7 @@ type LogsGetResponseLogsInner struct {
 	EmailDeliveredRecipients  *string  `json:"email_delivered_recipients,omitempty"`
 	EmailDeliveredAfter       *float32 `json:"email_delivered_after,omitempty"`
 	EmailDeliveredWebhookRes  *string  `json:"email_delivered_webhook_res,omitempty"`
+	EmailDeliveredInternal    *string  `json:"email_delivered_internal,omitempty"`
 	EmailFailedAt             *string  `json:"email_failed_at,omitempty"`
 	EmailFailedCode           *string  `json:"email_failed_code,omitempty"`
 	EmailFailedRecipient      *string  `json:"email_failed_recipient,omitempty"`
@@ -1419,6 +1420,38 @@ func (o *LogsGetResponseLogsInner) HasEmailDeliveredWebhookRes() bool {
 // SetEmailDeliveredWebhookRes gets a reference to the given string and assigns it to the EmailDeliveredWebhookRes field.
 func (o *LogsGetResponseLogsInner) SetEmailDeliveredWebhookRes(v string) {
 	o.EmailDeliveredWebhookRes = &v
+}
+
+// GetEmailDeliveredInternal returns the EmailDeliveredInternal field value if set, zero value otherwise.
+func (o *LogsGetResponseLogsInner) GetEmailDeliveredInternal() string {
+	if o == nil || IsNil(o.EmailDeliveredInternal) {
+		var ret string
+		return ret
+	}
+	return *o.EmailDeliveredInternal
+}
+
+// GetEmailDeliveredInternalOk returns a tuple with the EmailDeliveredInternal field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogsGetResponseLogsInner) GetEmailDeliveredInternalOk() (*string, bool) {
+	if o == nil || IsNil(o.EmailDeliveredInternal) {
+		return nil, false
+	}
+	return o.EmailDeliveredInternal, true
+}
+
+// HasEmailDeliveredInternal returns a boolean if a field has been set.
+func (o *LogsGetResponseLogsInner) HasEmailDeliveredInternal() bool {
+	if o != nil && !IsNil(o.EmailDeliveredInternal) {
+		return true
+	}
+
+	return false
+}
+
+// SetEmailDeliveredInternal gets a reference to the given string and assigns it to the EmailDeliveredInternal field.
+func (o *LogsGetResponseLogsInner) SetEmailDeliveredInternal(v string) {
+	o.EmailDeliveredInternal = &v
 }
 
 // GetEmailFailedAt returns the EmailFailedAt field value if set, zero value otherwise.
@@ -6049,6 +6082,9 @@ func (o LogsGetResponseLogsInner) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.EmailDeliveredWebhookRes) {
 		toSerialize["email_delivered_webhook_res"] = o.EmailDeliveredWebhookRes
+	}
+	if !IsNil(o.EmailDeliveredInternal) {
+		toSerialize["email_delivered_internal"] = o.EmailDeliveredInternal
 	}
 	if !IsNil(o.EmailFailedAt) {
 		toSerialize["email_failed_at"] = o.EmailFailedAt
