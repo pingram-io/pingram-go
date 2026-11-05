@@ -25,7 +25,7 @@ type AccountGetResponseBillingAlerts struct {
 	Enabled bool `json:"enabled"`
 	// Addresses that receive threshold emails. At most three.
 	Emails []string `json:"emails"`
-	// Percents to email, from 5 to 100 in steps of 5. At most two. At least one is required while enabled.
+	// Percents to email, from 5 to 100 in steps of 5. At most five. At least one is required while enabled.
 	Thresholds []float32 `json:"thresholds"`
 }
 
