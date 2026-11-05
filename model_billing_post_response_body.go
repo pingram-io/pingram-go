@@ -19,7 +19,7 @@ import (
 // checks if the BillingPostResponseBody type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &BillingPostResponseBody{}
 
-// BillingPostResponseBody POST /billing response: account fields + optional Checkout session.
+// BillingPostResponseBody POST /billing response: account fields plus a URL when payment is needed.
 type BillingPostResponseBody struct {
 	AccountId   string   `json:"accountId"`
 	AccountType string   `json:"accountType"`

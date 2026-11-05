@@ -32,7 +32,7 @@ type ListInvoicesResponseInvoicesInner struct {
 	AmountPaid float32 `json:"amountPaid"`
 	// Unix timestamp (seconds) when the invoice was created.
 	Created float32 `json:"created"`
-	// Stripe-hosted invoice page (receipt / pay).
+	// Link to view or pay this invoice.
 	HostedInvoiceUrl *string `json:"hostedInvoiceUrl,omitempty"`
 	// Direct PDF download URL.
 	InvoicePdf *string `json:"invoicePdf,omitempty"`

@@ -22,6 +22,8 @@ var _ MappedNullable = &ConfirmChangeEmailRequest{}
 // ConfirmChangeEmailRequest struct for ConfirmChangeEmailRequest
 type ConfirmChangeEmailRequest struct {
 	Code string `json:"code"`
+	// The password chosen when a social-only account started the change. Required while the code was sent to the current inbox.
+	NewPassword *string `json:"newPassword,omitempty"`
 }
 
 type _ConfirmChangeEmailRequest ConfirmChangeEmailRequest
@@ -68,6 +70,38 @@ func (o *ConfirmChangeEmailRequest) SetCode(v string) {
 	o.Code = v
 }
 
+// GetNewPassword returns the NewPassword field value if set, zero value otherwise.
+func (o *ConfirmChangeEmailRequest) GetNewPassword() string {
+	if o == nil || IsNil(o.NewPassword) {
+		var ret string
+		return ret
+	}
+	return *o.NewPassword
+}
+
+// GetNewPasswordOk returns a tuple with the NewPassword field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ConfirmChangeEmailRequest) GetNewPasswordOk() (*string, bool) {
+	if o == nil || IsNil(o.NewPassword) {
+		return nil, false
+	}
+	return o.NewPassword, true
+}
+
+// HasNewPassword returns a boolean if a field has been set.
+func (o *ConfirmChangeEmailRequest) HasNewPassword() bool {
+	if o != nil && !IsNil(o.NewPassword) {
+		return true
+	}
+
+	return false
+}
+
+// SetNewPassword gets a reference to the given string and assigns it to the NewPassword field.
+func (o *ConfirmChangeEmailRequest) SetNewPassword(v string) {
+	o.NewPassword = &v
+}
+
 func (o ConfirmChangeEmailRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -79,6 +113,9 @@ func (o ConfirmChangeEmailRequest) MarshalJSON() ([]byte, error) {
 func (o ConfirmChangeEmailRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["code"] = o.Code
+	if !IsNil(o.NewPassword) {
+		toSerialize["newPassword"] = o.NewPassword
+	}
 	return toSerialize, nil
 }
 

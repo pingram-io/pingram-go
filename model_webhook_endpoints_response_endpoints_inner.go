@@ -23,12 +23,13 @@ var _ MappedNullable = &WebhookEndpointsResponseEndpointsInner{}
 type WebhookEndpointsResponseEndpointsInner struct {
 	// Unique identifier for this endpoint within the account.
 	Id string `json:"id"`
-	// Destination URL that receives signed JSON event payloads.
+	// Destination URL that receives signed JSON event payloads. Credentials are not included in this URL.
 	Webhook string `json:"webhook"`
 	// Subscribed event types for this endpoint.
 	Events []string `json:"events"`
 	// HMAC secret for verifying X-Pingram-Signature. Returned on create and list; updates keep the same secret. Format: pingram_whsecret_...
-	Secret string `json:"secret"`
+	Secret    string                    `json:"secret"`
+	BasicAuth *WebhookEndpointBasicAuth `json:"basicAuth,omitempty"`
 }
 
 type _WebhookEndpointsResponseEndpointsInner WebhookEndpointsResponseEndpointsInner
@@ -150,6 +151,38 @@ func (o *WebhookEndpointsResponseEndpointsInner) SetSecret(v string) {
 	o.Secret = v
 }
 
+// GetBasicAuth returns the BasicAuth field value if set, zero value otherwise.
+func (o *WebhookEndpointsResponseEndpointsInner) GetBasicAuth() WebhookEndpointBasicAuth {
+	if o == nil || IsNil(o.BasicAuth) {
+		var ret WebhookEndpointBasicAuth
+		return ret
+	}
+	return *o.BasicAuth
+}
+
+// GetBasicAuthOk returns a tuple with the BasicAuth field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WebhookEndpointsResponseEndpointsInner) GetBasicAuthOk() (*WebhookEndpointBasicAuth, bool) {
+	if o == nil || IsNil(o.BasicAuth) {
+		return nil, false
+	}
+	return o.BasicAuth, true
+}
+
+// HasBasicAuth returns a boolean if a field has been set.
+func (o *WebhookEndpointsResponseEndpointsInner) HasBasicAuth() bool {
+	if o != nil && !IsNil(o.BasicAuth) {
+		return true
+	}
+
+	return false
+}
+
+// SetBasicAuth gets a reference to the given WebhookEndpointBasicAuth and assigns it to the BasicAuth field.
+func (o *WebhookEndpointsResponseEndpointsInner) SetBasicAuth(v WebhookEndpointBasicAuth) {
+	o.BasicAuth = &v
+}
+
 func (o WebhookEndpointsResponseEndpointsInner) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -164,6 +197,9 @@ func (o WebhookEndpointsResponseEndpointsInner) ToMap() (map[string]interface{},
 	toSerialize["webhook"] = o.Webhook
 	toSerialize["events"] = o.Events
 	toSerialize["secret"] = o.Secret
+	if !IsNil(o.BasicAuth) {
+		toSerialize["basicAuth"] = o.BasicAuth
+	}
 	return toSerialize, nil
 }
 

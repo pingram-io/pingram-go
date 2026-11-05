@@ -19,9 +19,10 @@ import (
 // checks if the PasswordStatusResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PasswordStatusResponse{}
 
-// PasswordStatusResponse Whether the signed-in user can set a first password.
+// PasswordStatusResponse Whether the signed-in account has a password, and which social providers are linked.
 type PasswordStatusResponse struct {
-	CanSetPassword bool `json:"canSetPassword"`
+	// False only when the account is still a social sign-in with no password.
+	HasPassword bool `json:"hasPassword"`
 	// Linked social sign-in providers, such as Google.
 	Providers []string `json:"providers"`
 }
@@ -32,9 +33,9 @@ type _PasswordStatusResponse PasswordStatusResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPasswordStatusResponse(canSetPassword bool, providers []string) *PasswordStatusResponse {
+func NewPasswordStatusResponse(hasPassword bool, providers []string) *PasswordStatusResponse {
 	this := PasswordStatusResponse{}
-	this.CanSetPassword = canSetPassword
+	this.HasPassword = hasPassword
 	this.Providers = providers
 	return &this
 }
@@ -47,28 +48,28 @@ func NewPasswordStatusResponseWithDefaults() *PasswordStatusResponse {
 	return &this
 }
 
-// GetCanSetPassword returns the CanSetPassword field value
-func (o *PasswordStatusResponse) GetCanSetPassword() bool {
+// GetHasPassword returns the HasPassword field value
+func (o *PasswordStatusResponse) GetHasPassword() bool {
 	if o == nil {
 		var ret bool
 		return ret
 	}
 
-	return o.CanSetPassword
+	return o.HasPassword
 }
 
-// GetCanSetPasswordOk returns a tuple with the CanSetPassword field value
+// GetHasPasswordOk returns a tuple with the HasPassword field value
 // and a boolean to check if the value has been set.
-func (o *PasswordStatusResponse) GetCanSetPasswordOk() (*bool, bool) {
+func (o *PasswordStatusResponse) GetHasPasswordOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CanSetPassword, true
+	return &o.HasPassword, true
 }
 
-// SetCanSetPassword sets field value
-func (o *PasswordStatusResponse) SetCanSetPassword(v bool) {
-	o.CanSetPassword = v
+// SetHasPassword sets field value
+func (o *PasswordStatusResponse) SetHasPassword(v bool) {
+	o.HasPassword = v
 }
 
 // GetProviders returns the Providers field value
@@ -105,7 +106,7 @@ func (o PasswordStatusResponse) MarshalJSON() ([]byte, error) {
 
 func (o PasswordStatusResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["canSetPassword"] = o.CanSetPassword
+	toSerialize["hasPassword"] = o.HasPassword
 	toSerialize["providers"] = o.Providers
 	return toSerialize, nil
 }
@@ -115,7 +116,7 @@ func (o *PasswordStatusResponse) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"canSetPassword",
+		"hasPassword",
 		"providers",
 	}
 

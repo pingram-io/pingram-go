@@ -22,9 +22,11 @@ var _ MappedNullable = &StartChangeEmailRequest{}
 // StartChangeEmailRequest struct for StartChangeEmailRequest
 type StartChangeEmailRequest struct {
 	NewEmail string `json:"newEmail"`
-	// Current account password. Required before a login-email change starts.
-	Password string `json:"password"`
-	// TOTP code. Required when software-token MFA is enabled.
+	// Current account password. Required when the account already has a password.
+	Password *string `json:"password,omitempty"`
+	// Password to set. Required when the account has no password yet, so the new email address can be used to sign in after social sign-in is removed.
+	NewPassword *string `json:"newPassword,omitempty"`
+	// TOTP code. Required when software-token MFA is enabled on an account that has a password.
 	MfaCode *string `json:"mfaCode,omitempty"`
 }
 
@@ -34,10 +36,9 @@ type _StartChangeEmailRequest StartChangeEmailRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStartChangeEmailRequest(newEmail string, password string) *StartChangeEmailRequest {
+func NewStartChangeEmailRequest(newEmail string) *StartChangeEmailRequest {
 	this := StartChangeEmailRequest{}
 	this.NewEmail = newEmail
-	this.Password = password
 	return &this
 }
 
@@ -73,28 +74,68 @@ func (o *StartChangeEmailRequest) SetNewEmail(v string) {
 	o.NewEmail = v
 }
 
-// GetPassword returns the Password field value
+// GetPassword returns the Password field value if set, zero value otherwise.
 func (o *StartChangeEmailRequest) GetPassword() string {
-	if o == nil {
+	if o == nil || IsNil(o.Password) {
 		var ret string
 		return ret
 	}
-
-	return o.Password
+	return *o.Password
 }
 
-// GetPasswordOk returns a tuple with the Password field value
+// GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StartChangeEmailRequest) GetPasswordOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Password) {
 		return nil, false
 	}
-	return &o.Password, true
+	return o.Password, true
 }
 
-// SetPassword sets field value
+// HasPassword returns a boolean if a field has been set.
+func (o *StartChangeEmailRequest) HasPassword() bool {
+	if o != nil && !IsNil(o.Password) {
+		return true
+	}
+
+	return false
+}
+
+// SetPassword gets a reference to the given string and assigns it to the Password field.
 func (o *StartChangeEmailRequest) SetPassword(v string) {
-	o.Password = v
+	o.Password = &v
+}
+
+// GetNewPassword returns the NewPassword field value if set, zero value otherwise.
+func (o *StartChangeEmailRequest) GetNewPassword() string {
+	if o == nil || IsNil(o.NewPassword) {
+		var ret string
+		return ret
+	}
+	return *o.NewPassword
+}
+
+// GetNewPasswordOk returns a tuple with the NewPassword field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StartChangeEmailRequest) GetNewPasswordOk() (*string, bool) {
+	if o == nil || IsNil(o.NewPassword) {
+		return nil, false
+	}
+	return o.NewPassword, true
+}
+
+// HasNewPassword returns a boolean if a field has been set.
+func (o *StartChangeEmailRequest) HasNewPassword() bool {
+	if o != nil && !IsNil(o.NewPassword) {
+		return true
+	}
+
+	return false
+}
+
+// SetNewPassword gets a reference to the given string and assigns it to the NewPassword field.
+func (o *StartChangeEmailRequest) SetNewPassword(v string) {
+	o.NewPassword = &v
 }
 
 // GetMfaCode returns the MfaCode field value if set, zero value otherwise.
@@ -140,7 +181,12 @@ func (o StartChangeEmailRequest) MarshalJSON() ([]byte, error) {
 func (o StartChangeEmailRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["newEmail"] = o.NewEmail
-	toSerialize["password"] = o.Password
+	if !IsNil(o.Password) {
+		toSerialize["password"] = o.Password
+	}
+	if !IsNil(o.NewPassword) {
+		toSerialize["newPassword"] = o.NewPassword
+	}
 	if !IsNil(o.MfaCode) {
 		toSerialize["mfaCode"] = o.MfaCode
 	}
@@ -153,7 +199,6 @@ func (o *StartChangeEmailRequest) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"newEmail",
-		"password",
 	}
 
 	allProperties := make(map[string]interface{})

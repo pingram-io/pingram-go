@@ -21,10 +21,11 @@ var _ MappedNullable = &WebhookEndpointUpsertRequest{}
 
 // WebhookEndpointUpsertRequest Request body for creating or updating an events webhook endpoint.
 type WebhookEndpointUpsertRequest struct {
-	// Public HTTPS URL that accepts POST with a JSON event body. Return 2xx to acknowledge. Private, loopback, and link-local addresses are rejected. Requests include X-Pingram-Id, X-Pingram-Signature (v1 HMAC-SHA256), and X-Pingram-Timestamp.
+	// Public HTTPS URL that accepts POST with a JSON event body. Return 2xx to acknowledge. Private, loopback, and link-local addresses are rejected. Requests include X-Pingram-Id, X-Pingram-Signature (v1 HMAC-SHA256), and X-Pingram-Timestamp. A username and password in this URL are stored separately and removed from the saved URL.
 	Webhook string `json:"webhook"`
 	// Full set of event types to deliver to this URL. Omitting an event on update unsubscribes it. Inbound SMS to the free shared number only works when that person has already received a text from this number. Inbound SMS to a dedicated number works normally.
-	Events []string `json:"events"`
+	Events    []string                                      `json:"events"`
+	BasicAuth NullableWebhookEndpointUpsertRequestBasicAuth `json:"basicAuth,omitempty"`
 }
 
 type _WebhookEndpointUpsertRequest WebhookEndpointUpsertRequest
@@ -96,6 +97,49 @@ func (o *WebhookEndpointUpsertRequest) SetEvents(v []string) {
 	o.Events = v
 }
 
+// GetBasicAuth returns the BasicAuth field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WebhookEndpointUpsertRequest) GetBasicAuth() WebhookEndpointUpsertRequestBasicAuth {
+	if o == nil || IsNil(o.BasicAuth.Get()) {
+		var ret WebhookEndpointUpsertRequestBasicAuth
+		return ret
+	}
+	return *o.BasicAuth.Get()
+}
+
+// GetBasicAuthOk returns a tuple with the BasicAuth field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WebhookEndpointUpsertRequest) GetBasicAuthOk() (*WebhookEndpointUpsertRequestBasicAuth, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.BasicAuth.Get(), o.BasicAuth.IsSet()
+}
+
+// HasBasicAuth returns a boolean if a field has been set.
+func (o *WebhookEndpointUpsertRequest) HasBasicAuth() bool {
+	if o != nil && o.BasicAuth.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetBasicAuth gets a reference to the given NullableWebhookEndpointUpsertRequestBasicAuth and assigns it to the BasicAuth field.
+func (o *WebhookEndpointUpsertRequest) SetBasicAuth(v WebhookEndpointUpsertRequestBasicAuth) {
+	o.BasicAuth.Set(&v)
+}
+
+// SetBasicAuthNil sets the value for BasicAuth to be an explicit nil
+func (o *WebhookEndpointUpsertRequest) SetBasicAuthNil() {
+	o.BasicAuth.Set(nil)
+}
+
+// UnsetBasicAuth ensures that no value is present for BasicAuth, not even an explicit nil
+func (o *WebhookEndpointUpsertRequest) UnsetBasicAuth() {
+	o.BasicAuth.Unset()
+}
+
 func (o WebhookEndpointUpsertRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -108,6 +152,9 @@ func (o WebhookEndpointUpsertRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["webhook"] = o.Webhook
 	toSerialize["events"] = o.Events
+	if o.BasicAuth.IsSet() {
+		toSerialize["basicAuth"] = o.BasicAuth.Get()
+	}
 	return toSerialize, nil
 }
 
