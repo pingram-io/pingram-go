@@ -19,7 +19,7 @@ import (
 // checks if the CampaignWebhookResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &CampaignWebhookResponse{}
 
-// CampaignWebhookResponse Response for campaign Telnyx webhook handler.
+// CampaignWebhookResponse Response after a 10DLC campaign status webhook.
 type CampaignWebhookResponse struct {
 	Message string `json:"message"`
 }

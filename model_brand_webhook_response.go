@@ -19,7 +19,7 @@ import (
 // checks if the BrandWebhookResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &BrandWebhookResponse{}
 
-// BrandWebhookResponse Response for brand Telnyx webhook handler.
+// BrandWebhookResponse Response after a 10DLC brand status webhook.
 type BrandWebhookResponse struct {
 	Message string `json:"message"`
 }

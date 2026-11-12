@@ -40,7 +40,9 @@ func (r ApiUsersDeleteUserRequest) Execute() (*DeleteUserResponse, *http.Respons
 }
 
 /*
-UsersDeleteUser Delete a user and all associated data (in-app notifications, preferences, and user record)
+UsersDeleteUser Delete a user
+
+Delete a user and all associated data (in-app notifications, preferences, and user record)
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId User ID

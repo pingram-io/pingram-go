@@ -34,7 +34,9 @@ func (r ApiSubNotificationsDeleteSubNotificationRequest) Execute() (*http.Respon
 }
 
 /*
-SubNotificationsDeleteSubNotification This endpoint is no longer maintained and should not be used.
+SubNotificationsDeleteSubNotification This endpoint is no longer maintained and should not be used
+
+This endpoint is no longer maintained and should not be used.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param notificationId The notification ID
@@ -166,7 +168,9 @@ func (r ApiSubNotificationsPutSubNotificationRequest) Execute() (*SubNotificatio
 }
 
 /*
-SubNotificationsPutSubNotification This endpoint is no longer maintained and should not be used.
+SubNotificationsPutSubNotification This endpoint is no longer maintained and should not be used
+
+This endpoint is no longer maintained and should not be used.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param notificationId The notification ID

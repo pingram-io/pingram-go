@@ -314,7 +314,9 @@ func (r ApiSenderUpdateScheduleRequest) Execute() (*MessageResponse, *http.Respo
 }
 
 /*
-SenderUpdateSchedule Update the body or schedule of an already scheduled notification.
+SenderUpdateSchedule Update a scheduled notification
+
+Update the body or schedule of an already scheduled notification.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param trackingId The tracking ID of the scheduled notification

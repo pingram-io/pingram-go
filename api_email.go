@@ -33,7 +33,9 @@ func (r ApiEmailDeleteSuppressionsRequest) Execute() (*MessageResponse, *http.Re
 }
 
 /*
-EmailDeleteSuppressions Start removing all email suppressions of the given reason (`retryable` or `bounces`) for users in the environment. Returns immediately after the job is queued — suppressions are not yet cleared when this response is received. Large removals are processed in the background in batches.
+EmailDeleteSuppressions Remove email suppressions
+
+Start removing all email suppressions of the given reason (`retryable` or `bounces`) for users in the environment. Returns immediately after the job is queued — suppressions are not yet cleared when this response is received. Large removals are processed in the background in batches.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param reason Suppression reason to clear (retryable | bounces)
@@ -172,7 +174,9 @@ func (r ApiEmailSendRequest) Execute() (*SendEmailApiResponse, *http.Response, e
 }
 
 /*
-EmailSend Send an email. Requires `type`, `to`, `subject`, and `html`. Optional: `fromAddress`, `fromName`, `schedule`, attachments. To reach people outside your account, use an address on a verified domain. The shared Pingram address can only email the account itself and always sends as noreply.
+EmailSend Send an email
+
+Send an email. Requires `type`, `to`, `subject`, and `html`. Optional: `fromAddress`, `fromName`, `schedule`, attachments. To reach people outside your account, use an address on a verified domain. The shared Pingram address can only email the account itself and always sends as noreply.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiEmailSendRequest

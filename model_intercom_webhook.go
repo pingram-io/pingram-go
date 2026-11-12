@@ -19,7 +19,7 @@ import (
 // checks if the IntercomWebhook type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &IntercomWebhook{}
 
-// IntercomWebhook Generic Intercom webhook payload https://developers.intercom.com/docs/references/webhooks
+// IntercomWebhook Support conversation webhook payload.
 type IntercomWebhook struct {
 	Type  string              `json:"type"`
 	Topic string              `json:"topic"`

@@ -32,7 +32,9 @@ func (r ApiUserGetAccountMetadataRequest) Execute() (*GetAccountMetadataResponse
 }
 
 /*
-UserGetAccountMetadata Get account-level metadata including logo, VAPID key, and web push status
+UserGetAccountMetadata Get account metadata
+
+Get account-level metadata including logo, VAPID key, and web push status
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiUserGetAccountMetadataRequest
@@ -163,7 +165,9 @@ func (r ApiUserGetUserRequest) Execute() (*User, *http.Response, error) {
 }
 
 /*
-UserGetUser Get a user by ID. All users exist implicitly, returns basic user object if not found in DB.
+UserGetUser Get a user by ID
+
+Get a user by ID. All users exist implicitly, returns basic user object if not found in DB.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId User ID
@@ -303,7 +307,9 @@ func (r ApiUserIdentifyRequest) Execute() (*User, *http.Response, error) {
 }
 
 /*
-UserIdentify Create or update a user with the given ID. Updates lastSeenTime automatically.
+UserIdentify Create or update a user with the given ID
+
+Create or update a user with the given ID. Updates lastSeenTime automatically.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId User ID

@@ -19,7 +19,7 @@ import (
 // checks if the SignInUsernameResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SignInUsernameResponse{}
 
-// SignInUsernameResponse Cognito username to pass to sign-in and password reset.
+// SignInUsernameResponse Sign-in username to pass to sign-in and password reset.
 type SignInUsernameResponse struct {
 	Username string `json:"username"`
 }

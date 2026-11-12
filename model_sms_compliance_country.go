@@ -23,7 +23,7 @@ var _ MappedNullable = &SmsComplianceCountry{}
 type SmsComplianceCountry struct {
 	Country string `json:"country"`
 	AddedAt string `json:"addedAt"`
-	// Who added the country. `system` when the app added it, `api` when an API key added it; otherwise the Cognito user id.
+	// Who added the country. `system` when the app added it, `api` when an API key added it; otherwise the user id.
 	AddedBy string `json:"addedBy"`
 	// True when the account Sender ID can be used to send to this country.
 	SenderIdEnabled bool `json:"senderIdEnabled"`

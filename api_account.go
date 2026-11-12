@@ -37,7 +37,9 @@ func (r ApiAccountAssignPaymentMethodRequest) Execute() (*AccountPaymentMethods,
 }
 
 /*
-AccountAssignPaymentMethod Use a saved card for this account, as the default for new accounts, or for every account that shares these cards. Only the account owner can call this.
+AccountAssignPaymentMethod Assign a saved card
+
+Use a saved card for this account, as the default for new accounts, or for every account that shares these cards. Only the account owner can call this.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiAccountAssignPaymentMethodRequest
@@ -178,7 +180,9 @@ func (r ApiAccountCancelSubscriptionRequest) Execute() (*AccountGetResponse, *ht
 }
 
 /*
-AccountCancelSubscription Cancel the paid plan at the end of the current billing cycle. Access continues until then.
+AccountCancelSubscription Cancel the paid plan at the end of the current billing cycle
+
+Cancel the paid plan at the end of the current billing cycle. Access continues until then.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiAccountCancelSubscriptionRequest
@@ -460,7 +464,9 @@ func (r ApiAccountCreatePaymentMethodSetupRequest) Execute() (*PaymentMethodSetu
 }
 
 /*
-AccountCreatePaymentMethodSetup Return a URL to add a card. Only the account owner can call this. The card is not assigned until you call assign.
+AccountCreatePaymentMethodSetup Return a URL to add a card
+
+Return a URL to add a card. Only the account owner can call this. The card is not assigned until you call assign.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiAccountCreatePaymentMethodSetupRequest
@@ -725,7 +731,9 @@ func (r ApiAccountGetBillingEmailRequest) Execute() (*BillingEmail, *http.Respon
 }
 
 /*
-AccountGetBillingEmail Get the email address that receives invoices for this account.
+AccountGetBillingEmail Get the invoice email address
+
+Get the email address that receives invoices for this account.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiAccountGetBillingEmailRequest
@@ -985,7 +993,9 @@ func (r ApiAccountGetUsageRequest) Execute() (*GetUsageResponse, *http.Response,
 }
 
 /*
-AccountGetUsage Get usage for the authenticated account.
+AccountGetUsage Get usage for the authenticated account
+
+Get usage for the authenticated account.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiAccountGetUsageRequest
@@ -1136,7 +1146,9 @@ func (r ApiAccountGetUsageHistoryRequest) Execute() (*GetUsageHistoryResponse, *
 }
 
 /*
-AccountGetUsageHistory Get historical usage for the authenticated account over a date range, summed by UTC calendar month or billing cycle from daily counts.
+AccountGetUsageHistory Get usage history
+
+Get historical usage for the authenticated account over a date range, summed by UTC calendar month or billing cycle from daily counts.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiAccountGetUsageHistoryRequest
@@ -1312,7 +1324,9 @@ func (r ApiAccountListInvoicesRequest) Execute() (*ListInvoicesResponse, *http.R
 }
 
 /*
-AccountListInvoices List invoices for this account, newest first.
+AccountListInvoices List invoices for this account, newest first
+
+List invoices for this account, newest first.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiAccountListInvoicesRequest
@@ -1457,7 +1471,9 @@ func (r ApiAccountListPaymentMethodsRequest) Execute() (*AccountPaymentMethods, 
 }
 
 /*
-AccountListPaymentMethods List saved cards. Only the account owner can call this.
+AccountListPaymentMethods List saved cards. Only the account owner can call this
+
+List saved cards. Only the account owner can call this.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiAccountListPaymentMethodsRequest
@@ -1723,7 +1739,9 @@ func (r ApiAccountPrepareCheckoutSessionRequest) Execute() (*BillingPostResponse
 }
 
 /*
-AccountPrepareCheckoutSession Start or continue billing for this account. Returns a URL when payment is needed.
+AccountPrepareCheckoutSession Start or continue billing for this account
+
+Start or continue billing for this account. Returns a URL when payment is needed.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiAccountPrepareCheckoutSessionRequest
@@ -1858,7 +1876,9 @@ func (r ApiAccountResumeSubscriptionRequest) Execute() (*AccountGetResponse, *ht
 }
 
 /*
-AccountResumeSubscription Keep the current paid plan and undo a cancellation scheduled for the end of the billing cycle.
+AccountResumeSubscription Undo a scheduled cancellation
+
+Keep the current paid plan and undo a cancellation scheduled for the end of the billing cycle.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiAccountResumeSubscriptionRequest
@@ -1988,7 +2008,9 @@ func (r ApiAccountRevokeSupabaseRequest) Execute() (*SupabaseConfigureResponse, 
 }
 
 /*
-AccountRevokeSupabase Revoke Supabase integration (removes stored tokens and project info)
+AccountRevokeSupabase Revoke Supabase integration
+
+Revoke Supabase integration (removes stored tokens and project info)
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiAccountRevokeSupabaseRequest
@@ -2265,7 +2287,9 @@ func (r ApiAccountUpdateAccountSettingsRequest) Execute() (*AccountGetResponse, 
 }
 
 /*
-AccountUpdateAccountSettings Update account billing preferences such as auto upgrade and usage email alerts.
+AccountUpdateAccountSettings Update account billing preferences
+
+Update account billing preferences such as auto upgrade and usage email alerts.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiAccountUpdateAccountSettingsRequest
@@ -2406,7 +2430,9 @@ func (r ApiAccountUpdateBillingEmailRequest) Execute() (*BillingEmail, *http.Res
 }
 
 /*
-AccountUpdateBillingEmail Update the email address that receives invoices for this account.
+AccountUpdateBillingEmail Update the invoice email address
+
+Update the email address that receives invoices for this account.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiAccountUpdateBillingEmailRequest

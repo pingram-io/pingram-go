@@ -37,7 +37,9 @@ func (r ApiRegistrationsCreateUs10dlcBrandRequest) Execute() (*TenDlcBrandRegist
 }
 
 /*
-RegistrationsCreateUs10dlcBrand Create a new 10DLC brand registration. Sets brandStatus to pending_review; Pingram handles carrier submission after review.
+RegistrationsCreateUs10dlcBrand Create a new 10DLC brand registration
+
+Create a new 10DLC brand registration. Sets brandStatus to pending_review; Pingram handles carrier submission after review.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiRegistrationsCreateUs10dlcBrandRequest
@@ -172,7 +174,9 @@ func (r ApiRegistrationsGetUs10dlcBrandRequest) Execute() (*TenDlcBrandRegistrat
 }
 
 /*
-RegistrationsGetUs10dlcBrand Get the 10DLC brand registration for the authenticated account. Returns null when no registration exists yet.
+RegistrationsGetUs10dlcBrand Get the 10DLC brand registration
+
+Get the 10DLC brand registration for the authenticated account. Returns null when no registration exists yet.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiRegistrationsGetUs10dlcBrandRequest
@@ -302,7 +306,9 @@ func (r ApiRegistrationsGetUs10dlcCampaignRequest) Execute() (*TenDlcCampaignReg
 }
 
 /*
-RegistrationsGetUs10dlcCampaign Get the 10DLC campaign registration for the authenticated account. Returns null when no brand registration exists yet.
+RegistrationsGetUs10dlcCampaign Get the 10DLC campaign registration
+
+Get the 10DLC campaign registration for the authenticated account. Returns null when no brand registration exists yet.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiRegistrationsGetUs10dlcCampaignRequest
@@ -438,7 +444,9 @@ func (r ApiRegistrationsUpdateUs10dlcBrandRequest) Execute() (*TenDlcBrandRegist
 }
 
 /*
-RegistrationsUpdateUs10dlcBrand Overwrite business fields on this account's existing US 10DLC brand registration (legal name, address, tax ID, website, compliance contact, and related identity). Fields you omit stay; values you send replace what was stored and are not kept as history. Does not create a registration, submit it to carriers, change brandStatus, or delete it. Workflow status stays under Pingram's control.
+RegistrationsUpdateUs10dlcBrand Update the 10DLC brand
+
+Overwrite business fields on this account's existing US 10DLC brand registration (legal name, address, tax ID, website, compliance contact, and related identity). Fields you omit stay; values you send replace what was stored and are not kept as history. Does not create a registration, submit it to carriers, change brandStatus, or delete it. Workflow status stays under Pingram's control.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiRegistrationsUpdateUs10dlcBrandRequest
@@ -579,7 +587,9 @@ func (r ApiRegistrationsUpdateUs10dlcCampaignRequest) Execute() (*TenDlcCampaign
 }
 
 /*
-RegistrationsUpdateUs10dlcCampaign Overwrite campaign fields on this account's existing US 10DLC campaign (description, samples, opt-in and opt-out text, use case, and related settings). Fields you send replace the stored values and the previous text is not kept; omitted fields stay. Editing is refused once the campaign is in_progress or approved. Does not submit the campaign to carriers, change campaignStatus, or delete it.
+RegistrationsUpdateUs10dlcCampaign Update the 10DLC campaign
+
+Overwrite campaign fields on this account's existing US 10DLC campaign (description, samples, opt-in and opt-out text, use case, and related settings). Fields you send replace the stored values and the previous text is not kept; omitted fields stay. Editing is refused once the campaign is in_progress or approved. Does not submit the campaign to carriers, change campaignStatus, or delete it.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiRegistrationsUpdateUs10dlcCampaignRequest

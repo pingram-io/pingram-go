@@ -19,7 +19,7 @@ import (
 // checks if the SignOutRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SignOutRequest{}
 
-// SignOutRequest This browser's Cognito refresh token, revoked on dashboard sign-out.
+// SignOutRequest This browser's refresh token, revoked on dashboard sign-out.
 type SignOutRequest struct {
 	RefreshToken string `json:"refreshToken"`
 }

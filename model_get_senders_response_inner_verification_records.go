@@ -19,11 +19,12 @@ var _ MappedNullable = &GetSendersResponseInnerVerificationRecords{}
 
 // GetSendersResponseInnerVerificationRecords Keyed by record id — computed on domain API responses, not stored in DB.
 type GetSendersResponseInnerVerificationRecords struct {
-	Dkim        *GetSendersResponseInnerVerificationRecordsDkim `json:"dkim,omitempty"`
-	MailFromSpf *GetSendersResponseInnerVerificationRecordsDkim `json:"mail_from_spf,omitempty"`
-	MailFromMx  *GetSendersResponseInnerVerificationRecordsDkim `json:"mail_from_mx,omitempty"`
-	Dmarc       *GetSendersResponseInnerVerificationRecordsDkim `json:"dmarc,omitempty"`
-	InboundMx   *GetSendersResponseInnerVerificationRecordsDkim `json:"inbound_mx,omitempty"`
+	Dkim          *GetSendersResponseInnerVerificationRecordsDkim `json:"dkim,omitempty"`
+	MailFromSpf   *GetSendersResponseInnerVerificationRecordsDkim `json:"mail_from_spf,omitempty"`
+	MailFromMx    *GetSendersResponseInnerVerificationRecordsDkim `json:"mail_from_mx,omitempty"`
+	Dmarc         *GetSendersResponseInnerVerificationRecordsDkim `json:"dmarc,omitempty"`
+	InboundMx     *GetSendersResponseInnerVerificationRecordsDkim `json:"inbound_mx,omitempty"`
+	TrackingCname *GetSendersResponseInnerVerificationRecordsDkim `json:"trackingCname,omitempty"`
 }
 
 // NewGetSendersResponseInnerVerificationRecords instantiates a new GetSendersResponseInnerVerificationRecords object
@@ -203,6 +204,38 @@ func (o *GetSendersResponseInnerVerificationRecords) SetInboundMx(v GetSendersRe
 	o.InboundMx = &v
 }
 
+// GetTrackingCname returns the TrackingCname field value if set, zero value otherwise.
+func (o *GetSendersResponseInnerVerificationRecords) GetTrackingCname() GetSendersResponseInnerVerificationRecordsDkim {
+	if o == nil || IsNil(o.TrackingCname) {
+		var ret GetSendersResponseInnerVerificationRecordsDkim
+		return ret
+	}
+	return *o.TrackingCname
+}
+
+// GetTrackingCnameOk returns a tuple with the TrackingCname field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetSendersResponseInnerVerificationRecords) GetTrackingCnameOk() (*GetSendersResponseInnerVerificationRecordsDkim, bool) {
+	if o == nil || IsNil(o.TrackingCname) {
+		return nil, false
+	}
+	return o.TrackingCname, true
+}
+
+// HasTrackingCname returns a boolean if a field has been set.
+func (o *GetSendersResponseInnerVerificationRecords) HasTrackingCname() bool {
+	if o != nil && !IsNil(o.TrackingCname) {
+		return true
+	}
+
+	return false
+}
+
+// SetTrackingCname gets a reference to the given GetSendersResponseInnerVerificationRecordsDkim and assigns it to the TrackingCname field.
+func (o *GetSendersResponseInnerVerificationRecords) SetTrackingCname(v GetSendersResponseInnerVerificationRecordsDkim) {
+	o.TrackingCname = &v
+}
+
 func (o GetSendersResponseInnerVerificationRecords) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -227,6 +260,9 @@ func (o GetSendersResponseInnerVerificationRecords) ToMap() (map[string]interfac
 	}
 	if !IsNil(o.InboundMx) {
 		toSerialize["inbound_mx"] = o.InboundMx
+	}
+	if !IsNil(o.TrackingCname) {
+		toSerialize["trackingCname"] = o.TrackingCname
 	}
 	return toSerialize, nil
 }

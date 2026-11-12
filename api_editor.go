@@ -37,7 +37,9 @@ func (r ApiEditorGenerateEditorTokenRequest) Execute() (*BeeTokenV2, *http.Respo
 }
 
 /*
-EditorGenerateEditorToken Get the email editor access token to load it it in your environment
+EditorGenerateEditorToken Get an email editor access token
+
+Get the email editor access token to load it it in your environment
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiEditorGenerateEditorTokenRequest

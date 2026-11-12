@@ -38,7 +38,9 @@ func (r ApiDomainsAddDomainRequest) Execute() ([]GetSendersResponseInner, *http.
 }
 
 /*
-DomainsAddDomain Start verification for a domain you already own so Pingram can use it for email. Pass a bare domain (example.com) or subdomain (mail.example.com). This does not purchase, transfer, renew, or control the domain, does not edit DNS, and does not disable sending or receiving on other platforms. It saves the domain on this Pingram account and returns DNS records for you to publish. Required DKIM lets Pingram send email from addresses on this domain once verification completes. Optional inbound MX, once you publish it, routes that domain's inbound email to Pingram. This call only begins verification. Publish the records, then start verification in the dashboard or with the start-verification API. Adding a domain that is already on the account returns the existing records.
+DomainsAddDomain Start verification for a domain you already own
+
+Start verification for a domain you already own so Pingram can use it for email. Pass a bare domain (example.com) or subdomain (mail.example.com). This does not purchase, transfer, renew, or control the domain, does not edit DNS, and does not disable sending or receiving on other platforms. It saves the domain on this Pingram account and returns DNS records for you to publish. Required DKIM lets Pingram send email from addresses on this domain once verification completes. Optional inbound MX, once you publish it, routes that domain's inbound email to Pingram. This call only begins verification. Publish the records, then start verification in the dashboard or with the start-verification API. Adding a domain that is already on the account returns the existing records.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiDomainsAddDomainRequest
@@ -174,7 +176,9 @@ func (r ApiDomainsDeleteDomainRequest) Execute() (*SuccessResponse, *http.Respon
 }
 
 /*
-DomainsDeleteDomain Remove a sender domain from the account.
+DomainsDeleteDomain Remove a sender domain from the account
+
+Remove a sending domain from this account. You can no longer send from it, and the tracking subdomain this account created for it stops serving opens, clicks, and unsubscribe for new mail.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param sender Sender domain (URL encoded)
@@ -307,7 +311,9 @@ func (r ApiDomainsListDomainsRequest) Execute() ([]GetSendersResponseInner, *htt
 }
 
 /*
-DomainsListDomains List domains already added to this Pingram account for email. Each entry includes verification status and the DNS records Pingram expects you to publish. Does not search a registrar, purchase or transfer a domain, change DNS, or include domains that have not been added to this account.
+DomainsListDomains List domains already added to this Pingram account for email
+
+List domains already added to this Pingram account for email. Each entry includes verification status and the DNS records Pingram expects you to publish. Does not search a registrar, purchase or transfer a domain, change DNS, or include domains that have not been added to this account.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiDomainsListDomainsRequest
@@ -438,7 +444,9 @@ func (r ApiDomainsStartDomainVerificationRequest) Execute() ([]GetSendersRespons
 }
 
 /*
-DomainsStartDomainVerification Start SES domain verification (DNS readiness is checked client-side via checkDomainDns)
+DomainsStartDomainVerification Start domain verification
+
+Start verification for a domain already on this account, so you can send from addresses on it. Publish the DNS records first. This also checks the tracking subdomain and keeps setting it up. Call it again any time. If verification has already started, this still checks the tracking subdomain and returns the domain as it is now.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param sender Sender domain (URL encoded)

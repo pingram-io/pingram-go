@@ -31,7 +31,9 @@ func (r ApiHealthHealthCheckRequest) Execute() (*MessageResponse, *http.Response
 }
 
 /*
-HealthHealthCheck Perform health checks on our internal systems.
+HealthHealthCheck Perform health checks on our internal systems
+
+Perform health checks on our internal systems.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiHealthHealthCheckRequest

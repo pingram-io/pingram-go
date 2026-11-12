@@ -16,6 +16,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 // AccountsAPIService AccountsAPI service
@@ -37,7 +38,9 @@ func (r ApiAccountsCreateAccountRequest) Execute() (*CreateAccountResponse, *htt
 }
 
 /*
-AccountsCreateAccount Create one additional Pingram account (a separate workspace) for the signed-in user. The caller must already belong to an account. Requires a user session or personal access token; an account API key cannot call this. Does not create a login, and does not change, delete, or grant access to existing accounts. Omit plan and nothing is charged. The new account is ready for billing to be added later, and it cannot send until then. Setting plan charges immediately. It starts a paid subscription on the payment method already saved on sourceBillingAccountId, an account the caller must own. Optional memberEmails adds people who already share an account with the caller and invites everyone else.
+AccountsCreateAccount Create another Pingram account
+
+Create one additional Pingram account (a separate workspace) for the signed-in user. The caller must already belong to an account. Requires a user session or personal access token; an account API key cannot call this. Does not create a login, and does not change, delete, or grant access to existing accounts. Omit plan and nothing is charged. The new account is ready for billing to be added later, and it cannot send until then. Setting plan charges immediately. It starts a paid subscription on the payment method already saved on sourceBillingAccountId, an account the caller must own. Optional memberEmails adds people who already share an account with the caller and invites everyone else.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiAccountsCreateAccountRequest
@@ -223,6 +226,153 @@ func (a *AccountsAPIService) AccountsListAccountsExecute(r ApiAccountsListAccoun
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: prefaceHTTPStatusWithApiJSONDetail(localVarHTTPResponse.Status, localVarBody),
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 402 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 502 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = formatDecodeErrorMessage(localVarHTTPResponse.Status, localVarBody, err)
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v, localVarBody)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiAccountsUpdateAccountRequest struct {
+	ctx                  context.Context
+	ApiService           *AccountsAPIService
+	accountId            string
+	updateAccountRequest *UpdateAccountRequest
+}
+
+func (r ApiAccountsUpdateAccountRequest) UpdateAccountRequest(updateAccountRequest UpdateAccountRequest) ApiAccountsUpdateAccountRequest {
+	r.updateAccountRequest = &updateAccountRequest
+	return r
+}
+
+func (r ApiAccountsUpdateAccountRequest) Execute() (*AccountSummary, *http.Response, error) {
+	return r.ApiService.AccountsUpdateAccountExecute(r)
+}
+
+/*
+AccountsUpdateAccount Change the display name of an account
+
+Change the display name of an account the caller can access. The name is the label shown in the dashboard and in account lists.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param accountId Account to rename
+	@return ApiAccountsUpdateAccountRequest
+*/
+func (a *AccountsAPIService) AccountsUpdateAccount(ctx context.Context, accountId string) ApiAccountsUpdateAccountRequest {
+	return ApiAccountsUpdateAccountRequest{
+		ApiService: a,
+		ctx:        ctx,
+		accountId:  accountId,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AccountSummary
+func (a *AccountsAPIService) AccountsUpdateAccountExecute(r ApiAccountsUpdateAccountRequest) (*AccountSummary, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AccountSummary
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountsAPIService.AccountsUpdateAccount")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/accounts/{accountId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.updateAccountRequest == nil {
+		return localVarReturnValue, nil, reportError("updateAccountRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.updateAccountRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

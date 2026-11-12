@@ -17,7 +17,7 @@ import (
 // checks if the TenDlcBrandAdminUpdateRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &TenDlcBrandAdminUpdateRequest{}
 
-// TenDlcBrandAdminUpdateRequest Request body for the superadmin-only PATCH /registrations/us/10dlc/brand/admin
+// TenDlcBrandAdminUpdateRequest Request body for updating a 10DLC brand during review.
 type TenDlcBrandAdminUpdateRequest struct {
 	// Who the 10DLC brand is registered for. - own_brand: personal or company project - client_brand: agency or contractor
 	ScenarioId *string `json:"scenarioId,omitempty"`

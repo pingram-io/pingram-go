@@ -33,7 +33,9 @@ func (r ApiLogsGetDeliveryStatusRequest) Execute() (*LogsDeliveryStatusResponse,
 }
 
 /*
-LogsGetDeliveryStatus Look up email and SMS delivery status for up to 25 tracking IDs. Each entry is the tracking id, channel (EMAIL or SMS), status, and the time that status was recorded. The result does not include recipients, phone numbers, user ids, request bodies, IP addresses, account ids, or user-agent data. Unknown tracking ids are omitted. Other channels are not included.
+LogsGetDeliveryStatus Look up email and SMS delivery status
+
+Look up email and SMS delivery status for up to 25 tracking IDs. Each entry is the tracking id, channel (EMAIL or SMS), status, and the time that status was recorded. The result does not include recipients, phone numbers, user ids, request bodies, IP addresses, account ids, or user-agent data. Unknown tracking ids are omitted. Other channels are not included.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param trackingIds Comma-separated tracking IDs (URL encoded, max 25)
@@ -310,7 +312,9 @@ func (r ApiLogsGetLogsRequest) Execute() (*GetLogsResponse, *http.Response, erro
 }
 
 /*
-LogsGetLogs List recent notification logs for the authenticated account, newest first.
+LogsGetLogs List recent notification logs
+
+List recent notification logs for the authenticated account, newest first.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiLogsGetLogsRequest
@@ -447,7 +451,9 @@ func (r ApiLogsGetLogsByTrackingIdsRequest) Execute() (*LogsGetResponse, *http.R
 }
 
 /*
-LogsGetLogsByTrackingIds Get logs by tracking IDs (comma-separated, max 25 IDs). Returns full log objects with personally identifiable information (recipients, user ids, phone numbers, and request details). For a simple delivery check, use Get Delivery Status.
+LogsGetLogsByTrackingIds Get logs by tracking IDs (comma-separated, max 25 IDs)
+
+Get logs by tracking IDs (comma-separated, max 25 IDs). Returns full log objects with personally identifiable information (recipients, user ids, phone numbers, and request details). For a simple delivery check, use Get Delivery Status.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param trackingIds Comma-separated tracking IDs (URL encoded)
@@ -581,7 +587,9 @@ func (r ApiLogsGetLogsQueryResultRequest) Execute() (*LogsQueryResultResponse, *
 }
 
 /*
-LogsGetLogsQueryResult Get results from a log query started with Start Log Query. Poll until status is Complete.
+LogsGetLogsQueryResult Get results from a log query started with Start Log Query
+
+Get results from a log query started with Start Log Query. Poll until status is Complete.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param queryId Query ID returned by Start Log Query
@@ -715,7 +723,9 @@ func (r ApiLogsRetryInboundRequest) Execute() (*MessageResponse, *http.Response,
 }
 
 /*
-LogsRetryInbound Resend the EMAIL_INBOUND webhook for one inbound email. Uses the original tracking ID and does not count another email. Refused when the message is older than 30 days.
+LogsRetryInbound Resend the EMAIL_INBOUND webhook for one inbound email
+
+Resend the EMAIL_INBOUND webhook for one inbound email. Uses the original tracking ID and does not count another email. Refused when the message is older than 30 days.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param trackingId Tracking ID of the inbound email
@@ -854,7 +864,9 @@ func (r ApiLogsStartLogsQueryRequest) Execute() (*LogsQueryResponse, *http.Respo
 }
 
 /*
-LogsStartLogsQuery Start an asynchronous log search over a date range. Returns a `queryId`; poll with Get Log Query Results until status is Complete.
+LogsStartLogsQuery Start an asynchronous log search over a date range
+
+Start an asynchronous log search over a date range. Returns a `queryId`; poll with Get Log Query Results until status is Complete.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiLogsStartLogsQueryRequest

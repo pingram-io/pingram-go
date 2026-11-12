@@ -169,7 +169,9 @@ func (r ApiEnvironmentsUpdateEnvironmentRequest) Execute() (*Environment, *http.
 }
 
 /*
-EnvironmentsUpdateEnvironment Update environment settings (title, secret, disable sending, secure mode)
+EnvironmentsUpdateEnvironment Update environment settings
+
+Update environment settings (title, secret, disable sending, secure mode)
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param clientId Environment client ID

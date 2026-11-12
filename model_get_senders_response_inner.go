@@ -22,6 +22,8 @@ var _ MappedNullable = &GetSendersResponseInner{}
 
 // GetSendersResponseInner struct for GetSendersResponseInner
 type GetSendersResponseInner struct {
+	// What is still missing before new mail can use the tracking subdomain.
+	WaitingFor           *string                                     `json:"waitingFor,omitempty"`
 	Sender               string                                      `json:"sender"`
 	Status               string                                      `json:"status"`
 	LastSync             time.Time                                   `json:"lastSync"`
@@ -32,6 +34,12 @@ type GetSendersResponseInner struct {
 	ReminderSentAt       *string                                     `json:"reminderSentAt,omitempty"`
 	Selector             string                                      `json:"selector"`
 	VerificationRecords  *GetSendersResponseInnerVerificationRecords `json:"verificationRecords,omitempty"`
+	// Subdomain recipients see on click tracking, the open pixel, and the unsubscribe page, such as links.
+	TrackingSubdomain *string `json:"trackingSubdomain,omitempty"`
+	// Whether tracked links on this subdomain are not started, waiting, active, or failed.
+	TrackingStatus *string `json:"trackingStatus,omitempty"`
+	// Why tracked links on this subdomain are not active, when setup did not succeed.
+	TrackingFailureReason *string `json:"trackingFailureReason,omitempty"`
 }
 
 type _GetSendersResponseInner GetSendersResponseInner
@@ -56,6 +64,38 @@ func NewGetSendersResponseInner(sender string, status string, lastSync time.Time
 func NewGetSendersResponseInnerWithDefaults() *GetSendersResponseInner {
 	this := GetSendersResponseInner{}
 	return &this
+}
+
+// GetWaitingFor returns the WaitingFor field value if set, zero value otherwise.
+func (o *GetSendersResponseInner) GetWaitingFor() string {
+	if o == nil || IsNil(o.WaitingFor) {
+		var ret string
+		return ret
+	}
+	return *o.WaitingFor
+}
+
+// GetWaitingForOk returns a tuple with the WaitingFor field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetSendersResponseInner) GetWaitingForOk() (*string, bool) {
+	if o == nil || IsNil(o.WaitingFor) {
+		return nil, false
+	}
+	return o.WaitingFor, true
+}
+
+// HasWaitingFor returns a boolean if a field has been set.
+func (o *GetSendersResponseInner) HasWaitingFor() bool {
+	if o != nil && !IsNil(o.WaitingFor) {
+		return true
+	}
+
+	return false
+}
+
+// SetWaitingFor gets a reference to the given string and assigns it to the WaitingFor field.
+func (o *GetSendersResponseInner) SetWaitingFor(v string) {
+	o.WaitingFor = &v
 }
 
 // GetSender returns the Sender field value
@@ -338,6 +378,102 @@ func (o *GetSendersResponseInner) SetVerificationRecords(v GetSendersResponseInn
 	o.VerificationRecords = &v
 }
 
+// GetTrackingSubdomain returns the TrackingSubdomain field value if set, zero value otherwise.
+func (o *GetSendersResponseInner) GetTrackingSubdomain() string {
+	if o == nil || IsNil(o.TrackingSubdomain) {
+		var ret string
+		return ret
+	}
+	return *o.TrackingSubdomain
+}
+
+// GetTrackingSubdomainOk returns a tuple with the TrackingSubdomain field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetSendersResponseInner) GetTrackingSubdomainOk() (*string, bool) {
+	if o == nil || IsNil(o.TrackingSubdomain) {
+		return nil, false
+	}
+	return o.TrackingSubdomain, true
+}
+
+// HasTrackingSubdomain returns a boolean if a field has been set.
+func (o *GetSendersResponseInner) HasTrackingSubdomain() bool {
+	if o != nil && !IsNil(o.TrackingSubdomain) {
+		return true
+	}
+
+	return false
+}
+
+// SetTrackingSubdomain gets a reference to the given string and assigns it to the TrackingSubdomain field.
+func (o *GetSendersResponseInner) SetTrackingSubdomain(v string) {
+	o.TrackingSubdomain = &v
+}
+
+// GetTrackingStatus returns the TrackingStatus field value if set, zero value otherwise.
+func (o *GetSendersResponseInner) GetTrackingStatus() string {
+	if o == nil || IsNil(o.TrackingStatus) {
+		var ret string
+		return ret
+	}
+	return *o.TrackingStatus
+}
+
+// GetTrackingStatusOk returns a tuple with the TrackingStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetSendersResponseInner) GetTrackingStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.TrackingStatus) {
+		return nil, false
+	}
+	return o.TrackingStatus, true
+}
+
+// HasTrackingStatus returns a boolean if a field has been set.
+func (o *GetSendersResponseInner) HasTrackingStatus() bool {
+	if o != nil && !IsNil(o.TrackingStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetTrackingStatus gets a reference to the given string and assigns it to the TrackingStatus field.
+func (o *GetSendersResponseInner) SetTrackingStatus(v string) {
+	o.TrackingStatus = &v
+}
+
+// GetTrackingFailureReason returns the TrackingFailureReason field value if set, zero value otherwise.
+func (o *GetSendersResponseInner) GetTrackingFailureReason() string {
+	if o == nil || IsNil(o.TrackingFailureReason) {
+		var ret string
+		return ret
+	}
+	return *o.TrackingFailureReason
+}
+
+// GetTrackingFailureReasonOk returns a tuple with the TrackingFailureReason field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetSendersResponseInner) GetTrackingFailureReasonOk() (*string, bool) {
+	if o == nil || IsNil(o.TrackingFailureReason) {
+		return nil, false
+	}
+	return o.TrackingFailureReason, true
+}
+
+// HasTrackingFailureReason returns a boolean if a field has been set.
+func (o *GetSendersResponseInner) HasTrackingFailureReason() bool {
+	if o != nil && !IsNil(o.TrackingFailureReason) {
+		return true
+	}
+
+	return false
+}
+
+// SetTrackingFailureReason gets a reference to the given string and assigns it to the TrackingFailureReason field.
+func (o *GetSendersResponseInner) SetTrackingFailureReason(v string) {
+	o.TrackingFailureReason = &v
+}
+
 func (o GetSendersResponseInner) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -348,6 +484,9 @@ func (o GetSendersResponseInner) MarshalJSON() ([]byte, error) {
 
 func (o GetSendersResponseInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.WaitingFor) {
+		toSerialize["waitingFor"] = o.WaitingFor
+	}
 	toSerialize["sender"] = o.Sender
 	toSerialize["status"] = o.Status
 	toSerialize["lastSync"] = o.LastSync
@@ -367,6 +506,15 @@ func (o GetSendersResponseInner) ToMap() (map[string]interface{}, error) {
 	toSerialize["selector"] = o.Selector
 	if !IsNil(o.VerificationRecords) {
 		toSerialize["verificationRecords"] = o.VerificationRecords
+	}
+	if !IsNil(o.TrackingSubdomain) {
+		toSerialize["trackingSubdomain"] = o.TrackingSubdomain
+	}
+	if !IsNil(o.TrackingStatus) {
+		toSerialize["trackingStatus"] = o.TrackingStatus
+	}
+	if !IsNil(o.TrackingFailureReason) {
+		toSerialize["trackingFailureReason"] = o.TrackingFailureReason
 	}
 	return toSerialize, nil
 }

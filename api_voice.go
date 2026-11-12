@@ -38,7 +38,9 @@ func (r ApiVoiceArmInboundClaimRequest) Execute() (*ArmVoiceInboundClaimResponse
 }
 
 /*
-VoiceArmInboundClaim Arm the shared test number so the next call from this user's phone uses this inbound behavior
+VoiceArmInboundClaim Arm the shared test number
+
+Arm the shared test number so the next call from this user's phone uses this inbound behavior
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiVoiceArmInboundClaimRequest
@@ -179,7 +181,9 @@ func (r ApiVoiceCallRequest) Execute() (*VoiceCallResponse, *http.Response, erro
 }
 
 /*
-VoiceCall Place an outbound call. The config is not saved.
+VoiceCall Place an outbound call. The config is not saved
+
+Place an outbound call. The config is not saved.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiVoiceCallRequest
@@ -454,7 +458,9 @@ func (r ApiVoiceCreateBrowserCallRequest) Execute() (*VoiceBrowserCallResponse, 
 }
 
 /*
-VoiceCreateBrowserCall Place a browser playground call. Script calls use POST /voice/call.
+VoiceCreateBrowserCall Place a browser playground call
+
+Place a browser playground call. Script calls use POST /voice/call.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiVoiceCreateBrowserCallRequest
@@ -590,7 +596,9 @@ func (r ApiVoiceGetCallRequest) Execute() (*GetVoiceCallResponse, *http.Response
 }
 
 /*
-VoiceGetCall Get a call with transcript timeline and recording playback URL
+VoiceGetCall Get a call recording and transcript
+
+Get a call with transcript timeline and recording playback URL
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param trackingId Call tracking id

@@ -39,7 +39,9 @@ func (r ApiLibraryCreateRequest) Execute() (*CreateLibraryResponse, *http.Respon
 }
 
 /*
-LibraryCreate Create an upload slot in the account library. contentType must be image/png, image/jpeg, image/gif, or image/webp. PUT the file to the returned uploadUrl with that Content-Type, then use the returned url in emails and the editor.
+LibraryCreate Create an upload slot in the account library
+
+Create an upload slot in the account library. contentType must be image/png, image/jpeg, image/gif, or image/webp. PUT the file to the returned uploadUrl with that Content-Type, then use the returned url in emails and the editor.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param useCase Library use-case
@@ -192,7 +194,9 @@ func (r ApiLibraryListRequest) Execute() (*ListLibraryResponse, *http.Response, 
 }
 
 /*
-LibraryList List files in the account library for a use-case, newest first. Paginate with limit (default 50, max 100) and nextToken.
+LibraryList List files in the account library
+
+List files in the account library for a use-case, newest first. Paginate with limit (default 50, max 100) and nextToken.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param useCase Library use-case

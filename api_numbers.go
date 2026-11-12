@@ -32,7 +32,9 @@ func (r ApiNumbersListRequest) Execute() (*ListPhoneNumbersResponse, *http.Respo
 }
 
 /*
-NumbersList List active phone numbers registered for the account, including voice agent binding state.
+NumbersList List phone numbers
+
+List active phone numbers registered for the account, including voice agent binding state.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiNumbersListRequest
@@ -162,7 +164,9 @@ func (r ApiNumbersListReleasedRequest) Execute() (*ListReleasedPhoneNumbersRespo
 }
 
 /*
-NumbersListReleased List released phone numbers. Released numbers may be purchased again with 2 weeks of being released. Released numbers may be removed from released list after 2 weeks.
+NumbersListReleased List released phone numbers
+
+List released phone numbers. Released numbers may be purchased again with 2 weeks of being released. Released numbers may be removed from released list after 2 weeks.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiNumbersListReleasedRequest
@@ -298,7 +302,9 @@ func (r ApiNumbersOrderNumberRequest) Execute() (*OrderPhoneNumberResponse, *htt
 }
 
 /*
-NumbersOrderNumber Purchase a phone number for the authenticated account, or reactivate a released number owned by the account (preserves original createdAt). Pass `phoneNumber` in E.164 format (e.g. +15551234567).
+NumbersOrderNumber Purchase a phone number
+
+Purchase a phone number for the authenticated account, or reactivate a released number owned by the account (preserves original createdAt). Pass `phoneNumber` in E.164 format (e.g. +15551234567).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiNumbersOrderNumberRequest
@@ -434,7 +440,9 @@ func (r ApiNumbersReleaseNumberRequest) Execute() (*ReleasePhoneNumberResponse, 
 }
 
 /*
-NumbersReleaseNumber Release a phone number from the account. No refund for the current billing month.
+NumbersReleaseNumber Release a phone number from the account
+
+Release a phone number from the account. No refund for the current billing month.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param phoneNumber E.164 phone number to release
@@ -595,7 +603,9 @@ func (r ApiNumbersSearchAvailableRequest) Execute() (*SearchAvailablePhoneNumber
 }
 
 /*
-NumbersSearchAvailable Search for available phone numbers to purchase. Requires `countryCode` (e.g. US, CA). Use before ordering a number.
+NumbersSearchAvailable Search for available phone numbers to purchase
+
+Search for available phone numbers to purchase. Requires `countryCode` (e.g. US, CA). Use before ordering a number.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiNumbersSearchAvailableRequest
