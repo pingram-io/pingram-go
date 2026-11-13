@@ -18,11 +18,27 @@ import (
 
 // AgentAgentModel - Configuration for which model processes the call, including its voice settings. `model` chooses the realtime model. `voiceId` must be a voice offered by that model.
 type AgentAgentModel struct {
+	ElevenlabsElevenRealtimeV1Max  *ElevenlabsElevenRealtimeV1Max
+	ElevenlabsElevenRealtimeV1Mini *ElevenlabsElevenRealtimeV1Mini
 	GoogleGemini31FlashLivePreview *GoogleGemini31FlashLivePreview
 	OpenaiGptLive1                 *OpenaiGptLive1
 	OpenaiGptRealtime21            *OpenaiGptRealtime21
 	OpenaiGptRealtime21Mini        *OpenaiGptRealtime21Mini
 	XaiGrokVoiceLatest             *XaiGrokVoiceLatest
+}
+
+// ElevenlabsElevenRealtimeV1MaxAsAgentAgentModel is a convenience function that returns ElevenlabsElevenRealtimeV1Max wrapped in AgentAgentModel
+func ElevenlabsElevenRealtimeV1MaxAsAgentAgentModel(v *ElevenlabsElevenRealtimeV1Max) AgentAgentModel {
+	return AgentAgentModel{
+		ElevenlabsElevenRealtimeV1Max: v,
+	}
+}
+
+// ElevenlabsElevenRealtimeV1MiniAsAgentAgentModel is a convenience function that returns ElevenlabsElevenRealtimeV1Mini wrapped in AgentAgentModel
+func ElevenlabsElevenRealtimeV1MiniAsAgentAgentModel(v *ElevenlabsElevenRealtimeV1Mini) AgentAgentModel {
+	return AgentAgentModel{
+		ElevenlabsElevenRealtimeV1Mini: v,
+	}
 }
 
 // GoogleGemini31FlashLivePreviewAsAgentAgentModel is a convenience function that returns GoogleGemini31FlashLivePreview wrapped in AgentAgentModel
@@ -64,6 +80,40 @@ func XaiGrokVoiceLatestAsAgentAgentModel(v *XaiGrokVoiceLatest) AgentAgentModel 
 func (dst *AgentAgentModel) UnmarshalJSON(data []byte) error {
 	var err error
 	match := 0
+	// try to unmarshal data into ElevenlabsElevenRealtimeV1Max
+	err = newStrictDecoder(data).Decode(&dst.ElevenlabsElevenRealtimeV1Max)
+	if err == nil {
+		jsonElevenlabsElevenRealtimeV1Max, _ := json.Marshal(dst.ElevenlabsElevenRealtimeV1Max)
+		if string(jsonElevenlabsElevenRealtimeV1Max) == "{}" { // empty struct
+			dst.ElevenlabsElevenRealtimeV1Max = nil
+		} else {
+			if err = validator.Validate(dst.ElevenlabsElevenRealtimeV1Max); err != nil {
+				dst.ElevenlabsElevenRealtimeV1Max = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.ElevenlabsElevenRealtimeV1Max = nil
+	}
+
+	// try to unmarshal data into ElevenlabsElevenRealtimeV1Mini
+	err = newStrictDecoder(data).Decode(&dst.ElevenlabsElevenRealtimeV1Mini)
+	if err == nil {
+		jsonElevenlabsElevenRealtimeV1Mini, _ := json.Marshal(dst.ElevenlabsElevenRealtimeV1Mini)
+		if string(jsonElevenlabsElevenRealtimeV1Mini) == "{}" { // empty struct
+			dst.ElevenlabsElevenRealtimeV1Mini = nil
+		} else {
+			if err = validator.Validate(dst.ElevenlabsElevenRealtimeV1Mini); err != nil {
+				dst.ElevenlabsElevenRealtimeV1Mini = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.ElevenlabsElevenRealtimeV1Mini = nil
+	}
+
 	// try to unmarshal data into GoogleGemini31FlashLivePreview
 	err = newStrictDecoder(data).Decode(&dst.GoogleGemini31FlashLivePreview)
 	if err == nil {
@@ -151,6 +201,8 @@ func (dst *AgentAgentModel) UnmarshalJSON(data []byte) error {
 
 	if match > 1 { // more than 1 match
 		// reset to nil
+		dst.ElevenlabsElevenRealtimeV1Max = nil
+		dst.ElevenlabsElevenRealtimeV1Mini = nil
 		dst.GoogleGemini31FlashLivePreview = nil
 		dst.OpenaiGptLive1 = nil
 		dst.OpenaiGptRealtime21 = nil
@@ -167,6 +219,14 @@ func (dst *AgentAgentModel) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src AgentAgentModel) MarshalJSON() ([]byte, error) {
+	if src.ElevenlabsElevenRealtimeV1Max != nil {
+		return json.Marshal(&src.ElevenlabsElevenRealtimeV1Max)
+	}
+
+	if src.ElevenlabsElevenRealtimeV1Mini != nil {
+		return json.Marshal(&src.ElevenlabsElevenRealtimeV1Mini)
+	}
+
 	if src.GoogleGemini31FlashLivePreview != nil {
 		return json.Marshal(&src.GoogleGemini31FlashLivePreview)
 	}
@@ -195,6 +255,14 @@ func (obj *AgentAgentModel) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
+	if obj.ElevenlabsElevenRealtimeV1Max != nil {
+		return obj.ElevenlabsElevenRealtimeV1Max
+	}
+
+	if obj.ElevenlabsElevenRealtimeV1Mini != nil {
+		return obj.ElevenlabsElevenRealtimeV1Mini
+	}
+
 	if obj.GoogleGemini31FlashLivePreview != nil {
 		return obj.GoogleGemini31FlashLivePreview
 	}
@@ -221,6 +289,14 @@ func (obj *AgentAgentModel) GetActualInstance() interface{} {
 
 // Get the actual instance value
 func (obj AgentAgentModel) GetActualInstanceValue() interface{} {
+	if obj.ElevenlabsElevenRealtimeV1Max != nil {
+		return *obj.ElevenlabsElevenRealtimeV1Max
+	}
+
+	if obj.ElevenlabsElevenRealtimeV1Mini != nil {
+		return *obj.ElevenlabsElevenRealtimeV1Mini
+	}
+
 	if obj.GoogleGemini31FlashLivePreview != nil {
 		return *obj.GoogleGemini31FlashLivePreview
 	}

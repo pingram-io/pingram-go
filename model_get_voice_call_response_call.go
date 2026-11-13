@@ -37,9 +37,14 @@ type GetVoiceCallResponseCall struct {
 	EndReason *string `json:"endReason,omitempty"`
 	// Short human-readable detail, such as why the call failed.
 	EndDetail *string `json:"endDetail,omitempty"`
+	// Live call socket. Present while the call is active.
+	Websocket *string `json:"websocket,omitempty"`
+	// Token for the live call socket. Present while the call is active.
+	Token *string `json:"token,omitempty"`
 	// Full chronological timeline (transcript + ops events).
 	Timeline     []GetVoiceCallResponseCallTimelineInner `json:"timeline"`
 	RecordingUrl *string                                 `json:"recordingUrl,omitempty"`
+	Setup        *GetVoiceCallResponseCallSetup          `json:"setup,omitempty"`
 	Variables    *map[string]string                      `json:"variables,omitempty"`
 	Cost         *GetVoiceCallResponseCallCost           `json:"cost,omitempty"`
 }
@@ -417,6 +422,70 @@ func (o *GetVoiceCallResponseCall) SetEndDetail(v string) {
 	o.EndDetail = &v
 }
 
+// GetWebsocket returns the Websocket field value if set, zero value otherwise.
+func (o *GetVoiceCallResponseCall) GetWebsocket() string {
+	if o == nil || IsNil(o.Websocket) {
+		var ret string
+		return ret
+	}
+	return *o.Websocket
+}
+
+// GetWebsocketOk returns a tuple with the Websocket field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetVoiceCallResponseCall) GetWebsocketOk() (*string, bool) {
+	if o == nil || IsNil(o.Websocket) {
+		return nil, false
+	}
+	return o.Websocket, true
+}
+
+// HasWebsocket returns a boolean if a field has been set.
+func (o *GetVoiceCallResponseCall) HasWebsocket() bool {
+	if o != nil && !IsNil(o.Websocket) {
+		return true
+	}
+
+	return false
+}
+
+// SetWebsocket gets a reference to the given string and assigns it to the Websocket field.
+func (o *GetVoiceCallResponseCall) SetWebsocket(v string) {
+	o.Websocket = &v
+}
+
+// GetToken returns the Token field value if set, zero value otherwise.
+func (o *GetVoiceCallResponseCall) GetToken() string {
+	if o == nil || IsNil(o.Token) {
+		var ret string
+		return ret
+	}
+	return *o.Token
+}
+
+// GetTokenOk returns a tuple with the Token field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetVoiceCallResponseCall) GetTokenOk() (*string, bool) {
+	if o == nil || IsNil(o.Token) {
+		return nil, false
+	}
+	return o.Token, true
+}
+
+// HasToken returns a boolean if a field has been set.
+func (o *GetVoiceCallResponseCall) HasToken() bool {
+	if o != nil && !IsNil(o.Token) {
+		return true
+	}
+
+	return false
+}
+
+// SetToken gets a reference to the given string and assigns it to the Token field.
+func (o *GetVoiceCallResponseCall) SetToken(v string) {
+	o.Token = &v
+}
+
 // GetTimeline returns the Timeline field value
 func (o *GetVoiceCallResponseCall) GetTimeline() []GetVoiceCallResponseCallTimelineInner {
 	if o == nil {
@@ -471,6 +540,38 @@ func (o *GetVoiceCallResponseCall) HasRecordingUrl() bool {
 // SetRecordingUrl gets a reference to the given string and assigns it to the RecordingUrl field.
 func (o *GetVoiceCallResponseCall) SetRecordingUrl(v string) {
 	o.RecordingUrl = &v
+}
+
+// GetSetup returns the Setup field value if set, zero value otherwise.
+func (o *GetVoiceCallResponseCall) GetSetup() GetVoiceCallResponseCallSetup {
+	if o == nil || IsNil(o.Setup) {
+		var ret GetVoiceCallResponseCallSetup
+		return ret
+	}
+	return *o.Setup
+}
+
+// GetSetupOk returns a tuple with the Setup field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetVoiceCallResponseCall) GetSetupOk() (*GetVoiceCallResponseCallSetup, bool) {
+	if o == nil || IsNil(o.Setup) {
+		return nil, false
+	}
+	return o.Setup, true
+}
+
+// HasSetup returns a boolean if a field has been set.
+func (o *GetVoiceCallResponseCall) HasSetup() bool {
+	if o != nil && !IsNil(o.Setup) {
+		return true
+	}
+
+	return false
+}
+
+// SetSetup gets a reference to the given GetVoiceCallResponseCallSetup and assigns it to the Setup field.
+func (o *GetVoiceCallResponseCall) SetSetup(v GetVoiceCallResponseCallSetup) {
+	o.Setup = &v
 }
 
 // GetVariables returns the Variables field value if set, zero value otherwise.
@@ -568,9 +669,18 @@ func (o GetVoiceCallResponseCall) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.EndDetail) {
 		toSerialize["endDetail"] = o.EndDetail
 	}
+	if !IsNil(o.Websocket) {
+		toSerialize["websocket"] = o.Websocket
+	}
+	if !IsNil(o.Token) {
+		toSerialize["token"] = o.Token
+	}
 	toSerialize["timeline"] = o.Timeline
 	if !IsNil(o.RecordingUrl) {
 		toSerialize["recordingUrl"] = o.RecordingUrl
+	}
+	if !IsNil(o.Setup) {
+		toSerialize["setup"] = o.Setup
 	}
 	if !IsNil(o.Variables) {
 		toSerialize["variables"] = o.Variables

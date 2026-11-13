@@ -23,6 +23,7 @@ var _ MappedNullable = &Script{}
 type Script struct {
 	Type    string             `json:"type"`
 	Steps   []ScriptStepsInner `json:"steps"`
+	Stream  *ScriptStream      `json:"stream,omitempty"`
 	Privacy *ScriptPrivacy     `json:"privacy,omitempty"`
 }
 
@@ -95,6 +96,38 @@ func (o *Script) SetSteps(v []ScriptStepsInner) {
 	o.Steps = v
 }
 
+// GetStream returns the Stream field value if set, zero value otherwise.
+func (o *Script) GetStream() ScriptStream {
+	if o == nil || IsNil(o.Stream) {
+		var ret ScriptStream
+		return ret
+	}
+	return *o.Stream
+}
+
+// GetStreamOk returns a tuple with the Stream field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Script) GetStreamOk() (*ScriptStream, bool) {
+	if o == nil || IsNil(o.Stream) {
+		return nil, false
+	}
+	return o.Stream, true
+}
+
+// HasStream returns a boolean if a field has been set.
+func (o *Script) HasStream() bool {
+	if o != nil && !IsNil(o.Stream) {
+		return true
+	}
+
+	return false
+}
+
+// SetStream gets a reference to the given ScriptStream and assigns it to the Stream field.
+func (o *Script) SetStream(v ScriptStream) {
+	o.Stream = &v
+}
+
 // GetPrivacy returns the Privacy field value if set, zero value otherwise.
 func (o *Script) GetPrivacy() ScriptPrivacy {
 	if o == nil || IsNil(o.Privacy) {
@@ -139,6 +172,9 @@ func (o Script) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["type"] = o.Type
 	toSerialize["steps"] = o.Steps
+	if !IsNil(o.Stream) {
+		toSerialize["stream"] = o.Stream
+	}
 	if !IsNil(o.Privacy) {
 		toSerialize["privacy"] = o.Privacy
 	}

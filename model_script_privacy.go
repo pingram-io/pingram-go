@@ -17,10 +17,11 @@ import (
 // checks if the ScriptPrivacy type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ScriptPrivacy{}
 
-// ScriptPrivacy Omitted privacy means record and transcribe are both on.
+// ScriptPrivacy Omitted record and transcript mean both are off.
 type ScriptPrivacy struct {
-	Record     *bool `json:"record,omitempty"`
-	Transcribe *bool `json:"transcribe,omitempty"`
+	Record *bool `json:"record,omitempty"`
+	// single mixes every channel into one stream. multichannel transcribes each channel.
+	Transcript *string `json:"transcript,omitempty"`
 }
 
 // NewScriptPrivacy instantiates a new ScriptPrivacy object
@@ -72,36 +73,36 @@ func (o *ScriptPrivacy) SetRecord(v bool) {
 	o.Record = &v
 }
 
-// GetTranscribe returns the Transcribe field value if set, zero value otherwise.
-func (o *ScriptPrivacy) GetTranscribe() bool {
-	if o == nil || IsNil(o.Transcribe) {
-		var ret bool
+// GetTranscript returns the Transcript field value if set, zero value otherwise.
+func (o *ScriptPrivacy) GetTranscript() string {
+	if o == nil || IsNil(o.Transcript) {
+		var ret string
 		return ret
 	}
-	return *o.Transcribe
+	return *o.Transcript
 }
 
-// GetTranscribeOk returns a tuple with the Transcribe field value if set, nil otherwise
+// GetTranscriptOk returns a tuple with the Transcript field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ScriptPrivacy) GetTranscribeOk() (*bool, bool) {
-	if o == nil || IsNil(o.Transcribe) {
+func (o *ScriptPrivacy) GetTranscriptOk() (*string, bool) {
+	if o == nil || IsNil(o.Transcript) {
 		return nil, false
 	}
-	return o.Transcribe, true
+	return o.Transcript, true
 }
 
-// HasTranscribe returns a boolean if a field has been set.
-func (o *ScriptPrivacy) HasTranscribe() bool {
-	if o != nil && !IsNil(o.Transcribe) {
+// HasTranscript returns a boolean if a field has been set.
+func (o *ScriptPrivacy) HasTranscript() bool {
+	if o != nil && !IsNil(o.Transcript) {
 		return true
 	}
 
 	return false
 }
 
-// SetTranscribe gets a reference to the given bool and assigns it to the Transcribe field.
-func (o *ScriptPrivacy) SetTranscribe(v bool) {
-	o.Transcribe = &v
+// SetTranscript gets a reference to the given string and assigns it to the Transcript field.
+func (o *ScriptPrivacy) SetTranscript(v string) {
+	o.Transcript = &v
 }
 
 func (o ScriptPrivacy) MarshalJSON() ([]byte, error) {
@@ -117,8 +118,8 @@ func (o ScriptPrivacy) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Record) {
 		toSerialize["record"] = o.Record
 	}
-	if !IsNil(o.Transcribe) {
-		toSerialize["transcribe"] = o.Transcribe
+	if !IsNil(o.Transcript) {
+		toSerialize["transcript"] = o.Transcript
 	}
 	return toSerialize, nil
 }

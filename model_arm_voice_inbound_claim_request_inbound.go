@@ -18,10 +18,12 @@ import (
 
 // ArmVoiceInboundClaimRequestInbound - struct for ArmVoiceInboundClaimRequestInbound
 type ArmVoiceInboundClaimRequestInbound struct {
-	Agent     *Agent
-	Disabled  *Disabled
-	Script    *Script
-	Transfer1 *Transfer1
+	Agent      *Agent
+	Disabled   *Disabled
+	Elevenlabs *Elevenlabs
+	Script     *Script
+	Stream     *Stream
+	Transfer1  *Transfer1
 }
 
 // AgentAsArmVoiceInboundClaimRequestInbound is a convenience function that returns Agent wrapped in ArmVoiceInboundClaimRequestInbound
@@ -38,10 +40,24 @@ func DisabledAsArmVoiceInboundClaimRequestInbound(v *Disabled) ArmVoiceInboundCl
 	}
 }
 
+// ElevenlabsAsArmVoiceInboundClaimRequestInbound is a convenience function that returns Elevenlabs wrapped in ArmVoiceInboundClaimRequestInbound
+func ElevenlabsAsArmVoiceInboundClaimRequestInbound(v *Elevenlabs) ArmVoiceInboundClaimRequestInbound {
+	return ArmVoiceInboundClaimRequestInbound{
+		Elevenlabs: v,
+	}
+}
+
 // ScriptAsArmVoiceInboundClaimRequestInbound is a convenience function that returns Script wrapped in ArmVoiceInboundClaimRequestInbound
 func ScriptAsArmVoiceInboundClaimRequestInbound(v *Script) ArmVoiceInboundClaimRequestInbound {
 	return ArmVoiceInboundClaimRequestInbound{
 		Script: v,
+	}
+}
+
+// StreamAsArmVoiceInboundClaimRequestInbound is a convenience function that returns Stream wrapped in ArmVoiceInboundClaimRequestInbound
+func StreamAsArmVoiceInboundClaimRequestInbound(v *Stream) ArmVoiceInboundClaimRequestInbound {
+	return ArmVoiceInboundClaimRequestInbound{
+		Stream: v,
 	}
 }
 
@@ -90,6 +106,23 @@ func (dst *ArmVoiceInboundClaimRequestInbound) UnmarshalJSON(data []byte) error 
 		dst.Disabled = nil
 	}
 
+	// try to unmarshal data into Elevenlabs
+	err = newStrictDecoder(data).Decode(&dst.Elevenlabs)
+	if err == nil {
+		jsonElevenlabs, _ := json.Marshal(dst.Elevenlabs)
+		if string(jsonElevenlabs) == "{}" { // empty struct
+			dst.Elevenlabs = nil
+		} else {
+			if err = validator.Validate(dst.Elevenlabs); err != nil {
+				dst.Elevenlabs = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.Elevenlabs = nil
+	}
+
 	// try to unmarshal data into Script
 	err = newStrictDecoder(data).Decode(&dst.Script)
 	if err == nil {
@@ -105,6 +138,23 @@ func (dst *ArmVoiceInboundClaimRequestInbound) UnmarshalJSON(data []byte) error 
 		}
 	} else {
 		dst.Script = nil
+	}
+
+	// try to unmarshal data into Stream
+	err = newStrictDecoder(data).Decode(&dst.Stream)
+	if err == nil {
+		jsonStream, _ := json.Marshal(dst.Stream)
+		if string(jsonStream) == "{}" { // empty struct
+			dst.Stream = nil
+		} else {
+			if err = validator.Validate(dst.Stream); err != nil {
+				dst.Stream = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.Stream = nil
 	}
 
 	// try to unmarshal data into Transfer1
@@ -128,7 +178,9 @@ func (dst *ArmVoiceInboundClaimRequestInbound) UnmarshalJSON(data []byte) error 
 		// reset to nil
 		dst.Agent = nil
 		dst.Disabled = nil
+		dst.Elevenlabs = nil
 		dst.Script = nil
+		dst.Stream = nil
 		dst.Transfer1 = nil
 
 		return fmt.Errorf("data matches more than one schema in oneOf(ArmVoiceInboundClaimRequestInbound)")
@@ -149,8 +201,16 @@ func (src ArmVoiceInboundClaimRequestInbound) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.Disabled)
 	}
 
+	if src.Elevenlabs != nil {
+		return json.Marshal(&src.Elevenlabs)
+	}
+
 	if src.Script != nil {
 		return json.Marshal(&src.Script)
+	}
+
+	if src.Stream != nil {
+		return json.Marshal(&src.Stream)
 	}
 
 	if src.Transfer1 != nil {
@@ -173,8 +233,16 @@ func (obj *ArmVoiceInboundClaimRequestInbound) GetActualInstance() interface{} {
 		return obj.Disabled
 	}
 
+	if obj.Elevenlabs != nil {
+		return obj.Elevenlabs
+	}
+
 	if obj.Script != nil {
 		return obj.Script
+	}
+
+	if obj.Stream != nil {
+		return obj.Stream
 	}
 
 	if obj.Transfer1 != nil {
@@ -195,8 +263,16 @@ func (obj ArmVoiceInboundClaimRequestInbound) GetActualInstanceValue() interface
 		return *obj.Disabled
 	}
 
+	if obj.Elevenlabs != nil {
+		return *obj.Elevenlabs
+	}
+
 	if obj.Script != nil {
 		return *obj.Script
+	}
+
+	if obj.Stream != nil {
+		return *obj.Stream
 	}
 
 	if obj.Transfer1 != nil {

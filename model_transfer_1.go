@@ -21,9 +21,16 @@ var _ MappedNullable = &Transfer1{}
 
 // Transfer1 struct for Transfer1
 type Transfer1 struct {
-	Type    string         `json:"type"`
-	To      string         `json:"to"`
-	Privacy *ScriptPrivacy `json:"privacy,omitempty"`
+	Type string `json:"type"`
+	To   string `json:"to"`
+	// Spoken once to the caller while they wait. If holdAudio is also set, this sentence plays first and then the audio.
+	HoldSay *string `json:"holdSay,omitempty"`
+	// `builtin:soft-piano`, `builtin:calm`, `builtin:bright`, or an HTTPS MP3 or WAV. Loops until the call connects. Omit it and the caller hears ringing.
+	HoldAudio *string `json:"holdAudio,omitempty"`
+	// Spoken to the person who answers, before the caller is connected.
+	ReceiverSay *string        `json:"receiverSay,omitempty"`
+	Stream      *ScriptStream  `json:"stream,omitempty"`
+	Privacy     *ScriptPrivacy `json:"privacy,omitempty"`
 }
 
 type _Transfer1 Transfer1
@@ -95,6 +102,134 @@ func (o *Transfer1) SetTo(v string) {
 	o.To = v
 }
 
+// GetHoldSay returns the HoldSay field value if set, zero value otherwise.
+func (o *Transfer1) GetHoldSay() string {
+	if o == nil || IsNil(o.HoldSay) {
+		var ret string
+		return ret
+	}
+	return *o.HoldSay
+}
+
+// GetHoldSayOk returns a tuple with the HoldSay field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Transfer1) GetHoldSayOk() (*string, bool) {
+	if o == nil || IsNil(o.HoldSay) {
+		return nil, false
+	}
+	return o.HoldSay, true
+}
+
+// HasHoldSay returns a boolean if a field has been set.
+func (o *Transfer1) HasHoldSay() bool {
+	if o != nil && !IsNil(o.HoldSay) {
+		return true
+	}
+
+	return false
+}
+
+// SetHoldSay gets a reference to the given string and assigns it to the HoldSay field.
+func (o *Transfer1) SetHoldSay(v string) {
+	o.HoldSay = &v
+}
+
+// GetHoldAudio returns the HoldAudio field value if set, zero value otherwise.
+func (o *Transfer1) GetHoldAudio() string {
+	if o == nil || IsNil(o.HoldAudio) {
+		var ret string
+		return ret
+	}
+	return *o.HoldAudio
+}
+
+// GetHoldAudioOk returns a tuple with the HoldAudio field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Transfer1) GetHoldAudioOk() (*string, bool) {
+	if o == nil || IsNil(o.HoldAudio) {
+		return nil, false
+	}
+	return o.HoldAudio, true
+}
+
+// HasHoldAudio returns a boolean if a field has been set.
+func (o *Transfer1) HasHoldAudio() bool {
+	if o != nil && !IsNil(o.HoldAudio) {
+		return true
+	}
+
+	return false
+}
+
+// SetHoldAudio gets a reference to the given string and assigns it to the HoldAudio field.
+func (o *Transfer1) SetHoldAudio(v string) {
+	o.HoldAudio = &v
+}
+
+// GetReceiverSay returns the ReceiverSay field value if set, zero value otherwise.
+func (o *Transfer1) GetReceiverSay() string {
+	if o == nil || IsNil(o.ReceiverSay) {
+		var ret string
+		return ret
+	}
+	return *o.ReceiverSay
+}
+
+// GetReceiverSayOk returns a tuple with the ReceiverSay field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Transfer1) GetReceiverSayOk() (*string, bool) {
+	if o == nil || IsNil(o.ReceiverSay) {
+		return nil, false
+	}
+	return o.ReceiverSay, true
+}
+
+// HasReceiverSay returns a boolean if a field has been set.
+func (o *Transfer1) HasReceiverSay() bool {
+	if o != nil && !IsNil(o.ReceiverSay) {
+		return true
+	}
+
+	return false
+}
+
+// SetReceiverSay gets a reference to the given string and assigns it to the ReceiverSay field.
+func (o *Transfer1) SetReceiverSay(v string) {
+	o.ReceiverSay = &v
+}
+
+// GetStream returns the Stream field value if set, zero value otherwise.
+func (o *Transfer1) GetStream() ScriptStream {
+	if o == nil || IsNil(o.Stream) {
+		var ret ScriptStream
+		return ret
+	}
+	return *o.Stream
+}
+
+// GetStreamOk returns a tuple with the Stream field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Transfer1) GetStreamOk() (*ScriptStream, bool) {
+	if o == nil || IsNil(o.Stream) {
+		return nil, false
+	}
+	return o.Stream, true
+}
+
+// HasStream returns a boolean if a field has been set.
+func (o *Transfer1) HasStream() bool {
+	if o != nil && !IsNil(o.Stream) {
+		return true
+	}
+
+	return false
+}
+
+// SetStream gets a reference to the given ScriptStream and assigns it to the Stream field.
+func (o *Transfer1) SetStream(v ScriptStream) {
+	o.Stream = &v
+}
+
 // GetPrivacy returns the Privacy field value if set, zero value otherwise.
 func (o *Transfer1) GetPrivacy() ScriptPrivacy {
 	if o == nil || IsNil(o.Privacy) {
@@ -139,6 +274,18 @@ func (o Transfer1) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["type"] = o.Type
 	toSerialize["to"] = o.To
+	if !IsNil(o.HoldSay) {
+		toSerialize["holdSay"] = o.HoldSay
+	}
+	if !IsNil(o.HoldAudio) {
+		toSerialize["holdAudio"] = o.HoldAudio
+	}
+	if !IsNil(o.ReceiverSay) {
+		toSerialize["receiverSay"] = o.ReceiverSay
+	}
+	if !IsNil(o.Stream) {
+		toSerialize["stream"] = o.Stream
+	}
 	if !IsNil(o.Privacy) {
 		toSerialize["privacy"] = o.Privacy
 	}

@@ -26,6 +26,7 @@ type Script1 struct {
 	// What to do when an answering machine picks up. hangup ends the call, message plays voicemailMessage, continue keeps talking. Default: continue.
 	VoicemailAction  *string        `json:"voicemailAction,omitempty"`
 	VoicemailMessage *string        `json:"voicemailMessage,omitempty"`
+	Stream           *ScriptStream  `json:"stream,omitempty"`
 	Privacy          *ScriptPrivacy `json:"privacy,omitempty"`
 }
 
@@ -162,6 +163,38 @@ func (o *Script1) SetVoicemailMessage(v string) {
 	o.VoicemailMessage = &v
 }
 
+// GetStream returns the Stream field value if set, zero value otherwise.
+func (o *Script1) GetStream() ScriptStream {
+	if o == nil || IsNil(o.Stream) {
+		var ret ScriptStream
+		return ret
+	}
+	return *o.Stream
+}
+
+// GetStreamOk returns a tuple with the Stream field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Script1) GetStreamOk() (*ScriptStream, bool) {
+	if o == nil || IsNil(o.Stream) {
+		return nil, false
+	}
+	return o.Stream, true
+}
+
+// HasStream returns a boolean if a field has been set.
+func (o *Script1) HasStream() bool {
+	if o != nil && !IsNil(o.Stream) {
+		return true
+	}
+
+	return false
+}
+
+// SetStream gets a reference to the given ScriptStream and assigns it to the Stream field.
+func (o *Script1) SetStream(v ScriptStream) {
+	o.Stream = &v
+}
+
 // GetPrivacy returns the Privacy field value if set, zero value otherwise.
 func (o *Script1) GetPrivacy() ScriptPrivacy {
 	if o == nil || IsNil(o.Privacy) {
@@ -211,6 +244,9 @@ func (o Script1) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.VoicemailMessage) {
 		toSerialize["voicemailMessage"] = o.VoicemailMessage
+	}
+	if !IsNil(o.Stream) {
+		toSerialize["stream"] = o.Stream
 	}
 	if !IsNil(o.Privacy) {
 		toSerialize["privacy"] = o.Privacy

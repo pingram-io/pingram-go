@@ -18,10 +18,12 @@ import (
 
 // InboundConfig - struct for InboundConfig
 type InboundConfig struct {
-	Agent     *Agent
-	Disabled  *Disabled
-	Script    *Script
-	Transfer1 *Transfer1
+	Agent      *Agent
+	Disabled   *Disabled
+	Elevenlabs *Elevenlabs
+	Script     *Script
+	Stream     *Stream
+	Transfer1  *Transfer1
 }
 
 // AgentAsInboundConfig is a convenience function that returns Agent wrapped in InboundConfig
@@ -38,10 +40,24 @@ func DisabledAsInboundConfig(v *Disabled) InboundConfig {
 	}
 }
 
+// ElevenlabsAsInboundConfig is a convenience function that returns Elevenlabs wrapped in InboundConfig
+func ElevenlabsAsInboundConfig(v *Elevenlabs) InboundConfig {
+	return InboundConfig{
+		Elevenlabs: v,
+	}
+}
+
 // ScriptAsInboundConfig is a convenience function that returns Script wrapped in InboundConfig
 func ScriptAsInboundConfig(v *Script) InboundConfig {
 	return InboundConfig{
 		Script: v,
+	}
+}
+
+// StreamAsInboundConfig is a convenience function that returns Stream wrapped in InboundConfig
+func StreamAsInboundConfig(v *Stream) InboundConfig {
+	return InboundConfig{
+		Stream: v,
 	}
 }
 
@@ -90,6 +106,23 @@ func (dst *InboundConfig) UnmarshalJSON(data []byte) error {
 		dst.Disabled = nil
 	}
 
+	// try to unmarshal data into Elevenlabs
+	err = newStrictDecoder(data).Decode(&dst.Elevenlabs)
+	if err == nil {
+		jsonElevenlabs, _ := json.Marshal(dst.Elevenlabs)
+		if string(jsonElevenlabs) == "{}" { // empty struct
+			dst.Elevenlabs = nil
+		} else {
+			if err = validator.Validate(dst.Elevenlabs); err != nil {
+				dst.Elevenlabs = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.Elevenlabs = nil
+	}
+
 	// try to unmarshal data into Script
 	err = newStrictDecoder(data).Decode(&dst.Script)
 	if err == nil {
@@ -105,6 +138,23 @@ func (dst *InboundConfig) UnmarshalJSON(data []byte) error {
 		}
 	} else {
 		dst.Script = nil
+	}
+
+	// try to unmarshal data into Stream
+	err = newStrictDecoder(data).Decode(&dst.Stream)
+	if err == nil {
+		jsonStream, _ := json.Marshal(dst.Stream)
+		if string(jsonStream) == "{}" { // empty struct
+			dst.Stream = nil
+		} else {
+			if err = validator.Validate(dst.Stream); err != nil {
+				dst.Stream = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.Stream = nil
 	}
 
 	// try to unmarshal data into Transfer1
@@ -128,7 +178,9 @@ func (dst *InboundConfig) UnmarshalJSON(data []byte) error {
 		// reset to nil
 		dst.Agent = nil
 		dst.Disabled = nil
+		dst.Elevenlabs = nil
 		dst.Script = nil
+		dst.Stream = nil
 		dst.Transfer1 = nil
 
 		return fmt.Errorf("data matches more than one schema in oneOf(InboundConfig)")
@@ -149,8 +201,16 @@ func (src InboundConfig) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.Disabled)
 	}
 
+	if src.Elevenlabs != nil {
+		return json.Marshal(&src.Elevenlabs)
+	}
+
 	if src.Script != nil {
 		return json.Marshal(&src.Script)
+	}
+
+	if src.Stream != nil {
+		return json.Marshal(&src.Stream)
 	}
 
 	if src.Transfer1 != nil {
@@ -173,8 +233,16 @@ func (obj *InboundConfig) GetActualInstance() interface{} {
 		return obj.Disabled
 	}
 
+	if obj.Elevenlabs != nil {
+		return obj.Elevenlabs
+	}
+
 	if obj.Script != nil {
 		return obj.Script
+	}
+
+	if obj.Stream != nil {
+		return obj.Stream
 	}
 
 	if obj.Transfer1 != nil {
@@ -195,8 +263,16 @@ func (obj InboundConfig) GetActualInstanceValue() interface{} {
 		return *obj.Disabled
 	}
 
+	if obj.Elevenlabs != nil {
+		return *obj.Elevenlabs
+	}
+
 	if obj.Script != nil {
 		return *obj.Script
+	}
+
+	if obj.Stream != nil {
+		return *obj.Stream
 	}
 
 	if obj.Transfer1 != nil {

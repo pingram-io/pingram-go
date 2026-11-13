@@ -21,6 +21,7 @@ var _ MappedNullable = &OpenaiGptRealtime21{}
 
 // OpenaiGptRealtime21 struct for OpenaiGptRealtime21
 type OpenaiGptRealtime21 struct {
+	Effort *string `json:"effort,omitempty"`
 	// Which realtime model processes the call.
 	Model   string  `json:"model"`
 	VoiceId *string `json:"voiceId,omitempty"`
@@ -48,6 +49,38 @@ func NewOpenaiGptRealtime21(model string) *OpenaiGptRealtime21 {
 func NewOpenaiGptRealtime21WithDefaults() *OpenaiGptRealtime21 {
 	this := OpenaiGptRealtime21{}
 	return &this
+}
+
+// GetEffort returns the Effort field value if set, zero value otherwise.
+func (o *OpenaiGptRealtime21) GetEffort() string {
+	if o == nil || IsNil(o.Effort) {
+		var ret string
+		return ret
+	}
+	return *o.Effort
+}
+
+// GetEffortOk returns a tuple with the Effort field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OpenaiGptRealtime21) GetEffortOk() (*string, bool) {
+	if o == nil || IsNil(o.Effort) {
+		return nil, false
+	}
+	return o.Effort, true
+}
+
+// HasEffort returns a boolean if a field has been set.
+func (o *OpenaiGptRealtime21) HasEffort() bool {
+	if o != nil && !IsNil(o.Effort) {
+		return true
+	}
+
+	return false
+}
+
+// SetEffort gets a reference to the given string and assigns it to the Effort field.
+func (o *OpenaiGptRealtime21) SetEffort(v string) {
+	o.Effort = &v
 }
 
 // GetModel returns the Model field value
@@ -180,6 +213,9 @@ func (o OpenaiGptRealtime21) MarshalJSON() ([]byte, error) {
 
 func (o OpenaiGptRealtime21) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Effort) {
+		toSerialize["effort"] = o.Effort
+	}
 	toSerialize["model"] = o.Model
 	if !IsNil(o.VoiceId) {
 		toSerialize["voiceId"] = o.VoiceId

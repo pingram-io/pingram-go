@@ -27,6 +27,7 @@ type Agent1 struct {
 	VoicemailAction  *string        `json:"voicemailAction,omitempty"`
 	VoicemailMessage *string        `json:"voicemailMessage,omitempty"`
 	Agent            AgentAgent     `json:"agent"`
+	Stream           *ScriptStream  `json:"stream,omitempty"`
 	Privacy          *ScriptPrivacy `json:"privacy,omitempty"`
 }
 
@@ -195,6 +196,38 @@ func (o *Agent1) SetAgent(v AgentAgent) {
 	o.Agent = v
 }
 
+// GetStream returns the Stream field value if set, zero value otherwise.
+func (o *Agent1) GetStream() ScriptStream {
+	if o == nil || IsNil(o.Stream) {
+		var ret ScriptStream
+		return ret
+	}
+	return *o.Stream
+}
+
+// GetStreamOk returns a tuple with the Stream field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Agent1) GetStreamOk() (*ScriptStream, bool) {
+	if o == nil || IsNil(o.Stream) {
+		return nil, false
+	}
+	return o.Stream, true
+}
+
+// HasStream returns a boolean if a field has been set.
+func (o *Agent1) HasStream() bool {
+	if o != nil && !IsNil(o.Stream) {
+		return true
+	}
+
+	return false
+}
+
+// SetStream gets a reference to the given ScriptStream and assigns it to the Stream field.
+func (o *Agent1) SetStream(v ScriptStream) {
+	o.Stream = &v
+}
+
 // GetPrivacy returns the Privacy field value if set, zero value otherwise.
 func (o *Agent1) GetPrivacy() ScriptPrivacy {
 	if o == nil || IsNil(o.Privacy) {
@@ -248,6 +281,9 @@ func (o Agent1) ToMap() (map[string]interface{}, error) {
 		toSerialize["voicemailMessage"] = o.VoicemailMessage
 	}
 	toSerialize["agent"] = o.Agent
+	if !IsNil(o.Stream) {
+		toSerialize["stream"] = o.Stream
+	}
 	if !IsNil(o.Privacy) {
 		toSerialize["privacy"] = o.Privacy
 	}

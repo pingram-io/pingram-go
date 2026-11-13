@@ -25,10 +25,12 @@ type TransferDestinationsInner struct {
 	PhoneNumber string `json:"phoneNumber"`
 	// When the model should choose this number. Required when more than one destination is set.
 	Condition string `json:"condition"`
-	// warm briefs the recipient before connecting. cold connects the caller immediately.
-	TransferMode string `json:"transferMode"`
-	// Spoken to the rep before a warm transfer connects.
-	Briefing *string `json:"briefing,omitempty"`
+	// Spoken once to the caller while they wait. If holdAudio is also set, this sentence plays first and then the audio.
+	HoldSay *string `json:"holdSay,omitempty"`
+	// `builtin:soft-piano`, `builtin:calm`, `builtin:bright`, or an HTTPS MP3 or WAV. Loops until the call connects. Omit it and the caller hears ringing.
+	HoldAudio *string `json:"holdAudio,omitempty"`
+	// Shown to the agent with this number. Tells it whether and how to write the sentence spoken to the person who answers. Never spoken. Omit it and the agent is asked to say who is calling and why.
+	ReceiverInstruction *string `json:"receiverInstruction,omitempty"`
 }
 
 type _TransferDestinationsInner TransferDestinationsInner
@@ -37,11 +39,10 @@ type _TransferDestinationsInner TransferDestinationsInner
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTransferDestinationsInner(phoneNumber string, condition string, transferMode string) *TransferDestinationsInner {
+func NewTransferDestinationsInner(phoneNumber string, condition string) *TransferDestinationsInner {
 	this := TransferDestinationsInner{}
 	this.PhoneNumber = phoneNumber
 	this.Condition = condition
-	this.TransferMode = transferMode
 	return &this
 }
 
@@ -101,60 +102,100 @@ func (o *TransferDestinationsInner) SetCondition(v string) {
 	o.Condition = v
 }
 
-// GetTransferMode returns the TransferMode field value
-func (o *TransferDestinationsInner) GetTransferMode() string {
-	if o == nil {
+// GetHoldSay returns the HoldSay field value if set, zero value otherwise.
+func (o *TransferDestinationsInner) GetHoldSay() string {
+	if o == nil || IsNil(o.HoldSay) {
 		var ret string
 		return ret
 	}
-
-	return o.TransferMode
+	return *o.HoldSay
 }
 
-// GetTransferModeOk returns a tuple with the TransferMode field value
+// GetHoldSayOk returns a tuple with the HoldSay field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TransferDestinationsInner) GetTransferModeOk() (*string, bool) {
-	if o == nil {
+func (o *TransferDestinationsInner) GetHoldSayOk() (*string, bool) {
+	if o == nil || IsNil(o.HoldSay) {
 		return nil, false
 	}
-	return &o.TransferMode, true
+	return o.HoldSay, true
 }
 
-// SetTransferMode sets field value
-func (o *TransferDestinationsInner) SetTransferMode(v string) {
-	o.TransferMode = v
-}
-
-// GetBriefing returns the Briefing field value if set, zero value otherwise.
-func (o *TransferDestinationsInner) GetBriefing() string {
-	if o == nil || IsNil(o.Briefing) {
-		var ret string
-		return ret
-	}
-	return *o.Briefing
-}
-
-// GetBriefingOk returns a tuple with the Briefing field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *TransferDestinationsInner) GetBriefingOk() (*string, bool) {
-	if o == nil || IsNil(o.Briefing) {
-		return nil, false
-	}
-	return o.Briefing, true
-}
-
-// HasBriefing returns a boolean if a field has been set.
-func (o *TransferDestinationsInner) HasBriefing() bool {
-	if o != nil && !IsNil(o.Briefing) {
+// HasHoldSay returns a boolean if a field has been set.
+func (o *TransferDestinationsInner) HasHoldSay() bool {
+	if o != nil && !IsNil(o.HoldSay) {
 		return true
 	}
 
 	return false
 }
 
-// SetBriefing gets a reference to the given string and assigns it to the Briefing field.
-func (o *TransferDestinationsInner) SetBriefing(v string) {
-	o.Briefing = &v
+// SetHoldSay gets a reference to the given string and assigns it to the HoldSay field.
+func (o *TransferDestinationsInner) SetHoldSay(v string) {
+	o.HoldSay = &v
+}
+
+// GetHoldAudio returns the HoldAudio field value if set, zero value otherwise.
+func (o *TransferDestinationsInner) GetHoldAudio() string {
+	if o == nil || IsNil(o.HoldAudio) {
+		var ret string
+		return ret
+	}
+	return *o.HoldAudio
+}
+
+// GetHoldAudioOk returns a tuple with the HoldAudio field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TransferDestinationsInner) GetHoldAudioOk() (*string, bool) {
+	if o == nil || IsNil(o.HoldAudio) {
+		return nil, false
+	}
+	return o.HoldAudio, true
+}
+
+// HasHoldAudio returns a boolean if a field has been set.
+func (o *TransferDestinationsInner) HasHoldAudio() bool {
+	if o != nil && !IsNil(o.HoldAudio) {
+		return true
+	}
+
+	return false
+}
+
+// SetHoldAudio gets a reference to the given string and assigns it to the HoldAudio field.
+func (o *TransferDestinationsInner) SetHoldAudio(v string) {
+	o.HoldAudio = &v
+}
+
+// GetReceiverInstruction returns the ReceiverInstruction field value if set, zero value otherwise.
+func (o *TransferDestinationsInner) GetReceiverInstruction() string {
+	if o == nil || IsNil(o.ReceiverInstruction) {
+		var ret string
+		return ret
+	}
+	return *o.ReceiverInstruction
+}
+
+// GetReceiverInstructionOk returns a tuple with the ReceiverInstruction field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TransferDestinationsInner) GetReceiverInstructionOk() (*string, bool) {
+	if o == nil || IsNil(o.ReceiverInstruction) {
+		return nil, false
+	}
+	return o.ReceiverInstruction, true
+}
+
+// HasReceiverInstruction returns a boolean if a field has been set.
+func (o *TransferDestinationsInner) HasReceiverInstruction() bool {
+	if o != nil && !IsNil(o.ReceiverInstruction) {
+		return true
+	}
+
+	return false
+}
+
+// SetReceiverInstruction gets a reference to the given string and assigns it to the ReceiverInstruction field.
+func (o *TransferDestinationsInner) SetReceiverInstruction(v string) {
+	o.ReceiverInstruction = &v
 }
 
 func (o TransferDestinationsInner) MarshalJSON() ([]byte, error) {
@@ -169,9 +210,14 @@ func (o TransferDestinationsInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["phoneNumber"] = o.PhoneNumber
 	toSerialize["condition"] = o.Condition
-	toSerialize["transferMode"] = o.TransferMode
-	if !IsNil(o.Briefing) {
-		toSerialize["briefing"] = o.Briefing
+	if !IsNil(o.HoldSay) {
+		toSerialize["holdSay"] = o.HoldSay
+	}
+	if !IsNil(o.HoldAudio) {
+		toSerialize["holdAudio"] = o.HoldAudio
+	}
+	if !IsNil(o.ReceiverInstruction) {
+		toSerialize["receiverInstruction"] = o.ReceiverInstruction
 	}
 	return toSerialize, nil
 }
@@ -183,7 +229,6 @@ func (o *TransferDestinationsInner) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"phoneNumber",
 		"condition",
-		"transferMode",
 	}
 
 	allProperties := make(map[string]interface{})

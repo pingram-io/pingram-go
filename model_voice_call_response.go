@@ -23,8 +23,10 @@ var _ MappedNullable = &VoiceCallResponse{}
 type VoiceCallResponse struct {
 	// Stable tracking id — use with GET /voice/calls/{trackingId}.
 	TrackingId string `json:"trackingId"`
-	// Live transcript socket. The path id is the trackingId.
+	// Call socket. The path id is the trackingId.
 	Websocket string `json:"websocket"`
+	// Token required on the call socket as ?token=
+	Token string `json:"token"`
 }
 
 type _VoiceCallResponse VoiceCallResponse
@@ -33,10 +35,11 @@ type _VoiceCallResponse VoiceCallResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVoiceCallResponse(trackingId string, websocket string) *VoiceCallResponse {
+func NewVoiceCallResponse(trackingId string, websocket string, token string) *VoiceCallResponse {
 	this := VoiceCallResponse{}
 	this.TrackingId = trackingId
 	this.Websocket = websocket
+	this.Token = token
 	return &this
 }
 
@@ -96,6 +99,30 @@ func (o *VoiceCallResponse) SetWebsocket(v string) {
 	o.Websocket = v
 }
 
+// GetToken returns the Token field value
+func (o *VoiceCallResponse) GetToken() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Token
+}
+
+// GetTokenOk returns a tuple with the Token field value
+// and a boolean to check if the value has been set.
+func (o *VoiceCallResponse) GetTokenOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Token, true
+}
+
+// SetToken sets field value
+func (o *VoiceCallResponse) SetToken(v string) {
+	o.Token = v
+}
+
 func (o VoiceCallResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -108,6 +135,7 @@ func (o VoiceCallResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["trackingId"] = o.TrackingId
 	toSerialize["websocket"] = o.Websocket
+	toSerialize["token"] = o.Token
 	return toSerialize, nil
 }
 
@@ -118,6 +146,7 @@ func (o *VoiceCallResponse) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"trackingId",
 		"websocket",
+		"token",
 	}
 
 	allProperties := make(map[string]interface{})

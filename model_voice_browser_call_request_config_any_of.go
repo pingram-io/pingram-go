@@ -18,8 +18,10 @@ import (
 
 // VoiceBrowserCallRequestConfigAnyOf - struct for VoiceBrowserCallRequestConfigAnyOf
 type VoiceBrowserCallRequestConfigAnyOf struct {
-	Agent1  *Agent1
-	Script1 *Script1
+	Agent1      *Agent1
+	Elevenlabs1 *Elevenlabs1
+	Script1     *Script1
+	Stream      *Stream
 }
 
 // Agent1AsVoiceBrowserCallRequestConfigAnyOf is a convenience function that returns Agent1 wrapped in VoiceBrowserCallRequestConfigAnyOf
@@ -29,10 +31,24 @@ func Agent1AsVoiceBrowserCallRequestConfigAnyOf(v *Agent1) VoiceBrowserCallReque
 	}
 }
 
+// Elevenlabs1AsVoiceBrowserCallRequestConfigAnyOf is a convenience function that returns Elevenlabs1 wrapped in VoiceBrowserCallRequestConfigAnyOf
+func Elevenlabs1AsVoiceBrowserCallRequestConfigAnyOf(v *Elevenlabs1) VoiceBrowserCallRequestConfigAnyOf {
+	return VoiceBrowserCallRequestConfigAnyOf{
+		Elevenlabs1: v,
+	}
+}
+
 // Script1AsVoiceBrowserCallRequestConfigAnyOf is a convenience function that returns Script1 wrapped in VoiceBrowserCallRequestConfigAnyOf
 func Script1AsVoiceBrowserCallRequestConfigAnyOf(v *Script1) VoiceBrowserCallRequestConfigAnyOf {
 	return VoiceBrowserCallRequestConfigAnyOf{
 		Script1: v,
+	}
+}
+
+// StreamAsVoiceBrowserCallRequestConfigAnyOf is a convenience function that returns Stream wrapped in VoiceBrowserCallRequestConfigAnyOf
+func StreamAsVoiceBrowserCallRequestConfigAnyOf(v *Stream) VoiceBrowserCallRequestConfigAnyOf {
+	return VoiceBrowserCallRequestConfigAnyOf{
+		Stream: v,
 	}
 }
 
@@ -57,6 +73,23 @@ func (dst *VoiceBrowserCallRequestConfigAnyOf) UnmarshalJSON(data []byte) error 
 		dst.Agent1 = nil
 	}
 
+	// try to unmarshal data into Elevenlabs1
+	err = newStrictDecoder(data).Decode(&dst.Elevenlabs1)
+	if err == nil {
+		jsonElevenlabs1, _ := json.Marshal(dst.Elevenlabs1)
+		if string(jsonElevenlabs1) == "{}" { // empty struct
+			dst.Elevenlabs1 = nil
+		} else {
+			if err = validator.Validate(dst.Elevenlabs1); err != nil {
+				dst.Elevenlabs1 = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.Elevenlabs1 = nil
+	}
+
 	// try to unmarshal data into Script1
 	err = newStrictDecoder(data).Decode(&dst.Script1)
 	if err == nil {
@@ -74,10 +107,29 @@ func (dst *VoiceBrowserCallRequestConfigAnyOf) UnmarshalJSON(data []byte) error 
 		dst.Script1 = nil
 	}
 
+	// try to unmarshal data into Stream
+	err = newStrictDecoder(data).Decode(&dst.Stream)
+	if err == nil {
+		jsonStream, _ := json.Marshal(dst.Stream)
+		if string(jsonStream) == "{}" { // empty struct
+			dst.Stream = nil
+		} else {
+			if err = validator.Validate(dst.Stream); err != nil {
+				dst.Stream = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.Stream = nil
+	}
+
 	if match > 1 { // more than 1 match
 		// reset to nil
 		dst.Agent1 = nil
+		dst.Elevenlabs1 = nil
 		dst.Script1 = nil
+		dst.Stream = nil
 
 		return fmt.Errorf("data matches more than one schema in oneOf(VoiceBrowserCallRequestConfigAnyOf)")
 	} else if match == 1 {
@@ -93,8 +145,16 @@ func (src VoiceBrowserCallRequestConfigAnyOf) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.Agent1)
 	}
 
+	if src.Elevenlabs1 != nil {
+		return json.Marshal(&src.Elevenlabs1)
+	}
+
 	if src.Script1 != nil {
 		return json.Marshal(&src.Script1)
+	}
+
+	if src.Stream != nil {
+		return json.Marshal(&src.Stream)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -109,8 +169,16 @@ func (obj *VoiceBrowserCallRequestConfigAnyOf) GetActualInstance() interface{} {
 		return obj.Agent1
 	}
 
+	if obj.Elevenlabs1 != nil {
+		return obj.Elevenlabs1
+	}
+
 	if obj.Script1 != nil {
 		return obj.Script1
+	}
+
+	if obj.Stream != nil {
+		return obj.Stream
 	}
 
 	// all schemas are nil
@@ -123,8 +191,16 @@ func (obj VoiceBrowserCallRequestConfigAnyOf) GetActualInstanceValue() interface
 		return *obj.Agent1
 	}
 
+	if obj.Elevenlabs1 != nil {
+		return *obj.Elevenlabs1
+	}
+
 	if obj.Script1 != nil {
 		return *obj.Script1
+	}
+
+	if obj.Stream != nil {
+		return *obj.Stream
 	}
 
 	// all schemas are nil
