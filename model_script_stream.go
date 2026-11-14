@@ -21,7 +21,7 @@ var _ MappedNullable = &ScriptStream{}
 type ScriptStream struct {
 	// Live call audio. Omitted means off.
 	Audio *bool `json:"audio,omitempty"`
-	// single mixes every channel into one stream. multichannel transcribes each channel.
+	// single mixes every channel into one stream. multichannel transcribes each channel. Omitted means off.
 	Transcript *string `json:"transcript,omitempty"`
 }
 

@@ -20,7 +20,7 @@ var _ MappedNullable = &ScriptPrivacy{}
 // ScriptPrivacy Omitted record and transcript mean both are off.
 type ScriptPrivacy struct {
 	Record *bool `json:"record,omitempty"`
-	// single mixes every channel into one stream. multichannel transcribes each channel.
+	// single mixes every channel into one stream. multichannel transcribes each channel. Omitted means off.
 	Transcript *string `json:"transcript,omitempty"`
 }
 

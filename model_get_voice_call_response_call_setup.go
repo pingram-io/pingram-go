@@ -11,9 +11,7 @@ API version: 1.0.0
 package pingram
 
 import (
-	"bytes"
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the GetVoiceCallResponseCallSetup type satisfies the MappedNullable interface at compile time
@@ -21,25 +19,23 @@ var _ MappedNullable = &GetVoiceCallResponseCallSetup{}
 
 // GetVoiceCallResponseCallSetup What was requested when the call was placed. Stored on the call row.
 type GetVoiceCallResponseCallSetup struct {
-	Mode             *string                                 `json:"mode,omitempty"`
-	Script           []ScriptStepsInner                      `json:"script,omitempty"`
-	Record           bool                                    `json:"record"`
-	Transcript       GetVoiceCallResponseCallSetupTranscript `json:"transcript"`
-	Stream           *GetVoiceCallResponseCallSetupStream    `json:"stream,omitempty"`
-	VoicemailAction  *string                                 `json:"voicemailAction,omitempty"`
-	VoicemailMessage *string                                 `json:"voicemailMessage,omitempty"`
+	Mode   *string            `json:"mode,omitempty"`
+	Script []ScriptStepsInner `json:"script,omitempty"`
+	// Call recording. Omitted means off.
+	Record *bool `json:"record,omitempty"`
+	// single mixes every channel into one stream. multichannel transcribes each channel. Omitted means off.
+	Transcript       *string                              `json:"transcript,omitempty"`
+	Stream           *GetVoiceCallResponseCallSetupStream `json:"stream,omitempty"`
+	VoicemailAction  *string                              `json:"voicemailAction,omitempty"`
+	VoicemailMessage *string                              `json:"voicemailMessage,omitempty"`
 }
-
-type _GetVoiceCallResponseCallSetup GetVoiceCallResponseCallSetup
 
 // NewGetVoiceCallResponseCallSetup instantiates a new GetVoiceCallResponseCallSetup object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetVoiceCallResponseCallSetup(record bool, transcript GetVoiceCallResponseCallSetupTranscript) *GetVoiceCallResponseCallSetup {
+func NewGetVoiceCallResponseCallSetup() *GetVoiceCallResponseCallSetup {
 	this := GetVoiceCallResponseCallSetup{}
-	this.Record = record
-	this.Transcript = transcript
 	return &this
 }
 
@@ -115,52 +111,68 @@ func (o *GetVoiceCallResponseCallSetup) SetScript(v []ScriptStepsInner) {
 	o.Script = v
 }
 
-// GetRecord returns the Record field value
+// GetRecord returns the Record field value if set, zero value otherwise.
 func (o *GetVoiceCallResponseCallSetup) GetRecord() bool {
-	if o == nil {
+	if o == nil || IsNil(o.Record) {
 		var ret bool
 		return ret
 	}
-
-	return o.Record
+	return *o.Record
 }
 
-// GetRecordOk returns a tuple with the Record field value
+// GetRecordOk returns a tuple with the Record field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetVoiceCallResponseCallSetup) GetRecordOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Record) {
 		return nil, false
 	}
-	return &o.Record, true
+	return o.Record, true
 }
 
-// SetRecord sets field value
+// HasRecord returns a boolean if a field has been set.
+func (o *GetVoiceCallResponseCallSetup) HasRecord() bool {
+	if o != nil && !IsNil(o.Record) {
+		return true
+	}
+
+	return false
+}
+
+// SetRecord gets a reference to the given bool and assigns it to the Record field.
 func (o *GetVoiceCallResponseCallSetup) SetRecord(v bool) {
-	o.Record = v
+	o.Record = &v
 }
 
-// GetTranscript returns the Transcript field value
-func (o *GetVoiceCallResponseCallSetup) GetTranscript() GetVoiceCallResponseCallSetupTranscript {
-	if o == nil {
-		var ret GetVoiceCallResponseCallSetupTranscript
+// GetTranscript returns the Transcript field value if set, zero value otherwise.
+func (o *GetVoiceCallResponseCallSetup) GetTranscript() string {
+	if o == nil || IsNil(o.Transcript) {
+		var ret string
 		return ret
 	}
-
-	return o.Transcript
+	return *o.Transcript
 }
 
-// GetTranscriptOk returns a tuple with the Transcript field value
+// GetTranscriptOk returns a tuple with the Transcript field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetVoiceCallResponseCallSetup) GetTranscriptOk() (*GetVoiceCallResponseCallSetupTranscript, bool) {
-	if o == nil {
+func (o *GetVoiceCallResponseCallSetup) GetTranscriptOk() (*string, bool) {
+	if o == nil || IsNil(o.Transcript) {
 		return nil, false
 	}
-	return &o.Transcript, true
+	return o.Transcript, true
 }
 
-// SetTranscript sets field value
-func (o *GetVoiceCallResponseCallSetup) SetTranscript(v GetVoiceCallResponseCallSetupTranscript) {
-	o.Transcript = v
+// HasTranscript returns a boolean if a field has been set.
+func (o *GetVoiceCallResponseCallSetup) HasTranscript() bool {
+	if o != nil && !IsNil(o.Transcript) {
+		return true
+	}
+
+	return false
+}
+
+// SetTranscript gets a reference to the given string and assigns it to the Transcript field.
+func (o *GetVoiceCallResponseCallSetup) SetTranscript(v string) {
+	o.Transcript = &v
 }
 
 // GetStream returns the Stream field value if set, zero value otherwise.
@@ -275,8 +287,12 @@ func (o GetVoiceCallResponseCallSetup) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Script) {
 		toSerialize["script"] = o.Script
 	}
-	toSerialize["record"] = o.Record
-	toSerialize["transcript"] = o.Transcript
+	if !IsNil(o.Record) {
+		toSerialize["record"] = o.Record
+	}
+	if !IsNil(o.Transcript) {
+		toSerialize["transcript"] = o.Transcript
+	}
 	if !IsNil(o.Stream) {
 		toSerialize["stream"] = o.Stream
 	}
@@ -287,44 +303,6 @@ func (o GetVoiceCallResponseCallSetup) ToMap() (map[string]interface{}, error) {
 		toSerialize["voicemailMessage"] = o.VoicemailMessage
 	}
 	return toSerialize, nil
-}
-
-func (o *GetVoiceCallResponseCallSetup) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"record",
-		"transcript",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varGetVoiceCallResponseCallSetup := _GetVoiceCallResponseCallSetup{}
-
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGetVoiceCallResponseCallSetup)
-
-	if err != nil {
-		return err
-	}
-
-	*o = GetVoiceCallResponseCallSetup(varGetVoiceCallResponseCallSetup)
-
-	return err
 }
 
 type NullableGetVoiceCallResponseCallSetup struct {
