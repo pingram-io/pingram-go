@@ -572,6 +572,10 @@ type ApiNumbersSearchAvailableRequest struct {
 	features    *string
 	areaCode    *string
 	limit       *float32
+	startsWith  *string
+	endsWith    *string
+	contains    *string
+	city        *string
 }
 
 // ISO 3166-1 alpha-2 country code (e.g., US, CA)
@@ -598,6 +602,30 @@ func (r ApiNumbersSearchAvailableRequest) Limit(limit float32) ApiNumbersSearchA
 	return r
 }
 
+// Digits the number starts with, 1 to 7 digits. Do not include the country code. When &#x60;areaCode&#x60; is set, omit those digits here.
+func (r ApiNumbersSearchAvailableRequest) StartsWith(startsWith string) ApiNumbersSearchAvailableRequest {
+	r.startsWith = &startsWith
+	return r
+}
+
+// Digits the number must end with, 1 to 7 digits. Use this to find a number close to one you already have.
+func (r ApiNumbersSearchAvailableRequest) EndsWith(endsWith string) ApiNumbersSearchAvailableRequest {
+	r.endsWith = &endsWith
+	return r
+}
+
+// Digits to find in the number, in that order, 1 to 7 digits.
+func (r ApiNumbersSearchAvailableRequest) Contains(contains string) ApiNumbersSearchAvailableRequest {
+	r.contains = &contains
+	return r
+}
+
+// City to search in, such as San Francisco.
+func (r ApiNumbersSearchAvailableRequest) City(city string) ApiNumbersSearchAvailableRequest {
+	r.city = &city
+	return r
+}
+
 func (r ApiNumbersSearchAvailableRequest) Execute() (*SearchAvailablePhoneNumbersResponse, *http.Response, error) {
 	return r.ApiService.NumbersSearchAvailableExecute(r)
 }
@@ -605,7 +633,7 @@ func (r ApiNumbersSearchAvailableRequest) Execute() (*SearchAvailablePhoneNumber
 /*
 NumbersSearchAvailable Search for available phone numbers to purchase
 
-Search for available phone numbers to purchase. Requires `countryCode` (e.g. US, CA). Use before ordering a number.
+Search for available phone numbers to purchase. Requires `countryCode` (e.g. US, CA). Narrow the results with an area code, a city, or digits the number should start with, end with, or contain. Use before ordering a number.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiNumbersSearchAvailableRequest
@@ -651,6 +679,18 @@ func (a *NumbersAPIService) NumbersSearchAvailableExecute(r ApiNumbersSearchAvai
 	}
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	if r.startsWith != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "startsWith", r.startsWith, "form", "")
+	}
+	if r.endsWith != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "endsWith", r.endsWith, "form", "")
+	}
+	if r.contains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "contains", r.contains, "form", "")
+	}
+	if r.city != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "city", r.city, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
