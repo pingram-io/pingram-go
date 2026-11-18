@@ -24,7 +24,7 @@ type UpdateBroadcastRequest struct {
 	Channel  *string                    `json:"channel,omitempty"`
 	Audience *BroadcastResponseAudience `json:"audience,omitempty"`
 	FromName *string                    `json:"fromName,omitempty"`
-	// From address. Use an address on a domain verified for this account to email other people. The shared address `noreply@pingram.io` can send a test broadcast only to your own account email as the sole recipient. Verify a domain to send to a wider audience.
+	// From address. Use an address on a domain verified for this account to email other people. The shared address `noreply@pingram.email` can send a test broadcast only to your own account email as the sole recipient. Verify a domain to send to a wider audience.
 	FromAddress *string `json:"fromAddress,omitempty"`
 	// Omit to leave unchanged. Empty string clears Reply-To.
 	ReplyToAddress *string `json:"replyToAddress,omitempty"`

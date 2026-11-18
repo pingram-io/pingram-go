@@ -27,7 +27,7 @@ type CreateBroadcastRequest struct {
 	Channel  *string                   `json:"channel,omitempty"`
 	Audience BroadcastResponseAudience `json:"audience"`
 	FromName string                    `json:"fromName"`
-	// From address. Use an address on a domain verified for this account to email other people. The shared address `noreply@pingram.io` can send a test broadcast only to your own account email as the sole recipient. Verify a domain to send to a wider audience.
+	// From address. Use an address on a domain verified for this account to email other people. The shared address `noreply@pingram.email` can send a test broadcast only to your own account email as the sole recipient. Verify a domain to send to a wider audience.
 	FromAddress    string  `json:"fromAddress"`
 	ReplyToAddress *string `json:"replyToAddress,omitempty"`
 	Subject        string  `json:"subject"`
