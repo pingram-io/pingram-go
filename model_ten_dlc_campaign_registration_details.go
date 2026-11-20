@@ -28,7 +28,7 @@ type TenDlcCampaignRegistrationDetails struct {
 	CampaignDescription *string `json:"campaignDescription,omitempty"`
 	// Example SMS that represents actual campaign traffic. Required before carrier submission. Should match the use case and typically identify the brand and include STOP/HELP language.
 	CampaignSample1 *string `json:"campaignSample1,omitempty"`
-	// Second example SMS. Required before carrier submission. Required for MARKETING and MIXED use cases.
+	// Second example SMS. Required before carrier submission. Required for MARKETING, MIXED, and LOW_VOLUME use cases.
 	CampaignSample2 *string `json:"campaignSample2,omitempty"`
 	// Optional third example SMS.
 	CampaignSample3 *string `json:"campaignSample3,omitempty"`
@@ -62,11 +62,13 @@ type TenDlcCampaignRegistrationDetails struct {
 	CampaignPrivacyPolicyLink *string `json:"campaignPrivacyPolicyLink,omitempty"`
 	// Public URL of the terms and conditions that cover this SMS program.
 	CampaignTermsAndConditionsLink *string `json:"campaignTermsAndConditionsLink,omitempty"`
-	// 10DLC campaign use case submitted to carriers. Required before carrier submission. One of 2FA, ACCOUNT_NOTIFICATION, CUSTOMER_CARE, DELIVERY_NOTIFICATION, FRAUD_ALERT, MARKETING, MIXED, POLLING_VOTING, PUBLIC_SERVICE_ANNOUNCEMENT, or SECURITY_ALERT. For MIXED, append comma-separated sub-use cases after MIXED (sub-use cases cannot include MIXED), for example MIXED,2FA,ACCOUNT_NOTIFICATION.
+	// 10DLC campaign use case submitted to carriers. Required before carrier submission. One of 2FA, ACCOUNT_NOTIFICATION, CUSTOMER_CARE, DELIVERY_NOTIFICATION, FRAUD_ALERT, MARKETING, MIXED, LOW_VOLUME, POLLING_VOTING, PUBLIC_SERVICE_ANNOUNCEMENT, or SECURITY_ALERT. For MIXED, append 2 to 5 comma-separated sub-use cases after MIXED, for example MIXED,2FA,ACCOUNT_NOTIFICATION. For LOW_VOLUME (low volume mixed), append 2 to 5 comma-separated sub-use cases after LOW_VOLUME, for example LOW_VOLUME,ACCOUNT_NOTIFICATION,CUSTOMER_CARE.
 	CampaignUsecase *string `json:"campaignUsecase,omitempty"`
 	CreatedAt       string  `json:"createdAt"`
 	UpdatedAt       string  `json:"updatedAt"`
 	CampaignId      *string `json:"campaignId,omitempty"`
+	// Carrier explanation of the current campaign status.
+	CampaignStatusDescription *string `json:"campaignStatusDescription,omitempty"`
 }
 
 type _TenDlcCampaignRegistrationDetails TenDlcCampaignRegistrationDetails
@@ -860,6 +862,38 @@ func (o *TenDlcCampaignRegistrationDetails) SetCampaignId(v string) {
 	o.CampaignId = &v
 }
 
+// GetCampaignStatusDescription returns the CampaignStatusDescription field value if set, zero value otherwise.
+func (o *TenDlcCampaignRegistrationDetails) GetCampaignStatusDescription() string {
+	if o == nil || IsNil(o.CampaignStatusDescription) {
+		var ret string
+		return ret
+	}
+	return *o.CampaignStatusDescription
+}
+
+// GetCampaignStatusDescriptionOk returns a tuple with the CampaignStatusDescription field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TenDlcCampaignRegistrationDetails) GetCampaignStatusDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.CampaignStatusDescription) {
+		return nil, false
+	}
+	return o.CampaignStatusDescription, true
+}
+
+// HasCampaignStatusDescription returns a boolean if a field has been set.
+func (o *TenDlcCampaignRegistrationDetails) HasCampaignStatusDescription() bool {
+	if o != nil && !IsNil(o.CampaignStatusDescription) {
+		return true
+	}
+
+	return false
+}
+
+// SetCampaignStatusDescription gets a reference to the given string and assigns it to the CampaignStatusDescription field.
+func (o *TenDlcCampaignRegistrationDetails) SetCampaignStatusDescription(v string) {
+	o.CampaignStatusDescription = &v
+}
+
 func (o TenDlcCampaignRegistrationDetails) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -936,6 +970,9 @@ func (o TenDlcCampaignRegistrationDetails) ToMap() (map[string]interface{}, erro
 	toSerialize["updatedAt"] = o.UpdatedAt
 	if !IsNil(o.CampaignId) {
 		toSerialize["campaignId"] = o.CampaignId
+	}
+	if !IsNil(o.CampaignStatusDescription) {
+		toSerialize["campaignStatusDescription"] = o.CampaignStatusDescription
 	}
 	return toSerialize, nil
 }

@@ -25,7 +25,7 @@ type SmsRegistrationA2p10dlc struct {
 	CampaignDescription *string `json:"campaignDescription,omitempty"`
 	// Example SMS that represents actual campaign traffic. Required before carrier submission. Should match the use case and typically identify the brand and include STOP/HELP language.
 	CampaignSample1 *string `json:"campaignSample1,omitempty"`
-	// Second example SMS. Required before carrier submission. Required for MARKETING and MIXED use cases.
+	// Second example SMS. Required before carrier submission. Required for MARKETING, MIXED, and LOW_VOLUME use cases.
 	CampaignSample2 *string `json:"campaignSample2,omitempty"`
 	// Optional third example SMS.
 	CampaignSample3 *string `json:"campaignSample3,omitempty"`
@@ -59,7 +59,7 @@ type SmsRegistrationA2p10dlc struct {
 	CampaignPrivacyPolicyLink *string `json:"campaignPrivacyPolicyLink,omitempty"`
 	// Public URL of the terms and conditions that cover this SMS program.
 	CampaignTermsAndConditionsLink *string `json:"campaignTermsAndConditionsLink,omitempty"`
-	// 10DLC campaign use case submitted to carriers. Required before carrier submission. One of 2FA, ACCOUNT_NOTIFICATION, CUSTOMER_CARE, DELIVERY_NOTIFICATION, FRAUD_ALERT, MARKETING, MIXED, POLLING_VOTING, PUBLIC_SERVICE_ANNOUNCEMENT, or SECURITY_ALERT. For MIXED, append comma-separated sub-use cases after MIXED (sub-use cases cannot include MIXED), for example MIXED,2FA,ACCOUNT_NOTIFICATION.
+	// 10DLC campaign use case submitted to carriers. Required before carrier submission. One of 2FA, ACCOUNT_NOTIFICATION, CUSTOMER_CARE, DELIVERY_NOTIFICATION, FRAUD_ALERT, MARKETING, MIXED, LOW_VOLUME, POLLING_VOTING, PUBLIC_SERVICE_ANNOUNCEMENT, or SECURITY_ALERT. For MIXED, append 2 to 5 comma-separated sub-use cases after MIXED, for example MIXED,2FA,ACCOUNT_NOTIFICATION. For LOW_VOLUME (low volume mixed), append 2 to 5 comma-separated sub-use cases after LOW_VOLUME, for example LOW_VOLUME,ACCOUNT_NOTIFICATION,CUSTOMER_CARE.
 	CampaignUsecase *string `json:"campaignUsecase,omitempty"`
 	AccountId       string  `json:"accountId"`
 	ScenarioId      string  `json:"scenarioId"`
